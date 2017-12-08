@@ -1,0 +1,44 @@
+@import "mixins/buttons";
+@import "mixins/vars";
+
+.filter-button {
+  @include button-base;
+  background-color: $lightgray;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: Roboto, sans-serif;
+  position: relative;
+  text-align: left;
+  
+  &:focus,
+  &:active {
+    outline: none;
+  }
+  
+  &.is-active {
+    background: black;
+    color: white;
+  }
+  
+  &::after {
+    display: none;
+    content: 'x';
+    background-color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-family: Gillsans;
+    justify-content: center;
+    align-items: center;
+    color: $darkgray;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: -7px;
+    right: -5px;
+  }
+  
+  &.is-active::after {
+    display: flex;
+  }
+}

@@ -1,0 +1,12 @@
+@import "mixins/vars";
+
+.theme-title {
+  font-size: 34px;
+  font-family: "Gillsans-bold", sans-serif;
+}
+
+.theme-body,
+.no-measure {
+  color: $darkgray;
+  font-family: Roboto, sans-serif;
+}

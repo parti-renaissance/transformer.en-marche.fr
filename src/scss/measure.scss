@@ -1,0 +1,79 @@
+@import "mixins/vars";
+@import "mixins/queries";
+
+.measure {
+  display: block;
+  text-decoration: none;
+  border-top: 1px solid $lightgray;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: $darkgray;
+  position: relative;
+  transition: background-color 125ms ease, color 125ms ease;
+  
+  &.en-vigueur,
+  &.voté {
+    background-color: $lightgreen;
+    color: $darkgreen;
+  }
+  
+  &:last-child {
+    border-bottom: 1px solid $lightgray;
+  }
+  
+  &:hover {
+    background-color: $mediumgreen;
+    color: $darkgreen;
+    
+    .measure-status {
+      border-color: $darkgreen;
+      background-color: $darkgreen;
+      color: $lightgreen;
+    }
+  }
+  
+  @include mq($medium-and-up) {
+    font-size: 16px;
+    padding: 15px 25px;
+  }
+}
+
+.measure-body {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.measure-status {
+  color: $darkgray;
+  flex-shrink: 0;
+  flex-basis: 75px;
+  padding: 5px;
+  margin-right: 25px;
+  border-radius: 38px;
+  border: 1px solid $lightgray;
+  text-align: center;
+  transition: background-color 125ms ease, color 125ms ease, border-color 125ms ease;
+  
+  .en-vigueur &,
+  .voté & {
+    border-color: $darkgreen;
+    background-color: $darkgreen;
+    color: $lightgreen;
+  }
+  
+  @include mq($medium-and-up) {
+    font-size: 12px;
+    padding: 5px 3px;
+    margin-right: 20px;
+  }
+}
+
+.measure-name {
+  
+  .en-vigueur &::after,
+  .voté &::after {
+    content: ' →';
+  }
+
+}

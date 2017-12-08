@@ -1,0 +1,90 @@
+@import "mixins/vars";
+@import "mixins/queries";
+
+.sidebar {
+  background-color: $lightgray;
+  padding: 25px 25px 0 25px;
+  flex-basis: 355px;
+  
+  @include mq($medium-and-up) {
+    padding: 75px 40px 0;
+  }
+}
+
+.sidebar-title {
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 8px;
+}
+
+.refinement-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 25px;
+
+  @include mq($medium-and-up) {
+    margin-bottom: 28px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+}
+
+.refinement-list__item {
+  margin-bottom: 7px;
+}
+
+.ais-SearchBox__root {
+  display: none;
+  
+  @include mq($medium-and-up) {
+    display: block;
+  }
+}
+
+.ais-SearchBox__wrapper {
+  display: flex;
+  padding-bottom: 5px;
+  border-bottom: 1px #e6ecf0 solid;
+  margin-bottom: 35px;
+}
+
+.ais-SearchBox__input {
+  background-color: transparent;
+  border: none;
+  font-family: Roboto;
+  order: 2;
+  
+  &:focus,
+  &:active {
+    outline: none;
+  }
+}
+
+.ais-SearchBox__submit {
+  order: 1;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-right: 10px;
+  font-size: 13px;
+  
+  > svg {
+    fill: $darkgray;
+  }
+}
+
+.ais-SearchBox__reset {
+  display: none;
+}
+
+.sidebar-footer {
+  color: $darkgray;
+  display: none;
+  
+  @include mq($medium-and-up) {
+    display: block;
+  }
+}
