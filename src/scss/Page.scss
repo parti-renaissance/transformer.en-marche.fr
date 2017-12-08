@@ -1,5 +1,6 @@
 @import "mixins/vars";
 @import "mixins/queries";
+@import "mixins/buttons";
 
 .Page {
   min-height: 100vh;
@@ -35,10 +36,25 @@
 }
 
 .header-right {
-  display: flex;
-  flex-basis: 130px;
-  justify-content: space-between;
-  align-items: center;
+  display: none;
+  
+  @include mq($medium-and-up) {
+    display: flex;
+    flex-basis: 130px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+  }
+}
+
+.header-right__mobile {
+  @include mq($medium-and-up) {
+    display: none;
+  }
+}
+
+.header-button {
+  @include orange-button;
   font-size: 14px;
 }
 
