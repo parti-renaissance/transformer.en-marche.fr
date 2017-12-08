@@ -27,7 +27,7 @@ class App extends Component {
           apiKey={API_KEY}
           indexName={INDEX_NAME}>
           
-          <main>
+          <main className="main">
             <Sidebar />
             <Content />
           </main>
