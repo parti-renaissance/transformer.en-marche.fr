@@ -10,7 +10,7 @@ import {
 } from 'react-instantsearch/dom';
 
 import { connectRefinementList } from 'react-instantsearch/connectors';
-import Page from './js/Page';
+import Page from './js/components/Page';
 
 const APP_ID = "CUET2HJEQ6"
 const API_KEY = "6a6741dff7b23ea76f8749c6cc16b38b"

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter } from '@fortawesome/fontawesome-free-brands';
 
-import '../scss/Page.css';
+import '../../scss/Page.css';
 
 const Header = () =>
   <header className="header">
@@ -18,6 +18,10 @@ const Header = () =>
       <a href="" className="header-social" target="_blank" rel="noopener noreferrer">
         <FontAwesomeIcon icon={faTwitter} />
       </a>
+    </div>
+    
+    <div className="header-right__mobile">
+      <button className="header-button">Partager</button>
     </div>
   </header>
 
