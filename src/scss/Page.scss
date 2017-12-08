@@ -1,12 +1,23 @@
 @import "mixins/vars";
+@import "mixins/queries";
+
+.Page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
 .header {
   background-color: $purple;
-  font-size: 28px;
+  font-size: 20px;
   padding: 15px;
   display: flex;
   justify-content: space-between;
   color: white;
+  
+  @include mq($medium-and-up) {
+    font-size: 28px;
+  }
 }
 
 .header-logo {
