@@ -11,7 +11,7 @@ import Theme from './js/static/theme';
 
 const APP_ID = "CUET2HJEQ6"
 const API_KEY = "6a6741dff7b23ea76f8749c6cc16b38b"
-const INDEX_NAME = "Profile_dev"
+const INDEX_NAME = "Theme_dev"
 
 const Content = () =>
   <div className="content">
