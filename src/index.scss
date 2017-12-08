@@ -1,0 +1,19 @@
+@import '~normalize.css/normalize.css';
+@import "scss/mixins/fonts";
+
+@include font-face(Gillsans, 'fonts/gillsans-regular');
+@include font-face("Gillsans heavy", 'fonts/gillsans-heavy');
+@include font-face("Gillsans heavy italic", 'fonts/gillsans-heavy-italic');
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Gillsans, sans-serif;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
