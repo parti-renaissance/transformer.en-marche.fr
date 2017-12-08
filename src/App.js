@@ -5,6 +5,7 @@ import {
   Hits,
   Highlight,
 } from 'react-instantsearch/dom';
+import './scss/App.css';
 
 import { connectRefinementList } from 'react-instantsearch/connectors';
 import Page from './js/components/Page';

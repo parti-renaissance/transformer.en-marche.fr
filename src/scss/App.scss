@@ -1,0 +1,26 @@
+@import "mixins/vars";
+@import "mixins/queries";
+@import "mixins/buttons";
+
+.ais-InstantSearch__root {
+  flex: 1;
+  display: flex;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  
+  @include mq($medium-and-up) {
+    flex-direction: row;
+  }
+}
+
+.content {
+  padding: 25px 0;
+  
+  @include mq($medium-and-up) {
+    padding: 70px 110px 0;
+  }
+}
