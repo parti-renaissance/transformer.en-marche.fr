@@ -4,9 +4,6 @@ import {
   SearchBox,
   Hits,
   Highlight,
-  Stats,
-  Pagination,
-  CurrentRefinements,
 } from 'react-instantsearch/dom';
 
 import { connectRefinementList } from 'react-instantsearch/connectors';
@@ -15,9 +12,6 @@ import Page from './js/components/Page';
 const APP_ID = "CUET2HJEQ6"
 const API_KEY = "6a6741dff7b23ea76f8749c6cc16b38b"
 const INDEX_NAME = "Profile_dev"
-// const APP_ID = "latency"
-// const API_KEY = "3d9875e51fbd20c7754e65422f7ce5e1"
-// const INDEX_NAME = "bestbuy"
 
 const RefinementList = connectRefinementList(function({refine, currentRefinement, items}) {
   let list = items.map((item, i) => {
@@ -52,13 +46,7 @@ const Sidebar = () =>
   
 const Content = () =>
   <div className="content">
-    <div className="info">
-      <Stats />
-    </div>
     <Hits hitComponent={Hit} />
-    <div className="pagination">
-      <Pagination showLast />
-    </div>
   </div>
 
 class App extends Component {
