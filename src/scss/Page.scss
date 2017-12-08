@@ -1,0 +1,62 @@
+@import "mixins/vars";
+
+.header {
+  background-color: $purple;
+  font-size: 28px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+}
+
+.header-logo {
+  font-family: "Gillsans heavy italic";
+  color: white;
+  text-decoration: none;
+}
+
+.header-tag {
+  font-weight: 100;
+  
+  &::before {
+    content: ' | '
+  }
+}
+
+.header-right {
+  display: flex;
+  flex-basis: 130px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.header-social {
+  color: white;
+  text-decoration: none;
+  background-color: $orange;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  font-size: 18px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer {
+  background-color: $purple;
+  padding: 15px;
+  color: white;
+}
+
+.footer-body {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+
+  > a {
+    color: white;
+  }
+}
