@@ -1,0 +1,19 @@
+@import "vars";
+
+@mixin button-base {
+  appearance: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: Gillsans, sans-serif;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+@mixin orange-button {
+  @include button-base;
+  background-color: $orange;
+  color: white;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
