@@ -12,12 +12,12 @@ import {
 import { connectRefinementList } from 'react-instantsearch/connectors';
 import Page from './js/Page';
 
-// const APP_ID = "CUET2HJEQ6"
-// const API_KEY = "6a6741dff7b23ea76f8749c6cc16b38b"
-// const INDEX_NAME = "measure"
-const APP_ID = "latency"
-const API_KEY = "3d9875e51fbd20c7754e65422f7ce5e1"
-const INDEX_NAME = "bestbuy"
+const APP_ID = "CUET2HJEQ6"
+const API_KEY = "6a6741dff7b23ea76f8749c6cc16b38b"
+const INDEX_NAME = "Profile_dev"
+// const APP_ID = "latency"
+// const API_KEY = "3d9875e51fbd20c7754e65422f7ce5e1"
+// const INDEX_NAME = "bestbuy"
 
 const RefinementList = connectRefinementList(function({refine, currentRefinement, items}) {
   let list = items.map((item, i) => {
