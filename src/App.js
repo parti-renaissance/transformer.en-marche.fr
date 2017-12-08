@@ -10,6 +10,7 @@ import {
 } from 'react-instantsearch/dom';
 
 import { connectRefinementList } from 'react-instantsearch/connectors';
+import Page from './js/Page';
 
 // const APP_ID = "CUET2HJEQ6"
 // const API_KEY = "6a6741dff7b23ea76f8749c6cc16b38b"
@@ -63,21 +64,19 @@ const Content = () =>
 class App extends Component {
   render() {
     return (
-      <InstantSearch
-        appId={APP_ID}
-        apiKey={API_KEY}
-        indexName={INDEX_NAME}>
-        
-        <header>
-          <SearchBox translations={{placeholder: 'Search'}} />
-        </header>
-        
-        <main>
-          <Sidebar />
-          <Content />
-        </main>
-        
-      </InstantSearch>
+      <Page>
+        <InstantSearch
+          appId={APP_ID}
+          apiKey={API_KEY}
+          indexName={INDEX_NAME}>
+          
+          <main>
+            <Sidebar />
+            <Content />
+          </main>
+          
+        </InstantSearch>
+      </Page>
     );
   }
 }
