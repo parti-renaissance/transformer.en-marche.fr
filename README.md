@@ -1,4 +1,4 @@
-# macron timeline (à anglais)
+# macron timeline (en anglais)
 
 ## development
 
