@@ -1,7 +1,7 @@
 import React from 'react';
 import { SearchBox } from 'react-instantsearch/dom';
 import { connectRefinementList, connectMenu } from 'react-instantsearch/connectors';
-import { shuffle } from 'lodash';
+// import { shuffle } from 'lodash';
 
 import Color from 'color';
 
