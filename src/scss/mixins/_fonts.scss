@@ -1,44 +1,56 @@
-// =============================================================================
-// String Replace
-// =============================================================================
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700|Source+Code+Pro');
 
-@function str-replace($string, $search, $replace: "") {
-  $index: str-index($string, $search);
-
-  @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
-  }
-
-  @return $string;
+@font-face {
+  font-family: 'Gillsans';
+  src: url('gillsans-light.eot');
+  src: url('gillsans-light.eot?#iefix') format('embedded-opentype'),
+  url('gillsans-light.woff2') format('woff2'),
+  url('gillsans-light.woff') format('woff'),
+  url('gillsans-light.ttf') format('truetype'),
+  url('gillsans-light.svg#gillsans_lightregular') format('svg');
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Gillsans';
+  src: url('gillsans-regular.eot');
+  src: url('gillsans-regular.eot?#iefix') format('embedded-opentype'),
+  url('gillsans-regular.woff2') format('woff2'),
+  url('gillsans-regular.woff') format('woff'),
+  url('gillsans-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Gillsans';
+  src: url('gillsans-italic.eot');
+  src: url('gillsans-italic.eot?#iefix') format('embedded-opentype'),
+  url('gillsans-italic.woff2') format('woff2'),
+  url('gillsans-italic.woff') format('woff'),
+  url('gillsans-italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Gillsans';
+  src: url('gillsans-heavy.eot');
+  src: url('gillsans-heavy.eot?#iefix') format('embedded-opentype'),
+  url('gillsans-heavy.woff2') format('woff2'),
+  url('gillsans-heavy.woff') format('woff'),
+  url('gillsans-heavy.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Gillsans';
+  src: url('gillsans-heavy-italic.eot');
+  src: url('gillsans-heavy-italic.eot?#iefix') format('embedded-opentype'),
+  url('gillsans-heavy-italic.woff2') format('woff2'),
+  url('gillsans-heavy-italic.woff') format('woff'),
+  url('gillsans-heavy-italic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
 }
 
-// =============================================================================
-// Font Face
-// =============================================================================
-
-@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
-  $src: null;
-
-  $extmods: (
-    eot: "?",
-    svg: "#" + str-replace($name, " ", "_")
-  );
-
-  $formats: (
-    otf: "opentype",
-    ttf: "truetype"
-  );
-
-  @each $ext in $exts {
-    $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
-    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
-    $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
-  }
-
-  @font-face {
-    font-family: quote($name);
-    font-style: $style;
-    font-weight: $weight;
-    src: $src;
-  }
-}
+$font-gillsans: 'Gillsans', 'Roboto', Helvetica, sans-serif;
+$font-roboto: 'Roboto', Helvetica, sans-serif;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { SearchBox } from 'react-instantsearch/dom';
-import { connectRefinementList } from 'react-instantsearch/connectors';
+import { connectRefinementList, connectMenu } from 'react-instantsearch/connectors';
 import { shuffle } from 'lodash';
 
 import Color from 'color';
@@ -16,22 +16,49 @@ const BUTTON_COLORS = [
   Color('#b6b6b6'), // dark gray
 ];
 
+const addColors = items => {
+  items.map((props, i) => {
+    props.style = {
+      backgroundColor: BUTTON_COLORS[i].rgb().string(),
+      color: BUTTON_COLORS[i].darken(0.5).rgb().string()
+    };
+    return props;
+  });
+  return items;
+};
+
 const FilterButton = ({isRefined, label, value, onClick, style}) =>
   <button className={`filter-button ${isRefined && 'is-active'}`} onClick={onClick} style={style}>
     {label}
   </button>
 
 
-const RefinementList = connectRefinementList(function({refine, currentRefinement, items}) {
-  let colors = shuffle(BUTTON_COLORS);
+const RefinementList = connectRefinementList(({refine, items}) => {
+  // let colors = shuffle(BUTTON_COLORS);
   let list = items.map((props, i) => {
-    let style = {
-      backgroundColor: colors[i].rgb().string(),
-      color: colors[i].darken(0.5).rgb().string()
-    };
+  //   let style = {
+  //     backgroundColor: BUTTON_COLORS[i].rgb().string(),
+  //     color: BUTTON_COLORS[i].darken(0.5).rgb().string()
+  //   };
     return (
       <li key={i} className="refinement-list__item">
-        <FilterButton {...props} onClick={() => refine(props.value)} style={style} />
+        <FilterButton {...props} onClick={() => refine(props.value)} />
+      </li>
+    )
+  });
+  return <ul className="refinement-list">{list}</ul>
+});
+
+const Menu = connectMenu(({refine, items}) => {
+  // let colors = shuffle(BUTTON_COLORS);
+  let list = items.map((props, i) => {
+  //   let style = {
+  //     backgroundColor: BUTTON_COLORS[i].rgb().string(),
+  //     color: BUTTON_COLORS[i].darken(0.5).rgb().string()
+  //   };
+    return (
+      <li key={i} className="refinement-list__item">
+        <FilterButton {...props} onClick={() => refine(props.value)} />
       </li>
     )
   });
@@ -42,10 +69,10 @@ const RefinementList = connectRefinementList(function({refine, currentRefinement
 export default () =>
   <aside className="sidebar">
     <h3 className="sidebar-title">Je m&apos;interesse à...</h3>
-    <RefinementList attributeName="title" />
+    <RefinementList attributeName="title" operator="or" transformItems={addColors} />
     
     <h3 className="sidebar-title">Je suis...</h3>
-    <RefinementList attributeName="profiles.profile.title" operator="and" />
+    <Menu attributeName="profiles.profile.title" transformItems={addColors} />
 
     <SearchBox translations={{placeholder: 'Filtrer par mot-clé'}}/>
     

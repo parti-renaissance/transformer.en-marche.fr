@@ -31,7 +31,8 @@
   font-weight: 100;
   
   &::before {
-    content: ' | '
+    content: ' | ';
+    opacity: 0.4;
   }
 }
 
