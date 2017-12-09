@@ -9,9 +9,9 @@ import Page from './js/components/Page';
 import Sidebar from './js/static/sidebar';
 import Theme from './js/static/theme';
 
-const APP_ID = process.env.REACT_ALGOLIA_APP_ID
-const API_KEY = process.env.REACT_ALGOLIA_API_KEY
-const INDEX_NAME = process.env.REACT_ALGOLIA_INDEX_NAME
+const APP_ID = process.env.REACT_APP_ALGOLIA_APP_ID;
+const API_KEY = process.env.REACT_APP_ALGOLIA_API_KEY;
+const INDEX_NAME = process.env.REACT_APP_ALGOLIA_INDEX_NAME;
 
 const Content = () =>
   <div className="content">
