@@ -7,7 +7,7 @@ import '../../scss/Page.css';
 const Header = () =>
   <header className="header">
     <div className="header-left">
-      <a href="https://en-march.fr" title="En Marche!" target="_blank" rel="noopener noreferrer" className="header-logo">EM!</a> <span className="header-tag">Alors, ça avance?</span>
+      <a href="https://en-marche.fr" title="En Marche!" target="_blank" rel="noopener noreferrer" className="header-logo">EM!</a> <span className="header-tag">Alors, ça avance?</span>
     </div>
     
     <div className="header-right">
