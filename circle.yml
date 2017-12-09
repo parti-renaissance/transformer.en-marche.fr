@@ -1,0 +1,79 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.7
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: node-deps-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install node dependencies
+          command: yarn --pure-lockfile
+      - save_cache:
+          key: node-deps-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+
+  test:
+    docker:
+      - image: circleci/node:8.7-browsers
+
+    steps:
+      - checkout
+      - restore_cache:
+          key: node-deps-{{ checksum "yarn.lock" }}
+      - run:
+          name: Test
+          command: echo no tests right now
+
+  deploy:
+    docker:
+      - image: circleci/node:8.7
+    steps:
+      - checkout
+      - restore_cache:
+          key: node-deps-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install aws cli
+          command: sudo apt-get -y -qq install awscli
+      - run:
+          name: Deploy to S3
+          command: |
+            if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
+              env | sed -n 's/^DEMO_//p' > .env
+              yarn deploy
+            elif grep -q "v[0-9]\+\.[0-9]\+\.[0-9]\+" <<< "$CIRCLE_TAG"; then
+              env | sed -n 's/^PROD_//p' > .env
+              export AWS_BUCKET=$PROD_AWS_BUCKET
+              export AWS_PREFIX=$PROD_AWS_PREFIX
+              yarn build
+              aws s3 sync ./build/ s3://"$AWS_BUCKET"/"$AWS_PREFIX"
+              aws s3 cp ./build/index.html s3://"$AWS_BUCKET"/"$AWS_PREFIX"/ --cache-control "max-age=0, no-cache"
+            fi
+
+workflows:
+  version: 2
+  buld-test-deploy:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /.*/
+      - test:
+          filters:
+            tags:
+              only: /.*/
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /^v[0-9]\.[0-9]\.[0-9]+/
+            branches:
+              only: master
