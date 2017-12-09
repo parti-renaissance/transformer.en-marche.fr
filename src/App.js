@@ -9,9 +9,9 @@ import Page from './js/components/Page';
 import Sidebar from './js/static/sidebar';
 import Theme from './js/static/theme';
 
-const APP_ID = "CUET2HJEQ6"
-const API_KEY = "6a6741dff7b23ea76f8749c6cc16b38b"
-const INDEX_NAME = "Theme_dev"
+const APP_ID = process.env.ALGOLIA_APP_ID
+const API_KEY = process.env.ALGOLIA_API_KEY
+const INDEX_NAME = process.env.ALGOLIA_INDEX_NAME
 
 const Content = () =>
   <div className="content">
