@@ -24,8 +24,8 @@ test:
         - echo "no test right now"
 
 deployment:
-    staging:
-        branch: auto-deploy
+    production:
+        branch: master
         owner: EnMarche
         commands:
             # Google Cloud authentication
@@ -35,6 +35,7 @@ deployment:
             - sudo /opt/google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT
 
             # Build the image
+            - sed -i -- 's/https:\/\/enmarche.github.io\/gov-timeline/./g' package.json
             - yarn build
             - docker build -t eu.gcr.io/$GCLOUD_PROJECT/gov-timeline:$CIRCLE_SHA1 .
 
