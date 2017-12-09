@@ -1,5 +1,6 @@
 {
   "name": "gov-timeline",
+  "homepage": "https://enmarche.github.io/gov-timeline",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,6 +9,7 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.0",
     "@fortawesome/react-fontawesome": "^0.0.14",
     "color": "^2.0.1",
+    "gh-pages": "^1.1.0",
     "lodash": "^4.17.4",
     "node-sass-chokidar": "^0.0.3",
     "normalize.css": "^7.0.0",
@@ -18,6 +20,8 @@
     "react-scripts": "1.0.17"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
