@@ -7,7 +7,7 @@
   padding: 8px 12px;
   border-radius: 4px;
   font-size: 14px;
-  font-family: Roboto, sans-serif;
+  font-family: $font-roboto;
   position: relative;
   text-align: left;
   
@@ -28,7 +28,7 @@
     border-radius: 50%;
     width: 18px;
     height: 18px;
-    font-family: Gillsans;
+    font-family: $font-gillsans;
     justify-content: center;
     align-items: center;
     color: $darkgray;

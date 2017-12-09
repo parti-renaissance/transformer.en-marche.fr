@@ -22,7 +22,9 @@
 }
 
 .header-logo {
-  font-family: "Gillsans heavy italic";
+  font-family: $font-gillsans;
+  font-weight: bold;
+  font-style: oblique;
   color: white;
   text-decoration: none;
 }

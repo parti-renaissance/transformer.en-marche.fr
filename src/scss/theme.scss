@@ -2,11 +2,12 @@
 
 .theme-title {
   font-size: 34px;
-  font-family: "Gillsans-bold", sans-serif;
+  font-family: $font-gillsans;
+  font-weight: bold;
 }
 
 .theme-body,
 .no-measure {
   color: $darkgray;
-  font-family: Roboto, sans-serif;
+  font-family: $font-roboto;
 }

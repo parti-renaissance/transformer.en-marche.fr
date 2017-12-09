@@ -12,7 +12,7 @@
 }
 
 .sidebar-title {
-  font-family: Roboto, sans-serif;
+  font-family: $font-roboto;
   font-size: 16px;
   color: #444;
   margin-bottom: 8px;
@@ -54,7 +54,7 @@
 .ais-SearchBox__input {
   background-color: transparent;
   border: none;
-  font-family: Roboto;
+  font-family: $font-gillsans;
   order: 2;
   
   &:focus,
