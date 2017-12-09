@@ -2,6 +2,7 @@
   "name": "gov-timeline",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://enmarche.github.io/gov-timeline",
   "dependencies": {
     "@fortawesome/fontawesome": "^1.0.0",
     "@fortawesome/fontawesome-free-brands": "^5.0.0",
