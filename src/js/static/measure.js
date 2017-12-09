@@ -33,5 +33,9 @@ export function Measures({ measures = [], children }) {
   if (!measures.length) {
     return children;
   }
-  return measures.map(measure => <Measure key={measure.id} measure={measure} />);
+  return (
+    <div className="measure-list">
+      {measures.map(measure => <Measure key={measure.id} measure={measure} />)}
+    </div>
+  )
 }

@@ -1,6 +1,10 @@
 @import "mixins/vars";
 @import "mixins/queries";
 
+.measure-list {
+  border: 1px solid $blueishgray;
+}
+
 .measure {
   display: block;
   text-decoration: none;
@@ -17,8 +21,8 @@
     color: $darkgreen;
   }
   
-  &:last-child {
-    border-bottom: 1px solid $lightgray;
+  &:first-child {
+    border-top: none;
   }
   
   &:hover {
