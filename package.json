@@ -1,6 +1,5 @@
 {
   "name": "gov-timeline",
-  "homepage": "https://enmarche.github.io/gov-timeline",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
