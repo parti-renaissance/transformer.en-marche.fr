@@ -24,3 +24,20 @@
     padding: 70px 110px 0;
   }
 }
+
+.intro {
+  margin-bottom: 75px;
+}
+
+.intro-header {
+  font-size: 48px;
+  font-weight: bold;
+  letter-spacing: -1.2px;
+}
+
+.intro > p {
+  color: $darkgray;
+  font-family: $font-roboto;
+  font-size: 18px;
+  line-height: 25px;
+}

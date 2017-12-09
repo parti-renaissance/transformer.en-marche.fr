@@ -1,5 +1,9 @@
 @import "mixins/vars";
 
+.theme {
+  margin-bottom: 50px;
+}
+
 .theme-title {
   font-size: 34px;
   font-family: $font-gillsans;
