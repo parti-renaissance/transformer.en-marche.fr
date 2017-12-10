@@ -1,4 +1,5 @@
 import React from 'react';
+import { groupBy } from 'lodash';
 
 import '../../scss/measure.css';
 
@@ -33,6 +34,8 @@ export const Measures = ({ measures = [], children }) => {
   if (!measures.length) {
     return children;
   }
+  let grouped = groupBy(measures, 'status');
+  measures = (grouped['IN_PROGRESS'] || []).concat(grouped['IS_LAW'] || []).concat(grouped['VOTED'] || []);
   return (
     <div className="measure-list">
       {measures.map((measure, i) => <Measure key={i} measure={measure} />)}
