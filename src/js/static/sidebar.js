@@ -5,6 +5,8 @@ import { connectRefinementList, connectMenu } from 'react-instantsearch/connecto
 
 import Color from 'color';
 
+import LastUpdated from './last-updated';
+
 import '../../scss/sidebar.css';
 import '../../scss/filter-button.css';
 
@@ -77,6 +79,6 @@ export default () =>
     <SearchBox translations={{placeholder: 'Filtrer par mot-clé'}}/>
     
     <div className="sidebar-footer">
-      <small>Dernière mise à jour il y a 2 jours.</small>
+      <LastUpdated />
     </div>
   </aside>
