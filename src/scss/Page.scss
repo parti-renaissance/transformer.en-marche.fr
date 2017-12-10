@@ -31,11 +31,19 @@
 
 .header-tag {
   font-weight: 100;
-  
-  &::before {
-    content: ' | ';
-    opacity: 0.4;
-  }
+}
+
+.header-sep {
+  opacity: 0.4;
+  font-weight: 100;
+  font-size: 24px;
+}
+
+.header-left {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-basis: 270px;
 }
 
 .header-right {
