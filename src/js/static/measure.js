@@ -1,6 +1,8 @@
 import React from 'react';
 import { groupBy, filter } from 'lodash';
 import { connectStateResults } from 'react-instantsearch/connectors';
+import Collapsible from 'react-collapsible';
+import { ChevronDown, ChevronUp } from 'react-feather';
 
 import '../../scss/measure.css';
 
@@ -28,6 +30,9 @@ export const Measure = ({measure}) =>
     </div>
   </a>
   
+const TriggerToOpen = ({ count }) => <span><ChevronDown />Toutes les réformes ({count})</span>
+const TriggerToClose = ({ count }) => <span><ChevronUp />Toutes les réformes ({count})</span>
+  
 export const NoMeasure = ({theme}) =>
   <p className="no-measure">Il n&apos;y a pas de réformes specifiques au profil de {theme}. Voir toutes les réformes sur le thème {theme}.</p>
 
@@ -40,7 +45,15 @@ export const Measures = connectStateResults(({ searchState: { query }, props: { 
   measures = (grouped['IN_PROGRESS'] || []).concat(grouped['IS_LAW'] || []).concat(grouped['VOTED'] || []);
   return (
     <div className="measure-list">
-      {measures.map((measure, i) => <Measure key={i} measure={measure} />)}
+      {measures.slice(0,5).map((measure, i) => <Measure key={i} measure={measure} />)}
+      <Collapsible
+       trigger={<TriggerToOpen count={measures.length - 6} />}
+       triggerWhenOpen={<TriggerToClose count={measures.length - 6} />}
+       classParentString="measure-accordion"
+       triggerClassName="measure-accordion__trigger"
+       >
+        {measures.slice(6).map((measure, i) => <Measure key={i} measure={measure} />)}
+      </Collapsible>
     </div>
   )
 });

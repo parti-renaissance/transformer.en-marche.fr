@@ -83,3 +83,31 @@
   }
 
 }
+
+.measure-accordion {
+}
+
+.measure-accordion__trigger {
+  display: block;
+  text-align: center;
+  background-color: $offwhite;
+  cursor: pointer;
+  padding: 12px 0;
+  font-family: $font-roboto;
+  font-size: 16px;
+  border-top: 1px solid $blueishgray;
+  
+  > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    > svg {
+      margin-right: 5px;
+    }
+  }
+}
+
+.measure-accordion__contentInner {
+  border-top: 1px solid $blueishgray;
+}
