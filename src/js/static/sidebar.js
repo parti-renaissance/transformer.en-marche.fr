@@ -11,19 +11,40 @@ import '../../scss/sidebar.css';
 import '../../scss/filter-button.css';
 
 const BUTTON_COLORS = [
-  Color('#ffd402'), // yellow
-  Color('#97e5fd'), // teal
-  Color('#bec0ff'), // purple
-  Color('#f9bcbc'), // red
-  Color('#b6b6b6'), // dark gray
+  {
+    // yellow
+    bg: Color('#ffd402'),
+    color: Color('#ff6955'),
+  },
+  {
+    // teal
+    bg: Color('#97e5fd'),
+    color: Color('#00bef9'),
+  },
+  {
+    // purple
+    bg: Color('#bec0ff'),
+    color: Color('#6f81ff'),
+  },
+  {
+    // red
+    bg: Color('#f9bcbc'),
+    color: Color('#ff3856'),
+  },
+  {
+    // dark gray
+    bg: Color('#b6b6b6'),
+    color: Color('#444444'),
+  },
 ];
 
 const addColors = (items = []) => {
   items.map((props, i) => {
     let index = i % BUTTON_COLORS.length;
+    let { bg, color } = BUTTON_COLORS[index];
     props.style = {
-      backgroundColor: BUTTON_COLORS[index].rgb().string(),
-      color: BUTTON_COLORS[index].darken(0.5).rgb().string()
+      backgroundColor: bg.rgb().alpha(0.2).string(),
+      color: color.rgb().string(),
     };
     return props;
   });
