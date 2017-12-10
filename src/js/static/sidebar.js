@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { SearchBox } from 'react-instantsearch/dom';
 import { connectRefinementList, connectMenu } from 'react-instantsearch/connectors';
 // import { shuffle } from 'lodash';
@@ -51,11 +51,41 @@ const addColors = (items = []) => {
   return items;
 };
 
-const FilterButton = ({isRefined, label, value, onClick, style}) =>
-  <button className={`filter-button ${isRefined && 'is-active'}`} onClick={onClick} style={style}>
-    {label}
+const FilterButton = ({isRefined, label, value, onClick, style, buttonRef}) =>
+  <button
+   className={`filter-button ${isRefined && 'is-active'}`}
+   onClick={onClick}
+   style={style}
+   ref={buttonRef}>
+    <span>{label}</span>
   </button>
 
+
+class RefinementListItem extends Component {
+  state = {}
+  
+  measureButton() {
+    let textWidth = this.button.children[0].getBoundingClientRect().width;
+    this.setState({style: {flexBasis: textWidth + 24}});
+  }
+  
+  componentDidMount() {
+    this.measureButton();
+  }
+  
+  componentWillReceiveProps() {
+    this.measureButton();
+  }
+  
+  render() {
+    let { props, state } = this;
+    return (
+      <li className="refinement-list__item" style={state.style}>
+        <FilterButton {...props} onClick={() => props.refine(props.value)} buttonRef={e => this.button = e} />
+      </li>
+    )
+  }
+}
 
 const RefinementList = connectRefinementList(({refine, items}) => {
   // let colors = shuffle(BUTTON_COLORS);
@@ -64,11 +94,8 @@ const RefinementList = connectRefinementList(({refine, items}) => {
   //     backgroundColor: BUTTON_COLORS[i].rgb().string(),
   //     color: BUTTON_COLORS[i].darken(0.5).rgb().string()
   //   };
-    return (
-      <li key={i} className="refinement-list__item">
-        <FilterButton {...props} onClick={() => refine(props.value)} />
-      </li>
-    )
+    props.refine = refine;
+    return <RefinementListItem key={props.label} {...props} />
   });
   return <ul className="refinement-list">{list}</ul>
 });
