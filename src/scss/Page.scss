@@ -1,6 +1,7 @@
 @import "mixins/vars";
 @import "mixins/queries";
 @import "mixins/buttons";
+@import "mixins/z-index";
 
 .Page {
   min-height: 100vh;
@@ -15,6 +16,9 @@
   display: flex;
   justify-content: space-between;
   color: white;
+  position: sticky;
+  top: 0;
+  z-index: $zIndex--header;
   
   @include mq($medium-and-up) {
     font-size: 28px;
