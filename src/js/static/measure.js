@@ -1,5 +1,6 @@
 import React from 'react';
-import { groupBy } from 'lodash';
+import { groupBy, filter } from 'lodash';
+import { connectStateResults } from 'react-instantsearch/connectors';
 
 import '../../scss/measure.css';
 
@@ -30,10 +31,11 @@ export const Measure = ({measure}) =>
 export const NoMeasure = ({theme}) =>
   <p className="no-measure">Il n&apos;y a pas de réformes specifiques au profil de {theme}. Voir toutes les réformes sur le thème {theme}.</p>
 
-export const Measures = ({ measures = [], children }) => {
+export const Measures = connectStateResults(({ searchState: { query }, props: { measures = [], children }}) => {
   if (!measures.length) {
     return children;
   }
+  measures = filter(measures, m => m.title.match(new RegExp(query, 'gi')));
   let grouped = groupBy(measures, 'status');
   measures = (grouped['IN_PROGRESS'] || []).concat(grouped['IS_LAW'] || []).concat(grouped['VOTED'] || []);
   return (
@@ -41,4 +43,4 @@ export const Measures = ({ measures = [], children }) => {
       {measures.map((measure, i) => <Measure key={i} measure={measure} />)}
     </div>
   )
-}
+});
