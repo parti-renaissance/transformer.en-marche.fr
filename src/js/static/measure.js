@@ -35,7 +35,7 @@ export function Measures({ measures = [], children }) {
   }
   return (
     <div className="measure-list">
-      {measures.map(measure => <Measure key={measure.id} measure={measure} />)}
+      {measures.map((measure, i) => <Measure key={i} measure={measure} />)}
     </div>
   )
 }
