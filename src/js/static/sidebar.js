@@ -74,7 +74,7 @@ export default () =>
     <RefinementList attributeName="title" operator="or" transformItems={addColors} />
     
     <h3 className="sidebar-title">Je suis...</h3>
-    <Menu attributeName="measures.profile.title" transformItems={addColors} />
+    <Menu attributeName="measures.profiles.title" transformItems={addColors} />
 
     <SearchBox translations={{placeholder: 'Filtrer par mot-clé'}}/>
     
