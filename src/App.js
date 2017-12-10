@@ -17,11 +17,11 @@ const INDEX_NAME = process.env.REACT_APP_ALGOLIA_INDEX_NAME;
 
 const client = algoliasearch("CUET2HJEQ6", "962e8937e28d8ac7a13f814f89138a6b");
 const measuresClient = client.initIndex('Measure_dev');
+const profilesClient = client.initIndex('Profile_dev');
 
-
-const Content = () =>
+const Content = ({ profiles }) =>
   <div className="content">
-    <Results>
+    <Results profiles={profiles}>
       <Hits hitComponent={Theme} />
     </Results>
   </div>
@@ -33,6 +33,10 @@ class App extends Component {
     measuresClient.search({
       query: ''
     }, (err, content) => this.setState({ measures: content.hits}));
+    
+    profilesClient.search({
+      query: ''
+    }, (err, content) => this.setState({ profiles: content.hits}));
   }
   
   render() {
@@ -44,12 +48,17 @@ class App extends Component {
           indexName={INDEX_NAME}>
           
           <main className="main">
-            <Content />
             
             {/*
               measures are passed in to show the most recently updated measure
             */}
             <Sidebar measures={this.state.measures} />
+            
+            {/*
+              profiles used to render a dynamic intro blurb based on
+              the chosen profile facet
+            */}
+            <Content profiles={this.state.profiles} />
           </main>
           
         </InstantSearch>
