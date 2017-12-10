@@ -19,21 +19,21 @@
   &.voté {
     background-color: $lightgreen;
     color: $darkgreen;
+    
+    &:hover {
+      background-color: $mediumgreen;
+      color: $darkgreen;
+      
+      .measure-status {
+        border-color: $darkgreen;
+        background-color: $darkgreen;
+        color: $lightgreen;
+      }
+    }
   }
   
   &:first-child {
     border-top: none;
-  }
-  
-  &:hover {
-    background-color: $mediumgreen;
-    color: $darkgreen;
-    
-    .measure-status {
-      border-color: $darkgreen;
-      background-color: $darkgreen;
-      color: $lightgreen;
-    }
   }
   
   @include mq($medium-and-up) {
