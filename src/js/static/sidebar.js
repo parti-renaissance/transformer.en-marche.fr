@@ -68,7 +68,7 @@ const Menu = connectMenu(({refine, items}) => {
 });
   
 
-export default () =>
+const Sidebar = ({ measures }) =>
   <aside className="sidebar">
     <h3 className="sidebar-title">Je m&apos;interesse à...</h3>
     <RefinementList attributeName="title" operator="or" transformItems={addColors} />
@@ -82,3 +82,5 @@ export default () =>
       <LastUpdated />
     </div>
   </aside>
+
+export default Sidebar;

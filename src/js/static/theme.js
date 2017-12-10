@@ -3,7 +3,7 @@ import { Measures, NoMeasure } from './measure';
 
 import './../../scss/theme.css';
   
-export default ({hit:theme}) =>
+const Theme = ({hit:theme}) =>
   <article className="theme">
     <img src={theme.image} className="theme-image" alt={theme.title} />
     
@@ -15,3 +15,5 @@ export default ({hit:theme}) =>
       <NoMeasure theme={theme.title} />
     </Measures>
   </article>
+
+export default Theme;
