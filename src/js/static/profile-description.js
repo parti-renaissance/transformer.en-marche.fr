@@ -3,7 +3,18 @@ import { find } from 'lodash';
 
 const ProfileDescription = ({ profile, profiles }) => {
   let found = find(profiles, ['title', profile]);
-  return found ? <p>{found.description}</p> : null;
+  if (found) {
+    return (
+      <div className="intro">
+        <h1 className="intro-header">{found.title}</h1>
+        <p>
+          {found.description}
+        </p>
+      </div>
+    )
+  } else {
+    return null;
+  }
 }
 
 export default ProfileDescription;
