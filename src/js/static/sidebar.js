@@ -79,7 +79,7 @@ const Sidebar = ({ measures }) =>
     <SearchBox translations={{placeholder: 'Filtrer par mot-clé'}}/>
     
     <div className="sidebar-footer">
-      <LastUpdated />
+      <LastUpdated measures={measures} />
     </div>
   </aside>
 
