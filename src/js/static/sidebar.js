@@ -18,11 +18,12 @@ const BUTTON_COLORS = [
   Color('#b6b6b6'), // dark gray
 ];
 
-const addColors = items => {
+const addColors = (items = []) => {
   items.map((props, i) => {
+    let index = i % BUTTON_COLORS.length;
     props.style = {
-      backgroundColor: BUTTON_COLORS[i].rgb().string(),
-      color: BUTTON_COLORS[i].darken(0.5).rgb().string()
+      backgroundColor: BUTTON_COLORS[index].rgb().string(),
+      color: BUTTON_COLORS[index].darken(0.5).rgb().string()
     };
     return props;
   });
