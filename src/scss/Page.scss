@@ -55,10 +55,12 @@
   
   @include mq($medium-and-up) {
     display: flex;
-    flex-basis: 130px;
+    flex-basis: 150px;
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
+    font-family: $font-roboto;
+    font-weight: bold;
   }
 }
 
