@@ -43,17 +43,22 @@ export const Measures = connectStateResults(({ searchState: { query }, props: { 
   measures = filter(measures, m => m.title.match(new RegExp(query, 'gi')));
   let grouped = groupBy(measures, 'status');
   measures = (grouped['IN_PROGRESS'] || []).concat(grouped['IS_LAW'] || []).concat(grouped['VOTED'] || []);
+  
+  let collapse = measures.length > 6 ? (
+    <Collapsible
+     trigger={<TriggerToOpen count={measures.length - 6} />}
+     triggerWhenOpen={<TriggerToClose count={measures.length - 6} />}
+     classParentString="measure-accordion"
+     triggerClassName="measure-accordion__trigger"
+     >
+      {measures.slice(6).map((measure, i) => <Measure key={i} measure={measure} />)}
+    </Collapsible>
+  ) : null;
+  
   return (
     <div className="measure-list">
       {measures.slice(0,5).map((measure, i) => <Measure key={i} measure={measure} />)}
-      <Collapsible
-       trigger={<TriggerToOpen count={measures.length - 6} />}
-       triggerWhenOpen={<TriggerToClose count={measures.length - 6} />}
-       classParentString="measure-accordion"
-       triggerClassName="measure-accordion__trigger"
-       >
-        {measures.slice(6).map((measure, i) => <Measure key={i} measure={measure} />)}
-      </Collapsible>
+      {collapse}
     </div>
   )
 });
