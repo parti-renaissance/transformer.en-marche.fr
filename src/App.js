@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import algoliasearch from 'algoliasearch';
-import {
-  InstantSearch,
-  Hits,
-} from 'react-instantsearch/dom';
+import { InstantSearch } from 'react-instantsearch/dom';
 import './scss/App.css';
 
 import Page from './js/components/Page';
 import Sidebar from './js/static/sidebar';
-import Theme from './js/static/theme';
 import Results from './js/static/results';
 
 const APP_ID = process.env.REACT_APP_ALGOLIA_APP_ID;
@@ -21,9 +17,7 @@ const profilesClient = client.initIndex('Profile_dev');
 
 const Content = ({ profiles }) =>
   <div className="content">
-    <Results profiles={profiles}>
-      <Hits hitComponent={Theme} />
-    </Results>
+    <Results />
   </div>
 
 class App extends Component {
