@@ -3,8 +3,13 @@ import { groupBy, filter } from 'lodash';
 import { connectStateResults } from 'react-instantsearch/connectors';
 import Collapsible from 'react-collapsible';
 import { ChevronDown, ChevronUp } from 'react-feather';
+import { ShareButtons, generateShareIcon } from 'react-share';
 
 import '../../scss/measure.css';
+
+const { FacebookShareButton, TwitterShareButton } = ShareButtons;
+const FacebookIcon = generateShareIcon('facebook');
+const TwitterIcon = generateShareIcon('twitter');
 
 const STATUS_MAP = {
   IN_PROGRESS: 'En vigueur',
@@ -13,6 +18,23 @@ const STATUS_MAP = {
 }
 
 const slugify = str => str.toLowerCase().replace(/\s/g, '-');
+
+const ShareMeasure = ({measure}) => {
+  if (!measure.socialMediaCopy && false) {
+    return null;
+  } else {
+    return (
+      <div className="share-measure">
+        <FacebookShareButton url={measure.link} quote={measure.socialMediaCopy}>
+          <FacebookIcon round={true} size={40} iconBgStyle={{fill: '#6f81ff'}}/>
+        </FacebookShareButton>
+        <TwitterShareButton url={measure.link} title={measure.socialMediaCopy}>
+          <TwitterIcon round={true} size={40} iconBgStyle={{fill: '#6f81ff'}}/>
+        </TwitterShareButton>
+      </div>
+    );
+  }
+}
 
 export const Measure = ({measure}) =>
   <a
@@ -28,6 +50,8 @@ export const Measure = ({measure}) =>
         {measure.title}
       </div>
     </div>
+    
+    <ShareMeasure measure={measure} />
   </a>
   
 const TriggerToOpen = ({ count }) => <span><ChevronDown />Plus de mesures ({count})</span>

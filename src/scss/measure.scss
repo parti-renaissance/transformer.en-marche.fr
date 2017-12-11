@@ -6,6 +6,7 @@
 }
 
 .measure {
+  position: relative;
   display: block;
   text-decoration: none;
   border-top: 1px solid $lightgray;
@@ -13,7 +14,6 @@
   padding: 10px 20px;
   font-size: 14px;
   color: $darkgray;
-  position: relative;
   transition: background-color 125ms ease, color 125ms ease;
   
   &.en-vigueur,
@@ -29,6 +29,10 @@
         border-color: $darkgreen;
         background-color: $darkgreen;
         color: $lightgreen;
+      }
+      
+      > .share-measure {
+        opacity: 1;
       }
     }
   }
@@ -111,4 +115,18 @@
 
 .measure-accordion__contentInner {
   border-top: 1px solid $blueishgray;
+}
+
+.share-measure {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 0;
+  right: -95px;
+  width: 90px;
+  height: 100%;
+  
+  opacity: 0;
+  transition: opacity 125ms ease;
 }
