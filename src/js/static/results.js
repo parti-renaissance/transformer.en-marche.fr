@@ -19,7 +19,7 @@ const DefaultDescription = ({ children }) => {
         </p>
 
         <p>
-          Cette interface sera mise à jour régulièrement. Pour ne rien manquer, <a href="https://en-marche.fr/newsletter" target="_blank" rel="noreferrer noopener">recevez notre newsletter hebdomadaire</a>.
+          Cette interface sera mise à jour régulièrement. Pour ne rien manquer, <a href="https://en-marche.fr/newsletter" target="_blank" rel="noreferrer noopener">recevez notre newsletter</a> hebdomadaire.
         </p>
       </div>
     );
