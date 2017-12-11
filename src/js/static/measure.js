@@ -30,8 +30,8 @@ export const Measure = ({measure}) =>
     </div>
   </a>
   
-const TriggerToOpen = ({ count }) => <span><ChevronDown />Toutes les réformes ({count})</span>
-const TriggerToClose = ({ count }) => <span><ChevronUp />Toutes les réformes ({count})</span>
+const TriggerToOpen = ({ count }) => <span><ChevronDown />Plus de mesures ({count})</span>
+const TriggerToClose = ({ count }) => <span><ChevronUp />Plus de mesures ({count})</span>
   
 export const NoMeasure = ({theme}) =>
   <p className="no-measure">Il n&apos;y a pas de réformes specifiques au profil de {theme}. Voir toutes les réformes sur le thème {theme}.</p>
