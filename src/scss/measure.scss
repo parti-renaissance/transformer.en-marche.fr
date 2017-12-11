@@ -21,7 +21,7 @@
     background-color: $lightgreen;
     color: $darkgreen;
     
-    &:hover {
+    &[href]:hover {
       background-color: $mediumgreen;
       color: $darkgreen;
       
