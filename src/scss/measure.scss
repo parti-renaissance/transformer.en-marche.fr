@@ -125,7 +125,12 @@
     left: -1px;
     right: -1px;
     
-    border: 1px solid $blueishgray;
+    border-left: 1px solid $blueishgray;
+    border-right: 1px solid $blueishgray;
+    
+    + .measure-accordion__contentOuter {
+      margin-bottom: 50px;
+    }
   }
 }
 
