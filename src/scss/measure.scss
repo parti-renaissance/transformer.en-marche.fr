@@ -90,6 +90,7 @@
 }
 
 .measure-accordion {
+  position: relative;
 }
 
 .measure-accordion__trigger {
@@ -116,6 +117,15 @@
   
   &:hover {
     background-color: $offwhite;
+  }
+  
+  &.is-open {
+    position: absolute;
+    bottom: -50px;
+    left: -1px;
+    right: -1px;
+    
+    border: 1px solid $blueishgray;
   }
 }
 
