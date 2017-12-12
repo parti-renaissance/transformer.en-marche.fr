@@ -95,12 +95,14 @@
 .measure-accordion__trigger {
   display: block;
   text-align: center;
-  background-color: $offwhite;
+  background-color: white;
   cursor: pointer;
   padding: 12px 0;
   font-family: $font-roboto;
   font-size: 16px;
   border-top: 1px solid $blueishgray;
+  
+  transition: background-color 125ms ease;
   
   > span {
     display: flex;
@@ -110,6 +112,10 @@
     > svg {
       margin-right: 5px;
     }
+  }
+  
+  &:hover {
+    background-color: $offwhite;
   }
 }
 
