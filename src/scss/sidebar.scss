@@ -83,6 +83,7 @@
 .sidebar-footer {
   color: $darkgray;
   display: none;
+  font-family: $font-roboto;
   
   @include mq($medium-and-up) {
     display: block;
