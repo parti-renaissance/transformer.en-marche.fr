@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connectStateResults } from 'react-instantsearch/connectors';
 import Collapsible from 'react-collapsible';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { ShareButtons, generateShareIcon } from 'react-share';
