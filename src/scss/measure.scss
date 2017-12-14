@@ -119,7 +119,7 @@
     background-color: $offwhite;
   }
   
-  &.is-open {
+  .to-bottom & {
     position: absolute;
     bottom: -50px;
     left: -1px;
@@ -131,6 +131,14 @@
     + .measure-accordion__contentOuter {
       margin-bottom: 50px;
     }
+  }
+  
+  &.is-closed .up {
+    display: none;
+  }
+  
+  &.is-open .down {
+    display: none;
   }
 }
 
