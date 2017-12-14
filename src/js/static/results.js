@@ -41,7 +41,7 @@ const Intro = ({ title, description, children }) =>
 
 const HitsWithIntro = connectHits(({ hits, profile }) => {
   if (!hits.length) {
-    return null;
+    return "No results in french.";
   }
   let [ hit ] = hits;
   let description = hit.descriptions[profile];
