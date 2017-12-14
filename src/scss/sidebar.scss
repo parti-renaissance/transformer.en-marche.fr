@@ -36,6 +36,24 @@
   margin-bottom: 7px;
 }
 
+.refinement-list__item-other {
+  display: none;
+  
+  .sidebar-more & {
+    display: block;
+  }
+}
+
+.sidebar-more {
+  .refinement-list__item-other {
+    display: block;
+  }
+  
+  .refinement-list__item-more {
+    display: none;
+  }
+}
+
 .ais-SearchBox__root {
   display: none;
   

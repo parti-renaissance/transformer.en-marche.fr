@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { SearchBox } from 'react-instantsearch/dom';
 import { connectRefinementList, connectMenu } from 'react-instantsearch/connectors';
-// import { shuffle } from 'lodash';
+import { reject } from 'lodash';
 
 import Color from 'color';
 
@@ -31,11 +31,11 @@ const BUTTON_COLORS = [
     bg: Color('#f9bcbc'),
     color: Color('#ff3856'),
   },
-  {
-    // dark gray
-    bg: Color('#b6b6b6'),
-    color: Color('#444444'),
-  },
+  // {
+  //   // dark gray
+  //   bg: Color('#b6b6b6'),
+  //   color: Color('#444444'),
+  // },
 ];
 
 const addColors = (items = []) => {
@@ -80,33 +80,46 @@ class RefinementListItem extends Component {
   render() {
     let { props, state } = this;
     return (
-      <li className="refinement-list__item" style={state.style}>
+      <li className={`refinement-list__item ${props.className}`} style={state.style}>
         <FilterButton {...props} onClick={() => props.refine(props.value)} buttonRef={e => this.button = e} />
       </li>
     )
   }
 }
 
-const RefinementList = connectRefinementList(({refine, items}) => {
-  // let colors = shuffle(BUTTON_COLORS);
+const MoreRefinementsButton = ({ onClick }) =>
+  <li className="refinement-list__item refinement-list__item-more">
+    <button
+     className="filter-button"
+     onClick={onClick}
+     style={{backgroundColor: 'rgba(182, 182, 182, 0.2)', color: '#444444'}}
+     >Voir tous les thèmes</button>
+  </li>
+
+const OtherRefinements = connectRefinementList(({ refine, items, exclude }) => {
+  return reject(items, item => exclude.includes(item.label)).map((props, i) => {
+    props.refine = refine;
+    return <RefinementListItem key={props.label} {...props} className="refinement-list__item-other" />
+  });
+});
+
+const RefinementList = connectRefinementList(({refine, items, viewMore}) => {
   let list = items.map((props, i) => {
-  //   let style = {
-  //     backgroundColor: BUTTON_COLORS[i].rgb().string(),
-  //     color: BUTTON_COLORS[i].darken(0.5).rgb().string()
-  //   };
     props.refine = refine;
     return <RefinementListItem key={props.label} {...props} />
   });
-  return <ul className="refinement-list">{list}</ul>
+  list.push(<MoreRefinementsButton key='moreRefinements' onClick={viewMore} />);
+  list.push(<OtherRefinements
+             key='otherRefinements'
+             exclude={items.map(i => i.label)}
+             attributeName="title"
+             transformItems={addColors} />);
+             
+  return <ul className='refinement-list'>{list}</ul>
 });
 
 const Menu = connectMenu(({refine, items}) => {
-  // let colors = shuffle(BUTTON_COLORS);
   let list = items.map((props, i) => {
-  //   let style = {
-  //     backgroundColor: BUTTON_COLORS[i].rgb().string(),
-  //     color: BUTTON_COLORS[i].darken(0.5).rgb().string()
-  //   };
     return (
       <li key={i} className="refinement-list__item">
         <FilterButton {...props} onClick={() => refine(props.value)} />
@@ -117,19 +130,36 @@ const Menu = connectMenu(({refine, items}) => {
 });
   
 
-const Sidebar = ({ measures }) =>
-  <aside className="sidebar">
-    <h3 className="sidebar-title">Je m&apos;interesse à...</h3>
-    <RefinementList attributeName="title" operator="or" transformItems={addColors} />
-    
-    <h3 className="sidebar-title">Je suis...</h3>
-    <Menu attributeName="measures.profiles.title" transformItems={addColors} />
+class Sidebar extends Component {
+  state = {}
+  
+  seeMoreRefinements() {
+    this.setState({ viewingMore: true });
+  }
+  
+  render() {
+    let { measures } = this.props;
+    let { viewingMore } = this.state;
+    return (
+      <aside className={`sidebar ${viewingMore ? 'sidebar-more' : ''}`}>
+        <h3 className="sidebar-title">Je m&apos;interesse à...</h3>
+        <RefinementList
+         attributeName="isFeatured"
+         operator="or"
+         transformItems={addColors}
+         viewMore={this.seeMoreRefinements.bind(this)} />
+        
+        <h3 className="sidebar-title">Je suis...</h3>
+        <Menu attributeName="measures.profiles.title" transformItems={addColors} />
 
-    <SearchBox translations={{placeholder: 'Filtrer par mot-clé'}}/>
-    
-    <div className="sidebar-footer">
-      <LastUpdated measures={measures} />
-    </div>
-  </aside>
+        <SearchBox translations={{placeholder: 'Filtrer par mot-clé'}}/>
+        
+        <div className="sidebar-footer">
+          <LastUpdated measures={measures} />
+        </div>
+      </aside>
+    );
+  }
+}
 
 export default Sidebar;
