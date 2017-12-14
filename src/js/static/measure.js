@@ -113,6 +113,10 @@ export const Measures = connectStateResults(({ searchState: { query }, props: { 
   let grouped = groupBy(measures, 'status');
   measures = (grouped['IN_PROGRESS'] || []).concat(grouped['IS_LAW'] || []).concat(grouped['VOTED'] || []);
   
+  if (!measures.length) {
+    return null;
+  }
+  
   return (
     <div className="measure-list">
       {measures.slice(0,5).map((measure, i) => <Measure key={i} measure={measure} />)}
