@@ -82,8 +82,8 @@
 .measure-name {
   font-family: $font-roboto;
   
-  .en-vigueur &::after,
-  .voté &::after {
+  .en-vigueur[href] &::after,
+  .voté[href] &::after {
     content: ' →';
   }
 
