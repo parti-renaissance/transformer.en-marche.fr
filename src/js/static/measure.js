@@ -20,7 +20,7 @@ const STATUS_MAP = {
 const slugify = str => str.toLowerCase().replace(/\s/g, '-');
 
 const ShareMeasure = ({measure}) => {
-  if (!measure.socialMediaCopy && false) {
+  if (!measure.link) {
     return null;
   } else {
     return (
@@ -36,12 +36,28 @@ const ShareMeasure = ({measure}) => {
   }
 }
 
+const LinkOrDiv = ({ measure, children }) => {
+  if (measure.link) {
+    return (
+      <a
+       href={measure.link}
+       target="_blank"
+       rel="noreferrer noopener"
+       className={`measure ${slugify(STATUS_MAP[measure.status])}`}>
+       {children}
+      </a>
+    );
+  } else {
+    return (
+      <div className={`measure ${slugify(STATUS_MAP[measure.status])}`}>
+        {children}
+      </div>
+    );
+  }
+}
+
 export const Measure = ({measure}) =>
-  <a
-    href="http://www.wnyc.org"
-    target="_blank"
-    rel="noreferrer noopener"
-    className={`measure ${slugify(STATUS_MAP[measure.status])}`}>
+  <LinkOrDiv measure={measure}>
     <div className="measure-body">
       <div className="measure-status">
         {STATUS_MAP[measure.status]}
@@ -52,7 +68,7 @@ export const Measure = ({measure}) =>
     </div>
     
     <ShareMeasure measure={measure} />
-  </a>
+  </LinkOrDiv>
   
 const Trigger = ({ count, nodeRef }) =>
   <span ref={nodeRef}>
