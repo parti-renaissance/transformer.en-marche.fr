@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { groupBy, filter } from 'lodash';
 import { connectStateResults } from 'react-instantsearch/connectors';
 import Collapsible from 'react-collapsible';
 import { ChevronDown, ChevronUp } from 'react-feather';
@@ -105,22 +104,8 @@ class CollapsibleMeasures extends Component {
 export const NoMeasure = ({theme}) =>
   <p className="no-measure">Il n&apos;y a pas de réformes specifiques au profil de {theme}. Voir toutes les réformes sur le thème {theme}.</p>
 
-export const Measures = connectStateResults(({ searchState: { query }, props: { measures = [], children }}) => {
-  if (!measures.length) {
-    return children;
-  }
-  measures = filter(measures, m => m.title.match(new RegExp(query, 'gi')));
-  let grouped = groupBy(measures, 'status');
-  measures = (grouped['IN_PROGRESS'] || []).concat(grouped['IS_LAW'] || []).concat(grouped['VOTED'] || []);
-  
-  if (!measures.length) {
-    return null;
-  }
-  
-  return (
-    <div className="measure-list">
-      {measures.slice(0,5).map((measure, i) => <Measure key={i} measure={measure} />)}
-      {measures.length > 6 ? <CollapsibleMeasures measures={measures} /> : null}
-    </div>
-  )
-});
+export const Measures = ({ measures }) =>
+  <div className="measure-list">
+    {measures.slice(0,5).map((measure, i) => <Measure key={i} measure={measure} />)}
+    {measures.length > 6 ? <CollapsibleMeasures measures={measures} /> : null}
+  </div>

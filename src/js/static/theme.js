@@ -1,16 +1,22 @@
 import React from 'react';
+import { groupBy, filter } from 'lodash';
 import { Measures, NoMeasure } from './measure';
+import { connectStateResults } from 'react-instantsearch/connectors';
 
 import './../../scss/theme.css';
   
-const Theme = ({hit:theme}) => {
-  let measures = (
-    <Measures measures={theme.measures}>
-      <NoMeasure theme={theme.title} />
-    </Measures>
-  );
+const Theme = connectStateResults(({ hit:theme, searchState: { query } }) => {
+  let { measures } = theme;
+
+  measures = filter(measures, m => m.title.match(new RegExp(query, 'gi')));
+  let grouped = groupBy(measures, 'status');
+  measures = (grouped['IN_PROGRESS'] || [])
+                .concat(grouped['IS_LAW'] || [])
+                .concat(grouped['VOTED'] || []);
   
-  if (!measures) {
+  if (query && !measures.length) {
+    // no matching measures for this keyword query
+    // return nothing so it doesn't render
     return null;
   }
   
@@ -22,10 +28,12 @@ const Theme = ({hit:theme}) => {
       
       <p className="theme-body">{theme.description}</p>
       
-      {measures}
+      {measures.length ?
+        <Measures measures={measures} />
+      : <NoMeasure theme={theme.title} />}
         
     </article>
   )
-}
+});
 
 export default Theme;
