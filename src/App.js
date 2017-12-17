@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import algoliasearch from 'algoliasearch';
 import { InstantSearch } from 'react-instantsearch/dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import './scss/App.css';
 
 import Page from './js/components/Page';
@@ -18,6 +19,25 @@ const Content = () =>
   <div className="content">
     <Results />
   </div>
+  
+const Layout = ({ measures }) =>
+  <InstantSearch
+    appId={APP_ID}
+    apiKey={API_KEY}
+    indexName={INDEX_NAME}>
+    
+    <Route path="/:profile" render={() => {
+      return (
+        <main className="main">
+        {/*
+          measures are passed in to show the most recently updated measure
+        */}
+          <Sidebar measures={measures} />
+          <Content />
+        </main>
+      );
+    }} />
+  </InstantSearch>
 
 class App extends Component {
   state = {}
@@ -30,24 +50,12 @@ class App extends Component {
   
   render() {
     return (
-      <Page>
-        <InstantSearch
-          appId={APP_ID}
-          apiKey={API_KEY}
-          indexName={INDEX_NAME}>
-          
-          <main className="main">
-            
-            {/*
-              measures are passed in to show the most recently updated measure
-            */}
-            <Sidebar measures={this.state.measures} />
-            
-            <Content />
-          </main>
-          
-        </InstantSearch>
-      </Page>
+      <Router>
+        <Page>
+          <Route exact path="/" render={() => <Redirect to="/fr" />} />
+          <Route path="/:locale" render={() => <Layout measures={this.state.measures}/>} />
+        </Page>
+      </Router>
     );
   }
 }
