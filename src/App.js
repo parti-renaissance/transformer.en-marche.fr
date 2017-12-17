@@ -43,10 +43,6 @@ class App extends Component {
             */}
             <Sidebar measures={this.state.measures} />
             
-            {/*
-              profiles used to render a dynamic intro blurb based on
-              the chosen profile facet
-            */}
             <Content />
           </main>
           
