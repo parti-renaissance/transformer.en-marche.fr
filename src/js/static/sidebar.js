@@ -61,7 +61,7 @@ const FilterButton = ({isRefined, label, value, onClick, style, buttonRef}) =>
   </button>
 
 
-class RefinementListItem extends Component {
+class ThemeListItem extends Component {
   state = {}
   
   measureButton() {
@@ -87,7 +87,7 @@ class RefinementListItem extends Component {
   }
 }
 
-const MoreRefinementsButton = ({ onClick }) =>
+const MoreThemesButton = ({ onClick }) =>
   <li className="refinement-list__item refinement-list__item-more">
     <button
      className="filter-button"
@@ -96,20 +96,20 @@ const MoreRefinementsButton = ({ onClick }) =>
      >Voir tous les thèmes</button>
   </li>
 
-const OtherRefinements = connectRefinementList(({ refine, items, exclude }) => {
+const OtherThemes = connectRefinementList(({ refine, items, exclude }) => {
   return reject(items, item => exclude.includes(item.label)).map((props, i) => {
     props.refine = refine;
-    return <RefinementListItem key={props.label} {...props} className="refinement-list__item-other" />
+    return <ThemeListItem key={props.label} {...props} className="refinement-list__item-other" />
   });
 });
 
-const RefinementList = connectRefinementList(({refine, items, viewMore}) => {
+const Themes = connectRefinementList(({refine, items, viewMore}) => {
   let list = items.map((props, i) => {
     props.refine = refine;
-    return <RefinementListItem key={props.label} {...props} />
+    return <ThemeListItem key={props.label} {...props} />
   });
-  list.push(<MoreRefinementsButton key='moreRefinements' onClick={viewMore} />);
-  list.push(<OtherRefinements
+  list.push(<MoreThemesButton key='moreRefinements' onClick={viewMore} />);
+  list.push(<OtherThemes
              key='otherRefinements'
              exclude={items.map(i => i.label)}
              attributeName="title"
@@ -118,7 +118,7 @@ const RefinementList = connectRefinementList(({refine, items, viewMore}) => {
   return <ul className='refinement-list'>{list}</ul>
 });
 
-const Menu = connectMenu(({refine, items}) => {
+const Profiles = connectMenu(({refine, items}) => {
   let list = items.map((props, i) => {
     return (
       <li key={i} className="refinement-list__item">
@@ -141,16 +141,17 @@ class Sidebar extends Component {
     let { measures } = this.props;
     let { viewingMore } = this.state;
     return (
-      <aside className={`sidebar ${viewingMore ? 'sidebar-more' : ''}`}>
+      <aside className={`sidebar ${viewingMore && 'sidebar-more'}`}>
+      
         <h3 className="sidebar-title">Je m&apos;interesse à...</h3>
-        <RefinementList
+        <Themes
          attributeName="isFeatured"
          operator="or"
          transformItems={addColors}
          viewMore={this.seeMoreRefinements.bind(this)} />
         
         <h3 className="sidebar-title">Je suis...</h3>
-        <Menu attributeName="measures.profiles.title" transformItems={addColors} />
+        <Profiles attributeName="measures.profiles.title" transformItems={addColors} />
 
         <SearchBox translations={{placeholder: 'Filtrer par mot-clé'}}/>
         
