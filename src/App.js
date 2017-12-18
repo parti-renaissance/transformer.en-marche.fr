@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import algoliasearch from 'algoliasearch';
 import { InstantSearch } from 'react-instantsearch/dom';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { find, filter } from 'lodash';
+import qs from 'qs';
+import _slugify from 'slugify';
 import './scss/App.css';
 
 import Page from './js/components/Page';
@@ -14,46 +17,132 @@ const INDEX_NAME = process.env.REACT_APP_ALGOLIA_INDEX_NAME;
 
 const client = algoliasearch("CUET2HJEQ6", "962e8937e28d8ac7a13f814f89138a6b");
 const measuresClient = client.initIndex('Measure_dev');
+const profilesClient = client.initIndex('Profile_dev');
+const themesClient = client.initIndex('Theme_dev');
+
+const updateAfter = 125;
+
+const slugify = str => _slugify(str, {lower:true}).replace(/'/, '-');
+
+const createURL = ({ menu = {}, refinementList = {}, query = '' }) => {
+  let profilePathParam = menu['measures.profiles.title'] || '';
+  let path = `${slugify(profilePathParam)}`;
+  
+  let qs = [];
+  let themes = refinementList.title ? refinementList.title.map(slugify).join(',') : '';
+  if (themes) {
+    qs.push(`theme=${themes.replace(/'/, '-')}`);
+  }
+  if (query) {
+    qs.push(`q=${query}`);
+  }
+  
+  return `${path}${qs.length ? `?${qs.join('&')}` : ''}`;
+}
+
+const searchStateToUrl = ({match: { params }}, searchState) => {
+  return searchState ? `/${params.locale}/${createURL(searchState)}` : '';
+}
+const urlToSearchState = ({ match, location, history, profiles, themes}) => {
+  const searchState = {refinementList: {}, menu: {}, query: {}};
+  
+  let { theme, q } = qs.parse(location.search.slice(1));
+  searchState.query = q;
+  
+  if (themes && theme) {
+    let themeList = theme ? filter(themes, t => theme.split(',').includes(t.slug)).map(t => t.title) : '';
+    if (themeList.length) {
+      searchState.refinementList.title = themeList;
+    } else {
+      history.push({
+        pathanme: location.pathname,
+        search: ''
+      });
+    }
+  }
+  
+  let { profile } = match.params;
+  let profileMatch = find(profiles, ['slug', profile]);
+  if (profileMatch) {
+    searchState.menu['measures.profiles.title'] = profileMatch.title;
+  } else {
+    delete searchState.menu;
+  }
+  return searchState;
+}
 
 const Content = () =>
   <div className="content">
     <Results />
   </div>
   
-const Layout = ({ measures }) =>
-  <InstantSearch
-    appId={APP_ID}
-    apiKey={API_KEY}
-    indexName={INDEX_NAME}>
+  
+class Layout extends Component {
+  constructor(props) {
+    super(props);
     
-    <Route path="/:profile" render={() => {
-      return (
+    this.state = {
+      searchState: urlToSearchState(props),
+    }
+  }
+  
+  componentWillReceiveProps(props) {
+    this.setState({ searchState: urlToSearchState(props) });
+  }
+  
+  onSearchStateChange = searchState => {
+    clearTimeout(this.debouncedSetState);
+    this.debouncedSetState = setTimeout(() => {
+      this.props.history.push(
+        searchStateToUrl(this.props, searchState),
+        searchState
+      );
+    }, updateAfter);
+    this.setState({ searchState });
+  }
+  render() {
+    let { measures, themes } = this.props;
+    return (
+      <InstantSearch
+        appId={APP_ID}
+        apiKey={API_KEY}
+        indexName={INDEX_NAME}
+        searchState={this.state.searchState}
+        onSearchStateChange={this.onSearchStateChange}
+        createURL={createURL}
+      >
+
         <main className="main">
         {/*
           measures are passed in to show the most recently updated measure
         */}
-          <Sidebar measures={measures} />
+          <Sidebar measures={measures} themes={themes} />
           <Content />
         </main>
-      );
-    }} />
-  </InstantSearch>
-
+  
+      </InstantSearch>
+    );
+  }
+};
+  
 class App extends Component {
   state = {}
   
   componentDidMount() {
-    measuresClient.search({
-      query: ''
-    }, (err, content) => this.setState({ measures: content.hits}));
+    measuresClient.search({}, (err, content) => this.setState({ measures: content.hits }));
+    profilesClient.search({}, (err, content) => this.setState({ profiles: content.hits }));
+    themesClient.search({}, (err, content) => this.setState({ themes: content.hits }));
   }
   
   render() {
     return (
       <Router>
         <Page>
-          <Route exact path="/" render={() => <Redirect to="/fr" />} />
-          <Route path="/:locale" render={() => <Layout measures={this.state.measures}/>} />
+          <Switch>
+            <Route path="/:locale/:profile" render={props => <Layout {...this.state} {...props}/>} />
+            <Route path="/:locale" render={props => <Layout {...this.state} {...props}/>} />
+            <Route exact path="/" render={() => <Redirect to="/fr" />} />
+          </Switch>
         </Page>
       </Router>
     );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { SearchBox } from 'react-instantsearch/dom';
 import { connectRefinementList, connectMenu } from 'react-instantsearch/connectors';
-import { reject } from 'lodash';
+import { reject, filter, find } from 'lodash';
 
 import Color from 'color';
 
@@ -51,13 +51,13 @@ const addColors = (items = []) => {
   return items;
 };
 
-const FilterButton = ({isRefined, label, value, onClick, style, buttonRef}) =>
+const FilterButton = ({isRefined, label, value, onClick, style, buttonRef, children}) =>
   <button
    className={`filter-button ${isRefined && 'is-active'}`}
    onClick={onClick}
    style={style}
    ref={buttonRef}>
-    <span>{label}</span>
+    <span>{children || label}</span>
   </button>
 
 
@@ -81,47 +81,59 @@ class ThemeListItem extends Component {
     let { props, state } = this;
     return (
       <li className={`refinement-list__item ${props.className}`} style={state.style}>
-        <FilterButton {...props} onClick={() => props.refine(props.value)} buttonRef={e => this.button = e} />
+        {props.children ||
+          <FilterButton {...props} onClick={() => props.refine(props.value)} buttonRef={e => this.button = e} />}
       </li>
     )
   }
 }
 
-const MoreThemesButton = ({ onClick }) =>
-  <li className="refinement-list__item refinement-list__item-more">
-    <button
-     className="filter-button"
-     onClick={onClick}
-     style={{backgroundColor: 'rgba(182, 182, 182, 0.2)', color: '#444444'}}
-     >Voir tous les thèmes</button>
-  </li>
 
-const OtherThemes = connectRefinementList(({ refine, items, exclude }) => {
-  return reject(items, item => exclude.includes(item.label)).map((props, i) => {
-    props.refine = refine;
-    return <ThemeListItem key={props.label} {...props} className="refinement-list__item-other" />
-  });
+const Themes = ({ onViewMore, themes }) => {
+  return (
+    <ul className="refinement-list">
+      <ThemeFilters
+        transformItems={addColors}
+        themes={themes}
+        attributeName="title"
+        limitMin={1000}>
+        
+        <li className="refinement-list__item refinement-list__item-more">
+          <FilterButton onClick={onViewMore} style={{backgroundColor: 'rgba(182, 182, 182, 0.2)', color: '#444444'}}>
+            Voir tous les thèmes
+          </FilterButton>
+        </li>
+        
+      </ThemeFilters>
+        
+    </ul>
+  );
+};
+
+
+const ThemeFilters = connectRefinementList(({children, refine, themes=[], items = [], exclude = []}) => {
+  if (!items.length || !themes.length) {
+    return null;
+  }
+  let activeThemes = filter(items, 'isRefined');
+
+  let inActiveThemes = reject(items, 'isRefined').map(item => find(themes, ['title', item.label]));
+  let featuredThemes = filter(inActiveThemes, 'isFeatured').map(theme => find(items, ['label', theme.title]));
+  let otherThemes = reject(inActiveThemes, 'isFeatured').map(theme => find(items, ['label', theme.title]));
+  return activeThemes
+    .map(props => <ThemeListItem key={props.label} refine={refine} {...props} />)
+    .concat(featuredThemes
+      .map(props => <ThemeListItem key={props.label} refine={refine} {...props} />))
+      .concat(children)
+      .concat(otherThemes
+        .map(props => <ThemeListItem key={props.label} className="refinement-list__item-other" refine={refine} {...props} />));
 });
 
-const Themes = connectRefinementList(({refine, items, viewMore}) => {
-  let list = items.map((props, i) => {
-    props.refine = refine;
-    return <ThemeListItem key={props.label} {...props} />
-  });
-  list.push(<MoreThemesButton key='moreRefinements' onClick={viewMore} />);
-  list.push(<OtherThemes
-             key='otherRefinements'
-             exclude={items.map(i => i.label)}
-             attributeName="title"
-             transformItems={addColors} />);
-             
-  return <ul className='refinement-list'>{list}</ul>
-});
 
 const Profiles = connectMenu(({refine, items}) => {
-  let list = items.map((props, i) => {
+  let list = items.map(props => {
     return (
-      <li key={i} className="refinement-list__item">
+      <li key={props.label} className="refinement-list__item">
         <FilterButton {...props} onClick={() => refine(props.value)} />
       </li>
     )
@@ -138,17 +150,13 @@ class Sidebar extends Component {
   }
   
   render() {
-    let { measures } = this.props;
+    let { measures, themes } = this.props;
     let { viewingMore } = this.state;
     return (
       <aside className={`sidebar ${viewingMore && 'sidebar-more'}`}>
       
         <h3 className="sidebar-title">Je m&apos;interesse à...</h3>
-        <Themes
-         attributeName="isFeatured"
-         operator="or"
-         transformItems={addColors}
-         viewMore={this.seeMoreRefinements.bind(this)} />
+        <Themes onViewMore={this.seeMoreRefinements.bind(this)} themes={themes}/>
         
         <h3 className="sidebar-title">Je suis...</h3>
         <Profiles attributeName="measures.profiles.title" transformItems={addColors} />
