@@ -36,21 +36,17 @@
   margin-bottom: 7px;
 }
 
-.refinement-list__item-other {
+.refinement-list__item-more ~ .refinement-list__item {
   display: none;
-  
-  .sidebar-more & {
-    display: block;
-  }
 }
 
 .sidebar-more {
-  .refinement-list__item-other {
-    display: block;
-  }
-  
   .refinement-list__item-more {
     display: none;
+    
+    ~ .refinement-list__item {
+      display: block;
+    }
   }
 }
 
