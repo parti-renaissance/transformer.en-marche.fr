@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { SearchBox } from 'react-instantsearch/dom';
 import { connectRefinementList, connectMenu } from 'react-instantsearch/connectors';
-import { reject, filter, find } from 'lodash';
+import { reject, filter, map } from 'lodash';
 
 import Color from 'color';
 
 import LastUpdated from './last-updated';
+import { doQuery, toggleTheme, toggleProfile } from '../actions/search-actions';
 
 import '../../scss/sidebar.css';
 import '../../scss/filter-button.css';
@@ -38,22 +41,18 @@ const BUTTON_COLORS = [
   // },
 ];
 
-const addColors = (items = []) => {
-  items.map((props, i) => {
-    let index = i % BUTTON_COLORS.length;
-    let { bg, color } = BUTTON_COLORS[index];
-    props.style = {
-      backgroundColor: bg.rgb().alpha(0.2).string(),
-      color: color.rgb().string(),
-    };
-    return props;
-  });
-  return items;
+const getColor = i => {
+  let index = i % BUTTON_COLORS.length;
+  let { bg, color } = BUTTON_COLORS[index];
+  return {
+    backgroundColor: bg.rgb().alpha(0.2).string(),
+    color: color.rgb().string(),
+  };
 };
 
-const FilterButton = ({isRefined, label, value, onClick, style, buttonRef, children}) =>
+const FilterButton = ({isActive, label, onClick, style, buttonRef, children}) =>
   <button
-   className={`filter-button ${isRefined && 'is-active'}`}
+   className={`filter-button ${isActive && 'is-active'}`}
    onClick={onClick}
    style={style}
    ref={buttonRef}>
@@ -80,23 +79,34 @@ class ThemeListItem extends Component {
   render() {
     let { props, state } = this;
     return (
-      <li className={`refinement-list__item ${props.className}`} style={state.style}>
+      <li className={`refinement-list__item ${props.className || ''}`} style={state.style}>
         {props.children ||
-          <FilterButton {...props} onClick={() => props.refine(props.value)} buttonRef={e => this.button = e} />}
+          <FilterButton
+           style={props.style}
+           label={props.theme.title}
+           isActive={props.theme.isActive}
+           onClick={props.refine}
+           buttonRef={e => this.button = e} />}
       </li>
     )
   }
 }
 
 
-const Themes = ({ onViewMore, themes }) => {
+const Themes = connect(({ themes }) => {
+  return {
+    themes: themes.items.map(id => themes.themes[id])
+  }
+}, dispatch => bindActionCreators({
+  toggleTheme
+}, dispatch))(({ onViewMore, themes, toggleTheme, location, match }) => {
   return (
     <ul className="refinement-list">
       <ThemeFilters
-        transformItems={addColors}
-        themes={themes}
         attributeName="title"
-        limitMin={1000}>
+        limitMin={1000}
+        themes={themes}
+        toggle={theme => toggleTheme(theme, location, match)}>
         
         <li className="refinement-list__item refinement-list__item-more">
           <FilterButton onClick={onViewMore} style={{backgroundColor: 'rgba(182, 182, 182, 0.2)', color: '#444444'}}>
@@ -108,33 +118,43 @@ const Themes = ({ onViewMore, themes }) => {
         
     </ul>
   );
-};
+});
 
+const ThemeFilters = connectRefinementList(({children, themes = [], items = [], toggle}) => {
 
-const ThemeFilters = connectRefinementList(({children, refine, themes=[], items = [], exclude = []}) => {
-  if (!items.length || !themes.length) {
-    return null;
-  }
-  let activeThemes = filter(items, 'isRefined');
+  const createListItems = (theme, i) =>
+    <ThemeListItem
+      theme={theme}
+      style={getColor(i)}
+      key={theme.objectID}
+      refine={() => toggle(theme)} />
 
-  let inActiveThemes = reject(items, 'isRefined').map(item => find(themes, ['title', item.label]));
-  let featuredThemes = filter(inActiveThemes, 'isFeatured').map(theme => find(items, ['label', theme.title]));
-  let otherThemes = reject(inActiveThemes, 'isFeatured').map(theme => find(items, ['label', theme.title]));
+  let filteredLabels = map(items, 'label')
+  let filtered = filter(themes, t => filteredLabels.includes(t.title));
+  let activeThemes = filter(filtered, 'isActive').map(createListItems);
+  
+  let inActiveThemes = reject(filtered, 'isActive')
+  let featuredThemes = filter(inActiveThemes, 'isFeatured').map(createListItems);
+  let otherThemes = reject(inActiveThemes, 'isFeatured').map(createListItems);
+  
   return activeThemes
-    .map(props => <ThemeListItem key={props.label} refine={refine} {...props} />)
-    .concat(featuredThemes
-      .map(props => <ThemeListItem key={props.label} refine={refine} {...props} />))
-      .concat(children)
-      .concat(otherThemes
-        .map(props => <ThemeListItem key={props.label} className="refinement-list__item-other" refine={refine} {...props} />));
+    .concat(featuredThemes)
+    .concat(children)
+    .concat(otherThemes);
 });
 
 
-const Profiles = connectMenu(({refine, items}) => {
-  let list = items.map(props => {
+const Profiles = connectMenu(({items, profiles, toggleProfile, location}) => {
+  let filteredLabels = map(items, 'label')
+  let filtered = filter(profiles, p => filteredLabels.includes(p.title));
+  let list = filtered.map((profile, i) => {
     return (
-      <li key={props.label} className="refinement-list__item">
-        <FilterButton {...props} onClick={() => refine(props.value)} />
+      <li key={profile.objectID} className="refinement-list__item">
+        <FilterButton
+          style={getColor(i)}
+          label={profile.title}
+          isActive={profile.isActive}
+          onClick={() => toggleProfile(profile, location)} />
       </li>
     )
   });
@@ -150,25 +170,43 @@ class Sidebar extends Component {
   }
   
   render() {
-    let { measures, themes } = this.props;
     let { viewingMore } = this.state;
+    let { location, match, profiles, toggleProfile, doQuery } = this.props;
     return (
-      <aside className={`sidebar ${viewingMore && 'sidebar-more'}`}>
+      <aside className={`sidebar${viewingMore ? ' sidebar-more' : ''}`}>
       
         <h3 className="sidebar-title">Je m&apos;interesse à...</h3>
-        <Themes onViewMore={this.seeMoreRefinements.bind(this)} themes={themes}/>
+        <Themes
+          location={location}
+          match={match}
+          onViewMore={this.seeMoreRefinements.bind(this)} />
         
         <h3 className="sidebar-title">Je suis...</h3>
-        <Profiles attributeName="measures.profiles.title" transformItems={addColors} />
+        <Profiles
+          location={location}
+          toggleProfile={toggleProfile}
+          profiles={profiles}
+          limitMin={1000}
+          attributeName="measures.profiles.title" />
 
-        <SearchBox translations={{placeholder: 'Filtrer par mot-clé'}}/>
+        <SearchBox
+          onInput={e => doQuery(e.target.value)}
+          searchAsYouType={false}
+          translations={{placeholder: 'Filtrer par mot-clé'}}/>
         
         <div className="sidebar-footer">
-          <LastUpdated measures={measures} />
+          <LastUpdated />
         </div>
       </aside>
     );
   }
 }
 
-export default Sidebar;
+export default connect(({ profiles }) => {
+  return {
+    profiles: profiles.items.map(id => profiles.profiles[id])
+  }
+}, dispatch => bindActionCreators({
+  toggleProfile,
+  doQuery
+}, dispatch))(Sidebar);
