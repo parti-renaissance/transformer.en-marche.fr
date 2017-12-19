@@ -1,0 +1,81 @@
+@import "mixins/vars";
+@import "mixins/queries";
+
+.SignupForm {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.SignupForm > input {
+  flex: 1 1 100%;
+  font-size: 16px;
+  line-height: 1.75;
+  font-family: $font-roboto;
+  padding: 5px;
+  border: none;
+  margin-bottom: 12px;
+  background-color: $offwhite;
+}
+
+.SignupForm > input::placeholder {
+  color: $darkgray;
+  text-align: center;
+}
+
+.SignupForm > button {
+  appearance: none;
+  cursor: pointer;
+  display: block;
+  flex: 1 1 100%;
+  padding: 8px 0;
+  border: none;
+  background-color: $bluepurple;
+  color: white;
+  font-family: $font-roboto;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.SignupForm__message {
+  font-size: 14px;
+  margin: 0;
+  flex: 1;
+  text-align: center;
+}
+
+@include mq($medium-and-up) {
+  .SignupForm input {
+    margin-bottom: 0;
+    padding: 5px 10px 5px 20px;
+    height: 50px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+
+  .SignupForm input::placeholder {
+    text-align: left;
+  }
+  
+  .SignupForm button {
+    font-size: 16px;
+    margin-bottom: 0;
+    padding-left: 25px;
+    padding-right: 25px;
+    flex-grow: 0;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+  
+  .SignupForm button,
+  .SignupForm input {
+    flex-basis: auto;
+  }
+  
+  .SignupForm__message {
+    padding-top: 15px;
+    flex-basis: 100%;
+  }
+}
