@@ -15,8 +15,9 @@ class App extends Component {
         <Layout>
           <main className="main">
             <Switch>
-              <Route path="/:locale/:profile?" component={SearchPage} />
-              <Route exact path="/" render={() => <Redirect to="/fr" />} />
+              <Route path="/:locale/:profile" component={SearchPage} />
+              <Route path="/:locale/results" component={SearchPage} />
+              <Redirect from="/" to="/fr" />
             </Switch>
           </main>
         </Layout>
