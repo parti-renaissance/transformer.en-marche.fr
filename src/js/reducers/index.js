@@ -5,6 +5,7 @@ import measures from './measures-reducer';
 import profiles from './profiles-reducer';
 import themes from './themes-reducer';
 import query from './query-reducer';
+import { popularReducer, progressReducer } from './dashboard-reducer';
 import locale from './translate-reducer';
 
 export default combineReducers({
@@ -14,4 +15,6 @@ export default combineReducers({
   query,
   routing,
   locale,
+  popular: popularReducer,
+  progress: progressReducer,
 });
