@@ -6,6 +6,7 @@ import {
 
 export default function measuresReducer(state = {
   items: [],
+  measures: {},
   fetching: false,
   fetched: false,
   error: null  
@@ -17,12 +18,15 @@ export default function measuresReducer(state = {
     case FETCH_INDEXES_REJECTED:
       return {...state, fetching: false, error: action.payload};
     case FETCH_INDEXES_FULFILLED:
-      return {
+      let { measures } = action;
+      const newState = {
         ...state,
         fetching: false,
         fetched: true,
-        items: action.measures,
+        items: measures.map(measure => measure.objectID),
       };
+      measures.forEach(measure => newState.measures[measure.objectID] = measure);
+      return newState;
     default:
       return state;
   }
