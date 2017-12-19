@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter } from '@fortawesome/fontawesome-free-brands';
 
-import '../../scss/Layout.css';
+import '../../scss/layout.css';
 
 const Header = () =>
   <header className="header">
