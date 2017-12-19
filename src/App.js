@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { InstantSearch } from 'react-instantsearch/dom';
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
-import { find, filter } from 'lodash';
+import { Route, Redirect, Switch } from 'react-router-dom';
+import { ConnectedRouter as Router } from 'react-router-redux';
 import qs from 'qs';
+import { find, filter } from 'lodash';
+
+import { history } from './js/store';
 import './scss/App.css';
 
 import Page from './js/components/Page';
@@ -71,11 +75,20 @@ class Layout extends Component {
     );
   }
 };
+
+Layout = connect(({profiles, themes, query}) => {
+  return {
+    profiles,
+    themes,
+    query,
+    searchState: Object.assign({}, themes.searchState, profiles.searchState, query.searchState)
+  };
+})(Layout);
   
 class App extends Component {
   render() {
     return (
-      <Router>
+      <Router history={history}>
         <Page>
           <Switch>
             <Route path="/:locale/:profile?" component={Layout} />
