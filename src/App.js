@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import algoliasearch from 'algoliasearch';
 import { InstantSearch } from 'react-instantsearch/dom';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { find, filter } from 'lodash';
