@@ -1,8 +1,8 @@
 {
-  "main.css": "static/css/main.201ea827.css",
-  "main.css.map": "static/css/main.201ea827.css.map",
-  "main.js": "static/js/main.af77c51a.js",
-  "main.js.map": "static/js/main.af77c51a.js.map",
+  "main.css": "static/css/main.904da947.css",
+  "main.css.map": "static/css/main.904da947.css.map",
+  "main.js": "static/js/main.eebd844c.js",
+  "main.js.map": "static/js/main.eebd844c.js.map",
   "static/media/gillsans-heavy-italic.eot": "static/media/gillsans-heavy-italic.fe647159.eot",
   "static/media/gillsans-heavy-italic.ttf": "static/media/gillsans-heavy-italic.59dec178.ttf",
   "static/media/gillsans-heavy-italic.woff": "static/media/gillsans-heavy-italic.37a203fc.woff",
@@ -23,5 +23,6 @@
   "static/media/gillsans-regular.eot": "static/media/gillsans-regular.e2206332.eot",
   "static/media/gillsans-regular.ttf": "static/media/gillsans-regular.77fabd7f.ttf",
   "static/media/gillsans-regular.woff": "static/media/gillsans-regular.12341fd5.woff",
-  "static/media/gillsans-regular.woff2": "static/media/gillsans-regular.3dac8089.woff2"
+  "static/media/gillsans-regular.woff2": "static/media/gillsans-regular.3dac8089.woff2",
+  "static/media/macron.jpg": "static/media/macron.b3c5b8c9.jpg"
 }
