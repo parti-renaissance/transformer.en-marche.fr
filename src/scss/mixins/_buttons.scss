@@ -17,3 +17,9 @@
   border-radius: 4px;
   padding: 5px 10px;
 }
+
+@mixin bluepurple-button {
+  @include button-base;
+  background-color: $bluepurple;
+  color: white;
+}
