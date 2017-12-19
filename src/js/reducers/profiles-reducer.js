@@ -3,7 +3,7 @@ import {
   FETCH_INDEXES_PENDING,
   FETCH_INDEXES_REJECTED,
   FETCH_INDEXES_FULFILLED,
-} from '../actions/load-data';
+} from '../actions/algolia-actions';
 
 export default function profilesReducer(state = {
   items: [],

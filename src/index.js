@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
-import { fetchIndexes } from './js/actions/load-data';
-
+import { fetchIndexes } from './js/actions/algolia-actions';
 import store from './js/store';
 
 store.dispatch(fetchIndexes());
