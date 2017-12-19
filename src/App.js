@@ -15,10 +15,6 @@ const APP_ID = process.env.REACT_APP_ALGOLIA_APP_ID;
 const API_KEY = process.env.REACT_APP_ALGOLIA_API_KEY;
 const INDEX_NAME = process.env.REACT_APP_ALGOLIA_INDEX_NAME;
 
-const client = algoliasearch("CUET2HJEQ6", "962e8937e28d8ac7a13f814f89138a6b");
-const measuresClient = client.initIndex('Measure_dev');
-const profilesClient = client.initIndex('Profile_dev');
-const themesClient = client.initIndex('Theme_dev');
 
 const updateAfter = 125;
 
@@ -126,14 +122,6 @@ class Layout extends Component {
 };
   
 class App extends Component {
-  state = {}
-  
-  componentDidMount() {
-    measuresClient.search({}, (err, content) => this.setState({ measures: content.hits }));
-    profilesClient.search({}, (err, content) => this.setState({ profiles: content.hits }));
-    themesClient.search({}, (err, content) => this.setState({ themes: content.hits }));
-  }
-  
   render() {
     return (
       <Router>
