@@ -1,6 +1,7 @@
 import React from 'react';
 import { map } from 'lodash';
 import moment from 'moment-timezone';
+import { connect } from 'react-redux';
 
 moment.tz.setDefault('Europe/Paris');
 
@@ -16,4 +17,4 @@ const LastUpdated = ({ measures }) => {
   return <small>Dernière mise à jour il y a {diff} {unit}.</small>
 };
 
-export default LastUpdated;
+export default connect(state => ({measures: state.measures.items}))(LastUpdated);
