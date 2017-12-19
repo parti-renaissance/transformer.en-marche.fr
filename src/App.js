@@ -127,8 +127,7 @@ class App extends Component {
       <Router>
         <Page>
           <Switch>
-            <Route path="/:locale/:profile" render={props => <Layout {...this.state} {...props}/>} />
-            <Route path="/:locale" render={props => <Layout {...this.state} {...props}/>} />
+            <Route path="/:locale/:profile?" component={Layout} />
             <Route exact path="/" render={() => <Redirect to="/fr" />} />
           </Switch>
         </Page>
