@@ -69,11 +69,12 @@ class Layout extends Component {
   }
 };
 
-export default connect(({profiles, themes, query}) => {
+export default connect(({profiles, themes, query, locale}) => {
   return {
     profiles,
     themes,
     query,
+    locale,
     searchState: Object.assign({}, themes.searchState, profiles.searchState, query.searchState)
   };
 })(Layout);

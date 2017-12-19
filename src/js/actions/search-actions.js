@@ -22,13 +22,13 @@ export function setProfile(profile) {
   };
 }
 
-export function toggleProfile({ slug, objectID, isActive}, location) {
+export function toggleProfile({ slug, objectID, isActive}, location, locale) {
   return dispatch => {
     if (isActive) {
-      dispatch(push(`/fr${location.search}`));
+      dispatch(push(`/${locale}/results${location.search}`));
       dispatch(setProfile(null));
     } else {
-      dispatch(push(`/fr/${slug}${location.search}`));
+      dispatch(push(`/${locale}/${slug}${location.search}`));
       dispatch(setProfile(objectID));
     }
   }

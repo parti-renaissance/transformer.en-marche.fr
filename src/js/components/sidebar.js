@@ -144,7 +144,7 @@ const ThemeFilters = connectRefinementList(({children, themes = [], items = [], 
 });
 
 
-const Profiles = connectMenu(({items, profiles, toggleProfile, location}) => {
+const Profiles = connectMenu(({items, profiles, toggleProfile, location, locale}) => {
   let filteredLabels = map(items, 'label')
   let filtered = filter(profiles, p => filteredLabels.includes(p.title));
   let list = filtered.map((profile, i) => {
@@ -154,7 +154,7 @@ const Profiles = connectMenu(({items, profiles, toggleProfile, location}) => {
           style={getColor(i)}
           label={profile.title}
           isActive={profile.isActive}
-          onClick={() => toggleProfile(profile, location)} />
+          onClick={() => toggleProfile(profile, location, locale)} />
       </li>
     )
   });
@@ -184,6 +184,7 @@ class Sidebar extends Component {
         <h3 className="sidebar-title">Je suis...</h3>
         <Profiles
           location={location}
+          locale={match.params.locale}
           toggleProfile={toggleProfile}
           profiles={profiles}
           limitMin={1000}
