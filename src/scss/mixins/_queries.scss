@@ -1,4 +1,5 @@
 $medium-and-up: "min-width: 420px";
+$large-and-up: "min-width: 800px";
 
 @mixin mq($query) {
   @media only screen and ($query) {
