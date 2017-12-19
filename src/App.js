@@ -53,22 +53,17 @@ class Layout extends Component {
   }
   
   render() {
-    let { measures, themes } = this.props;
+    let { dispatch, location, match, searchState } = this.props;
     return (
       <InstantSearch
         appId={APP_ID}
         apiKey={API_KEY}
         indexName={INDEX_NAME}
-        searchState={this.state.searchState}
-        onSearchStateChange={this.onSearchStateChange}
-        createURL={createURL}
+        searchState={searchState}
       >
 
         <main className="main">
-        {/*
-          measures are passed in to show the most recently updated measure
-        */}
-          <Sidebar measures={measures} themes={themes} />
+          <Sidebar dispatch={dispatch} location={location} match={match} />
           <Content />
         </main>
   
