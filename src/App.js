@@ -3,7 +3,6 @@ import { InstantSearch } from 'react-instantsearch/dom';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { find, filter } from 'lodash';
 import qs from 'qs';
-import _slugify from 'slugify';
 import './scss/App.css';
 
 import Page from './js/components/Page';
@@ -14,86 +13,17 @@ const APP_ID = process.env.REACT_APP_ALGOLIA_APP_ID;
 const API_KEY = process.env.REACT_APP_ALGOLIA_API_KEY;
 const INDEX_NAME = process.env.REACT_APP_ALGOLIA_INDEX_NAME;
 
-
-const updateAfter = 125;
-
-const slugify = str => _slugify(str, {lower:true}).replace(/'/, '-');
-
-const createURL = ({ menu = {}, refinementList = {}, query = '' }) => {
-  let profilePathParam = menu['measures.profiles.title'] || '';
-  let path = `${slugify(profilePathParam)}`;
-  
-  let qs = [];
-  let themes = refinementList.title ? refinementList.title.map(slugify).join(',') : '';
-  if (themes) {
-    qs.push(`theme=${themes.replace(/'/, '-')}`);
-  }
-  if (query) {
-    qs.push(`q=${query}`);
-  }
-  
-  return `${path}${qs.length ? `?${qs.join('&')}` : ''}`;
-}
-
-const searchStateToUrl = ({match: { params }}, searchState) => {
-  return searchState ? `/${params.locale}/${createURL(searchState)}` : '';
-}
-const urlToSearchState = ({ match, location, history, profiles, themes}) => {
-  const searchState = {refinementList: {}, menu: {}, query: {}};
-  
-  let { theme, q } = qs.parse(location.search.slice(1));
-  searchState.query = q;
-  
-  if (themes && theme) {
-    let themeList = theme ? filter(themes, t => theme.split(',').includes(t.slug)).map(t => t.title) : '';
-    if (themeList.length) {
-      searchState.refinementList.title = themeList;
-    } else {
-      history.push({
-        pathanme: location.pathname,
-        search: ''
-      });
-    }
-  }
-  
-  let { profile } = match.params;
-  let profileMatch = find(profiles, ['slug', profile]);
-  if (profileMatch) {
-    searchState.menu['measures.profiles.title'] = profileMatch.title;
-  } else {
-    delete searchState.menu;
-  }
-  return searchState;
-}
-
 const Content = () =>
   <div className="content">
     <Results />
   </div>
   
-  
 class Layout extends Component {
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      searchState: urlToSearchState(props),
     }
   }
   
-  componentWillReceiveProps(props) {
-    this.setState({ searchState: urlToSearchState(props) });
   }
   
-  onSearchStateChange = searchState => {
-    clearTimeout(this.debouncedSetState);
-    this.debouncedSetState = setTimeout(() => {
-      this.props.history.push(
-        searchStateToUrl(this.props, searchState),
-        searchState
-      );
-    }, updateAfter);
-    this.setState({ searchState });
   }
   render() {
     let { measures, themes } = this.props;
