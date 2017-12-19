@@ -9,9 +9,9 @@ import { find, filter } from 'lodash';
 import { history } from './js/store';
 import './scss/App.css';
 
-import Page from './js/components/Page';
-import Sidebar from './js/static/sidebar';
-import Results from './js/static/results';
+import Page from './js/components/page';
+import Sidebar from './js/components/sidebar';
+import Results from './js/components/results';
 
 import { setProfile, toggleThemeFacet } from './js/actions/search-actions';
 
@@ -65,11 +65,8 @@ class Layout extends Component {
         indexName={INDEX_NAME}
         searchState={searchState}
       >
-
-        <main className="main">
           <Sidebar dispatch={dispatch} location={location} match={match} />
           <Content />
-        </main>
   
       </InstantSearch>
     );
@@ -90,10 +87,12 @@ class App extends Component {
     return (
       <Router history={history}>
         <Page>
-          <Switch>
-            <Route path="/:locale/:profile?" component={Layout} />
-            <Route exact path="/" render={() => <Redirect to="/fr" />} />
-          </Switch>
+          <main className="main">
+            <Switch>
+              <Route path="/:locale/:profile?" component={Layout} />
+              <Route exact path="/" render={() => <Redirect to="/fr" />} />
+            </Switch>
+          </main>
         </Page>
       </Router>
     );
