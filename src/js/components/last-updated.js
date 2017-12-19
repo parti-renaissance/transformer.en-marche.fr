@@ -3,8 +3,6 @@ import { map } from 'lodash';
 import moment from 'moment-timezone';
 import { connect } from 'react-redux';
 
-moment.tz.setDefault('Europe/Paris');
-
 const LastUpdated = ({ measures }) => {
   let dates = map(measures, 'updatedAt');
   dates.sort();
