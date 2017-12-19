@@ -7,6 +7,7 @@ import './scss/App.css';
 
 import Layout from './js/components/layout';
 import SearchPage from './js/components/search-page';
+import Dashboard from './js/components/dashboard';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
             <Switch>
               <Route path="/:locale/:profile" component={SearchPage} />
               <Route path="/:locale/results" component={SearchPage} />
+              <Route exact path="/:locale" component={Dashboard} />
               <Redirect from="/" to="/fr" />
             </Switch>
           </main>
