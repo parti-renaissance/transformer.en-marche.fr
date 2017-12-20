@@ -1,5 +1,5 @@
 import { INDEXES } from '../actions/data-actions';
-import { VOTES } from '../actions/vote-actions';
+import { VOTES, MY_VOTES, VOTE_UP, VOTE_DOWN } from '../actions/vote-actions';
 
 export default function measuresReducer(state = {
   items: [],
@@ -31,6 +31,7 @@ export default function measuresReducer(state = {
       return newState;
     }
     
+    
     case `${VOTES}_FULFILLED`: {
       const newState = { ...state };
       action.payload.forEach(({ itemId, count }) => {
@@ -39,6 +40,20 @@ export default function measuresReducer(state = {
       });
       return newState;
     }
+    
+    case `${MY_VOTES}_FULFILLED`: {
+      const newState = { ...state };
+      action.payload.forEach(({ itemId }) => {
+        let stateMeasure = newState.measures[itemId] || {};
+        newState.measures[itemId] = Object.assign({}, stateMeasure, {isActive: true});
+      });
+      return newState;
+    }
+    
+    case `${VOTE_UP}_PENDING`:
+      const newState = { ...state };
+      newState.measures[action.payload].isActive = true;
+      return newState;
 
     default:
       return state;
