@@ -1,5 +1,6 @@
 import { VOTES } from '../actions/vote-actions';
 import { PROGRESS } from '../actions/data-actions';
+import sortBy from 'lodash/sortBy';
 
 export function popularReducer(state = { items: [] }, action) {
   switch(action.type) {
@@ -8,7 +9,12 @@ export function popularReducer(state = { items: [] }, action) {
     case `${VOTES}_REJECTED`:
       return {...state, fetching: false, error: action.payload};
     case `${VOTES}_FULFILLED`:
-      return {...state, fetching: false, fetched: true, items: action.payload};
+      return {
+        ...state,
+        fetching: false,
+        fetched: true,
+        items: sortBy(action.payload, 'count')
+      };
     default:
       return state;
   }
