@@ -12,9 +12,12 @@ export const getVoteCount = () => ({
 
 export const voteUp = (itemId, token) => ({
   type: VOTE_UP,
-  payload: fetch(`${apiPrefix}/items/${itemId}/votes/up`, {headers: {
-    Authorization: `Bearer ${token}`
-  }, method: 'PUT'}).then(r => r.json().catch(() => {})) // swallow any parsing errors
+  payload: {
+    promise: fetch(`${apiPrefix}/items/${itemId}/votes/up`, {headers: {
+      Authorization: `Bearer ${token}`
+    }, method: 'PUT'}).then(r => r.json().catch(() => {})), // swallow any parsing errors
+    data: itemId
+  }
 })
 
 export const voteDown = (itemId, token) => ({
