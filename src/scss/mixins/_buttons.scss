@@ -23,3 +23,9 @@
   background-color: $bluepurple;
   color: white;
 }
+
+@mixin blue-button {
+  @include button-base;
+  background-color: $brightblue;
+  color: white;
+}
