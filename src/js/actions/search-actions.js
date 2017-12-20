@@ -11,14 +11,14 @@ export const DO_QUERY = 'DO_QUERY';
 export function doQuery(query) {
   return {
     type: DO_QUERY,
-    query
+    payload: query
   }
 }
 
 export function setProfile(profile) {
   return {
     type: SET_PROFILE,
-    profile
+    payload: profile
   };
 }
 
@@ -37,7 +37,7 @@ export function toggleProfile({ slug, objectID, isActive}, location, locale) {
 export function toggleThemeFacet(theme) {
   return {
     type: TOGGLE_THEME_FACET,
-    theme
+    payload: theme
   };
 }
 

@@ -18,7 +18,7 @@ export default function measuresReducer(state = {
     case FETCH_INDEXES_REJECTED:
       return {...state, fetching: false, error: action.payload};
     case FETCH_INDEXES_FULFILLED:
-      let { measures } = action;
+      let { measures } = action.payload;
       const newState = {
         ...state,
         fetching: false,

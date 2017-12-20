@@ -23,6 +23,7 @@ export default function profilesReducer(state = {
       return {...state, fetching: false, error: action.payload};
     case FETCH_INDEXES_FULFILLED: {
       let { profiles } = action;
+      let { profiles } = action.payload;
       const newState = {
         ...state,
         fetching: false,
@@ -36,7 +37,7 @@ export default function profilesReducer(state = {
     case SET_PROFILE: {
       console.log('set profile')
       let { profiles } = state;
-      let { profile } = action;
+      let { payload:profile } = action;
       const newState = {
         ...state,
         searchState: {

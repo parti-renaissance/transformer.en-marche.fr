@@ -7,11 +7,11 @@ export default function queryReducer(state = {
 
   switch(action.type) {
     case DO_QUERY:
-      if (action.query) {
+      if (action.payload) {
         return {
           ...state,
           searchState: {
-            query: action.query
+            query: action.payload
           }
         }
       } else {

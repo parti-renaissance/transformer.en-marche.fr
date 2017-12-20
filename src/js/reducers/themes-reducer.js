@@ -26,25 +26,26 @@ export default function themesReducer(state = {
       return {...state, fetching: false, error: action.payload};
       
     case FETCH_INDEXES_FULFILLED:
+      let { themes } = action.payload;
       const newState = {
         ...state,
         fetching: false,
         fetched: true,
-        items: action.themes.map(theme => theme.objectID),
+        items: themes.map(theme => theme.objectID),
       };
-      action.themes.forEach(theme => newState.themes[theme.objectID] = theme);
+      themes.forEach(theme => newState.themes[theme.objectID] = theme);
       return newState;
       
     case TOGGLE_THEME_FACET:
       let currentTitles = state.searchState.refinementList.title;
-      let { title, isActive } = state.themes[action.theme];
+      let { title, isActive } = state.themes[action.payload];
       let becomingActive = !isActive;
       
       return {
         ...state,
         themes: Object.assign({}, state.themes, {
-          [action.theme]: {
-            ...state.themes[action.theme],
+          [action.payload]: {
+            ...state.themes[action.payload],
             isActive: becomingActive
           }
         }),
