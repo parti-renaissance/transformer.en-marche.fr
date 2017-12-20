@@ -1,10 +1,7 @@
 import algoliasearch from 'algoliasearch';
 
-export const VOTES = 'VOTES';
 export const INDEXES = 'INDEXES';
 export const PROGRESS = 'PROGRESS';
-
-const voteAPI = `${process.env.REACT_APP_API_HOST}/api/items/votes`;
 
 export function fetchIndexes() {
   const APP_ID = process.env.REACT_APP_ALGOLIA_APP_ID;
@@ -47,15 +44,4 @@ export function progression() {
       }
     }
   };
-}
-
-export function getVoteCount() {
-  return {
-    type: VOTES,
-    payload: fetch(`${voteAPI}/count`).then(r => r.json())
-  }
-}
-
-export function functionName() {
-  
 }
