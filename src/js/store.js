@@ -10,6 +10,23 @@ import reducer from './reducers';
 
 export const history = createHistory();
 
-const middleware = applyMiddleware(promise(), thunk, routerMiddleware(history), createLogger());
+const authMiddleware = (authActions = []) => {
+  return store => next => action => {
+    let state = store.getState();
+    if (authActions.includes(action.type) && !state.auth.token) {
+      return store.dispatch({type: 'ASK_AUTH'});
+    } else {
+      return next(action);
+    }
+  }
+}
+
+const middleware = applyMiddleware(
+  promise(),
+  thunk,
+  routerMiddleware(history),
+  createLogger(),
+  authMiddleware(['VOTE_UP_PENDING', 'VOTE_DOWN_PENDING', 'MY_VOTES_PENDING'])
+);
 
 export default createStore(reducer, middleware);
