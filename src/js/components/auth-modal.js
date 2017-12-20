@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Modal from 'react-modal';
 
 import '../../scss/auth-modal.css';
