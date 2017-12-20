@@ -20,8 +20,16 @@
   top: 0;
   z-index: $zIndex--header;
   
+  border-bottom: 1px solid transparent;
+  
   @include mq($medium-and-up) {
     font-size: 28px;
+  }
+  
+  .Page__dashboard > & {
+    background-color: white;
+    color: black;
+    border-bottom-color: $blueishgray;
   }
 }
 
@@ -31,6 +39,10 @@
   font-style: oblique;
   color: white;
   text-decoration: none;
+  
+  .Page__dashboard & {
+    color: black;
+  }
 }
 
 .header-tag {
@@ -61,6 +73,12 @@
     font-size: 14px;
     font-family: $font-roboto;
     font-weight: bold;
+    
+    color: white;
+    
+    .Page__dashboard & {
+      color: $orange;
+    }
   }
 }
 

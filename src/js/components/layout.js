@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter } from '@fortawesome/fontawesome-free-brands';
+import { withRouter } from 'react-router'
 
 import '../../scss/layout.css';
 
@@ -32,10 +33,12 @@ const Footer = () =>
     </div>
   </footer>
 
-export default class Page extends Component {
+class Page extends Component {
   render() {
+    let { location } = this.props;
+    let isDashboard = location && location.pathname.slice(1).split('/').length <= 1;
     return (
-      <div className="Page">
+      <div className={`Page${isDashboard ? ' Page__dashboard' : ''}`}>
         <Header />
         {this.props.children}
         <Footer />
@@ -43,3 +46,5 @@ export default class Page extends Component {
     )
   }
 }
+
+export default withRouter(Page);
