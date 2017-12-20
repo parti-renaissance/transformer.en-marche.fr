@@ -28,9 +28,7 @@ export default function profilesReducer(state = {
       profiles.forEach(profile => newState.profiles[profile.objectID] = profile);
       return newState;
       
-    }
     case SET_PROFILE: {
-      console.log('set profile')
       let { profiles } = state;
       let { payload:profile } = action;
       const newState = {
