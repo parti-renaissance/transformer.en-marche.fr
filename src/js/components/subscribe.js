@@ -29,7 +29,7 @@ class SubscribeForm extends Component {
       return;
     }
 
-    const url = getAjaxUrl(this.props.action) + `&EMAIL=${encodeURIComponent(this.input.value)}`;
+    const url = getAjaxUrl(this.props.action) + `&EMAIL=${encodeURIComponent(this.input.value)}&group[2631][16]=16`;
     
     this.setState({ status: "sending", msg: null }, this.submit.bind(this, url));
   }
