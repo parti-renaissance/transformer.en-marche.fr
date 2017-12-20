@@ -6,10 +6,12 @@ import compact from 'lodash/compact';
 
 import { getVoteCount } from '../actions/vote-actions';
 import { progression } from '../actions/data-actions';
+import { closeAuth } from '../actions/auth-actions';
 import { Measures } from './measure';
 import LastUpdated from './last-updated';
 import ProgressMeter from './progress-meter';
 import Subscribe from './subscribe';
+import AuthModal from './auth-modal';
 
 import '../../scss/dashboard.css';
 import macron from '../../images/macron.jpg';
@@ -128,6 +130,8 @@ class Dashboard extends Component {
             </DashboardBox>
           </DashboardRow>
         </DashboardBody>
+        
+        <AuthModal isOpen={this.props.openModal} closeModal={this.props.closeAuth} />
       </div>
     )
   }
@@ -138,8 +142,10 @@ export default connect(state => ({
   popular: state.popular.items,
   progress: state.progress,
   allMeasures: state.measures,
-  locale: state.locale
+  locale: state.locale,
+  openModal: state.auth.openModal
 }), dispatch => ({
   getVotes: () => dispatch(getVoteCount()),
-  getProgress: () => dispatch(progression())
+  getProgress: () => dispatch(progression()),
+  closeAuth: () => dispatch(closeAuth()),
 }))(Dashboard);
