@@ -6,7 +6,7 @@ import { ShareButtons, generateShareIcon } from 'react-share';
 
 import '../../scss/measure.css';
 import VoteButton from './vote-button';
-import { voteUp } from '../actions/vote-actions';
+import { voteUp, voteDown } from '../actions/vote-actions';
 
 const { FacebookShareButton, TwitterShareButton } = ShareButtons;
 const FacebookIcon = generateShareIcon('facebook');
@@ -57,7 +57,11 @@ const LinkOrDiv = ({ measure, children }) => {
   }
 }
 
-export const Measure = connect()(({measure, dispatch}) => {
+export const Measure = connect(state => ({
+  token: state.auth.token
+}), dispatch => ({
+  vote: (isActive, ...args) => dispatch(isActive ? voteDown(...args) : voteUp(...args))
+}))(({measure, vote, token}) => {
   return (
     <LinkOrDiv measure={measure}>
       <div className="measure-body">
@@ -70,7 +74,9 @@ export const Measure = connect()(({measure, dispatch}) => {
         
         <div className="measure-vote">
           <span>{measure.count}</span>
-          <VoteButton onClick={() => dispatch(voteUp(measure.objectID))}/>
+          <VoteButton
+            isActive={measure.isActive}
+            onClick={isActive => vote(isActive, measure.objectID, token)}/>
         </div>
       </div>
       
