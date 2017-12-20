@@ -1,0 +1,40 @@
+@import "mixins/vars";
+@import "mixins/buttons";
+
+.vote-button {
+  @include button-base;
+  padding: 8px;
+  border: 1px solid $blueishgray;
+  border-radius: 3px;
+  background-color: rgba($bluepurple, 0);
+  
+  transition: background-color 125ms ease, border-color 125ms ease;
+  
+  .thumbs-up path {
+    transition: stroke 125ms ease;
+  }
+  
+  &.is-active,
+  &:hover {
+    background-color: rgba($bluepurple, 1);
+    border-color: $bluepurple;
+    
+    .thumbs-up path {
+      stroke: white;
+    }
+  }
+  
+  &.is-active:hover {
+    background-color: rgba($bluepurple, 0);
+    border-color: $blueishgray;
+    
+    .thumbs-up path {
+      stroke: #666;
+    }
+  }
+  
+  div {
+    width: 16px;
+    height: 16px;
+  }
+}

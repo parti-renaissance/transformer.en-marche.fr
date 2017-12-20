@@ -50,6 +50,7 @@
 .measure-body {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   text-decoration: none;
 }
 
@@ -81,12 +82,12 @@
 
 .measure-name {
   font-family: $font-roboto;
+  flex: 1;
   
   .en-vigueur[href] &::after,
   .voté[href] &::after {
     content: ' →';
   }
-
 }
 
 .measure-accordion {
