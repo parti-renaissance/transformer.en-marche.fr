@@ -90,6 +90,19 @@
   }
 }
 
+.measure-vote {
+  display: flex;
+  align-items: center;
+
+  > span {
+    display: inline-block;
+    margin-right: 7px;
+    color: $darkgray;
+    font-size: 12px;
+    font-family: $font-roboto;
+  }
+}
+
 .measure-accordion {
   position: relative;
 }

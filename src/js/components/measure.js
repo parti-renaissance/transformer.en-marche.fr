@@ -4,6 +4,7 @@ import { ChevronDown, ChevronUp } from 'react-feather';
 import { ShareButtons, generateShareIcon } from 'react-share';
 
 import '../../scss/measure.css';
+import VoteButton from './vote-button';
 
 const { FacebookShareButton, TwitterShareButton } = ShareButtons;
 const FacebookIcon = generateShareIcon('facebook');
@@ -62,6 +63,11 @@ export const Measure = ({measure}) =>
       </div>
       <div className="measure-name">
         {measure.title}
+      </div>
+      
+      <div className="measure-vote">
+        <span>{measure.count}</span>
+        <VoteButton/>
       </div>
     </div>
     
