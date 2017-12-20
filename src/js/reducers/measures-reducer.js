@@ -1,4 +1,5 @@
 import { INDEXES } from '../actions/data-actions';
+import { VOTES } from '../actions/vote-actions';
 
 export default function measuresReducer(state = {
   items: [],

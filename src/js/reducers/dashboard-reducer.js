@@ -1,4 +1,5 @@
-import { PROGRESS, VOTES } from '../actions/data-actions';
+import { VOTES } from '../actions/vote-actions';
+import { PROGRESS } from '../actions/data-actions';
 
 export function popularReducer(state = { items: [] }, action) {
   switch(action.type) {
