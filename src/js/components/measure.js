@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import Collapsible from 'react-collapsible';
+import { connect } from 'react-redux';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { ShareButtons, generateShareIcon } from 'react-share';
 
 import '../../scss/measure.css';
 import VoteButton from './vote-button';
+import { voteUp } from '../actions/vote-actions';
 
 const { FacebookShareButton, TwitterShareButton } = ShareButtons;
 const FacebookIcon = generateShareIcon('facebook');
@@ -55,24 +57,28 @@ const LinkOrDiv = ({ measure, children }) => {
   }
 }
 
-export const Measure = ({measure}) =>
-  <LinkOrDiv measure={measure}>
-    <div className="measure-body">
-      <div className="measure-status">
-        {STATUS_MAP[measure.status]}
-      </div>
-      <div className="measure-name">
-        {measure.title}
+export const Measure = connect()(({measure, dispatch}) => {
+  return (
+    <LinkOrDiv measure={measure}>
+      <div className="measure-body">
+        <div className="measure-status">
+          {STATUS_MAP[measure.status]}
+        </div>
+        <div className="measure-name">
+          {measure.title}
+        </div>
+        
+        <div className="measure-vote">
+          <span>{measure.count}</span>
+          <VoteButton onClick={() => dispatch(voteUp(measure.objectID))}/>
+        </div>
       </div>
       
-      <div className="measure-vote">
-        <span>{measure.count}</span>
-        <VoteButton/>
-      </div>
-    </div>
-    
-    <ShareMeasure measure={measure} />
-  </LinkOrDiv>
+      <ShareMeasure measure={measure} />
+    </LinkOrDiv>
+  );
+});
+
   
 const Trigger = ({ count, nodeRef }) =>
   <span ref={nodeRef}>
