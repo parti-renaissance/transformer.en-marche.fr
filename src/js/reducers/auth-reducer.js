@@ -21,7 +21,7 @@ export default function authReducer(state = { token: '', openModal: false }, act
         ...state,
         fetchingToken: false,
         fetchedToken: true,
-        token: action.payload
+        token: action.payload.access_token
       };
 
     default:
