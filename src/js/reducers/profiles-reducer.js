@@ -1,9 +1,5 @@
 import { SET_PROFILE } from '../actions/search-actions';
-import {
-  FETCH_INDEXES_PENDING,
-  FETCH_INDEXES_REJECTED,
-  FETCH_INDEXES_FULFILLED,
-} from '../actions/algolia-actions';
+import { INDEXES } from '../actions/data-actions';
 
 export default function profilesReducer(state = {
   items: [],
@@ -17,12 +13,11 @@ export default function profilesReducer(state = {
 }, action) {
   
   switch(action.type) {
-    case FETCH_INDEXES_PENDING:
+    case `${INDEXES}_PENDING`:
       return {...state, fetching: true};
-    case FETCH_INDEXES_REJECTED:
+    case `${INDEXES}_REJECTED`:
       return {...state, fetching: false, error: action.payload};
-    case FETCH_INDEXES_FULFILLED: {
-      let { profiles } = action;
+    case `${INDEXES}_FULFILLED`:
       let { profiles } = action.payload;
       const newState = {
         ...state,

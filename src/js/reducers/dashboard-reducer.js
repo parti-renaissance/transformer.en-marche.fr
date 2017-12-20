@@ -1,19 +1,12 @@
-import {
-  FETCH_POPULAR_PENDING,
-  FETCH_POPULAR_REJECTED,
-  FETCH_POPULAR_FULFILLED,
-  FETCH_PROGRESS_PENDING,
-  FETCH_PROGRESS_REJECTED,
-  FETCH_PROGRESS_FULFILLED,
-} from '../actions/dashboard-actions';
+import { PROGRESS, VOTES } from '../actions/data-actions';
 
 export function popularReducer(state = { items: [] }, action) {
   switch(action.type) {
-    case FETCH_POPULAR_PENDING:
+    case `${VOTES}_PENDING`:
       return {...state, fetching: true};
-    case FETCH_POPULAR_REJECTED:
+    case `${VOTES}_REJECTED`:
       return {...state, fetching: false, error: action.payload};
-    case FETCH_POPULAR_FULFILLED:
+    case `${VOTES}_FULFILLED`:
       return {...state, fetching: false, fetched: true, items: action.payload};
     default:
       return state;
@@ -22,11 +15,11 @@ export function popularReducer(state = { items: [] }, action) {
 
 export function progressReducer(state = { measures: {} }, action) {
   switch(action.type) {
-    case FETCH_PROGRESS_PENDING:
+    case `${PROGRESS}_PENDING`:
       return {...state, fetching: true};
-    case FETCH_PROGRESS_REJECTED:
+    case `${PROGRESS}_REJECTED`:
       return {...state, fetching: false, error: action.payload};
-    case FETCH_PROGRESS_FULFILLED:
+    case `${PROGRESS}_FULFILLED`:
       return {...state, fetching: false, fetched: true, measures: action.payload};
     default:
       return state;
