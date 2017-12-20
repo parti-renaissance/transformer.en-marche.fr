@@ -13,7 +13,7 @@ export const closeAuth = () => ({
   type: CLOSE_AUTH
 })
 
-export const getToken = (token, code) => ({
+export const getToken = code => ({
   type: TOKEN,
   payload: fetch(`${apiPrefix}/auth?redirect_uri=${redirectUri}&code=${code}`).then(r => r.json())
 })
