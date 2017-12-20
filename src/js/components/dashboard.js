@@ -4,7 +4,8 @@ import moment from 'moment-timezone';
 import { Link } from 'react-router-dom';
 import compact from 'lodash/compact';
 
-import { getVoteCount, progression } from '../actions/data-actions';
+import { getVoteCount } from '../actions/vote-actions';
+import { progression } from '../actions/data-actions';
 import { Measures } from './measure';
 import LastUpdated from './last-updated';
 import ProgressMeter from './progress-meter';
@@ -105,11 +106,12 @@ class Dashboard extends Component {
               <LastUpdated className="dashboard-updated" />
               
               {!!Object.keys(progress.measures).length &&
-              <Progressions measures={progress.measures} />}
+                <Progressions measures={progress.measures} />}
             </DashboardBox>
             <DashboardBox className="dashboard-popular">
               <h3 className="dashboard-box__title">Les 5 mesures les plus attendues</h3>
-              <Measures className="popular-measures" measures={measures} />
+              {!!allMeasures.items.length &&
+                <Measures className="popular-measures" measures={measures} />}
             </DashboardBox>
           </DashboardRow>
           
