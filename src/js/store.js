@@ -6,6 +6,8 @@ import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
 import createHistory from 'history/createBrowserHistory';
 
+import { openAuth } from './actions/auth-actions';
+
 import reducer from './reducers';
 
 export const history = createHistory();
@@ -14,7 +16,7 @@ const authMiddleware = (authActions = []) => {
   return store => next => action => {
     let state = store.getState();
     if (authActions.includes(action.type) && !state.auth.token) {
-      return store.dispatch({type: 'ASK_AUTH'});
+      return store.dispatch(openAuth());
     } else {
       return next(action);
     }
