@@ -4,7 +4,7 @@ import moment from 'moment-timezone';
 import { Link } from 'react-router-dom';
 import compact from 'lodash/compact';
 
-import { popularMeasures, progression } from '../actions/dashboard-actions';
+import { getVoteCount, progression } from '../actions/data-actions';
 import { Measures } from './measure';
 import LastUpdated from './last-updated';
 import ProgressMeter from './progress-meter';
@@ -82,7 +82,7 @@ const Progressions = ({ measures }) =>
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    props.getPopular();
+    props.getVotes();
     props.getProgress();
   }
   
@@ -138,6 +138,6 @@ export default connect(state => ({
   allMeasures: state.measures,
   locale: state.locale
 }), dispatch => ({
-  getPopular: () => dispatch(popularMeasures()),
+  getVotes: () => dispatch(getVoteCount()),
   getProgress: () => dispatch(progression())
 }))(Dashboard);

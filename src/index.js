@@ -5,7 +5,7 @@ import moment from 'moment-timezone';
 
 import './index.css';
 import App from './App';
-import { fetchIndexes } from './js/actions/algolia-actions';
+import { fetchIndexes } from './js/actions/data-actions';
 import store from './js/store';
 
 moment.tz.setDefault('Europe/Paris');
