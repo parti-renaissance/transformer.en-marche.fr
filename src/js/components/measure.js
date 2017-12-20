@@ -123,6 +123,6 @@ export const NoMeasure = ({theme}) =>
 
 export const Measures = ({ measures }) =>
   <div className="measure-list">
-    {measures.slice(0,5).map((measure, i) => <Measure key={i} measure={measure} />)}
+    {measures.slice(0,5).map((measure, i) => <Measure key={measure.objectID || i} measure={measure} />)}
     {measures.length > 6 ? <CollapsibleMeasures measures={measures} /> : null}
   </div>
