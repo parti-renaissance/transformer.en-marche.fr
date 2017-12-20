@@ -5,36 +5,28 @@ export const MY_VOTES = 'MY_VOTES';
 
 const apiPrefix = `${process.env.REACT_APP_API_HOST}/api`;
 
-export function getVoteCount() {
-  return {
-    type: VOTES,
-    payload: fetch(`${apiPrefix}/items/votes/count`).then(r => r.json())
-  }
-}
+export const getVoteCount = () => ({
+  type: VOTES,
+  payload: fetch(`${apiPrefix}/items/votes/count`).then(r => r.json())
+});
 
-export function voteUp(itemId, token) {
-  return {
-    type: VOTE_UP,
-    payload: fetch(`${apiPrefix}/items/${itemId}/votes/up`, {headers: {
-      Authorization: `Bearer ${token}`
-    }, method: 'PUT'}).then(r => r.json())
-  }
-}
+export const voteUp = (itemId, token) => ({
+  type: VOTE_UP,
+  payload: fetch(`${apiPrefix}/items/${itemId}/votes/up`, {headers: {
+    Authorization: `Bearer ${token}`
+  }, method: 'PUT'}).then(r => r.json().catch(() => {})) // swallow any parsing errors
+})
 
-export function voteDown(itemId, token) {
-  return {
-    type: VOTE_DOWN,
-    payload: fetch(`${apiPrefix}/items/${itemId}/votes/down`, {headers: {
-      Authorization: `Bearer ${token}`
-    }, method: 'PUT'}).then(r => r.json())
-  }
-}
+export const voteDown = (itemId, token) => ({
+  type: VOTE_DOWN,
+  payload: fetch(`${apiPrefix}/items/${itemId}/votes/down`, {headers: {
+    Authorization: `Bearer ${token}`
+  }, method: 'PUT'}).then(r => r.json().catch(() => {})) // swallow any parsing errors
+})
 
-export function myVotes(token) {
-  return {
-    type: MY_VOTES,
-    payload: fetch(`${apiPrefix}/votes/users/me`, {headers: {
-      Authorization: `Bearer ${token}`
-    }}).then(r => r.json())
-  }
-}
+export const myVotes = token => ({
+  type: MY_VOTES,
+  payload: fetch(`${apiPrefix}/votes/users/me`, {headers: {
+    Authorization: `Bearer ${token}`
+  }}).then(r => r.json())
+});

@@ -8,19 +8,15 @@ export const UNSET_PROFILE = 'UNSET_PROFILE';
 export const SET_PROFILE = 'SET_PROFILE';
 export const DO_QUERY = 'DO_QUERY';
 
-export function doQuery(query) {
-  return {
-    type: DO_QUERY,
-    payload: query
-  }
-}
+export const doQuery = query => ({
+  type: DO_QUERY,
+  payload: query
+});
 
-export function setProfile(profile) {
-  return {
-    type: SET_PROFILE,
-    payload: profile
-  };
-}
+export const setProfile = profile => ({
+  type: SET_PROFILE,
+  payload: profile
+});
 
 export function toggleProfile({ slug, objectID, isActive}, location, locale) {
   return dispatch => {
@@ -34,12 +30,10 @@ export function toggleProfile({ slug, objectID, isActive}, location, locale) {
   }
 }
 
-export function toggleThemeFacet(theme) {
-  return {
-    type: TOGGLE_THEME_FACET,
-    payload: theme
-  };
-}
+export const toggleThemeFacet = theme => ({
+  type: TOGGLE_THEME_FACET,
+  payload: theme
+});
 
 export function toggleTheme({ slug, isActive, objectID }, location, match) {
   return dispatch => {
