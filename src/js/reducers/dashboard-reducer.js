@@ -27,7 +27,12 @@ export function progressReducer(state = { measures: {} }, action) {
     case `${PROGRESS}_REJECTED`:
       return {...state, fetching: false, error: action.payload};
     case `${PROGRESS}_FULFILLED`:
-      return {...state, fetching: false, fetched: true, measures: action.payload};
+      return {
+        ...state,
+        fetching: false,
+        fetched: true,
+        measures: action.payload
+      };
     default:
       return state;
   }
