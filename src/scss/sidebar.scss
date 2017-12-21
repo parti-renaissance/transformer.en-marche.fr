@@ -5,7 +5,7 @@
 .sidebar {
   background-color: $lightgray;
   padding: 25px 25px 0 25px;
-  flex-basis: 355px;
+  flex: 1 0 355px;
   
   @include mq($medium-and-up) {
     padding: 75px 40px 0;
@@ -30,6 +30,10 @@
     display: flex;
     flex-flow: row wrap;
   }
+}
+
+.refinement-profiles .filter-button {
+  background-color: rgba($mediumgray, 0.2);
 }
 
 .refinement-list__item {

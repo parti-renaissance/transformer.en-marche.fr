@@ -159,14 +159,13 @@ const Profiles = connectMenu(({items, profiles, toggleProfile, location, locale}
     return (
       <li key={profile.objectID} className="refinement-list__item">
         <FilterButton
-          style={getColor(i)}
           label={profile.title}
           isActive={profile.isActive}
           onClick={() => toggleProfile(profile, location, locale)} />
       </li>
     )
   });
-  return <ul className="refinement-list">{list}</ul>
+  return <ul className="refinement-list refinement-profiles">{list}</ul>
 });
   
 
