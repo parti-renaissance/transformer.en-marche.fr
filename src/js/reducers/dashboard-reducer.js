@@ -13,7 +13,7 @@ export function popularReducer(state = { items: [] }, action) {
         ...state,
         fetching: false,
         fetched: true,
-        items: sortBy(action.payload, 'count')
+        items: sortBy(action.payload, 'count').slice(0, 5)
       };
     default:
       return state;
