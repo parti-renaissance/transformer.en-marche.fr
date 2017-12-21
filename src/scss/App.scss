@@ -5,6 +5,11 @@
 .ais-InstantSearch__root {
   flex: 1;
   display: flex;
+  flex-direction: column;
+  
+  @include mq($large-and-up) {
+    flex-direction: row;
+  }
 }
 
 .main {

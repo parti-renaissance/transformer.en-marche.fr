@@ -5,6 +5,8 @@ import { SearchBox } from 'react-instantsearch/dom';
 import { connectRefinementList, connectMenu } from 'react-instantsearch/connectors';
 import { reject, filter, map } from 'lodash';
 
+import Select from 'react-select';
+import Media from "react-media"
 import Color from 'color';
 
 import LastUpdated from './last-updated';
@@ -20,6 +22,7 @@ import {
 
 import '../../scss/sidebar.css';
 import '../../scss/filter-button.css';
+import 'react-select/dist/react-select.css';
 
 const BUTTON_COLORS = [
   {
@@ -101,7 +104,7 @@ class ThemeListItem extends Component {
 }
 
 
-const Themes = connect(({ themes }) => {
+const ThemesList = connect(({ themes }) => {
   return {
     themes: themes.items.map(id => themes.themes[id])
   }
@@ -128,6 +131,35 @@ const Themes = connect(({ themes }) => {
   );
 });
 
+class ThemesDropdown extends Component {
+  state = {}
+  
+  handleChange = value => {
+    let { toggleTheme, themes, location, match } = this.props;
+    
+    console.log(value);
+    this.setState({ value });
+    // toggleTheme(themes[value], location, match);
+  }
+  
+  render() {
+    return <Select
+            multi
+            value={this.state.value}
+            options={this.props.themesOptions}
+            onChange={this.handleChange}
+          />
+  }
+}
+
+ThemesDropdown = connect(({ themes: { themes, items }}) => ({
+  themesOptions: items.map(id => ({label: themes[id].title, value: id})),
+  themes
+}), dispatch => bindActionCreators({
+  toggleTheme
+}, dispatch))(ThemesDropdown);
+
+  
 const ThemeFilters = connectRefinementList(({children, themes = [], items = [], toggle}) => {
 
   const createListItems = (theme, i) =>
@@ -187,10 +219,17 @@ class Sidebar extends Component {
         </h3>
          <button className="sidebar-reset" onClick={() => resetParams(location, match, THEME)}>reset themes</button>
          
-        <Themes
-          location={location}
-          match={match}
-          onViewMore={this.seeMoreRefinements.bind(this)} />
+        <Media query="(min-width: 800px)">
+        {matches =>
+          matches ?
+            <ThemesList
+              location={location}
+              match={match}
+              onViewMore={this.seeMoreRefinements.bind(this)} />
+          :
+            <ThemesDropdown location={location} match={match} />
+        }
+        </Media>
         
         <h3 className="sidebar-title">
           Je suis...
