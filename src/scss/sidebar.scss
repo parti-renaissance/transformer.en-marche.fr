@@ -1,5 +1,6 @@
 @import "mixins/vars";
 @import "mixins/queries";
+@import "mixins/buttons";
 
 .sidebar {
   background-color: $lightgray;
@@ -15,7 +16,7 @@
   font-family: $font-roboto;
   font-size: 16px;
   color: #444;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .refinement-list {
@@ -50,6 +51,10 @@
   }
 }
 
+.sidebar-search {
+  margin-bottom: 35px;
+}
+
 .ais-SearchBox__root {
   display: none;
   
@@ -62,7 +67,7 @@
   display: flex;
   padding-bottom: 5px;
   border-bottom: 1px #e6ecf0 solid;
-  margin-bottom: 35px;
+  margin-bottom: 8px;
 }
 
 .ais-SearchBox__input {
@@ -101,5 +106,20 @@
   
   @include mq($medium-and-up) {
     display: block;
+  }
+}
+
+.sidebar-reset {
+  @include button-base;
+  display: block;
+  font-family: $font-roboto;
+  font-size: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(black, 0);
+  
+  transition: border-bottom-color 125ms ease;
+  
+  &:hover {
+    border-bottom-color: rgba(black, 1);
   }
 }
