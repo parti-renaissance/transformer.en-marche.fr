@@ -25,21 +25,3 @@ export function fetchIndexes() {
     .then(([measures, profiles, themes]) => ({measures, profiles, themes}))
   };
 }
-
-export const progression = () => ({
-  type: `${PROGRESS}_FULFILLED`,
-  payload: {
-    'fait': {
-      current: 35,
-      total: 272
-    },
-    'en cours': {
-      current: 12,
-      total: 36
-    },
-    'a venir': {
-      current: 556,
-      total: 695
-    }
-  }
-});

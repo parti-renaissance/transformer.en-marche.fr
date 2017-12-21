@@ -1,6 +1,7 @@
 import { VOTES } from '../actions/vote-actions';
-import { PROGRESS } from '../actions/data-actions';
+import { INDEXES } from '../actions/data-actions';
 import sortBy from 'lodash/sortBy';
+import countBy from 'lodash/countBy';
 
 export function popularReducer(state = { items: [] }, action) {
   switch(action.type) {
@@ -20,18 +21,20 @@ export function popularReducer(state = { items: [] }, action) {
   }
 }
 
-export function progressReducer(state = { measures: {} }, action) {
+export function statusReducer(state = { measures: {} }, action) {
   switch(action.type) {
-    case `${PROGRESS}_PENDING`:
+    case `${INDEXES}_PENDING`:
       return {...state, fetching: true};
-    case `${PROGRESS}_REJECTED`:
+    case `${INDEXES}_REJECTED`:
       return {...state, fetching: false, error: action.payload};
-    case `${PROGRESS}_FULFILLED`:
+    case `${INDEXES}_FULFILLED`:
+      let { measures } = action.payload;
       return {
         ...state,
         fetching: false,
         fetched: true,
-        measures: action.payload
+        measures: countBy(measures, 'status'),
+        total: measures.length
       };
     default:
       return state;
