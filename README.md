@@ -6,6 +6,7 @@
 create an `.env` file and set the values appropriately
 
 `$ cp .env.sample .env`
+`yarn install`
 
 ### start development server
 
