@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import compact from 'lodash/compact';
 
 import { getVoteCount } from '../actions/vote-actions';
-import { progression } from '../actions/data-actions';
 import { closeAuth } from '../actions/auth-actions';
 import { Measures } from './measure';
 import LastUpdated from './last-updated';
@@ -64,21 +63,21 @@ const DashboardBody = ({ children }) =>
 
 const DashboardTimer = ({ total, current }) =>
   <div className="dashboard-timer">
-    <ProgressMeter reverse total={total} current={current} colors={{bg: '#e0e0e0', fill: '#7181ff'}}>
+    <ProgressMeter reverse total={total} current={current} className="timeline">
       {current} jours restant au mandat
     </ProgressMeter>
   </div>
 
-const Progressions = ({ measures }) =>
+const Progressions = ({ measures, total }) =>
   <div className="dashboard-progressions">
-    <ProgressMeter total={measures['fait'].total} current={measures['fait'].current} colors={{fill: '#50a384'}} >
-      <span>{measures['fait'].current}</span> faites
+    <ProgressMeter total={total} current={measures['IS_LAW']} className="fait">
+      <span>{measures['IS_LAW']}</span> faites
     </ProgressMeter>
-    <ProgressMeter total={measures['en cours'].total} current={measures['en cours'].current} colors={{fill: '#d35d4a'}}>
-      <span>{measures['en cours'].current}</span> en cours
+    <ProgressMeter total={total} current={measures['VOTED']} className="en-cours">
+      <span>{measures['VOTED']}</span> en cours
     </ProgressMeter>
-    <ProgressMeter total={measures['a venir'].total} current={measures['a venir'].current} colors={{fill: '#5b7588'}}>
-      <span>{measures['a venir'].current}</span> à venir
+    <ProgressMeter total={total} current={measures['IN_PROGRESS']} className="venir">
+      <span>{measures['IN_PROGRESS']}</span> à venir
     </ProgressMeter>
   </div>
 
@@ -91,11 +90,10 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     props.getVotes();
-    props.getProgress();
   }
   
   render() {
-    let { allMeasures, popular, progress, locale } = this.props;
+    let { allMeasures, popular, status, locale } = this.props;
     let measures = compact(popular.map(({ itemId }) => allMeasures.measures[itemId]));
     
     return (
@@ -109,8 +107,8 @@ class Dashboard extends Component {
               <h3 className="dashboard-box__title">La progression</h3>
               <LastUpdated className="dashboard-updated" />
               
-              {!!Object.keys(progress.measures).length &&
-                <Progressions measures={progress.measures} />}
+              {!!Object.keys(status.measures).length &&
+                <Progressions measures={status.measures} total={status.total} />}
             </DashboardBox>
             <DashboardBox className="dashboard-popular">
               <h3 className="dashboard-box__title">Les 5 mesures les plus attendues</h3>
@@ -142,12 +140,11 @@ class Dashboard extends Component {
 
 export default connect(state => ({
   popular: state.popular.items,
-  progress: state.progress,
+  status: state.status,
   allMeasures: state.measures,
   locale: state.locale,
   openModal: state.auth.openModal
 }), dispatch => ({
   getVotes: () => dispatch(getVoteCount()),
-  getProgress: () => dispatch(progression()),
   closeAuth: () => dispatch(closeAuth()),
 }))(Dashboard);
