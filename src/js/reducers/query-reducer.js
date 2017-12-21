@@ -1,4 +1,4 @@
-import { DO_QUERY } from '../actions/search-actions';
+import { DO_QUERY, RESET_PARAMS, QUERY } from '../actions/search-actions';
 
 export default function queryReducer(state = {
   searchState: {}
@@ -20,6 +20,13 @@ export default function queryReducer(state = {
         }
       }
       
+    case `RESET_${QUERY}`:
+    case RESET_PARAMS:
+      return {
+        ...state,
+        searchState: {}
+      };
+  
     default:
       return state;
   }

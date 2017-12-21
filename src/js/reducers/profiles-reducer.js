@@ -1,4 +1,4 @@
-import { SET_PROFILE } from '../actions/search-actions';
+import { SET_PROFILE, RESET_PARAMS, PROFILE } from '../actions/search-actions';
 import { INDEXES } from '../actions/data-actions';
 
 export default function profilesReducer(state = {
@@ -53,6 +53,21 @@ export default function profilesReducer(state = {
         };
       } 
       return newState;
+    }
+    
+    case `RESET_${PROFILE}`:
+    case RESET_PARAMS: {
+      let { profiles } = state;
+      return {
+        ...state,
+        searchState: {
+          menu: {}
+        },
+        profiles: Object.keys(profiles).reduce((s, k) => ({
+          ...s,
+          [k]: Object.assign({}, profiles[k], {isActive: false})
+        }), {})
+      };
     }
 
     default:

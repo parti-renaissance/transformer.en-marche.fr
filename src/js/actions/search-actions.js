@@ -8,6 +8,12 @@ export const UNSET_PROFILE = 'UNSET_PROFILE';
 export const SET_PROFILE = 'SET_PROFILE';
 export const DO_QUERY = 'DO_QUERY';
 
+export const RESET_PARAMS = 'RESET_PARAMS';
+export const QUERY = 'QUERY';
+export const THEME = 'THEME';
+export const PROFILE = 'PROFILE';
+
+
 export const doQuery = query => ({
   type: DO_QUERY,
   payload: query
@@ -50,3 +56,31 @@ export function toggleTheme({ slug, isActive, objectID }, location, match) {
     dispatch(toggleThemeFacet(objectID));
   }
 }
+
+export const resetParams = (location, match, type) => {
+  return dispatch => {
+    switch(type) {
+      case PROFILE:
+        dispatch(push(`/${match.params.locale}/results${location.search}`));
+        dispatch({ type: 'RESET_PROFILE' });
+        break;
+        
+      case QUERY:
+        let { theme = '' } = qs.parse(location.search.slice(1));
+        dispatch(push(`${match.url}${theme && `?theme=${theme}`}`));
+        dispatch({ type: 'RESET_QUERY' });
+        break;
+        
+      case THEME:
+        let { q = '' } = qs.parse(location.search.slice(1));
+        dispatch(push(`${match.url}${q && `?q=${q}`}`));
+        dispatch({ type: 'RESET_THEME' });
+        break;
+      
+      default:
+        dispatch(push(`/${match.params.locale}/results`));
+        dispatch({ type: RESET_PARAMS });
+    }
+    
+  }
+};

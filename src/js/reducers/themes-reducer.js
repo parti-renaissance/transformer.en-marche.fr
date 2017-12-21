@@ -1,6 +1,6 @@
 import without from 'lodash/without';
 
-import { TOGGLE_THEME_FACET } from '../actions/search-actions';
+import { TOGGLE_THEME_FACET, RESET_PARAMS, THEME } from '../actions/search-actions';
 import { INDEXES } from '../actions/data-actions';
 
 export default function themesReducer(state = {
@@ -53,6 +53,21 @@ export default function themesReducer(state = {
           }
         }
       };
+    
+    case `RESET_${THEME}`:
+    case RESET_PARAMS: {
+      let { themes } = state;
+      return {
+        ...state,
+        searchState: {
+          refinementList: {title: []}
+        },
+        themes: Object.keys(themes).reduce((s, k) => ({
+          ...s,
+          [k]: Object.assign({}, themes[k], {isActive: false})
+        }), {})
+      }
+    }
       
     default:
       return state;
