@@ -83,6 +83,11 @@ const Progressions = ({ measures }) =>
   </div>
 
 class Dashboard extends Component {
+  state = {
+    totalDaysInTerm: moment(END_OF_TERM).diff(moment(START_OF_TERM), 'days'),
+    daysRemainingInTerm: moment(END_OF_TERM).diff(moment(), 'days')
+  }
+  
   constructor(props) {
     super(props);
     props.getVotes();
@@ -92,16 +97,13 @@ class Dashboard extends Component {
   render() {
     let { allMeasures, popular, progress, locale } = this.props;
     let measures = compact(popular.map(({ itemId }) => allMeasures.measures[itemId]));
-  
-    let totalDaysInTerm = moment(END_OF_TERM).diff(moment(START_OF_TERM), 'days');
-    let daysRemainingInTerm = moment(END_OF_TERM).diff(moment(), 'days');
     
     return (
       <div className="dashboard">
         <DashboardHeader locale={locale} />
         
         <DashboardBody>
-          <DashboardTimer total={totalDaysInTerm} current={daysRemainingInTerm} />
+          <DashboardTimer total={this.state.totalDaysInTerm} current={this.state.daysRemainingInTerm} />
           <DashboardRow>
             <DashboardBox className="dashboard-progression">
               <h3 className="dashboard-box__title">La progression</h3>
