@@ -22,10 +22,8 @@ export const voteUp = (itemId, token) => {
       data: itemId
     }
   }).catch(() => {
-    if (!token) {
-      dispatch({type: VOTE_DOWN, payload: itemId}); // undo the vote
-      dispatch(openAuth());
-    }
+    dispatch({type: VOTE_DOWN, payload: itemId}); // undo the vote
+    dispatch(openAuth());
   });
 }
 
@@ -39,10 +37,8 @@ export const voteDown = (itemId, token) => {
       data: itemId
     }
   }).catch(() => {
-    if (!token) {
-      dispatch({type: VOTE_UP, payload: itemId}); // undo the vote
-      dispatch(openAuth());
-    }
+    dispatch({type: VOTE_UP, payload: itemId}); // undo the vote
+    dispatch(openAuth());
   });
 }
 
@@ -53,8 +49,6 @@ export const myVotes = token => {
       Authorization: `Bearer ${token}`
     }}).then(r => r.json())
   }).catch(() => {
-    if (!token) {
-      dispatch(openAuth());
-    }
+    dispatch(openAuth());
   });
 }
