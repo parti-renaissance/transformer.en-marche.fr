@@ -57,27 +57,14 @@ const LinkOrDiv = ({ measure, children }) => {
   }
 }
 
-export const Measure = connect(state => ({
-  token: state.auth.token
-}), dispatch => ({
-  vote: (isActive, ...args) => dispatch(isActive ? voteDown(...args) : voteUp(...args))
-}))(({measure, vote, token}) => {
-  return (
-    <LinkOrDiv measure={measure}>
-      <div className="measure-body">
-        <div className="measure-status">
-          {STATUS_MAP[measure.status]}
-        </div>
-        <div className="measure-name">
-          {measure.title}
-        </div>
-        
-        <div className="measure-vote">
-          <span>{measure.count}</span>
-          <VoteButton
-            isActive={measure.isActive}
-            onClick={isActive => vote(isActive, measure.objectID, token)}/>
-        </div>
+export const Measure = ({measure, voteUp, voteDown, token}) =>
+  <LinkOrDiv measure={measure}>
+    <div className="measure-body">
+      <div className="measure-status">
+        {STATUS_MAP[measure.status]}
+      </div>
+      <div className="measure-name">
+        {measure.title}
       </div>
       
       <ShareMeasure measure={measure} />
@@ -121,8 +108,14 @@ class CollapsibleMeasures extends Component {
 export const NoMeasure = ({theme}) =>
   <p className="no-measure">Il n&apos;y a pas de réformes specifiques au profil de {theme}. Voir toutes les réformes sur le thème {theme}.</p>
 
-export const Measures = ({ measures }) =>
+export const Measures = connect(state => ({
+  token: state.auth.token
+}), dispatch => ({
+  voteUp: (...args) => dispatch(voteUp(...args)),
+  voteDown: (...args) => dispatch(voteDown(...args))
+}))(({ measures, ...props }) =>
   <div className="measure-list">
-    {measures.slice(0,5).map((measure, i) => <Measure key={measure.objectID || i} measure={measure} />)}
-    {measures.length > 6 ? <CollapsibleMeasures measures={measures} /> : null}
+    {measures.slice(0,5).map((measure, i) => <Measure key={i} measure={measure} {...props} />)}
+    {measures.length > 6 ? <CollapsibleMeasures measures={measures} {...props} /> : null}
   </div>
+);
