@@ -18,7 +18,7 @@ const STATUS_MAP = {
   VOTED: 'En cours'
 }
 
-const slugify = str => str.toLowerCase().replace(/\s/g, '-');
+const slugify = str => str.toLowerCase().replace(/[\s_]/g, '-');
 
 const ShareMeasure = ({measure}) => {
   if (!measure.link) {
@@ -44,13 +44,13 @@ const LinkOrDiv = ({ measure, children }) => {
        href={measure.link}
        target="_blank"
        rel="noreferrer noopener"
-       className={`measure ${slugify(STATUS_MAP[measure.status])}`}>
+       className={`measure ${slugify(measure.status)}`}>
        {children}
       </a>
     );
   } else {
     return (
-      <div className={`measure ${slugify(STATUS_MAP[measure.status])}`}>
+      <div className={`measure ${slugify(measure.status)}`}>
         {children}
       </div>
     );

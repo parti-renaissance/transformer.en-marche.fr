@@ -16,24 +16,11 @@
   color: $darkgray;
   transition: background-color 125ms ease, color 125ms ease;
   
-  &.en-vigueur,
-  &.voté {
-    background-color: $lightgreen;
-    color: $darkgreen;
+  &[href]:hover {
+    background-color: $blueishgray;
     
-    &[href]:hover {
-      background-color: $mediumgreen;
-      color: $darkgreen;
-      
-      .measure-status {
-        border-color: $darkgreen;
-        background-color: $darkgreen;
-        color: $lightgreen;
-      }
-      
-      > .share-measure {
-        opacity: 1;
-      }
+    > .share-measure {
+      opacity: 1;
     }
   }
   
@@ -66,11 +53,18 @@
   text-align: center;
   transition: background-color 125ms ease, color 125ms ease, border-color 125ms ease;
   
-  .en-vigueur &,
-  .voté & {
-    border-color: $darkgreen;
-    background-color: $darkgreen;
-    color: $lightgreen;
+  .voted & {
+    border-color: $en-cours;
+    background-color: $en-cours;
+    color: white;
+  }
+  
+  .is-law & {
+    .measure-status {
+      border-color: $fait;
+      background-color: $fait;
+      color: white;
+    }
   }
   
   @include mq($medium-and-up) {
