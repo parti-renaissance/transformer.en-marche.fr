@@ -1,3 +1,5 @@
+import { openAuth } from './auth-actions';
+
 export const VOTES = 'VOTES';
 export const VOTE_UP = 'VOTE_UP';
 export const VOTE_DOWN = 'VOTE_DOWN';
@@ -10,26 +12,47 @@ export const getVoteCount = () => ({
   payload: fetch(`${apiPrefix}/items/votes/count`).then(r => r.json())
 });
 
-export const voteUp = (itemId, token) => ({
-  type: VOTE_UP,
-  payload: {
-    promise: fetch(`${apiPrefix}/items/${itemId}/votes/up`, {headers: {
+export const voteUp = (itemId, token) => {
+  return dispatch => dispatch({
+    type: VOTE_UP,
+    payload: {
+      promise: fetch(`${apiPrefix}/items/${itemId}/votes/up`, {headers: {
+        Authorization: `Bearer ${token}`
+      }, method: 'PUT'}).then(r => r.json()),
+      data: itemId
+    }
+  }).catch(() => {
+    if (!token) {
+      dispatch(openAuth());
+    }
+  });
+}
+
+export const voteDown = (itemId, token) => {
+  return dispatch => dispatch({
+    type: VOTE_DOWN,
+    payload: {
+      promise: fetch(`${apiPrefix}/items/${itemId}/votes/down`, {headers: {
+        Authorization: `Bearer ${token}`
+      }, method: 'PUT'}).then(r => r.json()),
+      data: itemId
+    }
+  }).catch(() => {
+    if (!token) {
+      dispatch(openAuth());
+    }
+  });
+}
+
+export const myVotes = token => {
+  return dispatch => dispatch({
+    type: MY_VOTES,
+    payload: fetch(`${apiPrefix}/votes/users/me`, {headers: {
       Authorization: `Bearer ${token}`
-    }, method: 'PUT'}).then(r => r.json().catch(() => {})), // swallow any parsing errors
-    data: itemId
-  }
-})
-
-export const voteDown = (itemId, token) => ({
-  type: VOTE_DOWN,
-  payload: fetch(`${apiPrefix}/items/${itemId}/votes/down`, {headers: {
-    Authorization: `Bearer ${token}`
-  }, method: 'PUT'}).then(r => r.json().catch(() => {})) // swallow any parsing errors
-})
-
-export const myVotes = token => ({
-  type: MY_VOTES,
-  payload: fetch(`${apiPrefix}/votes/users/me`, {headers: {
-    Authorization: `Bearer ${token}`
-  }}).then(r => r.json())
-});
+    }}).then(r => r.json())
+  }).catch(() => {
+    if (!token) {
+      dispatch(openAuth());
+    }
+  });
+}
