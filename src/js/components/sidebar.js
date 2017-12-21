@@ -8,7 +8,15 @@ import { reject, filter, map } from 'lodash';
 import Color from 'color';
 
 import LastUpdated from './last-updated';
-import { doQuery, toggleTheme, toggleProfile } from '../actions/search-actions';
+import {
+  doQuery,
+  toggleTheme,
+  toggleProfile,
+  resetParams,
+  QUERY,
+  THEME,
+  PROFILE
+} from '../actions/search-actions';
 
 import '../../scss/sidebar.css';
 import '../../scss/filter-button.css';
@@ -171,17 +179,25 @@ class Sidebar extends Component {
   
   render() {
     let { viewingMore } = this.state;
-    let { location, match, profiles, toggleProfile, doQuery } = this.props;
+    let { location, match, profiles, toggleProfile, doQuery, resetParams } = this.props;
     return (
       <aside className={`sidebar${viewingMore ? ' sidebar-more' : ''}`}>
       
-        <h3 className="sidebar-title">Je m&apos;interesse à...</h3>
+        <h3 className="sidebar-title">
+          Je m&apos;interesse à...
+        </h3>
+         <button className="sidebar-reset" onClick={() => resetParams(location, match, THEME)}>reset themes</button>
+         
         <Themes
           location={location}
           match={match}
           onViewMore={this.seeMoreRefinements.bind(this)} />
         
-        <h3 className="sidebar-title">Je suis...</h3>
+        <h3 className="sidebar-title">
+          Je suis...
+        </h3>
+        <button className="sidebar-reset" onClick={() => resetParams(location, match, PROFILE)}>reset profile</button>
+        
         <Profiles
           location={location}
           locale={match.params.locale}
@@ -190,10 +206,14 @@ class Sidebar extends Component {
           limitMin={1000}
           attributeName="measures.profiles.title" />
 
-        <SearchBox
-          onInput={e => doQuery(e.target.value)}
-          searchAsYouType={false}
-          translations={{placeholder: 'Filtrer par mot-clé'}}/>
+        <div className="sidebar-search">
+          <SearchBox
+            onInput={e => doQuery(e.target.value)}
+            searchAsYouType={false}
+            translations={{placeholder: 'Filtrer par mot-clé'}}/>
+          <button className="sidebar-reset" onClick={() => resetParams(location, match, QUERY)}>reset keyword</button>
+          <button className="sidebar-reset" onClick={() => resetParams(location, match)}>reset all</button>
+        </div>
         
         <div className="sidebar-footer">
           <LastUpdated />
@@ -209,5 +229,6 @@ export default connect(({ profiles }) => {
   }
 }, dispatch => bindActionCreators({
   toggleProfile,
-  doQuery
+  doQuery,
+  resetParams
 }, dispatch))(Sidebar);
