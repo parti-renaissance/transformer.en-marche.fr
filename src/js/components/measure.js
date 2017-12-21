@@ -67,10 +67,18 @@ export const Measure = ({measure, voteUp, voteDown, token}) =>
         {measure.title}
       </div>
       
-      <ShareMeasure measure={measure} />
-    </LinkOrDiv>
-  );
-});
+      <div className="measure-vote">
+        <span>{measure.count}</span>
+        <VoteButton
+          isActive={measure.isActive}
+          voteDown={() => voteDown(measure.objectID, token)}
+          voteUp={() => voteUp(measure.objectID, token)}
+        />
+      </div>
+    </div>
+    
+    <ShareMeasure measure={measure} />
+  </LinkOrDiv>
 
   
 const Trigger = ({ count, nodeRef }) =>
