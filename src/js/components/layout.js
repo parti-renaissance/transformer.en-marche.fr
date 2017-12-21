@@ -8,9 +8,9 @@ import '../../scss/layout.css';
 const Header = () =>
   <header className="header">
     <div className="header-left">
-      <a href="https://en-marche.fr" title="En Marche!" target="_blank" rel="noopener noreferrer" className="header-logo">EM!</a><span className="header-sep"> | </span><span className="header-tag">Il l&apos;a dit, il le fait</span>
+      <a href="/" title="En Marche!" rel="noopener noreferrer" className="header-logo">EM!</a><span className="header-sep"> | </span><span className="header-tag">Il l&apos;a dit, il le fait</span>
     </div>
-    
+
     <div className="header-right">
       Partager
       <a href="" className="header-social" target="_blank" rel="noopener noreferrer">
@@ -20,7 +20,7 @@ const Header = () =>
         <FontAwesomeIcon icon={faTwitter} />
       </a>
     </div>
-    
+
     <div className="header-right__mobile">
       <button className="header-button">Partager</button>
     </div>

@@ -11,14 +11,18 @@
   padding: 30px 20px;
   max-width: 1200px;
   margin: 0 auto;
-  
+
   @include mq($large-and-up) {
-    padding-bottom: 0;
+    padding: 0 20px;
   }
 }
 
 .dashboard-blurb {
   flex-basis: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: center;
 
   > h2 {
     font-size: 28px;
@@ -26,7 +30,7 @@
     line-height: 1.39;
     letter-spacing: -0.5px;
   }
-  
+
   > p {
     margin-top: 0;
     margin-bottom: 20px;
@@ -35,7 +39,7 @@
     line-height: 1.38;
     font-family: $font-roboto;
   }
-  
+
   @include mq($large-and-up) {
     > h2 {
       font-size: 38px;
@@ -52,14 +56,14 @@
 }
 
 .dashboard-header__link {
-  @include bluepurple-button;
+  @include orange-button;
   display: inline-block;
   padding: 10px 20px;
   font-family: $font-roboto;
   font-size: 16px;
   font-weight: bold;
   border-radius: 3px;
-  
+
   @include mq($large-and-up) {
     padding: 20px;
   }
@@ -67,28 +71,29 @@
 
 .dashboard-image {
   display: none;
-  
+
   > img {
     display: block;
   }
-  
+
   @include mq($large-and-up) {
     flex: 1;
     display: flex;
-    justify-content: flex-end
+    justify-content: flex-end;
+    margin-top: 20px;
   }
 }
 
 .dashboard-body {
   position: relative;
   background-color: $bluewhite;
-  padding: 55px 20px 20px;
+  padding: 80px 20px 20px;
 }
 
 .dashboard-row {
   max-width: 1200px;
   margin: 0 auto;
-  
+
   @include mq($large-and-up) {
     display: flex;
     justify-content: space-between;
@@ -97,19 +102,20 @@
 
 .dashboard-box {
   background-color: white;
-  padding: 25px 22px;
+  padding: 40px;
+  border: 1px solid $blueishgray;
   margin-bottom: 30px;
   font-size: 16px;
   font-family: $font-roboto;
   line-height: 1.44;
-  
+
   @include mq($large-and-up) {
     flex-basis: 49%;
-  
+
     &.dashboard-popular {
       flex: 2;
     }
-    
+
     &.dashboard-progression {
       flex: 1;
       margin-right: 30px;
@@ -129,6 +135,7 @@
   font-weight: bold;
   letter-spacing: -0.4px;
   margin-bottom: 15px;
+  line-height: 1.1;
 }
 
 .dashboard-updated {
@@ -151,15 +158,15 @@
   top: 0;
   left: 0;
   right: 0;
-  
+
   .progress-meter {
     height: 11px;
   }
-  
+
   .progress-meter__label {
     font-family: $font-roboto;
     color: $bluepurple;
-    
+
     position: absolute;
     top: 20px;
     left: 20px;
@@ -178,24 +185,24 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    
+
     flex: 1;
     border-radius: 3px;
     overflow: hidden;
     margin-bottom: 10px;
     text-align: right;
-    
+
     &:last-child {
       margin-bottom: 0;
     }
   }
-  
+
   .progress-meter__label {
     font-family: $font-gillsans;
     font-size: 16px;
     font-weight: 300;
     padding-right: 10px;
-    
+
     > span {
       font-size: 28px;
       font-weight: bold;
