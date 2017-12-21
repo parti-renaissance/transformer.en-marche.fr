@@ -117,6 +117,11 @@
   }
 }
 
+.dashboard-box.dashboard-progression {
+  display: flex;
+  flex-direction: column;
+}
+
 
 .dashboard-box__title {
   font-size: 24px;
@@ -165,12 +170,20 @@
 }
 
 .dashboard-progressions {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
   .progress-meter {
-    height: 40px;
+    flex: 1;
     border-radius: 3px;
     overflow: hidden;
     margin-bottom: 10px;
     text-align: right;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
   
   .progress-meter__label {
