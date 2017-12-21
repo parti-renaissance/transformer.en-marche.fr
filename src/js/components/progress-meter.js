@@ -8,22 +8,18 @@ const ProgressBar = ({ style }) =>
 
 export default class ProgressMeter extends Component {
   render() {
-    let { current, total, children, className, colors, reverse } = this.props
-    let color = Color(colors.fill);
-    let backgroundColor = color.rgb().alpha(0.1).string();
-    let textColor = color.rgb().string();
+    let { current, total, children, className, reverse } = this.props
     
     let progressBarStyle = {
       width: `${(current / total) * 100}%`,
-      backgroundColor: color.rgb().alpha(0.9).string()
     }
     if (reverse) {
       progressBarStyle.width = (100 - parseInt(progressBarStyle.width, 10)) + '%';
     }
     
     return (
-      <div className={`progress-meter ${className || ''}`} style={{backgroundColor, color: textColor}}>
-        <span className="progress-meter__label" style={{color: colors.fill}}>{children}</span>
+      <div className={`progress-meter ${className || ''}`}>
+        <span className="progress-meter__label">{children}</span>
         <ProgressBar style={progressBarStyle} />
       </div>
     )
