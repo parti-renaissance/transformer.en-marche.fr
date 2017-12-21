@@ -1,8 +1,7 @@
 import { DO_QUERY } from '../actions/search-actions';
 
 export default function queryReducer(state = {
-  searchState: {
-  }
+  searchState: {}
 }, action) {
 
   switch(action.type) {

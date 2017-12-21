@@ -19,14 +19,16 @@ export default function profilesReducer(state = {
       return {...state, fetching: false, error: action.payload};
     case `${INDEXES}_FULFILLED`:
       let { profiles } = action.payload;
-      const newState = {
+      return {
         ...state,
         fetching: false,
         fetched: true,
         items: profiles.map(profile => profile.objectID),
+        profiles: profiles.reduce((s, p) => ({
+          ...s,
+          [p.objectID]: Object.assign({}, state.profiles[p.objectID], p)
+        }), {})
       };
-      profiles.forEach(profile => newState.profiles[profile.objectID] = profile);
-      return newState;
       
     case SET_PROFILE: {
       let { profiles } = state;
@@ -35,10 +37,12 @@ export default function profilesReducer(state = {
         ...state,
         searchState: {
           menu: {}
-        }
+        },
+        profiles: Object.keys(profiles).reduce((s, k) => ({
+          ...s,
+          [k]: Object.assign({}, profiles[k], {isActive: false})
+        }), {})
       };
-      
-      Object.keys(newState.profiles).forEach(key => newState.profiles[key].isActive = false);
       
       if (profiles[profile]) {
         newState.profiles[profile].isActive = true;

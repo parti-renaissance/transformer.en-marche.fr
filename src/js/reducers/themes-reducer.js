@@ -23,14 +23,16 @@ export default function themesReducer(state = {
       
     case `${INDEXES}_FULFILLED`:
       let { themes } = action.payload;
-      const newState = {
+      return {
         ...state,
         fetching: false,
         fetched: true,
         items: themes.map(theme => theme.objectID),
+        themes: themes.reduce((s, t) => ({
+          ...s,
+          [t.objectID]: Object.assign({}, state.themes[t.objectID], t)
+        }), {})
       };
-      themes.forEach(theme => newState.themes[theme.objectID] = theme);
-      return newState;
       
     case TOGGLE_THEME_FACET:
       let currentTitles = state.searchState.refinementList.title;
