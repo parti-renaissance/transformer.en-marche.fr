@@ -31,4 +31,9 @@ if (queryParams.code) {
     .then(({ value }) => store.dispatch(myVotes(value.access_token)));
 }
 
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <App previousRoute={queryParams.state} />
+  </Provider>,
+  document.getElementById('root')
+);
