@@ -23,6 +23,7 @@ export const voteUp = (itemId, token) => {
     }
   }).catch(() => {
     if (!token) {
+      dispatch({type: VOTE_DOWN, payload: itemId}); // undo the vote
       dispatch(openAuth());
     }
   });
@@ -39,6 +40,7 @@ export const voteDown = (itemId, token) => {
     }
   }).catch(() => {
     if (!token) {
+      dispatch({type: VOTE_UP, payload: itemId}); // undo the vote
       dispatch(openAuth());
     }
   });
