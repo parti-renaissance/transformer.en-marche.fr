@@ -13,8 +13,8 @@ const FacebookIcon = generateShareIcon('facebook');
 const TwitterIcon = generateShareIcon('twitter');
 
 const STATUS_MAP = {
-  IN_PROGRESS: 'En vigueur',
-  IS_LAW: 'Voté',
+  IN_PROGRESS: 'À venir',
+  IS_LAW: 'Fait',
   VOTED: 'En cours'
 }
 
