@@ -57,13 +57,75 @@ export default function measuresReducer(state = {
         }
       };
     }
+    
+    case VOTE_UP:
+    case VOTE_DOWN:
+    case `${VOTE_DOWN}_PENDING`:
+    case `${VOTE_UP}_PENDING`: {
+      let { payload:id, type } = action;
+      let { measures } = state;
+      let isUp = type.match(VOTE_UP) ? true : false;
+      let isPending = type.match('_PENDING') ? true : false;
+      return {
+        ...state,
+        measures: {
+          ...measures,
+          [id]: Object.assign({}, measures[id], {
+            isActive: isUp,
+            count: isUp ? measures[id].count + 1 : measures[id].count - 1,
+            isPending
+          })
+        }
+      };
     }
     
-    case `${VOTE_UP}_PENDING`:
-      const newState = { ...state };
-      newState.measures[action.payload].isActive = true;
-      return newState;
-
+    case `${VOTE_UP}_FULFILLED`:
+    case `${VOTE_DOWN}_FULFILLED`: {
+      let { type, payload: { itemId:id } } = action;
+      let { measures } = state;
+      let isUp = type === `${VOTE_UP}_FULFILLED`;
+      return {
+        ...state,
+        measures: {
+          ...measures,
+          [id]: Object.assign({}, measures[id], {
+            isActive: isUp,
+            isPending: false
+          })
+        }
+      }
+    }
+    
+    case `${VOTE_UP}_REJECTED`:
+    case `${VOTE_DOWN}_REJECTED`: {
+      let { measures } = state;
+      return {
+        ...state,
+        measures: Object.keys(measures).reduce((s, k) => ({
+          ...s,
+          [k]: Object.assign({}, measures[k], {isPending: false})
+        }), {})
+      }
+    }
+    
+    case VOTE_UP:
+    case VOTE_DOWN: {
+      let { payload:id, type } = action;
+      let { measures } = state;
+      let isUp = type === VOTE_UP;
+      return {
+        ...state,
+        measures: {
+          ...measures,
+          [id]: Object.assign({}, measures[id], {
+            isActive: isUp,
+            count: isUp ? measures[id].count + 1 : measures[id].count - 1,
+            isPending: false
+          })
+        }
+      };
+    }
+    
     default:
       return state;
   }
