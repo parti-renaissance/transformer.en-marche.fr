@@ -10,10 +10,19 @@ import { fetchIndexes } from './js/actions/data-actions';
 import { getToken } from './js/actions/auth-actions';
 import { myVotes } from './js/actions/vote-actions';
 import store from './js/store';
+import { saveState } from './js/local-storage';
 
 moment.tz.setDefault('Europe/Paris');
 
 store.dispatch(fetchIndexes());
+
+store.subscribe(() => {
+  let state = store.getState();
+  saveState({
+    ...state,
+    auth: {...state.auth, openModal: false}
+  });
+});
 
 let queryParams = qs.parse(window.location.search.slice(1));
 

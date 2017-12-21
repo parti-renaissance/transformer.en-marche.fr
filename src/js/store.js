@@ -8,6 +8,7 @@ import createHistory from 'history/createBrowserHistory';
 
 import { openAuth } from './actions/auth-actions';
 
+import { loadState } from './local-storage';
 import reducer from './reducers';
 
 export const history = createHistory();
@@ -23,6 +24,7 @@ const authMiddleware = (authActions = []) => {
   }
 }
 
+const persistedState = loadState();
 const middleware = applyMiddleware(
   promise(),
   thunk,
@@ -31,4 +33,4 @@ const middleware = applyMiddleware(
   authMiddleware(['VOTE_UP_PENDING', 'VOTE_DOWN_PENDING', 'MY_VOTES_PENDING'])
 );
 
-export default createStore(reducer, middleware);
+export default createStore(reducer, persistedState, middleware);
