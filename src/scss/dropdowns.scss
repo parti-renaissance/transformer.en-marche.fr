@@ -1,0 +1,29 @@
+@import "mixins/vars";
+
+@mixin sidebar-dropdown {
+  .Select-control {
+    border-radius: 3px;
+    background-color: #ffffff;
+    border: solid 1px #e6ecf0;
+    
+    height: 43px;
+  }
+  
+  .Select-placeholder {
+    font-family: $font-roboto;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+  }
+  .Select-placeholder,
+  .Select--single > .Select-control .Select-value {
+    line-height: 43px;
+  }
+}
+
+.profile-dropdown,
+.theme-dropdown {
+  @include sidebar-dropdown;
+  
+  margin-bottom: 10px;
+}

@@ -5,6 +5,7 @@ import { INDEXES } from '../actions/data-actions';
 
 export default function themesReducer(state = {
   items: [],
+  activeThemes: [],
   themes: {},
   searchState: {
     refinementList: {title: []}
@@ -51,7 +52,8 @@ export default function themesReducer(state = {
           refinementList: {
             title: becomingActive ? [...currentTitles, title] : without(currentTitles, title)
           }
-        }
+        },
+        activeThemes: becomingActive ? [...state.activeThemes, action.payload] : without(state.activeThemes, action.payload)
       };
     
     case `RESET_${THEME}`:
@@ -65,7 +67,8 @@ export default function themesReducer(state = {
         themes: Object.keys(themes).reduce((s, k) => ({
           ...s,
           [k]: Object.assign({}, themes[k], {isActive: false})
-        }), {})
+        }), {}),
+        activeThemes: []
       }
     }
       

@@ -2,17 +2,15 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SearchBox } from 'react-instantsearch/dom';
-import { connectRefinementList, connectMenu } from 'react-instantsearch/connectors';
-import { reject, filter, map } from 'lodash';
 
-import Select from 'react-select';
 import Media from "react-media"
 import Color from 'color';
 
 import LastUpdated from './last-updated';
+import { ThemesList, ThemesDropdown } from './themes';
+import { Profiles, ProfilesDropdown } from './profiles';
 import {
   doQuery,
-  toggleTheme,
   toggleProfile,
   resetParams,
   QUERY,
@@ -52,7 +50,7 @@ const BUTTON_COLORS = [
   // },
 ];
 
-const getColor = i => {
+export const getColor = i => {
   let index = i % BUTTON_COLORS.length;
   let { bg, color } = BUTTON_COLORS[index];
   return {
@@ -61,7 +59,7 @@ const getColor = i => {
   };
 };
 
-const FilterButton = ({isActive, label, onClick, style, buttonRef, children}) =>
+export const FilterButton = ({isActive, label, onClick, style, buttonRef, children}) =>
   <button
    className={`filter-button ${isActive && 'is-active'}`}
    onClick={onClick}
@@ -70,136 +68,6 @@ const FilterButton = ({isActive, label, onClick, style, buttonRef, children}) =>
     <span>{children || label}</span>
   </button>
 
-
-class ThemeListItem extends Component {
-  state = {}
-  
-  measureButton() {
-    let textWidth = this.button.children[0].getBoundingClientRect().width;
-    this.setState({style: {flexBasis: textWidth + 24}});
-  }
-  
-  componentDidMount() {
-    this.measureButton();
-  }
-  
-  componentWillReceiveProps() {
-    this.measureButton();
-  }
-  
-  render() {
-    let { props, state } = this;
-    return (
-      <li className={`refinement-list__item ${props.className || ''}`} style={state.style}>
-        {props.children ||
-          <FilterButton
-           style={props.style}
-           label={props.theme.title}
-           isActive={props.theme.isActive}
-           onClick={props.refine}
-           buttonRef={e => this.button = e} />}
-      </li>
-    )
-  }
-}
-
-
-const ThemesList = connect(({ themes }) => {
-  return {
-    themes: themes.items.map(id => themes.themes[id])
-  }
-}, dispatch => bindActionCreators({
-  toggleTheme
-}, dispatch))(({ onViewMore, themes, toggleTheme, location, match }) => {
-  return (
-    <ul className="refinement-list">
-      <ThemeFilters
-        attributeName="title"
-        limitMin={1000}
-        themes={themes}
-        toggle={theme => toggleTheme(theme, location, match)}>
-        
-        <li className="refinement-list__item refinement-list__item-more">
-          <FilterButton onClick={onViewMore} style={{backgroundColor: 'rgba(182, 182, 182, 0.2)', color: '#444444'}}>
-            Voir tous les thèmes
-          </FilterButton>
-        </li>
-        
-      </ThemeFilters>
-        
-    </ul>
-  );
-});
-
-class ThemesDropdown extends Component {
-  state = {}
-  
-  handleChange = value => {
-    // let { toggleTheme, themes, location, match } = this.props;
-    
-    console.log(value);
-    this.setState({ value });
-    // toggleTheme(themes[value], location, match);
-  }
-  
-  render() {
-    return <Select
-            multi
-            value={this.state.value}
-            options={this.props.themesOptions}
-            onChange={this.handleChange}
-          />
-  }
-}
-
-ThemesDropdown = connect(({ themes: { themes, items }}) => ({
-  themesOptions: items.map(id => ({label: themes[id].title, value: id})),
-  themes
-}), dispatch => bindActionCreators({
-  toggleTheme
-}, dispatch))(ThemesDropdown);
-
-  
-const ThemeFilters = connectRefinementList(({children, themes = [], items = [], toggle}) => {
-
-  const createListItems = (theme, i) =>
-    <ThemeListItem
-      theme={theme}
-      style={getColor(i)}
-      key={theme.objectID}
-      refine={() => toggle(theme)} />
-
-  let filteredLabels = map(items, 'label')
-  let filtered = filter(themes, t => filteredLabels.includes(t.title));
-  let activeThemes = filter(filtered, 'isActive').map(createListItems);
-  
-  let inActiveThemes = reject(filtered, 'isActive')
-  let featuredThemes = filter(inActiveThemes, 'isFeatured').map(createListItems);
-  let otherThemes = reject(inActiveThemes, 'isFeatured').map(createListItems);
-  
-  return activeThemes
-    .concat(featuredThemes)
-    .concat(children)
-    .concat(otherThemes);
-});
-
-
-const Profiles = connectMenu(({items, profiles, toggleProfile, location, locale}) => {
-  let filteredLabels = map(items, 'label')
-  let filtered = filter(profiles, p => filteredLabels.includes(p.title));
-  let list = filtered.map((profile, i) => {
-    return (
-      <li key={profile.objectID} className="refinement-list__item">
-        <FilterButton
-          label={profile.title}
-          isActive={profile.isActive}
-          onClick={() => toggleProfile(profile, location, locale)} />
-      </li>
-    )
-  });
-  return <ul className="refinement-list refinement-profiles">{list}</ul>
-});
-  
 
 class Sidebar extends Component {
   state = {}
@@ -214,48 +82,59 @@ class Sidebar extends Component {
     return (
       <aside className={`sidebar${viewingMore ? ' sidebar-more' : ''}`}>
       
-        <h3 className="sidebar-title">
-          Je m&apos;interesse à...
-        </h3>
-         <button className="sidebar-reset" onClick={() => resetParams(location, match, THEME)}>reset themes</button>
-         
         <Media query="(min-width: 800px)">
         {matches =>
           matches ?
-            <ThemesList
-              location={location}
-              match={match}
-              onViewMore={this.seeMoreRefinements.bind(this)} />
+            <div className="sidebar-group">
+              <h3 className="sidebar-title">
+                Je m&apos;interesse à...
+              </h3>
+              <button className="sidebar-reset" onClick={() => resetParams(location, match, THEME)}>reset themes</button>
+               
+              <ThemesList
+                location={location}
+                match={match}
+                onViewMore={this.seeMoreRefinements.bind(this)} />
+                
+              <h3 className="sidebar-title">
+                Je suis...
+              </h3>
+              <button className="sidebar-reset" onClick={() => resetParams(location, match, PROFILE)}>reset profile</button>
+              
+              <Profiles
+                location={location}
+                locale={match.params.locale}
+                toggleProfile={toggleProfile}
+                profiles={profiles}
+                limitMin={1000}
+                attributeName="measures.profiles.title" />
+                
+              <div className="sidebar-search">
+                <SearchBox
+                  onInput={e => doQuery(e.target.value)}
+                  searchAsYouType={false}
+                  translations={{placeholder: 'Filtrer par mot-clé'}}/>
+                <button className="sidebar-reset" onClick={() => resetParams(location, match, QUERY)}>reset keyword</button>
+                <button className="sidebar-reset" onClick={() => resetParams(location, match)}>reset all</button>
+              </div>
+              
+              <div className="sidebar-footer">
+                <LastUpdated />
+              </div>
+              
+            </div>
           :
-            <ThemesDropdown location={location} match={match} />
+            <div className="sidebar-group">
+              <ThemesDropdown attributeName="title" location={location} match={match} />
+              <button className="sidebar-reset" onClick={() => resetParams(location, match, PROFILE)}>reset themes</button>
+              
+              <ProfilesDropdown attributeName="measures.profiles.title" location={location} match={match} />
+              <button className="sidebar-reset" onClick={() => resetParams(location, match, THEME)}>reset profile</button>
+            </div>
         }
         </Media>
         
-        <h3 className="sidebar-title">
-          Je suis...
-        </h3>
-        <button className="sidebar-reset" onClick={() => resetParams(location, match, PROFILE)}>reset profile</button>
-        
-        <Profiles
-          location={location}
-          locale={match.params.locale}
-          toggleProfile={toggleProfile}
-          profiles={profiles}
-          limitMin={1000}
-          attributeName="measures.profiles.title" />
 
-        <div className="sidebar-search">
-          <SearchBox
-            onInput={e => doQuery(e.target.value)}
-            searchAsYouType={false}
-            translations={{placeholder: 'Filtrer par mot-clé'}}/>
-          <button className="sidebar-reset" onClick={() => resetParams(location, match, QUERY)}>reset keyword</button>
-          <button className="sidebar-reset" onClick={() => resetParams(location, match)}>reset all</button>
-        </div>
-        
-        <div className="sidebar-footer">
-          <LastUpdated />
-        </div>
       </aside>
     );
   }

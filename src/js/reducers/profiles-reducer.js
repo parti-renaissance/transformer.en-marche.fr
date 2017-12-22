@@ -4,6 +4,7 @@ import { INDEXES } from '../actions/data-actions';
 export default function profilesReducer(state = {
   items: [],
   profiles: {},
+  activeProfile: null,
   searchState: {
     menu: {}
   },
@@ -41,10 +42,12 @@ export default function profilesReducer(state = {
         profiles: Object.keys(profiles).reduce((s, k) => ({
           ...s,
           [k]: Object.assign({}, profiles[k], {isActive: false})
-        }), {})
+        }), {}),
+        activeProfile: null
       };
       
       if (profiles[profile]) {
+        newState.activeProfile = profile;
         newState.profiles[profile].isActive = true;
         newState.searchState = {
           menu: {
@@ -66,7 +69,8 @@ export default function profilesReducer(state = {
         profiles: Object.keys(profiles).reduce((s, k) => ({
           ...s,
           [k]: Object.assign({}, profiles[k], {isActive: false})
-        }), {})
+        }), {}),
+        activeProfile: null
       };
     }
 
