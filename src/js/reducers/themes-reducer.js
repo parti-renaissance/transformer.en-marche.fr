@@ -32,7 +32,8 @@ export default function themesReducer(state = {
         themes: themes.reduce((s, t) => ({
           ...s,
           [t.objectID]: Object.assign({}, state.themes[t.objectID], t)
-        }), {})
+        }), {}),
+        activeThemes: []
       };
       
     case TOGGLE_THEME_FACET:
