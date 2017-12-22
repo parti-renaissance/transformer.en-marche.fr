@@ -17,7 +17,7 @@ import macron from '../../images/macron.jpg';
 // import macron2x from '../../images/macron@2x.jpg';
 // import macron3x from '../../images/macron@3x.jpg';
 
-const END_OF_TERM = '2020-05-14';
+const END_OF_TERM = '2022-05-13';
 const START_OF_TERM = '2017-05-14';
 
 const MAILCHIMP_ACTION = 'https://en-marche.us16.list-manage.com/subscribe/post?u=55827081e9c72c969a6fa0ea5&amp;id=ee94a72c73';
