@@ -77,7 +77,7 @@ class SubscribeForm extends Component {
           {messages.btnLabel}
         </button>
         
-        <p className="SignupForm__message" dangerouslySetInnerHTML={ {__html: messages[status] || msg } } />
+        <p className="SignupForm__message" dangerouslySetInnerHTML={{__html: messages[status] || msg } } />
       </form>
     );
   }

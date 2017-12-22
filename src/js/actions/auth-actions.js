@@ -3,7 +3,7 @@ export const CLOSE_AUTH = 'CLOSE_AUTH';
 export const TOKEN = 'SET_TOKEN';
 
 const apiPrefix = `${process.env.REACT_APP_API_HOST}/api`;
-const redirectUri = 'http://localhost:3000'; //`${process.env.REACT_APP_REDIRECT_URI}`;
+const redirectUri = process.env.REACT_APP_REDIRECT_URI;
 
 export const openAuth = () => ({
   type: OPEN_AUTH
