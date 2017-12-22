@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faFacebookF, faTwitter } from '@fortawesome/fontawesome-free-brands';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { ShareButtons, generateShareIcon } from 'react-share';
