@@ -5,9 +5,9 @@
 .sidebar {
   background-color: $lightgray;
   padding: 25px 25px 0 25px;
-  flex-basis: 355px;
   
   @include mq($medium-and-up) {
+    flex-basis: 355px;
     padding: 75px 40px 0;
   }
 }
