@@ -108,24 +108,6 @@ export default function measuresReducer(state = {
       }
     }
     
-    case VOTE_UP:
-    case VOTE_DOWN: {
-      let { payload:id, type } = action;
-      let { measures } = state;
-      let isUp = type === VOTE_UP;
-      return {
-        ...state,
-        measures: {
-          ...measures,
-          [id]: Object.assign({}, measures[id], {
-            isActive: isUp,
-            count: isUp ? measures[id].count + 1 : measures[id].count - 1,
-            isPending: false
-          })
-        }
-      };
-    }
-    
     default:
       return state;
   }
