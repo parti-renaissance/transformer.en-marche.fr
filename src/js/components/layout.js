@@ -21,10 +21,10 @@ const Header = ({ locale }) =>
 
     <div className="header-right">
       Partager
-      <FacebookShareButton url={window.location} quote={SOCIAL_COPY}>
+      <FacebookShareButton url={window.location.toString()} quote={SOCIAL_COPY}>
         <FacebookIcon round={true} size={35} iconBgStyle={{fill: '#ff6955'}}/>
       </FacebookShareButton>
-      <TwitterShareButton url={window.location} title={SOCIAL_COPY}>
+      <TwitterShareButton url={window.location.toString()} title={SOCIAL_COPY}>
         <TwitterIcon round={true} size={35} iconBgStyle={{fill: '#ff6955'}}/>
       </TwitterShareButton>
     </div>

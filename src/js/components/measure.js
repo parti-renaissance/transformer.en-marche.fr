@@ -20,16 +20,18 @@ const STATUS_MAP = {
 
 const slugify = str => str.toLowerCase().replace(/[\s_]/g, '-');
 
+const shareCopy = measure => `Je soutiens la mesure "${measure}" sur https://transformerlafrance.fr`;
+
 const ShareMeasure = ({measure}) => {
   if (!measure.link) {
     return null;
   } else {
     return (
       <div className="share-measure">
-        <FacebookShareButton url={measure.link} quote={measure.socialMediaCopy}>
+        <FacebookShareButton url={measure.link} quote={shareCopy(measure.title)}>
           <FacebookIcon round={true} size={40} iconBgStyle={{fill: '#6f81ff'}}/>
         </FacebookShareButton>
-        <TwitterShareButton url={measure.link} title={measure.socialMediaCopy}>
+        <TwitterShareButton url={measure.link} title={shareCopy(measure.title)}>
           <TwitterIcon round={true} size={40} iconBgStyle={{fill: '#6f81ff'}}/>
         </TwitterShareButton>
       </div>
