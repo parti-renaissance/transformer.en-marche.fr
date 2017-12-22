@@ -11,8 +11,8 @@ const Theme = connectStateResults(({ hit:theme, searchState: { query } }) => {
   measures = filter(measures, m => m.title.match(new RegExp(query, 'gi')));
   let grouped = groupBy(measures, 'status');
   measures = (grouped['IS_LAW'] || [])
-                .concat(grouped['IN_PROGRESS'] || [])
-                .concat(grouped['VOTED'] || []);
+                .concat(grouped['VOTED'] || [])
+                .concat(grouped['IN_PROGRESS'] || []);
   
   if (query && !measures.length) {
     // no matching measures for this keyword query
