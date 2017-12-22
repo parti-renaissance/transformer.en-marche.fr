@@ -39,7 +39,11 @@
   align-items: center;
   justify-content: space-between;
   text-decoration: none;
-  display: flex;
+  flex-wrap: wrap;
+  
+  @include mq($medium-and-up) {
+    flex-wrap: nowrap;
+  }
 }
 
 .measure-status {
@@ -75,13 +79,24 @@
 }
 
 .measure-name {
+  font-size: 16px;
   font-family: $font-roboto;
   flex: 1;
   color: $darkergray;
+  margin-bottom: 10px;
+  
+  order: -1;
+  flex-basis: 100%;
 
   .en-vigueur[href] &::after,
   .voté[href] &::after {
     content: ' →';
+  }
+  
+  @include mq($medium-and-up) {
+    order: 0;
+    flex-basis: auto;
+    margin-bottom: 0;
   }
 }
 
