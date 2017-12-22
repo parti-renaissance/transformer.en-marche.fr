@@ -53,6 +53,7 @@
 
 .header-tag {
   font-weight: 100;
+  color: $darkergray;
 }
 
 .header-sep {
@@ -86,7 +87,7 @@
       color: $orange;
     }
   }
-  
+
   > .SocialMediaShareButton {
     cursor: pointer;
   }

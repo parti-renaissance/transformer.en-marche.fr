@@ -11,7 +11,7 @@
   left: 0;
   z-index: 0;
   width: 0;
-  
+
   transition: width 125ms ease-out 500ms;
 }
 
@@ -24,7 +24,7 @@
 .progress-meter.fait {
   background-color: rgba($fait-light, 0.1);
   color: $fait-dark;
-  
+
   .progress-bar {
     background-color: $fait;
   }
@@ -33,24 +33,20 @@
 .progress-meter.en-cours {
   background-color: rgba($en-cours-light, 0.1);
   color: $en-cours-dark;
-  
+
   .progress-bar {
     background-color: $en-cours;
   }
 }
 
-.progress-meter.venir {
-  background-color: rgba($venir-light, 0.1);
-  color: $venir-dark;
-  
-  .progress-bar {
-    background-color: $venir;
-  }
+.progress.a-venir {
+  color: $darkergray;
+  margin-top: 10px;
 }
 
 .progress-meter.timeline {
   background-color: $timeline-bg;
-  
+
   .progress-bar {
     background-color: $timeline-fill;
   }
