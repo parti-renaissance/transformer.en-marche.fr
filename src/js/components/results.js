@@ -4,32 +4,17 @@ import { Hits } from 'react-instantsearch/dom';
 
 import Theme from './theme';
 
-const DefaultDescription = ({ children }) => {
-  if (children) {
-    return (
-      <div className="intro-description">
-        <p>{children}</p>
-      </div>
-    );
-  } else {
-    return (
-      <div className="intro-description"></div>
-    );
-  }
-}
-
 
 const Intro = ({ title, description, children }) =>
   <div className="intro">
     <h1 className="intro-header">{title}</h1>
 
-    <DefaultDescription>
-      {description}
-    </DefaultDescription>
+    <div className="intro-description">
+      <p>{description}</p>
+    </div>
 
     {children}
   </div>
-
 
 const HitsWithIntro = connectHits(({ hits, profile }) => {
   if (!hits.length) {
