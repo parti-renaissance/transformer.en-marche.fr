@@ -25,31 +25,26 @@ test:
 
 deployment:
     production:
-        branch: master
+        tag: /v[0-9]+(\.[0-9]+)*/
         owner: EnMarche
         commands:
-            # Google Cloud authentication
-            - echo $GCLOUD_SERVICE_KEY | base64 --decode > ${HOME}/gcloud-service-key.json && cp ${HOME}/gcloud-service-key.json gcloud-service-key.json
-            - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
-            - sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
-            - sudo /opt/google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT
-
-            - >
-              if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
-                env | sed -n 's/^DEMO_//p' >> .env
-              elif grep -q "v[0-9]\+\.[0-9]\+\.[0-9]\+" <<< "$CIRCLE_TAG"; then
-                env | sed -n 's/^PROD_//p' >> .env
-              fi
-
-            # Build the image
             - sed -i -- 's/https:\/\/enmarche.github.io\/gov-timeline/./g' package.json
-            - yarn build
-            - docker build -t eu.gcr.io/$GCLOUD_PROJECT/gov-timeline:$CIRCLE_SHA1 .
-
-            # Push the images to Google Cloud
-            - sudo /opt/google-cloud-sdk/bin/gcloud docker -- push eu.gcr.io/$GCLOUD_PROJECT/gov-timeline:$CIRCLE_SHA1
+            - env | sed -n 's/^PROD_//p' >> .env
+            - ./scripts/build.sh
 
             # Deploy
             - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update kubectl
-            - sudo /opt/google-cloud-sdk/bin/gcloud container clusters get-credentials $GCLOUD_CLUSTER --project $GCLOUD_PROJECT --zone europe-west1-d
+            - sudo /opt/google-cloud-sdk/bin/gcloud container clusters get-credentials $PRODUCTION_GCLOUD_CLUSTER --project $GCLOUD_PROJECT --zone europe-west1-d
             - sudo GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcloud-service-key.json /opt/google-cloud-sdk/bin/kubectl set image deployment/prod-gov-timeline gov-timeline=eu.gcr.io/$GCLOUD_PROJECT/gov-timeline:$CIRCLE_SHA1
+    staging:
+        branch: master
+        owner: EnMarche
+        commands:
+            - sed -i -- 's/https:\/\/enmarche.github.io\/gov-timeline/./g' package.json
+            - env | sed -n 's/^DEMO_//p' >> .env
+            - ./scripts/build.sh
+
+            # Deploy
+            - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update kubectl
+            - sudo /opt/google-cloud-sdk/bin/gcloud container clusters get-credentials $STAGING_GCLOUD_CLUSTER --project $GCLOUD_PROJECT --zone europe-west1-d
+            - sudo GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcloud-service-key.json /opt/google-cloud-sdk/bin/kubectl set image deployment/staging-gov-timeline gov-timeline=eu.gcr.io/$GCLOUD_PROJECT/gov-timeline:$CIRCLE_SHA1
