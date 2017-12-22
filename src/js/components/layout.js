@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter } from '@fortawesome/fontawesome-free-brands';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import '../../scss/layout.css';
 
-const Header = () =>
+const Header = ({ locale }) =>
   <header className="header">
     <div className="header-left">
-      <a href="/" title="En Marche!" rel="noopener noreferrer" className="header-logo">EM!</a><span className="header-sep"> | </span><span className="header-tag">Il l&apos;a dit, il le fait</span>
+      <Link to={`/${locale}`} title="En Marche!" className="header-logo">EM!</Link><span className="header-sep"> | </span><span className="header-tag">Il l&apos;a dit, il le fait</span>
     </div>
 
     <div className="header-right">
@@ -36,10 +37,11 @@ const Footer = () =>
 class Page extends Component {
   render() {
     let { location } = this.props;
+    let locale = location.pathname.slice(1).split('/')[0];
     let isDashboard = location && location.pathname.slice(1).split('/').length <= 1;
     return (
       <div className={`Page${isDashboard ? ' Page__dashboard' : ''}`}>
-        <Header />
+        <Header locale={locale} />
         {this.props.children}
         <Footer />
       </div>
