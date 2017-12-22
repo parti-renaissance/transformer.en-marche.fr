@@ -63,6 +63,7 @@ export class ProfilesDropdown extends Component {
     return <Select
             className="profile-dropdown"
             placeholder="Je suis..."
+            searchable={false}
             clearable={false}
             value={this.state.value}
             options={this.props.profileOptions}

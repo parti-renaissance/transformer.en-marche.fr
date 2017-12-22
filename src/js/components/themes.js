@@ -133,6 +133,7 @@ export class ThemesDropdown extends Component {
     return <Select
             className="theme-dropdown"
             placeholder="Je m’interesse à…"
+            searchable={false}
             clearable={false}
             value={this.state.value}
             options={this.props.themesOptions}
