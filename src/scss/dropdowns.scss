@@ -4,9 +4,14 @@
   .Select-control {
     border-radius: 3px;
     background-color: #ffffff;
-    border: solid 1px #e6ecf0;
+    border: solid 1px $blueishgray;
     
     height: 43px;
+  }
+  
+  &.Select.is-open > .Select-control {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+    border-color: $blueishgray;
   }
   
   .Select-placeholder {
@@ -15,9 +20,22 @@
     font-weight: bold;
     color: black;
   }
+  
   .Select-placeholder,
-  .Select--single > .Select-control .Select-value {
+  &.Select--single > .Select-control .Select-value {
     line-height: 43px;
+  }
+  
+  .Select-menu-outer {
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border: solid 1px $blueishgray;
+    border-top: none;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  }
+  
+  &.Select.is-focused:not(.is-open) > .Select-control {
+    border-color: $bluepurple;
   }
 }
 
