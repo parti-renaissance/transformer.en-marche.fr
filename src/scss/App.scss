@@ -27,6 +27,7 @@
   
   @include mq($medium-and-up) {
     padding: 70px 110px 0;
+    flex: 1;
   }
 }
 
