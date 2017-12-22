@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import Color from 'color';
 
 import '../../scss/progress-meter.css';
 
-const ProgressBar = ({ style }) =>
-  <div className="progress-bar" style={style} />
+const ProgressBar = ({ style }) => <div className="progress-bar" style={style} />
 
 export default class ProgressMeter extends Component {
   render() {

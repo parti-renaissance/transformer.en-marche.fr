@@ -135,7 +135,7 @@ class ThemesDropdown extends Component {
   state = {}
   
   handleChange = value => {
-    let { toggleTheme, themes, location, match } = this.props;
+    // let { toggleTheme, themes, location, match } = this.props;
     
     console.log(value);
     this.setState({ value });
