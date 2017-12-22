@@ -23,5 +23,4 @@ if (process.env.NODE_ENV === 'development')  {
   middlewares.push(createLogger());
 }
 
-console.log(persistedState);
 export default createStore(reducer, persistedState, compose(applyMiddleware(...middlewares)));
