@@ -126,10 +126,10 @@ class Sidebar extends Component {
           :
             <div className="sidebar-group">
               <ThemesDropdown attributeName="title" location={location} match={match} />
-              <button className="sidebar-reset" onClick={() => resetParams(location, match, PROFILE)}>reset themes</button>
+              <button className="sidebar-reset" onClick={() => resetParams(location, match, THEME)}>reset themes</button>
               
               <ProfilesDropdown attributeName="measures.profiles.title" location={location} match={match} />
-              <button className="sidebar-reset" onClick={() => resetParams(location, match, THEME)}>reset profile</button>
+              <button className="sidebar-reset" onClick={() => resetParams(location, match, PROFILE)}>reset profile</button>
             </div>
         }
         </Media>
