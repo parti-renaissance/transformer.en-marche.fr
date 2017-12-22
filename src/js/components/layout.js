@@ -3,8 +3,15 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter } from '@fortawesome/fontawesome-free-brands';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+import { ShareButtons, generateShareIcon } from 'react-share';
 
 import '../../scss/layout.css';
+
+const { FacebookShareButton, TwitterShareButton } = ShareButtons;
+const FacebookIcon = generateShareIcon('facebook');
+const TwitterIcon = generateShareIcon('twitter');
+
+const SOCIAL_COPY = "Suivez le progrès du gouvernement https://transformerlafrance.fr";
 
 const Header = ({ locale }) =>
   <header className="header">
@@ -14,12 +21,12 @@ const Header = ({ locale }) =>
 
     <div className="header-right">
       Partager
-      <a href="" className="header-social" target="_blank" rel="noopener noreferrer">
-        <FontAwesomeIcon icon={faFacebookF} />
-      </a>
-      <a href="" className="header-social" target="_blank" rel="noopener noreferrer">
-        <FontAwesomeIcon icon={faTwitter} />
-      </a>
+      <FacebookShareButton url={window.location} quote={SOCIAL_COPY}>
+        <FacebookIcon round={true} size={35} iconBgStyle={{fill: '#ff6955'}}/>
+      </FacebookShareButton>
+      <TwitterShareButton url={window.location} title={SOCIAL_COPY}>
+        <TwitterIcon round={true} size={35} iconBgStyle={{fill: '#ff6955'}}/>
+      </TwitterShareButton>
     </div>
 
     <div className="header-right__mobile">

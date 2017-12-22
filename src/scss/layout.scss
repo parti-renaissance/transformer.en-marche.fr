@@ -86,6 +86,10 @@
       color: $orange;
     }
   }
+  
+  > .SocialMediaShareButton {
+    cursor: pointer;
+  }
 }
 
 .header-right__mobile {
