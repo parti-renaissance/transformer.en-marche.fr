@@ -62,11 +62,9 @@
   }
 
   .is-law & {
-    .measure-status {
-      border-color: $fait;
-      background-color: $fait;
-      color: white;
-    }
+    border-color: $fait;
+    background-color: $fait;
+    color: white;
   }
 
   @include mq($medium-and-up) {
