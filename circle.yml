@@ -34,14 +34,12 @@ deployment:
             - sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
             - sudo /opt/google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT
 
-            - run:
-                name: expose envvars
-                command: |
-                  if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
-                    env | sed -n 's/^DEMO_//p' >> .env
-                  elif grep -q "v[0-9]\+\.[0-9]\+\.[0-9]\+" <<< "$CIRCLE_TAG"; then
-                    env | sed -n 's/^PROD_//p' >> .env
-                  fi
+            - >
+              if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
+                env | sed -n 's/^DEMO_//p' >> .env
+              elif grep -q "v[0-9]\+\.[0-9]\+\.[0-9]\+" <<< "$CIRCLE_TAG"; then
+                env | sed -n 's/^PROD_//p' >> .env
+              fi
 
             # Build the image
             - sed -i -- 's/https:\/\/enmarche.github.io\/gov-timeline/./g' package.json
