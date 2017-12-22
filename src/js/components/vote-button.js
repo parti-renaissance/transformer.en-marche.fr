@@ -17,7 +17,7 @@ export default class VoteButton extends Component {
       <button
         ref={node => this.node = node}
         onClick={this.onClick} className={`vote-button${isActive ? ' is-active' : ''}`}>
-        <ReactSVG className="thumbs-up" path="/assets/svg/thumbs-up.svg" />
+        <ReactSVG className="thumbs-up" path={`${rootPath}/assets/svg/thumbs-up.svg`} />
       </button>
     )
   }
