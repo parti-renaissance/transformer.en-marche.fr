@@ -30,7 +30,7 @@ deployment:
         commands:
             - sed -i -- 's/https:\/\/enmarche.github.io\/gov-timeline/./g' package.json
             - env | sed -n 's/^PROD_//p' >> .env
-            - ./scripts/build.sh
+            - bash ./scripts/build.sh
 
             # Deploy
             - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update kubectl
@@ -42,7 +42,7 @@ deployment:
         commands:
             - sed -i -- 's/https:\/\/enmarche.github.io\/gov-timeline/./g' package.json
             - env | sed -n 's/^DEMO_//p' >> .env
-            - ./scripts/build.sh
+            - bash ./scripts/build.sh
 
             # Deploy
             - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update kubectl
