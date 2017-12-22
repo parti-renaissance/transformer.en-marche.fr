@@ -10,8 +10,8 @@ const Theme = connectStateResults(({ hit:theme, searchState: { query } }) => {
 
   measures = filter(measures, m => m.title.match(new RegExp(query, 'gi')));
   let grouped = groupBy(measures, 'status');
-  measures = (grouped['IN_PROGRESS'] || [])
-                .concat(grouped['IS_LAW'] || [])
+  measures = (grouped['IS_LAW'] || [])
+                .concat(grouped['IN_PROGRESS'] || [])
                 .concat(grouped['VOTED'] || []);
   
   if (query && !measures.length) {
