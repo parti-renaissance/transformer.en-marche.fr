@@ -13,15 +13,7 @@ const DefaultDescription = ({ children }) => {
     );
   } else {
     return (
-      <div className="intro-description">
-        <p>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. aliquam erat volutpat. aliquam erat volutpat. aliquam.
-        </p>
-
-        <p>
-          Cette interface sera mise à jour régulièrement. Pour ne rien manquer, <a href="https://en-marche.fr/newsletter" target="_blank" rel="noreferrer noopener">recevez notre newsletter</a> hebdomadaire.
-        </p>
-      </div>
+      <div className="intro-description"></div>
     );
   }
 }
@@ -29,12 +21,12 @@ const DefaultDescription = ({ children }) => {
 
 const Intro = ({ title, description, children }) =>
   <div className="intro">
-    <h1 className="intro-header">{title || "Alors, ça avance ?"}</h1>
-      
+    <h1 className="intro-header">{title}</h1>
+
     <DefaultDescription>
       {description}
     </DefaultDescription>
-    
+
     {children}
   </div>
 

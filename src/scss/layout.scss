@@ -19,13 +19,13 @@
   position: sticky;
   top: 0;
   z-index: $zIndex--header;
-  
+
   border-bottom: 1px solid transparent;
-  
+
   @include mq($medium-and-up) {
     font-size: 28px;
   }
-  
+
   .Page__dashboard > & {
     background-color: white;
     color: black;
@@ -39,7 +39,13 @@
   font-style: oblique;
   color: white;
   text-decoration: none;
-  
+  border: 0;
+
+  &:hover {
+      border: 0;
+      opacity: 0.8;
+  }
+
   .Page__dashboard & {
     color: black;
   }
@@ -64,7 +70,7 @@
 
 .header-right {
   display: none;
-  
+
   @include mq($medium-and-up) {
     display: flex;
     flex-basis: 150px;
@@ -73,9 +79,9 @@
     font-size: 14px;
     font-family: $font-roboto;
     font-weight: bold;
-    
+
     color: white;
-    
+
     .Page__dashboard & {
       color: $orange;
     }
@@ -107,6 +113,7 @@
 }
 
 .footer {
+  font-family: $font-roboto;
   background-color: $purple;
   padding: 15px;
   color: white;
@@ -120,5 +127,10 @@
 
   > a {
     color: white;
+    border-bottom: 1px solid rgba(white, 0.5);
+
+    &:hover {
+      border-color: white;
+    }
   }
 }

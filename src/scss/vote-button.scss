@@ -7,32 +7,32 @@
   border: 1px solid $blueishgray;
   border-radius: 3px;
   background-color: rgba($bluepurple, 0);
-  
+
   transition: background-color 125ms ease, border-color 125ms ease;
-  
+
   .thumbs-up path {
     transition: stroke 125ms ease;
   }
-  
-  &.is-active,
-  &:hover {
-    background-color: rgba($bluepurple, 1);
-    border-color: $bluepurple;
-    
+
+  &:hover,
+  &.is-active:hover {
+    background-color: rgba($lightpurple, 1);
+    border-color: $lightpurple;
+
     .thumbs-up path {
       stroke: white;
     }
   }
-  
-  &.is-active:hover {
-    background-color: rgba($bluepurple, 0);
-    border-color: $blueishgray;
-    
+
+  &.is-active {
+    background-color: rgba($bluepurple, 1);
+    border-color: $bluepurple;
+
     .thumbs-up path {
-      stroke: #666;
+      stroke: white;
     }
   }
-  
+
   div {
     width: 16px;
     height: 16px;

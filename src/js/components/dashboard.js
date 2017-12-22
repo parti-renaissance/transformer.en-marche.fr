@@ -35,7 +35,7 @@ const DashboardRow = ({ children }) =>
   <div className="dashboard-row">
     {children}
   </div>
-  
+
 const DashboardBox = ({ children, className }) =>
   <div className={`dashboard-box ${className || ''}`}>
     {children}
@@ -48,8 +48,8 @@ const DashboardHeader = ({ locale }) =>
       <p>
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation.
       </p>
-      
-      <Link className="dashboard-header__link" to={`/${locale}/results`}>Voir les mesures en détail</Link>
+
+      <Link className="dashboard-header__link" to={`/${locale}/results`}>Découvrir ce qui me concerne</Link>
     </div>
     <div className="dashboard-image">
       <img src={macron} alt="Macron" />
@@ -86,27 +86,27 @@ class Dashboard extends Component {
     totalDaysInTerm: moment(END_OF_TERM).diff(moment(START_OF_TERM), 'days'),
     daysRemainingInTerm: moment(END_OF_TERM).diff(moment(), 'days')
   }
-  
+
   constructor(props) {
     super(props);
     props.getVotes();
   }
-  
+
   render() {
     let { allMeasures, popular, status, locale } = this.props;
     let measures = compact(popular.map(({ itemId }) => allMeasures.measures[itemId]));
-    
+
     return (
       <div className="dashboard">
         <DashboardHeader locale={locale} />
-        
+
         <DashboardBody>
           <DashboardTimer total={this.state.totalDaysInTerm} current={this.state.daysRemainingInTerm} />
           <DashboardRow>
             <DashboardBox className="dashboard-progression">
               <h3 className="dashboard-box__title">La progression</h3>
               <LastUpdated className="dashboard-updated" />
-              
+
               {!!Object.keys(status.measures).length &&
                 <Progressions measures={status.measures} total={status.total} />}
             </DashboardBox>
@@ -116,26 +116,26 @@ class Dashboard extends Component {
                 <Measures className="popular-measures" measures={measures} />}
             </DashboardBox>
           </DashboardRow>
-          
+
           <DashboardRow>
             <DashboardBox>
-              <h3 className="dashboard-box__title">Retrouvez le programme</h3>
+              <h3 className="dashboard-box__title">Demandez le programme</h3>
               <p>
-                Ce projet a été construit en 2016-2017 avec plus de 30 000 Françaises et Français de tous milieux sociaux, de tous âges, dans tous les territoires de France, au cours de 3 000 ateliers de nos comités locaux. <a href="https://en-march.fr" rel="noopener noreferrer" target="_blank">Le programme →</a>
+                Ce projet a été construit en 2016-2017 avec plus de 30 000 Françaises et Français de tous milieux sociaux, de tous âges, dans tous les territoires de France, au cours de 3 000 ateliers de nos comités locaux. <a href="https://en-marche.fr/programme" rel="noopener noreferrer" target="_blank">Le programme →</a>
               </p>
             </DashboardBox>
             <DashboardBox>
-              <h3 className="dashboard-box__title">Pour ne rien manquer, inscrivez-vous à notre newsletter hebdomadaire :</h3>
+              <h3 className="dashboard-box__title">Pour rester informé(e), inscrivez-vous à la newsletter hebdomadaire :</h3>
               <Subscribe {...FORM_PROPS} />
             </DashboardBox>
           </DashboardRow>
         </DashboardBody>
-        
+
         <AuthModal isOpen={this.props.openModal} closeModal={this.props.closeAuth} />
       </div>
     )
   }
-  
+
 }
 
 export default connect(state => ({
