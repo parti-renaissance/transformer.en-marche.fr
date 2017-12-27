@@ -46,7 +46,7 @@ const DashboardHeader = ({ locale }) =>
     <div className="dashboard-blurb">
       <h2>On le dit, on le fait</h2>
       <p>
-        La transformation du pays est en marche ! Suivez l'application du programme d'Emmanuel Macron et votez en faveur des mesures que vous attendez le plus.
+        La transformation du pays est en marche ! Suivez l'application du programme d'Emmanuel Macron et <strong>votez en faveur des mesures que vous attendez le plus</strong>.
       </p>
 
       <Link className="dashboard-header__link" to={`/${locale}/results`}>Découvrir ce qui me concerne</Link>
@@ -104,7 +104,7 @@ class Dashboard extends Component {
           <DashboardTimer total={this.state.totalDaysInTerm} current={this.state.daysRemainingInTerm} />
           <DashboardRow>
             <DashboardBox className="dashboard-progression">
-              <h3 className="dashboard-box__title">La progression</h3>
+              <h3 className="dashboard-box__title">Progression des mesures majeures</h3>
               <LastUpdated className="dashboard-updated" />
 
               {!!Object.keys(status.measures).length &&

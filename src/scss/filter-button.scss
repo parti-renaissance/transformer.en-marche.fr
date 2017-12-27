@@ -12,6 +12,11 @@
   font-family: $font-roboto;
   position: relative;
   text-align: left;
+  transition: all 0.25s;
+
+  &:hover {
+    transform: scale(1.15);
+  }
 
   &:focus,
   &:active {
