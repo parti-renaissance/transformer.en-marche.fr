@@ -114,18 +114,21 @@ class Dashboard extends Component {
               <h3 className="dashboard-box__title">Les 5 mesures les plus attendues</h3>
               {!!allMeasures.items.length &&
                 <Measures className="popular-measures" measures={measures} />}
+              <div className="dashboard-box__cta">
+                <Link to={`/${locale}/results`}>Toutes les mesures →</Link>
+              </div>
             </DashboardBox>
           </DashboardRow>
 
           <DashboardRow>
             <DashboardBox>
-              <h3 className="dashboard-box__title">Demandez le programme</h3>
+              <h3 className="dashboard-box__title dashboard-box__title--small">Demandez le programme</h3>
               <p>
                 Ce projet a été construit en 2016-2017 avec plus de 30 000 Françaises et Français de tous milieux sociaux, de tous âges, dans tous les territoires de France, au cours de 3 000 ateliers de nos comités locaux. <a href="https://en-marche.fr/programme" rel="noopener noreferrer" target="_blank">Le programme →</a>
               </p>
             </DashboardBox>
             <DashboardBox>
-              <h3 className="dashboard-box__title">Pour être les premiers informés, inscrivez-vous à la newsletter hebdomadaire :</h3>
+              <h3 className="dashboard-box__title dashboard-box__title--small">Pour être les premiers informés, inscrivez-vous à la newsletter hebdomadaire :</h3>
               <Subscribe {...FORM_PROPS} />
             </DashboardBox>
           </DashboardRow>

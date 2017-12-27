@@ -35,7 +35,7 @@
   > p {
     margin-top: 0;
     margin-bottom: 20px;
-    color: $darkgray;
+    color: $darkergray;
     font-size: 16px;
     line-height: 1.38;
     font-family: $font-roboto;
@@ -110,6 +110,10 @@
   font-family: $font-roboto;
   line-height: 1.44;
 
+  p {
+    color: $darkergray;
+  }
+
   @include mq($large-and-up) {
     padding: 40px;
     flex-basis: 49%;
@@ -140,12 +144,28 @@
   line-height: 1.2;
 }
 
+.dashboard-box__title--small {
+  font-size: 20px;
+}
+
+.dashboard-box__cta {
+  text-align: center;
+
+  a {
+    @include bluepurple-button;
+    border-radius: 4px;
+    padding: 7px 15px;
+    display: inline-block;
+    margin-top: 20px;
+  }
+}
+
 .dashboard-updated {
   display: block;
   font-family: $font-roboto;
   font-size: 16px;
   line-height: 1.38;
-  color: $darkgray;
+  color: $gray;
   margin-bottom: 25px;
 }
 
