@@ -96,12 +96,28 @@
     color: white;
 
     .Page__dashboard & {
-      color: $orange;
+      color: $gray;
     }
   }
 
   > .SocialMediaShareButton {
     cursor: pointer;
+
+    path {
+      fill: $purple;
+
+      .Page__dashboard & {
+        fill: white;
+      }
+    }
+
+    circle {
+      fill: white;
+
+      .Page__dashboard & {
+        fill: $purple;
+      }
+    }
   }
 }
 

@@ -17,7 +17,7 @@
   border-bottom: none; // override base link style
   padding: 10px 20px;
   font-size: 14px;
-  color: $darkgray;
+  color: $gray;
   transition: background-color 125ms ease, color 125ms ease;
 
   &[href]:hover {
@@ -52,7 +52,7 @@
 
 .measure-status {
   font-family: $font-roboto;
-  color: $darkgray;
+  color: $gray;
   width: 100%;
   flex-shrink: 0;
   flex-basis: 75px;
@@ -110,8 +110,9 @@
 
   > span {
     display: inline-block;
+    // padding: 9px 8px 6px;
     margin-right: 7px;
-    color: $darkgray;
+    color: $gray;
     font-size: 12px;
     font-family: $font-roboto;
   }
@@ -130,7 +131,7 @@
   font-family: $font-roboto;
   font-size: 16px;
   border-top: 1px solid $blueishgray;
-  color: $darkgray;
+  color: $gray;
 
   transition: background-color 125ms ease;
 
