@@ -13,7 +13,7 @@ import Subscribe from './subscribe';
 import AuthModal from './auth-modal';
 
 import '../../scss/dashboard.css';
-import macron from '../../images/macron.jpg';
+import macron from '../../images/macron.png';
 // import macron2x from '../../images/macron@2x.jpg';
 // import macron3x from '../../images/macron@3x.jpg';
 
@@ -44,15 +44,15 @@ const DashboardBox = ({ children, className }) =>
 const DashboardHeader = ({ locale }) =>
   <div className="dashboard-header">
     <div className="dashboard-blurb">
-      <h2>Il l’a dit, il le fait</h2>
+      <h2>On le dit, on le fait</h2>
       <p>
-        Suivez l'application du programme d'Emmanuel Macron en toute transparence et votez sur les mesures que vous attendez le plus.
+        La transformation du pays est en marche ! Suivez l'application du programme d'Emmanuel Macron et votez en faveur des mesures que vous attendez le plus.
       </p>
 
       <Link className="dashboard-header__link" to={`/${locale}/results`}>Découvrir ce qui me concerne</Link>
     </div>
     <div className="dashboard-image">
-      <img src={macron} alt="Macron" />
+      <img src={macron} width="410" height="381" alt="Macron" />
     </div>
   </div>
 

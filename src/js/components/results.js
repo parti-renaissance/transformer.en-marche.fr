@@ -18,7 +18,11 @@ const Intro = ({ title, description, children }) =>
 
 const HitsWithIntro = connectHits(({ hits, profile }) => {
   if (!hits.length) {
-    return "No results in french.";
+    return (
+      <div className="mesure-none">
+        Aucun resultat pour votre recherche 😔
+      </div>
+    );
   }
   let [ hit ] = hits;
   let description = hit.descriptions[profile];
