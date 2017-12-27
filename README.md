@@ -1,4 +1,4 @@
-# Il l'a dit, il le fait (en anglais)
+# On le dit, on le fait (en Anglais)
 
 ## development
 

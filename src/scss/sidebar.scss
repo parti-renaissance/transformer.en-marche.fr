@@ -4,8 +4,8 @@
 
 .sidebar {
   background-color: $lightgray;
-  padding: 25px 25px 0 25px;
-  
+  padding: 25px 25px 10px 25px;
+
   @include mq($medium-and-up) {
     flex-basis: 355px;
     padding: 75px 40px 0;
@@ -16,7 +16,7 @@
   font-family: $font-roboto;
   font-size: 16px;
   color: #444;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
 }
 
 .refinement-list {
@@ -48,20 +48,16 @@
 .sidebar-more {
   .refinement-list__item-more {
     display: none;
-    
+
     ~ .refinement-list__item {
       display: block;
     }
   }
 }
 
-.sidebar-search {
-  margin-bottom: 35px;
-}
-
 .ais-SearchBox__root {
   display: none;
-  
+
   @include mq($medium-and-up) {
     display: block;
   }
@@ -77,9 +73,9 @@
 .ais-SearchBox__input {
   background-color: transparent;
   border: none;
-  font-family: $font-gillsans;
+  font-family: $font-roboto;
   order: 2;
-  
+
   &:focus,
   &:active {
     outline: none;
@@ -93,7 +89,7 @@
   padding: 0;
   margin-right: 10px;
   font-size: 13px;
-  
+
   > svg {
     fill: $darkgray;
   }
@@ -107,7 +103,11 @@
   color: $darkgray;
   display: none;
   font-family: $font-roboto;
-  
+
+  small {
+    font-size: 12px;
+  }
+
   @include mq($medium-and-up) {
     display: block;
   }
@@ -116,13 +116,14 @@
 .sidebar-reset {
   @include button-base;
   display: block;
+  font-weight: normal;
   font-family: $font-roboto;
   font-size: 12px;
-  margin-bottom: 12px;
-  border-bottom: 1px solid rgba(black, 0);
-  
+  margin-top: 40px;
+  border-bottom: 1px solid rgba(black, .2);
+
   transition: border-bottom-color 125ms ease;
-  
+
   &:hover {
     border-bottom-color: rgba(black, 1);
   }

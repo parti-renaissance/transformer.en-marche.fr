@@ -29,6 +29,7 @@
     font-weight: bold;
     line-height: 1.39;
     letter-spacing: -0.5px;
+    margin-bottom: 5px;
   }
 
   > p {
@@ -102,7 +103,7 @@
 
 .dashboard-box {
   background-color: white;
-  padding: 40px;
+  padding: 20px;
   border: 1px solid $blueishgray;
   margin-bottom: 30px;
   font-size: 16px;
@@ -110,6 +111,7 @@
   line-height: 1.44;
 
   @include mq($large-and-up) {
+    padding: 40px;
     flex-basis: 49%;
 
     &.dashboard-popular {
@@ -135,7 +137,7 @@
   font-weight: bold;
   letter-spacing: -0.4px;
   margin-bottom: 10px;
-  line-height: 1.1;
+  line-height: 1.2;
 }
 
 .dashboard-updated {

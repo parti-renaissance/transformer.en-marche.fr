@@ -14,7 +14,7 @@ const SOCIAL_COPY = "Suivez le progrès du gouvernement https://transformerlafra
 const Header = ({ locale }) =>
   <header className="header">
     <div className="header-left">
-      <Link to={`/${locale}`} title="En Marche!" className="header-logo">EM!</Link><span className="header-sep"> | </span><span className="header-tag">Il l&apos;a dit, il le fait</span>
+      <Link to={`/${locale}`} title="En Marche!" className="header-logo">EM!</Link><span className="header-sep"> | </span><span className="header-tag">On le dit, on le fait</span>
     </div>
 
     <div className="header-right">
@@ -35,7 +35,7 @@ const Header = ({ locale }) =>
 const Footer = () =>
   <footer className="footer">
     <div className="footer-body">
-    © La République En Marche | <a href="https://en-marche.fr/mentions-legales" target="_blank" rel="noopener noreferrer">Mentions Légales</a> | <a href="https://en-marche.fr/politique-cookies" target="_blank" rel="noopener noreferrer">Politique de Cookies</a>
+    © La République En Marche | <a href="https://en-marche.fr/mentions-legales" target="_blank" rel="noopener noreferrer">Mentions Légales</a> | <a href="https://en-marche.fr/politique-cookies" target="_blank" rel="noopener noreferrer">Politique de Cookies</a> | <a href="https://github.com/EnMarche/gov-timeline" target="_blank" rel="noopener noreferrer">Libre sur Github</a>
     </div>
   </footer>
 

@@ -44,9 +44,9 @@ const DashboardBox = ({ children, className }) =>
 const DashboardHeader = ({ locale }) =>
   <div className="dashboard-header">
     <div className="dashboard-blurb">
-      <h2>Il l’a dit, il le fait</h2>
+      <h2>On le dit, on le fait</h2>
       <p>
-        Suivez l'application du programme d'Emmanuel Macron en toute transparence et votez sur les mesures que vous attendez le plus.
+        La transformation du pays est en marche ! Suivez l'application du programme d'Emmanuel Macron et votez en faveur des mesures que vous attendez le plus. 
       </p>
 
       <Link className="dashboard-header__link" to={`/${locale}/results`}>Découvrir ce qui me concerne</Link>

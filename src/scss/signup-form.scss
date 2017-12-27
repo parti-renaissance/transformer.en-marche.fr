@@ -6,6 +6,7 @@
   display: flex;
   flex-wrap: wrap;
   position: relative;
+  margin-top: 20px;
 }
 
 .SignupForm > input {
@@ -44,6 +45,7 @@
   margin: 0;
   flex: 1;
   text-align: center;
+  color: $orange;
 }
 
 @include mq($medium-and-up) {
@@ -58,7 +60,7 @@
   .SignupForm input::placeholder {
     text-align: left;
   }
-  
+
   .SignupForm button {
     font-size: 16px;
     margin-bottom: 0;
@@ -68,12 +70,12 @@
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
   }
-  
+
   .SignupForm button,
   .SignupForm input {
     flex-basis: auto;
   }
-  
+
   .SignupForm__message {
     padding-top: 15px;
     flex-basis: 100%;

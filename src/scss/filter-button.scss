@@ -3,24 +3,26 @@
 
 .filter-button {
   @include button-base;
+  font-weight: normal;
   background-color: $lightgray;
   padding: 8px 12px;
   border-radius: 4px;
   font-size: 14px;
+  color: $darkergray;
   font-family: $font-roboto;
   position: relative;
   text-align: left;
-  
+
   &:focus,
   &:active {
     outline: none;
   }
-  
+
   &.is-active {
     background-color: black !important;
     color: white !important;
   }
-  
+
   &::after {
     display: none;
     content: 'x';
@@ -37,7 +39,7 @@
     top: -7px;
     right: -5px;
   }
-  
+
   &.is-active::after {
     display: flex;
   }

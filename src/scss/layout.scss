@@ -53,20 +53,32 @@
 
 .header-tag {
   font-weight: 100;
-  color: $darkergray;
+  font-size: 18px;
+
+  @include mq($medium-and-up) {
+    font-size: 28px;
+  }
+
+  .Page__dashboard & {
+    color: $darkergray;
+  }
 }
 
 .header-sep {
-  opacity: 0.4;
+  opacity: 0.2;
   font-weight: 100;
   font-size: 24px;
 }
 
 .header-left {
+  flex-basis: 190px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-basis: 270px;
+
+  @include mq($medium-and-up) {
+    flex-basis: 300px;
+  }
 }
 
 .header-right {

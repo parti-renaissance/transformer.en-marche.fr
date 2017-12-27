@@ -5,6 +5,10 @@
   border: 1px solid $blueishgray;
 }
 
+.mesure-none {
+  font-family: $font-roboto;
+}
+
 .measure {
   position: relative;
   display: block;
@@ -40,7 +44,7 @@
   justify-content: space-between;
   text-decoration: none;
   flex-wrap: wrap;
-  
+
   @include mq($medium-and-up) {
     flex-wrap: nowrap;
   }
@@ -84,7 +88,7 @@
   flex: 1;
   color: $darkergray;
   margin-bottom: 10px;
-  
+
   order: -1;
   flex-basis: 100%;
 
@@ -92,7 +96,7 @@
   .voté[href] &::after {
     content: ' →';
   }
-  
+
   @include mq($medium-and-up) {
     order: 0;
     flex-basis: auto;
