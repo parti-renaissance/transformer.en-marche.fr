@@ -134,7 +134,7 @@
   font-family: $font-gillsans;
   font-weight: bold;
   letter-spacing: -0.4px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   line-height: 1.1;
 }
 
@@ -144,7 +144,7 @@
   font-size: 16px;
   line-height: 1.38;
   color: $darkgray;
-  margin-bottom: 5px;
+  margin-bottom: 25px;
 }
 
 .dashboard-popular {
@@ -201,7 +201,9 @@
     font-family: $font-gillsans;
     font-size: 16px;
     font-weight: 300;
-    padding-right: 10px;
+    padding-right: 15px;
+    line-height: 60px;
+    top: 12px;
 
     > span {
       font-size: 28px;

@@ -23,9 +23,9 @@ const START_OF_TERM = '2017-05-14';
 const MAILCHIMP_ACTION = process.env.REACT_APP_MAILCHIMP_ACTION;
 const FORM_PROPS = {
   messages: {
-    inputPlaceholder: 'Enter your email',
-    btnLabel: 'Sign Up',
-    sending: 'Sending...',
+    inputPlaceholder: 'Entrez votre e-mail',
+    btnLabel: 'S\'inscrire',
+    sending: 'En cours...',
   },
   action: MAILCHIMP_ACTION
 };
@@ -46,7 +46,7 @@ const DashboardHeader = ({ locale }) =>
     <div className="dashboard-blurb">
       <h2>Il l’a dit, il le fait</h2>
       <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation.
+        Suivez l'application du programme d'Emmanuel Macron en toute transparence et votez sur les mesures que vous attendez le plus.
       </p>
 
       <Link className="dashboard-header__link" to={`/${locale}/results`}>Découvrir ce qui me concerne</Link>
@@ -76,9 +76,9 @@ const Progressions = ({ measures, total }) =>
     <ProgressMeter total={total} current={measures['VOTED']} className="en-cours">
       <span>{measures['VOTED']}</span> en cours
     </ProgressMeter>
-    <ProgressMeter total={total} current={measures['IN_PROGRESS']} className="venir">
-      <span>{measures['IN_PROGRESS']}</span> à venir
-    </ProgressMeter>
+    <div className="progress a-venir">
+      Et ce n'est qu'un debut ! Encore <strong>{measures['IN_PROGRESS']}</strong> à venir.
+    </div>
   </div>
 
 class Dashboard extends Component {
@@ -125,7 +125,7 @@ class Dashboard extends Component {
               </p>
             </DashboardBox>
             <DashboardBox>
-              <h3 className="dashboard-box__title">Pour rester informé(e), inscrivez-vous à la newsletter hebdomadaire :</h3>
+              <h3 className="dashboard-box__title">Pour être les premiers informés, inscrivez-vous à la newsletter hebdomadaire :</h3>
               <Subscribe {...FORM_PROPS} />
             </DashboardBox>
           </DashboardRow>
