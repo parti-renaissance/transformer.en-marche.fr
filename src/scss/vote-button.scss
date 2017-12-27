@@ -8,7 +8,7 @@
   border-radius: 3px;
   background-color: rgba($bluepurple, 0);
 
-  transition: background-color 125ms ease, border-color 125ms ease;
+  transition: all 250ms ease, background-color 125ms ease, border-color 125ms ease;
 
   .thumbs-up path {
     transition: stroke 125ms ease;
@@ -16,6 +16,7 @@
 
   &:hover,
   &.is-active:hover {
+    transform: scale(1.1);
     background-color: rgba($lightpurple, 1);
     border-color: $lightpurple;
 
