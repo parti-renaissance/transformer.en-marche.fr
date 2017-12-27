@@ -20,7 +20,7 @@ const HitsWithIntro = connectHits(({ hits, profile }) => {
   if (!hits.length) {
     return (
       <div className="mesure-none">
-        Aucun resultat pour votre recherche 😔
+        Aucun resultat pour votre recherche <span role="img" aria-label="Emoji disappointed">😔</span>
       </div>
     );
   }
