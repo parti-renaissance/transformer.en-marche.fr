@@ -128,7 +128,7 @@ class Dashboard extends Component {
               </p>
             </DashboardBox>
             <DashboardBox>
-              <h3 className="dashboard-box__title dashboard-box__title--small">Pour être les premiers informés, inscrivez-vous à la newsletter hebdomadaire :</h3>
+              <h3 className="dashboard-box__title dashboard-box__title--small">Pour être les premiers informés, inscrivez-vous à la newsletter hebdomadaire du mouvement :</h3>
               <Subscribe {...FORM_PROPS} />
             </DashboardBox>
           </DashboardRow>
