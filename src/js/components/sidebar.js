@@ -67,7 +67,56 @@ export const FilterButton = ({isActive, label, onClick, style, buttonRef, childr
    ref={buttonRef}>
     <span>{children || label}</span>
   </button>
+  
+const MobileSidebar = ({ location, match, resetParams }) =>
+  <div className="sidebar-group">
+    <ThemesDropdown attributeName="title" location={location} match={match} />
+    <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, THEME)}>Réinitialiser</button>
 
+    <ProfilesDropdown attributeName="measures.profiles.title" location={location} match={match} />
+    <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, PROFILE)}>reset profile</button>
+  </div>
+
+
+const DesktopSidebar = ({ resetParams, location, match, toggleProfile, showMore, profiles, doQuery }) =>
+  <div className="sidebar-group">
+    <h3 className="sidebar-title">
+      Je m&apos;interesse à...
+    </h3>
+    <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, THEME)}>Réinitialiser</button>
+
+    <ThemesList
+      location={location}
+      match={match}
+      onViewMore={showMore} />
+
+    <h3 className="sidebar-title">
+      Je suis...
+    </h3>
+    <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, PROFILE)}>Réinitialiser</button>
+
+    <Profiles
+      location={location}
+      locale={match.params.locale}
+      toggleProfile={toggleProfile}
+      profiles={profiles}
+      limitMin={1000}
+      attributeName="measures.profiles.title" />
+
+    <div className="sidebar-search">
+      <SearchBox
+        onInput={e => doQuery(e.target.value)}
+        searchAsYouType={false}
+        translations={{placeholder: 'Filtrer par mot-clé'}}/>
+      <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, QUERY)}>Réinitialiser</button>
+      <button className="sidebar-reset" onClick={() => resetParams(location, match)}>Réinitialiser les fitres</button>
+    </div>
+
+    <div className="sidebar-footer">
+      <LastUpdated />
+    </div>
+
+  </div>
 
 class Sidebar extends Component {
   state = {}
@@ -84,53 +133,18 @@ class Sidebar extends Component {
 
         <Media query="(min-width: 800px)">
         {matches =>
-          matches ?
-            <div className="sidebar-group">
-              <h3 className="sidebar-title">
-                Je m&apos;interesse à...
-              </h3>
-              <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, THEME)}>Réinitialiser</button>
-
-              <ThemesList
-                location={location}
-                match={match}
-                onViewMore={this.seeMoreRefinements.bind(this)} />
-
-              <h3 className="sidebar-title">
-                Je suis...
-              </h3>
-              <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, PROFILE)}>Réinitialiser</button>
-
-              <Profiles
-                location={location}
-                locale={match.params.locale}
-                toggleProfile={toggleProfile}
-                profiles={profiles}
-                limitMin={1000}
-                attributeName="measures.profiles.title" />
-
-              <div className="sidebar-search">
-                <SearchBox
-                  onInput={e => doQuery(e.target.value)}
-                  searchAsYouType={false}
-                  translations={{placeholder: 'Filtrer par mot-clé'}}/>
-                <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, QUERY)}>Réinitialiser</button>
-                <button className="sidebar-reset" onClick={() => resetParams(location, match)}>Réinitialiser les fitres</button>
-              </div>
-
-              <div className="sidebar-footer">
-                <LastUpdated />
-              </div>
-
-            </div>
+          matches ? 
+            <DesktopSidebar
+             resetParams={resetParams}
+             location={location}
+             match={match}
+             toggleProfile={toggleProfile}
+             showMore={this.seeMoreRefinements.bind(this)}
+             profiles={profiles}
+             doQuery={doQuery}
+            />
           :
-            <div className="sidebar-group">
-              <ThemesDropdown attributeName="title" location={location} match={match} />
-              <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, THEME)}>Réinitialiser</button>
-
-              <ProfilesDropdown attributeName="measures.profiles.title" location={location} match={match} />
-              <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, PROFILE)}>reset profile</button>
-            </div>
+            <MobileSidebar location={location} match={match} />
         }
         </Media>
 
