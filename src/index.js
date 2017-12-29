@@ -31,6 +31,10 @@ if (queryParams.code) {
     .then(({ value }) => store.dispatch(myVotes(value.access_token)));
 }
 
+if ('ontouchstart' in document.documentElement)  {
+  document.body.style.cursor = 'pointer';
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <App previousRoute={queryParams.state} />
