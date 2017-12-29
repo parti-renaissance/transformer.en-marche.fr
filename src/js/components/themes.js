@@ -164,8 +164,10 @@ export const ThemeDetail = connectStateResults(({ hit:theme, searchState: { quer
   let { measures } = theme;
 
   measures = filter(measures, m => m.title.match(new RegExp(query, 'gi')));
-  let grouped = groupBy(measures, 'status');
-  measures = (grouped['DONE'] || [])
+  let promoted = filter(measures, 'featured');
+  let theRest = reject(measures, 'featured');
+  let grouped = groupBy(theRest, 'status');
+  measures = promoted.concat(grouped['DONE'] || [])
                 .concat(grouped['IN_PROGRESS'] || [])
                 .concat(grouped['UPCOMING'] || []);
   
