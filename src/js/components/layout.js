@@ -13,11 +13,6 @@ const TwitterIcon = generateShareIcon('twitter');
 
 const SOCIAL_COPY = "Suivez le progrès du gouvernement https://transformerlafrance.fr";
 
-const transitionStyles = {
-  entering: { opacity: 0 },
-  entered:  { opacity: 1 },
-  exiting:  { opacity: 0 },
-}
 const duration = 125;
 const SharePanel = ({ in: inProp }) =>
   <Transition in={inProp} timeout={duration} mountOnEnter={true} unmountOnExit={true}>
