@@ -5,37 +5,40 @@ import { Hits } from 'react-instantsearch/dom';
 import { ThemeDetail } from './themes';
 
 
-const Intro = ({ title, description, children }) =>
-  <div className="intro">
-    <h1 className="intro-header">{title}</h1>
-
-    <div className="intro-description">
-      <p>{description}</p>
-    </div>
-
-    {children}
-  </div>
-
-const HitsWithIntro = connectHits(({ hits, profile }) => {
-  if (!hits.length) {
+const Profile = ({ profile }) => {
+  if (!profile) {
+    return null;
+  } else {
     return (
-      <div className="mesure-none">
-        Aucun resultat pour votre recherche <span role="img" aria-label="Emoji disappointed">😔</span>
+      <div className="intro">
+        <h1 className="intro-header">{profile.title}</h1>
+
+        <div className="intro-description">
+          <p>{profile.description}</p>
+        </div>
       </div>
     );
   }
-  let [ hit ] = hits;
-  let description = hit.descriptions[profile];
-  return (
-    <Intro title={profile} description={description}>
-      <Hits hitComponent={ThemeDetail} />
-    </Intro>
-  );
+}
+  
+const NoResults = () =>
+  <div className="mesure-none">
+    Aucun resultat pour votre recherche <span role="img" aria-label="Emoji disappointed">😔</span>
+  </div>
+
+const ResultsList = connectHits(({ hits }) => {
+  if (!hits.length) {
+    return <NoResults />
+  } else {
+    return <Hits hitComponent={ThemeDetail} />
+  }
 });
 
-const Results = connectStateResults(({ searchState: { menu = {} }, props }) => {
-  let chosenProfile = menu['measures.profiles.title'];
-  return <HitsWithIntro profile={chosenProfile} />
-});
+const Results = connectStateResults(({ searchState: { menu = {} } }) =>
+  <div className="results">
+    <Profile profile={menu['measures.profiles.title']} />
+    <ResultsList />
+  </div>
+);
 
 export default Results;
