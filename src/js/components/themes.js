@@ -3,9 +3,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux'
 import Select from 'react-select';
-import { connectRefinementList } from 'react-instantsearch/connectors';
-import { reject, filter, map } from 'lodash';
+import { connectRefinementList, connectStateResults } from 'react-instantsearch/connectors';
+import groupBy from 'lodash/groupBy';
+import filter from 'lodash/filter';
+import reject from 'lodash/reject';
+import map from 'lodash/map';
 
+import { Measures, NoMeasure } from './measure';
 import { FilterButton, getColor } from './sidebar';
 import {
   toggleTheme,
@@ -14,6 +18,7 @@ import {
   THEME,
 } from '../actions/search-actions';
 import '../../scss/dropdowns.css';
+import './../../scss/theme.css';
 
 
 class ThemeListItem extends Component {
@@ -153,3 +158,34 @@ ThemesDropdown = connect(({ themes: { themes, items, activeThemes }}) => ({
   toggleTheme: theme => dispatch(toggleThemeFacet(theme)),
   resetParams: (...args) => dispatch(resetParams(...args))
 }))(ThemesDropdown);
+
+export const ThemeDetail = connectStateResults(({ hit:theme, searchState: { query } }) => {
+  let { measures } = theme;
+
+  measures = filter(measures, m => m.title.match(new RegExp(query, 'gi')));
+  let grouped = groupBy(measures, 'status');
+  measures = (grouped['DONE'] || [])
+                .concat(grouped['IN_PROGRESS'] || [])
+                .concat(grouped['UPCOMING'] || []);
+  
+  if (query && !measures.length) {
+    // no matching measures for this keyword query
+    // return nothing so it doesn't render
+    return null;
+  }
+  
+  return (
+    <article className="theme">
+      <img src={theme.image} className="theme-image" alt={theme.title} />
+      
+      <h1 className="theme-title">{theme.title}</h1>
+      
+      <p className="theme-body">{theme.description}</p>
+      
+      {measures.length ?
+        <Measures measures={measures} />
+      : <NoMeasure theme={theme.title} />}
+        
+    </article>
+  )
+});

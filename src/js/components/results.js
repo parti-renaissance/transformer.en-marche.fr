@@ -2,7 +2,7 @@ import React from 'react';
 import { connectStateResults, connectHits } from 'react-instantsearch/connectors';
 import { Hits } from 'react-instantsearch/dom';
 
-import Theme from './theme';
+import { ThemeDetail } from './themes';
 
 
 const Intro = ({ title, description, children }) =>
@@ -28,7 +28,7 @@ const HitsWithIntro = connectHits(({ hits, profile }) => {
   let description = hit.descriptions[profile];
   return (
     <Intro title={profile} description={description}>
-      <Hits hitComponent={Theme} />
+      <Hits hitComponent={ThemeDetail} />
     </Intro>
   );
 });
