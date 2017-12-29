@@ -68,14 +68,14 @@ const DashboardTimer = ({ total, current }) =>
 
 const Progressions = ({ measures, total }) =>
   <div className="dashboard-progressions">
-    <ProgressMeter total={total} current={measures['IS_LAW']} className="fait">
-      <span>{measures['IS_LAW']}</span> faites
+    <ProgressMeter total={total} current={measures['DONE']} className="fait">
+      <span>{measures['DONE']}</span> faites
     </ProgressMeter>
-    <ProgressMeter total={total} current={measures['VOTED']} className="en-cours">
-      <span>{measures['VOTED']}</span> en cours
+    <ProgressMeter total={total} current={measures['IN_PROGRESS']} className="en-cours">
+      <span>{measures['IN_PROGRESS']}</span> en cours
     </ProgressMeter>
     <div className="progress a-venir">
-      Et ce n'est qu'un debut ! Encore <strong>{measures['IN_PROGRESS']}</strong> à venir.
+      Et ce n'est qu'un debut ! Encore <strong>{measures['UPCOMING']}</strong> à venir.
     </div>
   </div>
 

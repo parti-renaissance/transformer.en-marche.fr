@@ -13,9 +13,9 @@ const FacebookIcon = generateShareIcon('facebook');
 const TwitterIcon = generateShareIcon('twitter');
 
 const STATUS_MAP = {
-  IN_PROGRESS: 'À venir',
-  IS_LAW: 'Fait',
-  VOTED: 'En cours'
+  UPCOMING: 'À venir',
+  DONE: 'Fait',
+  IN_PROGRESS: 'En cours'
 }
 
 const slugify = str => str.toLowerCase().replace(/[\s_]/g, '-');
