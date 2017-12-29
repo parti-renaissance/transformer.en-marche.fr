@@ -14,8 +14,6 @@ import AuthModal from './auth-modal';
 
 import '../../scss/dashboard.css';
 import macron from '../../images/macron.png';
-// import macron2x from '../../images/macron@2x.jpg';
-// import macron3x from '../../images/macron@3x.jpg';
 
 const END_OF_TERM = '2022-05-13';
 const START_OF_TERM = '2017-05-14';
