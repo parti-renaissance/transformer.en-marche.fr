@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux'
 import Select from 'react-select';
 import { filter, map } from 'lodash';
+import sortBy from 'lodash/sortBy';
 
 import {
   setProfile,
@@ -75,7 +76,7 @@ export class ProfilesDropdown extends Component {
 ProfilesDropdown = connectMenu(ProfilesDropdown);
 
 ProfilesDropdown = connect(({ profiles: { profiles, items, activeProfile }}) => ({
-  profileOptions: items.map(id => ({label: profiles[id].title, value: id})),
+  profileOptions: sortBy(items.map(id => ({label: profiles[id].title, value: id})), 'label'),
   profiles,
   activeProfile
 }), dispatch => ({

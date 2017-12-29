@@ -8,6 +8,7 @@ import groupBy from 'lodash/groupBy';
 import filter from 'lodash/filter';
 import reject from 'lodash/reject';
 import map from 'lodash/map';
+import sortBy from 'lodash/sortBy';
 
 import { Measures, NoMeasure } from './measure';
 import { FilterButton, getColor } from './sidebar';
@@ -150,7 +151,7 @@ export class ThemesDropdown extends Component {
 ThemesDropdown = connectRefinementList(ThemesDropdown);
 
 ThemesDropdown = connect(({ themes: { themes, items, activeThemes }}) => ({
-  themesOptions: items.map(id => ({label: themes[id].title, value: id})),
+  themesOptions: sortBy(items.map(id => ({label: themes[id].title, value: id})), 'label'),
   themes,
   activeThemes
 }), dispatch => ({
