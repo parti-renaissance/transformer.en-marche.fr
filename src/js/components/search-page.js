@@ -15,11 +15,6 @@ const API_KEY = process.env.REACT_APP_ALGOLIA_API_KEY;
 const INDEX_NAME = process.env.REACT_APP_ALGOLIA_INDEX_NAME;
 
 
-const Content = () =>
-  <div className="content">
-    <Results />
-  </div>
-
 class Layout extends Component {
   
   syncForProfile() {
@@ -53,7 +48,7 @@ class Layout extends Component {
   }
   
   render() {
-    let { dispatch, location, match, searchState } = this.props;
+    let { dispatch, location, match, searchState, profiles } = this.props;
     return (
       <InstantSearch
         appId={APP_ID}
@@ -62,7 +57,10 @@ class Layout extends Component {
         searchState={searchState}
       >
           <Sidebar dispatch={dispatch} location={location} match={match} />
-          <Content />
+
+          <div className="content">
+            <Results profiles={profiles} />
+          </div>
   
       </InstantSearch>
     );

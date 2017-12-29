@@ -5,8 +5,9 @@ import { Hits } from 'react-instantsearch/dom';
 import { ThemeDetail } from './themes';
 
 
-const Profile = ({ profile }) => {
-  if (!profile) {
+const Profile = ({ profileTitle, profiles }) => {
+  let profile = profiles.profilesByTitle[profileTitle];
+  if (!profileTitle || !profile) {
     return null;
   } else {
     return (
@@ -34,11 +35,10 @@ const ResultsList = connectHits(({ hits }) => {
   }
 });
 
-const Results = connectStateResults(({ searchState: { menu = {} } }) =>
+const Results = ({ searchState: { menu = {} }, profiles = [] }) =>
   <div className="results">
-    <Profile profile={menu['measures.profiles.title']} />
+    <Profile profileTitle={menu['measures.profiles.title']} profiles={profiles} />
     <ResultsList />
   </div>
-);
 
-export default Results;
+export default connectStateResults(Results);
