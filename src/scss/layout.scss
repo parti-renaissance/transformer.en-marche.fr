@@ -179,18 +179,19 @@
   right: 0;
   width: 60px;
   margin: auto;
-  background: $orange;
+  background: $lightgray;
   padding: 15px 0;
   border-radius: 3px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
   
   &:before {
     content: '';
     height: 0;
     width: 0;
     border: 10px solid transparent;
-    border-bottom-color: $orange;
+    border-bottom-color: $lightgray;
     position: absolute;
-    top: -20px;
+    top: -19px;
     left: 0;
     right: 0;
     margin: auto;
