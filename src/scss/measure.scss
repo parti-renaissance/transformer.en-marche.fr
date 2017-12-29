@@ -63,13 +63,13 @@
   text-align: center;
   transition: background-color 125ms ease, color 125ms ease, border-color 125ms ease;
 
-  .voted & {
+  .in-progress & {
     border-color: $en-cours;
     background-color: $en-cours;
     color: white;
   }
 
-  .is-law & {
+  .done & {
     border-color: $fait;
     background-color: $fait;
     color: white;
