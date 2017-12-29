@@ -167,3 +167,41 @@
     }
   }
 }
+
+.mobile-share {
+  position: relative;
+}
+
+.share-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  right: 0;
+  width: 60px;
+  margin: auto;
+  background: $orange;
+  padding: 15px 0;
+  border-radius: 3px;
+  
+  &:before {
+    content: '';
+    height: 0;
+    width: 0;
+    border: 10px solid transparent;
+    border-bottom-color: $orange;
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+}
+
+.share-panel .SocialMediaShareButton {
+  width: 35px;
+  margin: 0 auto 15px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

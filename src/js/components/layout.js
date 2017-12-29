@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { ShareButtons, generateShareIcon } from 'react-share';
+import clickOutside from 'react-click-outside';
+import Transition from 'react-transition-group/Transition';
 
 import '../../scss/layout.css';
 
@@ -10,6 +12,49 @@ const FacebookIcon = generateShareIcon('facebook');
 const TwitterIcon = generateShareIcon('twitter');
 
 const SOCIAL_COPY = "Suivez le progrès du gouvernement https://transformerlafrance.fr";
+
+const transitionStyles = {
+  entering: { opacity: 0 },
+  entered:  { opacity: 1 },
+  exiting:  { opacity: 0 },
+}
+const duration = 125;
+const SharePanel = ({ in: inProp }) =>
+  <Transition in={inProp} timeout={duration} mountOnEnter={true} unmountOnExit={true}>
+    {(state) => (
+      <div className="share-panel" style={{
+        transition: `opacity ${duration}ms ease`,
+        opacity: ['entering', 'exiting'].includes(state) ? 0 : 1
+      }}>
+        <FacebookShareButton url={window.location.toString()} quote={SOCIAL_COPY}>
+          <FacebookIcon round={true} size={35}/>
+        </FacebookShareButton>
+        <TwitterShareButton url={window.location.toString()} title={SOCIAL_COPY}>
+          <TwitterIcon round={true} size={35}/>
+        </TwitterShareButton>
+      </div>
+    )}
+  </Transition>
+
+class MobileShare extends Component {
+  state = {isOpened: false}
+  
+  handleClickOutside() {
+    this.setState({ isOpened: false });
+  }
+  
+  render() {
+    let { isOpened } = this.state;
+    return (
+      <div className="mobile-share">
+        <button className="header-button" onClick={() => this.setState({ isOpened: !isOpened })}>Partager</button>
+        <SharePanel in={isOpened} />
+      </div>
+    );
+  }
+}
+
+MobileShare = clickOutside(MobileShare);
 
 const Header = ({ locale }) =>
   <header className="header">
@@ -28,7 +73,7 @@ const Header = ({ locale }) =>
     </div>
 
     <div className="header-right__mobile">
-      <button className="header-button">Partager</button>
+      <MobileShare />
     </div>
   </header>
 
