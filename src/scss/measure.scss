@@ -9,9 +9,23 @@
   font-family: $font-roboto;
 }
 
-.measure {
+.measure-wrapper {
   position: relative;
   display: block;
+
+  &:hover {
+    > .share-measure {
+      opacity: 1;
+    }
+  }
+}
+
+.measure-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  
   text-decoration: none;
   border-top: 1px solid $lightgray;
   border-bottom: none; // override base link style
@@ -20,33 +34,18 @@
   color: $gray;
   transition: background-color 125ms ease, color 125ms ease;
 
-  &[href]:hover {
-    background-color: $blueishgray;
-
-    > .share-measure {
-      opacity: 1;
-    }
-  }
-
-  &:first-child {
-    border-top: none;
-  }
-
-  @include mq($medium-and-up) {
-    font-size: 16px;
-    padding: 10px 25px;
-  }
-}
-
-.measure-body {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  text-decoration: none;
-  flex-wrap: wrap;
-
   @include mq($medium-and-up) {
     flex-wrap: nowrap;
+    font-size: 16px;
+    padding: 20px 25px;
+  }
+  
+  &[href]:hover {
+    background-color: $blueishgray;
+  }
+
+  .measure-wrapper:first-child & {
+    border-top: none;
   }
 }
 
@@ -107,13 +106,21 @@
 .measure-vote {
   display: flex;
   align-items: center;
-
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  
   > span {
     display: inline-block;
     margin-right: 7px;
     color: $gray;
     font-size: 12px;
     font-family: $font-roboto;
+  }
+  
+  @include mq($medium-and-up) {
+    top: 20px;
+    right: 25px;
   }
 }
 

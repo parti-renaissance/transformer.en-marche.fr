@@ -39,20 +39,20 @@ const ShareMeasure = ({measure}) => {
   }
 }
 
-const LinkOrDiv = ({ measure, children }) => {
-  if (measure.link) {
+const LinkOrDiv = ({ link, className, children }) => {
+  if (link) {
     return (
       <a
-       href={measure.link}
+       href={link}
        target="_blank"
        rel="noreferrer noopener"
-       className={`measure ${slugify(measure.status)}`}>
+       className={className}>
        {children}
       </a>
     );
   } else {
     return (
-      <div className={`measure ${slugify(measure.status)}`}>
+      <div className={className}>
         {children}
       </div>
     );
@@ -60,27 +60,27 @@ const LinkOrDiv = ({ measure, children }) => {
 }
 
 export const Measure = ({measure, voteUp, voteDown, token}) =>
-  <LinkOrDiv measure={measure}>
-    <div className="measure-body">
+  <div className="measure-wrapper">
+    <LinkOrDiv link={measure.link} className={`measure-body ${slugify(measure.status)}`}>
       <div className="measure-status">
         {STATUS_MAP[measure.status]}
       </div>
       <div className="measure-name">
         {measure.title}
       </div>
-      
-      <div className="measure-vote">
-        <span>{measure.count || 0}</span>
-        <VoteButton
-          isActive={measure.isActive}
-          voteDown={() => voteDown(measure.id, token)}
-          voteUp={() => voteUp(measure.id, token)}
-        />
-      </div>
-    </div>
+    </LinkOrDiv>
     
+    <div className="measure-vote">
+      <span>{measure.count || 0}</span>
+      <VoteButton
+        isActive={measure.isActive}
+        voteDown={() => voteDown(measure.id, token)}
+        voteUp={() => voteUp(measure.id, token)}
+      />
+    </div>
+  
     <ShareMeasure measure={measure} />
-  </LinkOrDiv>
+  </div>
 
   
 const Trigger = ({ count, nodeRef }) =>
