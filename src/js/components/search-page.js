@@ -19,7 +19,7 @@ const THEME_INDEX = process.env.REACT_APP_ALGOLIA_THEME_INDEX;
 class Layout extends Component {
   constructor(props) {
     super(props);
-    props.getVotes();
+    props.dispatch(getVoteCount());
   }
   
   syncForProfile() {
@@ -60,7 +60,7 @@ class Layout extends Component {
   }
   
   render() {
-    let { dispatch, location, match, searchState, profiles } = this.props;
+    let { dispatch, location, match, searchState, profiles, themes } = this.props;
     return (
       <InstantSearch
         appId={APP_ID}
@@ -68,11 +68,17 @@ class Layout extends Component {
         indexName={THEME_INDEX}
         searchState={searchState}
       >
-          <Sidebar dispatch={dispatch} location={location} match={match} />
+        <Sidebar
+          match={match}
+          location={location}
+          dispatch={dispatch}
+          profiles={profiles.items.map(id => profiles.profiles[id])}
+          themes={themes.items.map(id => themes.themes[id])}
+        />
 
-          <div className="content">
-            <Results profiles={profiles} />
-          </div>
+        <div className="content">
+          <Results profiles={profiles} />
+        </div>
 
       </InstantSearch>
     );
@@ -85,6 +91,4 @@ export default connect(({profiles, themes, query, locale}) => ({
   query,
   locale,
   searchState: Object.assign({}, themes.searchState, profiles.searchState, query.searchState),
-}), dispatch => ({
-  getVotes: () => dispatch(getVoteCount()),
 }))(Layout);

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux'
 import Select from 'react-select';
@@ -13,7 +12,6 @@ import sortBy from 'lodash/sortBy';
 import { Measures, NoMeasure } from './measure';
 import { FilterButton, getColor } from './sidebar';
 import {
-  toggleTheme,
   toggleThemeFacet,
   resetParams,
   THEME,
@@ -78,7 +76,7 @@ const ThemeFilters = connectRefinementList(function ThemeFilters({children, them
     .concat(otherThemes);
 });
 
-let ThemesList = ({ onViewMore, themes, toggleTheme, location, match }) =>
+export const ThemesList = ({ onViewMore, themes, toggleTheme, location, match }) =>
   <ul className="refinement-list">
     <ThemeFilters
       attributeName="title"
@@ -94,14 +92,6 @@ let ThemesList = ({ onViewMore, themes, toggleTheme, location, match }) =>
       
     </ThemeFilters>
   </ul>
-  
-ThemesList = connect(({ themes }) => ({
-  themes: themes.items.map(id => themes.themes[id])
-}), dispatch => bindActionCreators({
-  toggleTheme
-}, dispatch))(ThemesList);
-
-export { ThemesList };
 
 class ThemesDropdown extends Component {
   state = {}

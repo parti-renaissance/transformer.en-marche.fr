@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { SearchBox } from 'react-instantsearch/dom';
 
 import Media from "react-media"
@@ -12,6 +10,7 @@ import { Profiles, ProfilesDropdown } from './profiles';
 import {
   doQuery,
   toggleProfile,
+  toggleTheme,
   resetParams,
   QUERY,
   THEME,
@@ -78,7 +77,7 @@ const MobileSidebar = ({ location, match, resetParams }) =>
   </div>
 
 
-const DesktopSidebar = ({ resetParams, location, match, toggleProfile, showMore, profiles, doQuery }) =>
+const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleTheme, showMore, profiles, themes, doQuery }) =>
   <div className="sidebar-group">
     <h3 className="sidebar-title">
       Je m&apos;interesse à...
@@ -86,8 +85,10 @@ const DesktopSidebar = ({ resetParams, location, match, toggleProfile, showMore,
     <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, THEME)}>Réinitialiser</button>
 
     <ThemesList
+      themes={themes}
       location={location}
       match={match}
+      toggleTheme={toggleTheme}
       onViewMore={showMore} />
 
     <h3 className="sidebar-title">
@@ -127,7 +128,7 @@ class Sidebar extends Component {
 
   render() {
     let { viewingMore } = this.state;
-    let { location, match, profiles, toggleProfile, doQuery, resetParams } = this.props;
+    let { location, match, profiles, themes, dispatch } = this.props;
     return (
       <aside className={`sidebar${viewingMore ? ' sidebar-more' : ''}`}>
 
@@ -135,31 +136,22 @@ class Sidebar extends Component {
         {matches =>
           matches ? 
             <DesktopSidebar
-             resetParams={resetParams}
              location={location}
              match={match}
-             toggleProfile={toggleProfile}
-             showMore={this.seeMoreRefinements.bind(this)}
              profiles={profiles}
-             doQuery={doQuery}
+             themes={themes}
+             showMore={this.seeMoreRefinements.bind(this)}
+             toggleTheme={(...args) => dispatch(toggleTheme(...args))}
+             toggleProfile={(...args) => dispatch(toggleProfile(...args))}
+             doQuery={(...args) => dispatch(doQuery(...args))}
+             resetParams={(...args) => dispatch(resetParams(...args))}
             />
           :
             <MobileSidebar location={location} match={match} />
         }
         </Media>
 
-
       </aside>
     );
   }
 }
-
-export default connect(({ profiles }) => {
-  return {
-    profiles: profiles.items.map(id => profiles.profiles[id])
-  }
-}, dispatch => bindActionCreators({
-  toggleProfile,
-  doQuery,
-  resetParams
-}, dispatch))(Sidebar);
