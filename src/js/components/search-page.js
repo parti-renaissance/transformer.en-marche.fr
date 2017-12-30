@@ -52,13 +52,6 @@ class Layout extends Component {
     this.syncForTheme();
   }
   
-  shouldComponentUpdate() {
-    let { themes, profiles } = this.props
-    if (!!themes.items.length && !!profiles.items.length) {
-      return false;
-    }
-  }
-  
   render() {
     let { dispatch, location, match, searchState, profiles, themes } = this.props;
     return (
