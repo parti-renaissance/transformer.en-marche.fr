@@ -1,8 +1,8 @@
 {
-  "main.css": "static/css/main.88f025da.css",
-  "main.css.map": "static/css/main.88f025da.css.map",
-  "main.js": "static/js/main.70ab05d4.js",
-  "main.js.map": "static/js/main.70ab05d4.js.map",
+  "main.css": "static/css/main.e8fbbb45.css",
+  "main.css.map": "static/css/main.e8fbbb45.css.map",
+  "main.js": "static/js/main.653881fa.js",
+  "main.js.map": "static/js/main.653881fa.js.map",
   "static/media/gillsans-heavy-italic.eot": "static/media/gillsans-heavy-italic.fe647159.eot",
   "static/media/gillsans-heavy-italic.ttf": "static/media/gillsans-heavy-italic.59dec178.ttf",
   "static/media/gillsans-heavy-italic.woff": "static/media/gillsans-heavy-italic.37a203fc.woff",
@@ -24,5 +24,5 @@
   "static/media/gillsans-regular.ttf": "static/media/gillsans-regular.77fabd7f.ttf",
   "static/media/gillsans-regular.woff": "static/media/gillsans-regular.12341fd5.woff",
   "static/media/gillsans-regular.woff2": "static/media/gillsans-regular.3dac8089.woff2",
-  "static/media/macron.jpg": "static/media/macron.b3c5b8c9.jpg"
+  "static/media/macron.png": "static/media/macron.6aa118e2.png"
 }
