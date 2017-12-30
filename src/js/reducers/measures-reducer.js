@@ -1,5 +1,6 @@
 import { INDEXES } from '../actions/data-actions';
 import { VOTES, MY_VOTES, VOTE_UP, VOTE_DOWN } from '../actions/vote-actions';
+import map from 'lodash/map';
 
 export default function measuresReducer(state = {
   items: [],
@@ -22,10 +23,10 @@ export default function measuresReducer(state = {
         ...state,
         fetching: false,
         fetched: true,
-        items: measures.map(m => m.objectID),
+        items: map(measures, 'id'),
         measures: measures.reduce((s, m) => ({
           ...s,
-          [m.objectID]: Object.assign({}, m, state.measures[m.objectID])
+          [m.id]: Object.assign({}, m, state.measures[m.id])
         }), {})
       };
     }
