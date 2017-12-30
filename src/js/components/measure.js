@@ -110,7 +110,7 @@ class CollapsibleMeasures extends Component {
        triggerClassName="measure-accordion__trigger"
        lazyRender={true}
        >
-        {measures.slice(6).map((measure, i) => <Measure key={i} measure={measure} />)}
+        {measures.slice(3).map((measure, i) => <Measure key={i} measure={measure} />)}
       </Collapsible>
     );
   }
