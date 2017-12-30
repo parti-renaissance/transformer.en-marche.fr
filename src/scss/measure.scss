@@ -12,11 +12,16 @@
 .measure-wrapper {
   position: relative;
   display: block;
+  overflow: hidden;
 
   &:hover {
     > .share-measure {
       opacity: 1;
     }
+  }
+  
+  @include mq($medium-and-up) {
+    overflow: visible;
   }
 }
 
@@ -25,11 +30,12 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  min-height: 73px;
   
   text-decoration: none;
   border-top: 1px solid $lightgray;
   border-bottom: none; // override base link style
-  padding: 10px 20px;
+  padding: 20px;
   font-size: 14px;
   color: $gray;
   transition: background-color 125ms ease, color 125ms ease;
@@ -107,7 +113,7 @@
   display: flex;
   align-items: center;
   position: absolute;
-  top: 10px;
+  bottom: 20px;
   right: 20px;
   
   > span {
@@ -119,6 +125,7 @@
   }
   
   @include mq($medium-and-up) {
+    bottom: auto;
     top: 20px;
     right: 25px;
   }
