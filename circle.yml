@@ -28,6 +28,7 @@ deployment:
         tag: /v[0-9]+(\.[0-9]+)*/
         owner: EnMarche
         commands:
+            - sed -i '' 's/https:\/\/enmarche.github.io\/gov-timeline//g' package.json
             - env | sed -n 's/^PROD_//p' >> .env
             - bash ./scripts/build.sh
 
@@ -39,6 +40,7 @@ deployment:
         branch: master
         owner: EnMarche
         commands:
+            - sed -i '' 's/https:\/\/enmarche.github.io\/gov-timeline//g' package.json
             - env | sed -n 's/^DEMO_//p' >> .env
             - bash ./scripts/build.sh
 
