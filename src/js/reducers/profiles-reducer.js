@@ -4,6 +4,7 @@ import { INDEXES } from '../actions/data-actions';
 export default function profilesReducer(state = {
   items: [],
   profiles: {},
+  profilesByTitle: {},
   activeProfile: null,
   searchState: {
     menu: {}
