@@ -7,11 +7,9 @@ import { find, filter } from 'lodash';
 
 import Sidebar from './sidebar';
 import Results from './results';
-import AuthModal from './auth-modal';
 
 import { setProfile, toggleThemeFacet } from '../actions/search-actions';
 import { getVoteCount } from '../actions/vote-actions';
-import { closeAuth } from '../actions/auth-actions';
 
 const APP_ID      = process.env.REACT_APP_ALGOLIA_APP_ID;
 const API_KEY     = process.env.REACT_APP_ALGOLIA_API_KEY;
@@ -76,21 +74,17 @@ class Layout extends Component {
             <Results profiles={profiles} />
           </div>
 
-        <AuthModal isOpen={this.props.openModal} closeModal={this.props.closeAuth} />
-  
       </InstantSearch>
     );
   }
 };
 
-export default connect(({profiles, themes, query, locale, auth}) => ({
+export default connect(({profiles, themes, query, locale}) => ({
   profiles,
   themes,
   query,
   locale,
   searchState: Object.assign({}, themes.searchState, profiles.searchState, query.searchState),
-  openModal: auth.openModal
 }), dispatch => ({
   getVotes: () => dispatch(getVoteCount()),
-  closeAuth: () => dispatch(closeAuth()),
 }))(Layout);

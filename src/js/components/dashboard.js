@@ -5,12 +5,10 @@ import { Link } from 'react-router-dom';
 import compact from 'lodash/compact';
 
 import { getVoteCount } from '../actions/vote-actions';
-import { closeAuth } from '../actions/auth-actions';
 import { Measures } from './measure';
 import LastUpdated from './last-updated';
 import ProgressMeter from './progress-meter';
 import Subscribe from './subscribe';
-import AuthModal from './auth-modal';
 
 import '../../scss/dashboard.css';
 import macron from '../../images/macron.png';
@@ -132,7 +130,6 @@ class Dashboard extends Component {
           </DashboardRow>
         </DashboardBody>
 
-        <AuthModal isOpen={this.props.openModal} closeModal={this.props.closeAuth} />
       </div>
     )
   }
@@ -144,8 +141,6 @@ export default connect(state => ({
   status: state.status,
   allMeasures: state.measures,
   locale: state.locale,
-  openModal: state.auth.openModal
 }), dispatch => ({
   getVotes: () => dispatch(getVoteCount()),
-  closeAuth: () => dispatch(closeAuth()),
 }))(Dashboard);
