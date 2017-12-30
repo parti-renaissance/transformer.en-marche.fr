@@ -108,6 +108,7 @@ class CollapsibleMeasures extends Component {
        trigger={<Trigger nodeRef={e => this.trigger = e} count={measures.length - 6} />}
        classParentString="measure-accordion"
        triggerClassName="measure-accordion__trigger"
+       lazyRender={true}
        >
         {measures.slice(6).map((measure, i) => <Measure key={i} measure={measure} />)}
       </Collapsible>
