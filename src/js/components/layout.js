@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ShareButtons, generateShareIcon } from 'react-share';
 import clickOutside from 'react-click-outside';
 import Transition from 'react-transition-group/Transition';
+import Media from "react-media"
 
 import '../../scss/layout.css';
 
@@ -51,26 +52,34 @@ class MobileShare extends Component {
 
 MobileShare = clickOutside(MobileShare);
 
-const Header = ({ locale }) =>
-  <header className="header">
-    <div className="header-left">
-      <Link to={`/${locale}`} title="En Marche!" className="header-logo">EM!</Link><span className="header-sep"> | </span><span className="header-tag">On le dit, on le fait</span>
-    </div>
+const Header = ({ locale }) => {
+  return (
+    <header className="header">
+      <div className="header-left">
+        <Link to={`/${locale}`} title="En Marche!" className="header-logo">EM!</Link><span className="header-sep"> | </span><span className="header-tag">On le dit, on le fait</span>
+      </div>
 
-    <div className="header-right">
-      Partager
-      <FacebookShareButton url={window.location.toString()} quote={SOCIAL_COPY}>
-        <FacebookIcon round={true} size={35}/>
-      </FacebookShareButton>
-      <TwitterShareButton url={window.location.toString()} title={SOCIAL_COPY}>
-        <TwitterIcon round={true} size={35}/>
-      </TwitterShareButton>
-    </div>
-
-    <div className="header-right__mobile">
-      <MobileShare />
-    </div>
-  </header>
+        <Media query="(min-width: 800px)">
+        {matches =>
+          matches ?
+          <div className="header-right">
+            Partager
+            <FacebookShareButton url={window.location.toString()} quote={SOCIAL_COPY}>
+              <FacebookIcon round={true} size={35}/>
+            </FacebookShareButton>
+            <TwitterShareButton url={window.location.toString()} title={SOCIAL_COPY}>
+              <TwitterIcon round={true} size={35}/>
+            </TwitterShareButton>
+          </div>
+          :
+          <div className="header-right">
+            <MobileShare />
+          </div>
+        }
+        </Media>
+    </header>
+  );
+}
 
 const Footer = () =>
   <footer className="footer">

@@ -82,7 +82,6 @@
 }
 
 .header-right {
-  display: none;
 
   @include mq($medium-and-up) {
     display: flex;
@@ -118,12 +117,6 @@
         fill: $purple;
       }
     }
-  }
-}
-
-.header-right__mobile {
-  @include mq($medium-and-up) {
-    display: none;
   }
 }
 
