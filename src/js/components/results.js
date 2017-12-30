@@ -27,7 +27,7 @@ const NoResults = () =>
     Aucun resultat pour votre recherche <span role="img" aria-label="Emoji disappointed">😔</span>
   </div>
 
-const ResultsList = connectHits(({ hits }) => {
+const ResultsList = connectHits(function ResultsList({ hits }) {
   if (!hits.length) {
     return <NoResults />
   } else {

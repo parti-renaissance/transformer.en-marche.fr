@@ -55,7 +55,7 @@ class ThemeListItem extends Component {
 }
 
 
-const ThemeFilters = connectRefinementList(({children, themes = [], items = [], toggle}) => {
+const ThemeFilters = connectRefinementList(function ThemeFilters({children, themes = [], items = [], toggle}) {
 
   const createListItems = (theme, i) =>
     <ThemeListItem
@@ -78,34 +78,32 @@ const ThemeFilters = connectRefinementList(({children, themes = [], items = [], 
     .concat(otherThemes);
 });
 
-export const ThemesList = connect(({ themes }) => {
-  return {
-    themes: themes.items.map(id => themes.themes[id])
-  }
-}, dispatch => bindActionCreators({
+let ThemesList = ({ onViewMore, themes, toggleTheme, location, match }) =>
+  <ul className="refinement-list">
+    <ThemeFilters
+      attributeName="title"
+      limitMin={1000}
+      themes={themes}
+      toggle={theme => toggleTheme(theme, location, match)}>
+      
+      <li className="refinement-list__item refinement-list__item-more">
+        <FilterButton onClick={onViewMore} style={{backgroundColor: 'rgba(182, 182, 182, 0.2)', color: '#444444'}}>
+          Voir tous les thèmes
+        </FilterButton>
+      </li>
+      
+    </ThemeFilters>
+  </ul>
+  
+ThemesList = connect(({ themes }) => ({
+  themes: themes.items.map(id => themes.themes[id])
+}), dispatch => bindActionCreators({
   toggleTheme
-}, dispatch))(({ onViewMore, themes, toggleTheme, location, match }) => {
-  return (
-    <ul className="refinement-list">
-      <ThemeFilters
-        attributeName="title"
-        limitMin={1000}
-        themes={themes}
-        toggle={theme => toggleTheme(theme, location, match)}>
-        
-        <li className="refinement-list__item refinement-list__item-more">
-          <FilterButton onClick={onViewMore} style={{backgroundColor: 'rgba(182, 182, 182, 0.2)', color: '#444444'}}>
-            Voir tous les thèmes
-          </FilterButton>
-        </li>
-        
-      </ThemeFilters>
-        
-    </ul>
-  );
-});
+}, dispatch))(ThemesList);
 
-export class ThemesDropdown extends Component {
+export { ThemesList };
+
+class ThemesDropdown extends Component {
   state = {}
   
   constructor(props) {
@@ -160,7 +158,9 @@ ThemesDropdown = connect(({ themes: { themes, items, activeThemes }}) => ({
   resetParams: (...args) => dispatch(resetParams(...args))
 }))(ThemesDropdown);
 
-export const ThemeDetail = connectStateResults(({ hit:theme, searchState: { query } }) => {
+export { ThemesDropdown };
+
+export const ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchState: { query } }) {
   let { measures } = theme;
 
   measures = filter(measures, m => m.title.match(new RegExp(query, 'gi')));

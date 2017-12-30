@@ -14,7 +14,7 @@ import {
 } from '../actions/search-actions';
 import { FilterButton } from './sidebar';
 
-export const Profiles = connectMenu(({items, profiles, toggleProfile, location, locale}) => {
+export const Profiles = connectMenu(function Profiles({items, profiles, toggleProfile, location, locale}) {
   let filteredLabels = map(items, 'label')
   let filtered = filter(profiles, p => filteredLabels.includes(p.title));
   let list = filtered.map((profile, i) => {
@@ -31,7 +31,7 @@ export const Profiles = connectMenu(({items, profiles, toggleProfile, location, 
 });
   
 
-export class ProfilesDropdown extends Component {
+class ProfilesDropdown extends Component {
   state = {}
   
   constructor(props) {
@@ -85,3 +85,5 @@ ProfilesDropdown = connect(({ profiles: { profiles, items, activeProfile }}) => 
   toggleProfile: profile => dispatch(setProfile(profile)),
   resetParams: (...args) => dispatch(resetParams(...args))
 }))(ProfilesDropdown);
+
+export { ProfilesDropdown };
