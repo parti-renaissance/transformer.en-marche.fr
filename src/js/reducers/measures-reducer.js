@@ -33,6 +33,7 @@ export default function measuresReducer(state = {
     
     case `${VOTES}_FULFILLED`: {
       let { payload:votes } = action;
+      votes = votes.filter(vote => typeof vote.itemID === 'number');
       return {
         ...state,
         measures: {
