@@ -119,7 +119,7 @@ const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleThe
 
   </div>
 
-class Sidebar extends Component {
+export default class Sidebar extends Component {
   state = {}
 
   seeMoreRefinements() {
