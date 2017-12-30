@@ -2,7 +2,7 @@
   "name": "gov-timeline",
   "version": "0.1.0",
   "private": true,
-  "homepage": "",
+  "homepage": "https://enmarche.github.io/gov-timeline",
   "dependencies": {
     "color": "^2.0.1",
     "gh-pages": "^1.1.0",
