@@ -13,9 +13,9 @@ import { setProfile, toggleThemeFacet } from '../actions/search-actions';
 import { getVoteCount } from '../actions/vote-actions';
 import { closeAuth } from '../actions/auth-actions';
 
-const APP_ID = process.env.REACT_APP_ALGOLIA_APP_ID;
-const API_KEY = process.env.REACT_APP_ALGOLIA_API_KEY;
-const INDEX_NAME = process.env.REACT_APP_ALGOLIA_INDEX_NAME;
+const APP_ID      = process.env.REACT_APP_ALGOLIA_APP_ID;
+const API_KEY     = process.env.REACT_APP_ALGOLIA_API_KEY;
+const THEME_INDEX = process.env.REACT_APP_ALGOLIA_THEME_INDEX;
 
 
 class Layout extends Component {
@@ -60,7 +60,7 @@ class Layout extends Component {
       <InstantSearch
         appId={APP_ID}
         apiKey={API_KEY}
-        indexName={INDEX_NAME}
+        indexName={THEME_INDEX}
         searchState={searchState}
       >
           <Sidebar dispatch={dispatch} location={location} match={match} />

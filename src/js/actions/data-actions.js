@@ -4,14 +4,17 @@ export const INDEXES = 'INDEXES';
 export const PROGRESS = 'PROGRESS';
 
 export function fetchIndexes() {
-  const APP_ID = process.env.REACT_APP_ALGOLIA_APP_ID;
-  const API_KEY = process.env.REACT_APP_ALGOLIA_API_KEY;
+  const APP_ID        = process.env.REACT_APP_ALGOLIA_APP_ID;
+  const API_KEY       = process.env.REACT_APP_ALGOLIA_API_KEY;
+  const MEASURE_INDEX = process.env.REACT_APP_ALGOLIA_MEASURE_INDEX;
+  const THEME_INDEX   = process.env.REACT_APP_ALGOLIA_THEME_INDEX;
+  const PROFILE_INDEX = process.env.REACT_APP_ALGOLIA_PROFILE_INDEX;
   
   const client = algoliasearch(APP_ID, API_KEY);
   
-  const measuresClient = client.initIndex('Measure_dev');
-  const profilesClient = client.initIndex('Profile_dev');
-  const themesClient = client.initIndex('Theme_dev');
+  const measuresClient = client.initIndex(MEASURE_INDEX);
+  const profilesClient = client.initIndex(PROFILE_INDEX);
+  const themesClient   = client.initIndex(THEME_INDEX);
 
   return {
     type: INDEXES,
