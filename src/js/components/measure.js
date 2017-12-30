@@ -70,7 +70,7 @@ export const Measure = ({measure, voteUp, voteDown, token}) =>
       </div>
       
       <div className="measure-vote">
-        <span>{measure.count}</span>
+        <span>{measure.count || 0}</span>
         <VoteButton
           isActive={measure.isActive}
           voteDown={() => voteDown(measure.id, token)}
