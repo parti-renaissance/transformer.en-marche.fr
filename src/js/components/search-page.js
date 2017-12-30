@@ -7,8 +7,11 @@ import { find, filter } from 'lodash';
 
 import Sidebar from './sidebar';
 import Results from './results';
+import AuthModal from './auth-modal';
 
 import { setProfile, toggleThemeFacet } from '../actions/search-actions';
+import { getVoteCount } from '../actions/vote-actions';
+import { closeAuth } from '../actions/auth-actions';
 
 const APP_ID = process.env.REACT_APP_ALGOLIA_APP_ID;
 const API_KEY = process.env.REACT_APP_ALGOLIA_API_KEY;
@@ -16,6 +19,10 @@ const INDEX_NAME = process.env.REACT_APP_ALGOLIA_INDEX_NAME;
 
 
 class Layout extends Component {
+  constructor(props) {
+    super(props);
+    props.getVotes();
+  }
   
   syncForProfile() {
     let { profiles, match: { params }, dispatch, searchState } = this.props;
@@ -61,18 +68,22 @@ class Layout extends Component {
           <div className="content">
             <Results profiles={profiles} />
           </div>
+
+        <AuthModal isOpen={this.props.openModal} closeModal={this.props.closeAuth} />
   
       </InstantSearch>
     );
   }
 };
 
-export default connect(({profiles, themes, query, locale}) => {
-  return {
-    profiles,
-    themes,
-    query,
-    locale,
-    searchState: Object.assign({}, themes.searchState, profiles.searchState, query.searchState)
-  };
-})(Layout);
+export default connect(({profiles, themes, query, locale, auth}) => ({
+  profiles,
+  themes,
+  query,
+  locale,
+  searchState: Object.assign({}, themes.searchState, profiles.searchState, query.searchState),
+  openModal: auth.openModal
+}), dispatch => ({
+  getVotes: () => dispatch(getVoteCount()),
+  closeAuth: () => dispatch(closeAuth()),
+}))(Layout);
