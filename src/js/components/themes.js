@@ -69,8 +69,8 @@ const ThemeFilters = connectRefinementList(({children, themes = [], items = [], 
   let activeThemes = filter(filtered, 'isActive').map(createListItems);
   
   let inActiveThemes = reject(filtered, 'isActive')
-  let featuredThemes = filter(inActiveThemes, 'isFeatured').map(createListItems);
-  let otherThemes = reject(inActiveThemes, 'isFeatured').map(createListItems);
+  let featuredThemes = filter(inActiveThemes, 'featured').map(createListItems);
+  let otherThemes = reject(inActiveThemes, 'featured').map(createListItems);
   
   return activeThemes
     .concat(featuredThemes)
