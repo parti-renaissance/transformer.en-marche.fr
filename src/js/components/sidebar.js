@@ -66,7 +66,7 @@ export const FilterButton = ({isActive, label, onClick, style, buttonRef, childr
    ref={buttonRef}>
     <span>{children || label}</span>
   </button>
-  
+
 const MobileSidebar = ({ location, match, resetParams }) =>
   <div className="sidebar-group">
     <ThemesDropdown attributeName="title" location={location} match={match} />
@@ -110,7 +110,7 @@ const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleThe
         searchAsYouType={false}
         translations={{placeholder: 'Filtrer par mot-clé'}}/>
       <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, QUERY)}>Réinitialiser</button>
-      <button className="sidebar-reset" onClick={() => resetParams(location, match)}>Réinitialiser les fitres</button>
+      <button className="sidebar-reset" onClick={() => resetParams(location, match)}>Réinitialiser les filtres</button>
     </div>
 
     <div className="sidebar-footer">
@@ -134,7 +134,7 @@ export default class Sidebar extends Component {
 
         <Media query="(min-width: 800px)">
         {matches =>
-          matches ? 
+          matches ?
             <DesktopSidebar
              location={location}
              match={match}
