@@ -2,6 +2,7 @@ import { VOTES } from '../actions/vote-actions';
 import { INDEXES } from '../actions/data-actions';
 import sortBy from 'lodash/sortBy';
 import countBy from 'lodash/countBy';
+import filter from 'lodash/filter';
 
 export function popularReducer(state = { items: [] }, action) {
   switch(action.type) {
@@ -33,7 +34,7 @@ export function statusReducer(state = { measures: {} }, action) {
         ...state,
         fetching: false,
         fetched: true,
-        measures: countBy(measures, 'status'),
+        measures: countBy(filter(measures, 'global'), 'status'),
         total: measures.length
       };
     default:
