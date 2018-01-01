@@ -1,6 +1,5 @@
 import React from 'react';
 import { connectStateResults, connectHits } from 'react-instantsearch/connectors';
-import { Hits } from 'react-instantsearch/dom';
 
 import { ThemeDetail } from './themes';
 
@@ -31,7 +30,7 @@ const ResultsList = connectHits(function ResultsList({ hits }) {
   if (!hits.length) {
     return <NoResults />
   } else {
-    return <Hits hitComponent={ThemeDetail} />
+    return hits.map(hit => <ThemeDetail hit={hit} key={hit.objectID} />)
   }
 });
 
