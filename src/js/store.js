@@ -8,7 +8,9 @@ import createHistory from 'history/createBrowserHistory';
 import { loadState } from './local-storage';
 import reducer from './reducers';
 
-export const history = createHistory();
+const rootPath = process.env.REACT_APP_ROOT_PATH || ''; // for access assets when running on a nested path, i.e. github pages
+
+export const history = createHistory({ basename: rootPath });
 
 const persistedState = loadState();
 const middlewares = [
