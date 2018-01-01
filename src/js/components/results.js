@@ -27,18 +27,18 @@ const NoResults = () =>
     Aucun resultat pour votre recherche <span role="img" aria-label="Emoji disappointed">😔</span>
   </div>
 
-const ResultsList = connectHits(function ResultsList({ hits }) {
+const ResultsList = connectHits(function ResultsList({ hits, majorOnly }) {
   if (!hits.length) {
     return <NoResults />
   } else {
-    return sortBy(hits, 'title').map(hit => <ThemeDetail hit={hit} key={hit.objectID} />)
+    return sortBy(hits, 'title').map(hit => <ThemeDetail hit={hit} key={hit.objectID} majorOnly={majorOnly} />)
   }
 });
 
-const Results = ({ searchState: { menu = {} }, profiles = [] }) =>
+const Results = ({ searchState: { menu = {} }, profiles = [], majorOnly }) =>
   <div className="results">
     <Profile profileTitle={menu['measures.profiles.title']} profiles={profiles} />
-    <ResultsList />
+    <ResultsList majorOnly={majorOnly} />
   </div>
 
 export default connectStateResults(Results);

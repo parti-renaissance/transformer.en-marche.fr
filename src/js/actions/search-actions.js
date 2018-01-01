@@ -12,7 +12,13 @@ export const RESET_PARAMS = 'RESET_PARAMS';
 export const QUERY = 'QUERY';
 export const THEME = 'THEME';
 export const PROFILE = 'PROFILE';
+export const TOGGLE_MAJOR = 'TOGGLE_MAJOR';
 
+
+export const toggleMajor = toggle => ({
+  type: TOGGLE_MAJOR,
+  payload: toggle
+})
 
 export const doQuery = query => ({
   type: DO_QUERY,

@@ -8,6 +8,7 @@ import LastUpdated from './last-updated';
 import { ThemesList, ThemesDropdown } from './themes';
 import { Profiles, ProfilesDropdown } from './profiles';
 import {
+  toggleMajor,
   doQuery,
   toggleProfile,
   toggleTheme,
@@ -77,8 +78,15 @@ const MobileSidebar = ({ location, match, resetParams }) =>
   </div>
 
 
-const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleTheme, showMore, profiles, themes, doQuery }) =>
+const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleTheme, showMore, profiles, themes, doQuery, majorOnly, toggleMajor }) =>
   <div className="sidebar-group">
+    <h3 className="sidebar-title">
+      Voir uniquement les mesures majeures :
+      <input
+        type="checkbox"
+        value={majorOnly}
+        onChange={e => toggleMajor(e.target.checked)} />
+    </h3>
     <h3 className="sidebar-title">
       Je m&apos;interesse à...
     </h3>
@@ -128,7 +136,7 @@ export default class Sidebar extends Component {
 
   render() {
     let { viewingMore } = this.state;
-    let { location, match, profiles, themes, dispatch } = this.props;
+    let { location, match, profiles, themes, majorOnly, dispatch } = this.props;
     return (
       <aside className={`sidebar${viewingMore ? ' sidebar-more' : ''}`}>
 
@@ -140,11 +148,13 @@ export default class Sidebar extends Component {
              match={match}
              profiles={profiles}
              themes={themes}
+             majorOnly={majorOnly}
              showMore={this.seeMoreRefinements.bind(this)}
              toggleTheme={(...args) => dispatch(toggleTheme(...args))}
              toggleProfile={(...args) => dispatch(toggleProfile(...args))}
              doQuery={(...args) => dispatch(doQuery(...args))}
              resetParams={(...args) => dispatch(resetParams(...args))}
+             toggleMajor={checked => dispatch(toggleMajor(checked))}
             />
           :
             <MobileSidebar location={location} match={match} />

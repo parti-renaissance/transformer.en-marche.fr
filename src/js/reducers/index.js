@@ -8,6 +8,7 @@ import query from './query-reducer';
 import { popularReducer, statusReducer } from './dashboard-reducer';
 import locale from './translate-reducer';
 import auth from './auth-reducer';
+import majorOnly from './major-reducer.js';
 
 export default combineReducers({
   measures,
@@ -18,5 +19,6 @@ export default combineReducers({
   locale,
   auth,
   popular: popularReducer,
-  status: statusReducer
+  status: statusReducer,
+  majorOnly
 });

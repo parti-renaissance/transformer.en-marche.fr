@@ -152,10 +152,13 @@ ThemesDropdown = connect(({ themes: { themes, items, activeThemes }}) => ({
 
 export { ThemesDropdown };
 
-export const ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchState: { query } }) {
+export const ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchState: { query }, majorOnly }) {
   let { measures } = theme;
 
   measures = filter(measures, m => m.title.match(new RegExp(query, 'gi')));
+  if (majorOnly) {
+    measures = filter(measures, 'global');
+  }
   let promoted = filter(measures, 'featured');
   let theRest = reject(measures, 'featured');
   let grouped = groupBy(theRest, 'status');
