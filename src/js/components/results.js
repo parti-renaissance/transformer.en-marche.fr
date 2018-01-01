@@ -1,5 +1,6 @@
 import React from 'react';
 import { connectStateResults, connectHits } from 'react-instantsearch/connectors';
+import sortBy from 'lodash/sortBy';
 
 import { ThemeDetail } from './themes';
 
@@ -30,7 +31,7 @@ const ResultsList = connectHits(function ResultsList({ hits }) {
   if (!hits.length) {
     return <NoResults />
   } else {
-    return hits.map(hit => <ThemeDetail hit={hit} key={hit.objectID} />)
+    return sortBy(hits, 'title').map(hit => <ThemeDetail hit={hit} key={hit.objectID} />)
   }
 });
 
