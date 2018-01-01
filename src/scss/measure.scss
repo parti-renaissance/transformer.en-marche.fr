@@ -30,20 +30,27 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  min-height: 73px;
+  min-height: 40px;
   
   text-decoration: none;
   border-top: 1px solid $lightgray;
   border-bottom: none; // override base link style
-  padding: 20px;
-  font-size: 14px;
+  padding: 13px 20px;
   color: $gray;
   transition: background-color 125ms ease, color 125ms ease;
+  
+  &.is-major {
+    min-height: 73px;
+    padding: 20px;
+  }
 
   @include mq($medium-and-up) {
     flex-wrap: nowrap;
-    font-size: 16px;
-    padding: 20px 25px;
+    padding: 13px 25px;
+    
+    &.is-major {
+      padding: 20px 25px;
+    }
   }
   
   &[href]:hover {
@@ -55,50 +62,88 @@
   }
 }
 
+
 .measure-status {
-  font-family: $font-roboto;
-  color: $gray;
+  font-size: 0;
   width: 100%;
   flex-shrink: 0;
   flex-basis: 75px;
-  padding: 5px;
   margin-right: 25px;
-  border-radius: 38px;
-  border: 1px solid $lightgray;
-  text-align: center;
   transition: background-color 125ms ease, color 125ms ease, border-color 125ms ease;
+  
+  &:before {
+    content: '';
+    display: block;
+    border: 1px solid $mediumlightgray;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    margin: 0 auto;
 
-  .in-progress & {
+    .in-progress > & {
+      border-color: $en-cours;
+      background-color: $en-cours;
+    }
+
+    .done > & {
+      border-color: $fait;
+      background-color: $fait;
+    }
+  }
+  
+  .is-major > & {
+    border: 1px solid $lightgray;
+    font-family: $font-roboto;
+    font-size: 14px;
+    color: $gray;
+    padding: 5px;
+    border-radius: 38px;
+    text-align: center;
+    
+    &:before {
+      content: none;
+    }
+  }
+
+  .in-progress.is-major > & {
     border-color: $en-cours;
     background-color: $en-cours;
     color: white;
   }
 
-  .done & {
+  .done.is-major > & {
     border-color: $fait;
     background-color: $fait;
     color: white;
   }
 
   @include mq($medium-and-up) {
-    font-size: 12px;
-    padding: 5px 3px;
     margin-right: 20px;
+    
+    .is-major > & {
+      font-size: 12px;
+      padding: 5px 3px;
+    }
   }
 }
 
 .measure-name {
-  font-size: 16px;
+  font-size: 14px;
   font-family: $font-roboto;
   flex: 1;
-  color: $darkergray;
+  color: $gray;
   margin-bottom: 10px;
 
   order: -1;
   flex-basis: 100%;
+  
+  .is-major > & {
+    font-size: 16px;
+    color: $darkergray;
+  }
 
-  .en-vigueur[href] &::after,
-  .voté[href] &::after {
+  .in-progress[href] &::after,
+  .done[href] &::after {
     content: ' →';
   }
 
@@ -124,10 +169,20 @@
     font-family: $font-roboto;
   }
   
+  .is-major + & {
+    bottom: 20px;
+    right: 20px;
+  }
+  
   @include mq($medium-and-up) {
     bottom: auto;
-    top: 20px;
-    right: 25px;
+    top: 9px;
+    right: 26px;
+    
+    .is-major + & {
+      top: 20px;
+      right: 25px;
+    }
   }
 }
 

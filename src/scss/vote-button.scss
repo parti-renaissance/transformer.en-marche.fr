@@ -3,22 +3,32 @@
 
 .vote-button {
   @include button-base;
-  padding: 8px;
-  border: 1px solid $blueishgray;
-  border-radius: 3px;
   background-color: rgba($bluepurple, 0);
-
   transition: all 250ms ease, background-color 125ms ease, border-color 125ms ease;
+  padding: 8px;
+  border-radius: 3px;
+  
+  &.is-major {
+    border: 1px solid $blueishgray;
+  }
 
   .thumbs-up path {
+    stroke: $gray;
     transition: stroke 125ms ease;
+  }
+  
+  &.is-major .thumbs-up path {
+    stroke: $darkgray;
   }
 
   &:hover,
   &.is-active:hover {
     transform: scale(1.1);
     background-color: rgba($lightpurple, 1);
-    border-color: $lightpurple;
+    
+    &.is-major {
+      border-color: $lightpurple;
+    }
 
     .thumbs-up path {
       stroke: white;
@@ -27,14 +37,28 @@
 
   &.is-active {
     background-color: rgba($bluepurple, 1);
-    border-color: $bluepurple;
+    
+    &.is-major {
+      border-color: $bluepurple;
+    }
 
     .thumbs-up path {
       stroke: white;
     }
   }
 
+  
+  .thumbs-up {
+    width: 14px;
+    height: 14px;
+  }
+  
   div {
+    width: 14px;
+    height: 14px;
+  }
+  
+  &.is-major div {
     width: 16px;
     height: 16px;
   }
