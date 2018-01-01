@@ -16,7 +16,7 @@ class LastUpdated extends Component {
     let unit = 'jours';
     if (diff < 1) {
       diff = moment().diff(dates[0], 'hours');
-      unit = 'hours';
+      unit = 'heures';
     }
     return <small className={className}>Dernière mise à jour il y a {diff} {unit}.</small>
   }
