@@ -19,6 +19,8 @@ import {
 import '../../scss/dropdowns.css';
 import './../../scss/theme.css';
 
+const IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
+
 
 class ThemeListItem extends Component {
   state = {}
@@ -169,7 +171,7 @@ export const ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme,
   
   return (
     <article className="theme">
-      <img src={theme.image} className="theme-image" alt={theme.title} />
+      <img src={`${IMAGE_URL}/${theme.slug}`} className="theme-image" alt={theme.title} />
       
       <h1 className="theme-title">{theme.title}</h1>
       
