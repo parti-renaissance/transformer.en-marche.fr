@@ -20,7 +20,7 @@ const STATUS_MAP = {
 
 const slugify = str => str.toLowerCase().replace(/[\s_]/g, '-');
 
-const shareCopy = measure => `Je soutiens la mesure "${measure}" sur https://transformerlafrance.fr`;
+const shareCopy = measure => `Je soutiens la mesure "${measure}" sur https://transformer-la-france.fr`;
 
 const ShareMeasure = ({measure}) => {
   if (!measure.link) {
@@ -69,7 +69,7 @@ export const Measure = ({measure, voteUp, voteDown, token}) =>
         {measure.title}
       </div>
     </LinkOrDiv>
-    
+
     <div className="measure-vote">
       <span>{measure.count || 0}</span>
       <VoteButton
@@ -78,11 +78,11 @@ export const Measure = ({measure, voteUp, voteDown, token}) =>
         voteUp={() => voteUp(measure.id, token)}
       />
     </div>
-  
+
     <ShareMeasure measure={measure} />
   </div>
 
-  
+
 const Trigger = ({ count, nodeRef }) =>
   <span ref={nodeRef}>
     <ChevronUp className="up" /><ChevronDown className="down" />Plus de mesures ({count})
@@ -92,7 +92,7 @@ class CollapsibleMeasures extends Component {
   onOpen() {
     this.trigger.parentElement.parentElement.classList.add('to-bottom');
   }
-  
+
   onClose() {
     setTimeout(() => {
       this.trigger.parentElement.parentElement.classList.remove('to-bottom');
@@ -115,7 +115,7 @@ class CollapsibleMeasures extends Component {
     );
   }
 }
-  
+
 export const NoMeasure = ({theme}) =>
   <p className="no-measure">Il n&apos;y a pas de réformes specifiques au profil de {theme}. Voir toutes les réformes sur le thème {theme}.</p>
 
