@@ -73,7 +73,7 @@ export const Measure = ({measure, voteUp, voteDown, token}) =>
     </LinkOrDiv>
 
     <div className="measure-vote">
-      <span>{measure.count || 0}</span>
+      <span>{measure.count}</span>
       <VoteButton
         classNames={measure.global ? 'is-major' : ''}
         isActive={measure.isActive}
