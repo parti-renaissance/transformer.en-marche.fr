@@ -63,7 +63,7 @@ export const Measure = ({measure, voteUp, voteDown, token}) =>
   <div className="measure-wrapper">
     <LinkOrDiv
      link={measure.link}
-     className={`measure-body ${slugify(measure.status)}${measure.global ? ' is-major' : ''}`}>
+     className={`measure-body is-major`}>
       <div className="measure-status">
         {STATUS_MAP[measure.status]}
       </div>
@@ -75,7 +75,7 @@ export const Measure = ({measure, voteUp, voteDown, token}) =>
     <div className="measure-vote">
       <span>{measure.count}</span>
       <VoteButton
-        classNames={measure.global ? 'is-major' : ''}
+        classNames='is-major'
         isActive={measure.isActive}
         voteDown={() => voteDown(measure.id, token)}
         voteUp={() => voteUp(measure.id, token)}
