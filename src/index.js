@@ -26,10 +26,13 @@ store.subscribe(() => {
 });
 
 let queryParams = qs.parse(window.location.search.slice(1));
+let token = store.getState().auth;
 
 if (queryParams.code) {
   store.dispatch(getToken(queryParams.code))
     .then(({ value }) => store.dispatch(myVotes(value.access_token)));
+} else if (token) {
+  store.dispatch(myVotes(token));
 }
 
 if (queryParams.state) {
