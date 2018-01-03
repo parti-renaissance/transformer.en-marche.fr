@@ -29,7 +29,7 @@
     background-color: $mediumlightgray;
     border-radius: 50%;
 
-    transition: transform 125ms ease;
+    transition: transform 125ms ease, background-color 125ms ease;
   }
 }
 
@@ -37,6 +37,7 @@
   visibility: hidden;
   
   &:checked + .toggle-switch__label:after {
+    background-color: $bluepurple;
     transform: translateX(110%);
   }
 }
