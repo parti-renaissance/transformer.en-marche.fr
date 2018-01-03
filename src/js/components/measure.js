@@ -122,11 +122,25 @@ class CollapsibleMeasures extends Component {
 export const NoMeasure = ({theme}) =>
   <p className="no-measure">Il n&apos;y a pas de réformes specifiques au profil de {theme}. Voir toutes les réformes sur le thème {theme}.</p>
 
-let Measures = ({ measures, ...props }) =>
-  <div className="measure-list">
-    {measures.slice(0,3).map(measure => <Measure key={measure.id} measure={measure} {...props} />)}
-    {measures.length > 3 ? <CollapsibleMeasures measures={measures} {...props} /> : null}
-  </div>
+class Measures extends Component {
+  shouldComponentUpdate({ measures:nextMeasures }) {
+    if (nextMeasures.length === this.props.measures.length) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  
+  render() {
+    let { measures } = this.props;
+    return (
+      <div className="measure-list">
+        {measures.slice(0,3).map(measure => <Measure key={measure.id} measure={measure} {...this.props} />)}
+        {measures.length > 3 ? <CollapsibleMeasures measures={measures} {...this.props} /> : null}
+      </div>
+    );
+  }
+}
 
 Measures = connect(state => ({
   token: state.auth.token
