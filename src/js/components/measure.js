@@ -64,7 +64,7 @@ export const Measure = ({measure, voteUp, voteDown, token}) =>
   <div className="measure-wrapper">
     <LinkOrDiv
      link={measure.link}
-     className={`measure-body is-major`}>
+     className={`measure-body ${slugify(measure.status)} is-major`}>
       <div className="measure-status">
         {STATUS_MAP[measure.status]}
       </div>
