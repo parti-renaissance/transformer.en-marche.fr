@@ -11,7 +11,7 @@ import ProgressMeter from './progress-meter';
 import Subscribe from './subscribe';
 
 import '../../scss/dashboard.css';
-import macron from '../../images/macron.png';
+import macron from '../../images/cover-program.png';
 
 const END_OF_TERM = '2022-05-13';
 const START_OF_TERM = '2017-05-14';
@@ -48,7 +48,7 @@ const DashboardHeader = ({ locale }) =>
       <Link className="dashboard-header__link" to={`/${locale}/results`}>Découvrir ce qui me concerne</Link>
     </div>
     <div className="dashboard-image">
-      <img src={macron} width="410" height="381" alt="Macron" />
+      <img src={macron} width="280" height="381" alt="Macron" />
     </div>
   </div>
 
