@@ -4,6 +4,7 @@ import { SearchBox } from 'react-instantsearch/dom';
 import Media from "react-media"
 import Color from 'color';
 
+import ToggleSwitch from './toggle-switch';
 import LastUpdated from './last-updated';
 import { ThemesList, ThemesDropdown } from './themes';
 import { Profiles, ProfilesDropdown } from './profiles';
@@ -81,11 +82,9 @@ const MobileSidebar = ({ location, match, resetParams }) =>
 const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleTheme, showMore, profiles, themes, doQuery, majorOnly, toggleMajor }) =>
   <div className="sidebar-group">
     <h3 className="sidebar-title">
-      Voir uniquement les mesures majeures :
-      <input
-        type="checkbox"
-        checked={majorOnly}
-        onChange={e => toggleMajor(e.target.checked)} />
+      <ToggleSwitch onChange={e => toggleMajor(e.target.checked)}>
+        Voir uniquement les mesures majeures :
+      </ToggleSwitch>
     </h3>
     <h3 className="sidebar-title">
       Je m&apos;interesse à...

@@ -1,0 +1,42 @@
+@import "mixins/vars";
+
+.toggle-switch {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-switch__label {
+  position: relative;
+  cursor: pointer;
+  flex: 1 0 40px;
+  margin-right: 35px;
+  height: 11px;
+  border-radius: 100px;
+  display: block;
+  background-color: $lightpurple;
+  
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -5px;
+    margin: auto;
+    
+    height: 22px;
+    width: 22px;
+    background-color: $mediumlightgray;
+    border-radius: 50%;
+
+    transition: transform 125ms ease;
+  }
+}
+
+.toggle-switch__input {
+  visibility: hidden;
+  
+  &:checked + .toggle-switch__label:after {
+    transform: translateX(110%);
+  }
+}
