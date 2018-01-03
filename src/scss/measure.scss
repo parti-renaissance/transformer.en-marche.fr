@@ -19,7 +19,7 @@
       opacity: 1;
     }
   }
-  
+
   @include mq($medium-and-up) {
     overflow: visible;
   }
@@ -31,30 +31,34 @@
   justify-content: space-between;
   flex-wrap: wrap;
   min-height: 40px;
-  
+
   text-decoration: none;
   border-top: 1px solid $lightgray;
   border-bottom: none; // override base link style
   padding: 13px 20px;
   color: $gray;
   transition: background-color 125ms ease, color 125ms ease;
-  
+
   &.is-major {
-    min-height: 73px;
+    min-height: 65px;
     padding: 20px;
   }
 
   @include mq($medium-and-up) {
     flex-wrap: nowrap;
     padding: 13px 25px;
-    
+
     &.is-major {
       padding: 20px 25px;
     }
   }
-  
+
   &[href]:hover {
-    background-color: $blueishgray;
+    background-color: $lightblueishgray;
+
+    .measure-name {
+      color: black;
+    }
   }
 
   .measure-wrapper:first-child & {
@@ -70,7 +74,7 @@
   flex-basis: 75px;
   margin-right: 25px;
   transition: background-color 125ms ease, color 125ms ease, border-color 125ms ease;
-  
+
   &:before {
     content: '';
     display: block;
@@ -90,7 +94,7 @@
       background-color: $fait;
     }
   }
-  
+
   .is-major > & {
     border: 1px solid $lightgray;
     font-family: $font-roboto;
@@ -99,7 +103,7 @@
     padding: 5px;
     border-radius: 38px;
     text-align: center;
-    
+
     &:before {
       content: none;
     }
@@ -119,7 +123,7 @@
 
   @include mq($medium-and-up) {
     margin-right: 20px;
-    
+
     .is-major > & {
       font-size: 12px;
       padding: 5px 3px;
@@ -136,7 +140,7 @@
 
   order: -1;
   flex-basis: 100%;
-  
+
   .is-major > & {
     font-size: 16px;
     color: $darkergray;
@@ -160,7 +164,7 @@
   position: absolute;
   bottom: 20px;
   right: 20px;
-  
+
   > span {
     display: inline-block;
     margin-right: 7px;
@@ -168,17 +172,17 @@
     font-size: 12px;
     font-family: $font-roboto;
   }
-  
+
   .is-major + & {
     bottom: 20px;
     right: 20px;
   }
-  
+
   @include mq($medium-and-up) {
     bottom: auto;
     top: 9px;
     right: 26px;
-    
+
     .is-major + & {
       top: 20px;
       right: 25px;
@@ -250,10 +254,14 @@
   justify-content: space-between;
   align-items: center;
   top: 0;
-  right: -95px;
+  right: -105px;
   width: 90px;
   height: 100%;
 
   opacity: 0;
   transition: opacity 125ms ease;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
