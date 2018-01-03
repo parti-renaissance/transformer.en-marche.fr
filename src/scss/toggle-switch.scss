@@ -3,6 +3,7 @@
 .toggle-switch {
   display: flex;
   align-items: center;
+  margin-bottom: 30px;
 }
 
 .toggle-switch__label {
@@ -14,7 +15,7 @@
   border-radius: 100px;
   display: block;
   background-color: $lightpurple;
-  
+
   &:after {
     content: '';
     display: block;
@@ -23,7 +24,7 @@
     bottom: 0;
     left: -5px;
     margin: auto;
-    
+
     height: 22px;
     width: 22px;
     background-color: $mediumlightgray;
@@ -35,7 +36,7 @@
 
 .toggle-switch__input {
   visibility: hidden;
-  
+
   &:checked + .toggle-switch__label:after {
     background-color: $bluepurple;
     transform: translateX(110%);

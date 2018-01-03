@@ -87,7 +87,7 @@ export const ThemesList = ({ onViewMore, themes, toggleTheme, location, match })
       toggle={theme => toggleTheme(theme, location, match)}>
 
       <li className="refinement-list__item refinement-list__item-more">
-        <FilterButton onClick={onViewMore} style={{backgroundColor: 'rgba(182, 182, 182, 0.2)', color: '#444444'}}>
+        <FilterButton onClick={onViewMore} style={{backgroundColor: 'rgba(111, 129, 255, .5)', color: 'white'}}>
           Voir tous les thèmes
         </FilterButton>
       </li>
@@ -159,10 +159,10 @@ let ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchSt
   if (majorOnly) {
     measures = filter(measures, 'global');
   }
-  let promoted = filter(measures);
+  let all = filter(measures);
   let theRest = reject(measures, 'featured');
   let grouped = groupBy(theRest, 'status');
-  measures = promoted.concat(grouped['DONE'] || [])
+  measures = all.concat(grouped['DONE'] || [])
                 .concat(grouped['IN_PROGRESS'] || [])
                 .concat(grouped['UPCOMING'] || []);
 

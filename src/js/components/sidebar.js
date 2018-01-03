@@ -55,8 +55,8 @@ export const getColor = i => {
   let index = i % BUTTON_COLORS.length;
   let { bg, color } = BUTTON_COLORS[index];
   return {
-    backgroundColor: bg.rgb().alpha(0.2).string(),
-    color: color.rgb().string(),
+    // backgroundColor: bg.rgb().alpha(0.2).string(),
+    // color: color.rgb().string(),
   };
 };
 
@@ -87,7 +87,7 @@ const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleThe
       </ToggleSwitch>
     </h3>
     <h3 className="sidebar-title">
-      Je m&apos;interesse à...
+      Filtrer par thème
     </h3>
     <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, THEME)}>Réinitialiser</button>
 
