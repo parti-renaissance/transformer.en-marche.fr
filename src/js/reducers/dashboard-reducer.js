@@ -11,11 +11,13 @@ export function popularReducer(state = { items: [] }, action) {
     case `${VOTES}_REJECTED`:
       return {...state, fetching: false, error: action.payload};
     case `${VOTES}_FULFILLED`:
+      let { payload:items } = action;
+      items = items.filter(vote => typeof vote.itemId === 'number');
       return {
         ...state,
         fetching: false,
         fetched: true,
-        items: sortBy(action.payload, 'count').reverse().slice(0, 5)
+        items: sortBy(items, 'count').reverse().slice(0, 5)
       };
     default:
       return state;
