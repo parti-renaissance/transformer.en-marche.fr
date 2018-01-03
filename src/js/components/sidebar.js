@@ -26,23 +26,23 @@ import 'react-select/dist/react-select.css';
 const BUTTON_COLORS = [
   {
     // yellow
-    bg: Color('#ffd402'),
-    color: Color('#ff6955'),
+    bg: Color('#6f81ff'),
+    color: Color('#fff'),
   },
   {
     // teal
-    bg: Color('#97e5fd'),
-    color: Color('#00bef9'),
+    bg: Color('#6f81ff'),
+    color: Color('#fff'),
   },
   {
     // purple
-    bg: Color('#bec0ff'),
-    color: Color('#6f81ff'),
+    bg: Color('#6f81ff'),
+    color: Color('#fff'),
   },
   {
     // red
-    bg: Color('#f9bcbc'),
-    color: Color('#ff3856'),
+    bg: Color('#6f81ff'),
+    color: Color('#fff'),
   },
   // {
   //   // dark gray
@@ -55,8 +55,8 @@ export const getColor = i => {
   let index = i % BUTTON_COLORS.length;
   let { bg, color } = BUTTON_COLORS[index];
   return {
-    // backgroundColor: bg.rgb().alpha(0.2).string(),
-    // color: color.rgb().string(),
+    backgroundColor: bg.rgb().alpha(.7).string(),
+    color: color.rgb().string(),
   };
 };
 

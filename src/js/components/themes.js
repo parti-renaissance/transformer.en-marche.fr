@@ -159,10 +159,11 @@ let ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchSt
   if (majorOnly) {
     measures = filter(measures, 'global');
   }
-  let all = filter(measures);
-  let theRest = reject(measures, 'featured');
-  let grouped = groupBy(theRest, 'status');
-  measures = all.concat(grouped['DONE'] || [])
+  //  let promoted = filter(measures, 'global');
+  //  let theRest = reject(measures, 'global');
+  //  let grouped = groupBy(theRest, 'status');
+  let grouped = groupBy(measures, 'status');
+  measures = (grouped['DONE'] || [])
                 .concat(grouped['IN_PROGRESS'] || [])
                 .concat(grouped['UPCOMING'] || []);
 
