@@ -18,6 +18,7 @@ const STATUS_MAP = {
   IN_PROGRESS: 'En cours'
 }
 
+// eslint-disable-next-line
 const slugify = str => str.toLowerCase().replace(/[\s_]/g, '-');
 
 const shareCopy = measure => `Je soutiens la mesure "${measure}" sur https://transformer-la-france.fr`;
