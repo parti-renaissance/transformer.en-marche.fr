@@ -84,7 +84,7 @@ const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleThe
       Voir uniquement les mesures majeures :
       <input
         type="checkbox"
-        value={majorOnly}
+        checked={majorOnly}
         onChange={e => toggleMajor(e.target.checked)} />
     </h3>
     <h3 className="sidebar-title">
