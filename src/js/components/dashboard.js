@@ -105,6 +105,7 @@ class Dashboard extends Component {
 
               {!!Object.keys(status.measures).length &&
                 <Progressions measures={status.measures} total={status.total} />}
+              <Link to={`/${locale}/results`} className="dashboard-progression__link"></Link>
             </DashboardBox>
             <DashboardBox className="dashboard-popular">
               <h3 className="dashboard-box__title">Les 5 mesures les plus attendues</h3>
