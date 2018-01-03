@@ -4,11 +4,11 @@
 .filter-button {
   @include button-base;
   font-weight: normal;
-  background-color: white;
+  background-color: $purple;
   padding: 8px 12px;
   border-radius: 4px;
   font-size: 14px;
-  color: $darkergray;
+  color: white;
   font-family: $font-roboto;
   position: relative;
   text-align: left;
