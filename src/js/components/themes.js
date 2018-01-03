@@ -173,9 +173,16 @@ let ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchSt
     return null;
   }
 
+  const coverImg = {
+    backgroundImage: 'url(` + ${IMAGE_URL}/${theme.slug} + `)'
+  };
+
   return (
     <article className="theme">
-      <img src={`${IMAGE_URL}/${theme.slug}`} className="theme-image" alt={theme.title} />
+
+      <div style={coverImg} className="theme-image">
+        <div className="theme-image__text">{theme.title}</div>
+      </div>
 
       <h1 className="theme-title">{theme.title}</h1>
 
