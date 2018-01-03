@@ -24,20 +24,20 @@ const IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 
 class ThemeListItem extends Component {
   state = {}
-  
+
   measureButton() {
     let textWidth = this.button.children[0].getBoundingClientRect().width;
     this.setState({style: {flexBasis: textWidth + 24}});
   }
-  
+
   componentDidMount() {
     this.measureButton();
   }
-  
+
   componentWillReceiveProps() {
     this.measureButton();
   }
-  
+
   render() {
     let { props, state } = this;
     return (
@@ -67,11 +67,11 @@ const ThemeFilters = connectRefinementList(function ThemeFilters({children, them
   let filteredLabels = map(items, 'label')
   let filtered = filter(themes, t => filteredLabels.includes(t.title));
   let activeThemes = filter(filtered, 'isActive').map(createListItems);
-  
+
   let inActiveThemes = reject(filtered, 'isActive')
   let featuredThemes = filter(inActiveThemes, 'featured').map(createListItems);
   let otherThemes = reject(inActiveThemes, 'featured').map(createListItems);
-  
+
   return activeThemes
     .concat(featuredThemes)
     .concat(children)
@@ -85,19 +85,19 @@ export const ThemesList = ({ onViewMore, themes, toggleTheme, location, match })
       limitMin={1000}
       themes={themes}
       toggle={theme => toggleTheme(theme, location, match)}>
-      
+
       <li className="refinement-list__item refinement-list__item-more">
         <FilterButton onClick={onViewMore} style={{backgroundColor: 'rgba(182, 182, 182, 0.2)', color: '#444444'}}>
           Voir tous les thèmes
         </FilterButton>
       </li>
-      
+
     </ThemeFilters>
   </ul>
 
 class ThemesDropdown extends Component {
   state = {}
-  
+
   constructor(props) {
     super(props);
     let active = props.themes[props.activeThemes[0]];
@@ -108,23 +108,23 @@ class ThemesDropdown extends Component {
       };
     }
   }
-  
+
   componentWillReceiveProps(nextProps) {
     if (!nextProps.activeThemes.length) {
       this.setState({ value: null, label: null })
     }
   }
-  
+
   handleChange = selected => {
     let { toggleTheme, themes, match, location, push, resetParams } = this.props;
     let theme = themes[selected.value];
-    
+
     this.setState(selected);
     resetParams(location, match, THEME);
     push(`${match.url}?theme=${theme.slug}`);
     toggleTheme(theme.objectID);
   }
-  
+
   render() {
     return <Select
             className="theme-dropdown"
@@ -159,31 +159,31 @@ let ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchSt
   if (majorOnly) {
     measures = filter(measures, 'global');
   }
-  let promoted = filter(measures, 'featured');
+  let promoted = filter(measures);
   let theRest = reject(measures, 'featured');
   let grouped = groupBy(theRest, 'status');
   measures = promoted.concat(grouped['DONE'] || [])
                 .concat(grouped['IN_PROGRESS'] || [])
                 .concat(grouped['UPCOMING'] || []);
-  
+
   if (query && !measures.length) {
     // no matching measures for this keyword query
     // return nothing so it doesn't render
     return null;
   }
-  
+
   return (
     <article className="theme">
       <img src={`${IMAGE_URL}/${theme.slug}`} className="theme-image" alt={theme.title} />
-      
+
       <h1 className="theme-title">{theme.title}</h1>
-      
+
       <p className="theme-body">{theme.description}</p>
-      
+
       {measures.length ?
         <Measures measures={measures} />
       : <NoMeasure theme={theme.title} />}
-        
+
     </article>
   )
 });
