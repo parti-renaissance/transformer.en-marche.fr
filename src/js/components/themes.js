@@ -19,6 +19,7 @@ import {
 import '../../scss/dropdowns.css';
 import './../../scss/theme.css';
 
+// eslint-disable-next-line
 const IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 
 
@@ -174,6 +175,7 @@ let ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchSt
   }
 
   const coverImg = {
+    // eslint-disable-next-line
     backgroundImage: 'url(` + ${IMAGE_URL}/${theme.slug} + `)'
   };
 
