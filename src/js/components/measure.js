@@ -108,7 +108,7 @@ class CollapsibleMeasures extends Component {
       <Collapsible
        onOpening={this.onOpen.bind(this)}
        onClosing={this.onClose.bind(this)}
-       trigger={<Trigger nodeRef={e => this.trigger = e} count={measures.length - 6} />}
+       trigger={<Trigger nodeRef={e => this.trigger = e} count={measures.length - 3} />}
        classParentString="measure-accordion"
        triggerClassName="measure-accordion__trigger"
        lazyRender={true}
