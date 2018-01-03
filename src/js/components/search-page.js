@@ -53,7 +53,7 @@ class Layout extends Component {
   }
   
   render() {
-    let { dispatch, location, match, searchState, profiles, themes, majorOnly } = this.props;
+    let { dispatch, location, match, searchState, profiles, themes } = this.props;
     return (
       <InstantSearch
         appId={APP_ID}
@@ -65,13 +65,12 @@ class Layout extends Component {
           match={match}
           location={location}
           dispatch={dispatch}
-          majorOnly={majorOnly}
           profiles={profiles.items.map(id => profiles.profiles[id])}
           themes={themes.items.map(id => themes.themes[id])}
         />
 
         <div className="content">
-          <Results profiles={profiles} majorOnly={majorOnly} />
+          <Results profiles={profiles} />
         </div>
 
       </InstantSearch>
@@ -79,11 +78,10 @@ class Layout extends Component {
   }
 };
 
-export default connect(({profiles, themes, query, locale, majorOnly}) => ({
+export default connect(({profiles, themes, query, locale}) => ({
   profiles,
   themes,
   query,
   locale,
-  majorOnly,
   searchState: Object.assign({}, themes.searchState, profiles.searchState, query.searchState),
 }))(Layout);

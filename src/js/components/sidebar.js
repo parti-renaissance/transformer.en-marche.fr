@@ -79,7 +79,7 @@ const MobileSidebar = ({ location, match, resetParams }) =>
   </div>
 
 
-const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleTheme, showMore, profiles, themes, doQuery, majorOnly, toggleMajor }) =>
+const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleTheme, showMore, profiles, themes, doQuery, toggleMajor }) =>
   <div className="sidebar-group">
     <h3 className="sidebar-title">
       <ToggleSwitch onChange={e => toggleMajor(e.target.checked)}>
@@ -135,7 +135,7 @@ export default class Sidebar extends Component {
 
   render() {
     let { viewingMore } = this.state;
-    let { location, match, profiles, themes, majorOnly, dispatch } = this.props;
+    let { location, match, profiles, themes, dispatch } = this.props;
     return (
       <aside className={`sidebar${viewingMore ? ' sidebar-more' : ''}`}>
 
@@ -147,7 +147,6 @@ export default class Sidebar extends Component {
              match={match}
              profiles={profiles}
              themes={themes}
-             majorOnly={majorOnly}
              showMore={this.seeMoreRefinements.bind(this)}
              toggleTheme={(...args) => dispatch(toggleTheme(...args))}
              toggleProfile={(...args) => dispatch(toggleProfile(...args))}

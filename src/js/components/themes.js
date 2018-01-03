@@ -152,7 +152,7 @@ ThemesDropdown = connect(({ themes: { themes, items, activeThemes }}) => ({
 
 export { ThemesDropdown };
 
-export const ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchState: { query }, majorOnly }) {
+let ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchState: { query }, majorOnly }) {
   let { measures } = theme;
 
   measures = filter(measures, m => m.title.match(new RegExp(query, 'gi')));
@@ -187,3 +187,7 @@ export const ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme,
     </article>
   )
 });
+
+ThemeDetail = connect(({ majorOnly }) => ({ majorOnly }))(ThemeDetail);
+
+export { ThemeDetail }
