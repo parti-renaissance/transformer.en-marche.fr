@@ -87,7 +87,7 @@ export const ThemesList = ({ onViewMore, themes, toggleTheme, location, match })
       toggle={theme => toggleTheme(theme, location, match)}>
 
       <li className="refinement-list__item refinement-list__item-more">
-        <FilterButton onClick={onViewMore} style={{backgroundColor: 'rgba(182, 182, 182, 0.2)', color: '#444444'}}>
+        <FilterButton onClick={onViewMore} style={{backgroundColor: 'rgba(111, 129, 255, .5)', color: 'white'}}>
           Voir tous les thèmes
         </FilterButton>
       </li>
