@@ -130,7 +130,7 @@ class Measures extends Component {
       return true;
     }
   }
-  
+
   render() {
     let { measures } = this.props;
     return (

@@ -26,8 +26,8 @@ import 'react-select/dist/react-select.css';
 const BUTTON_COLORS = [
   {
     // yellow
-    bg: Color('#ffd402'),
-    color: Color('#ff6955'),
+    bg: Color('#fff'),
+    color: Color('#444'),
   },
   {
     // teal
@@ -55,8 +55,8 @@ export const getColor = i => {
   let index = i % BUTTON_COLORS.length;
   let { bg, color } = BUTTON_COLORS[index];
   return {
-    // backgroundColor: bg.rgb().alpha(0.2).string(),
-    // color: color.rgb().string(),
+    backgroundColor: bg.rgb().alpha(0.2).string(),
+    color: color.rgb().string(),
   };
 };
 
