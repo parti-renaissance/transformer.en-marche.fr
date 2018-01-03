@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import moment from 'moment-timezone';
 import qs from 'qs';
+import { replace } from 'react-router-redux'
 
 import './index.css';
 import App from './App';
@@ -31,13 +32,17 @@ if (queryParams.code) {
     .then(({ value }) => store.dispatch(myVotes(value.access_token)));
 }
 
+if (queryParams.state) {
+  store.dispatch(replace(queryParams.state));
+}
+
 if ('ontouchstart' in document.documentElement)  {
   document.body.style.cursor = 'pointer';
 }
 
 ReactDOM.render(
   <Provider store={store}>
-    <App previousRoute={queryParams.state} />
+    <App />
   </Provider>,
   document.getElementById('root')
 );

@@ -18,7 +18,6 @@ class App extends Component {
       <Router history={history}>
         <Layout>
           <main className="main">
-            {this.props.previousRoute && <Redirect to={this.props.previousRoute} />}
             <Switch>
               <Route path="/:locale/:profile" component={SearchPage} />
               <Route path="/:locale/results" component={SearchPage} />
