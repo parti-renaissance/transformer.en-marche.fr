@@ -12,8 +12,8 @@ export const loadState = () => {
 
 export const saveState = state =>  {
   try {
-    let { auth, locale, query } = state;
-    const serializedState = JSON.stringify({auth, locale, query});
+    let { auth, locale } = state;
+    const serializedState = JSON.stringify({auth, locale});
     localStorage.setItem('state', serializedState);
   } catch(e) {
     // ignore
