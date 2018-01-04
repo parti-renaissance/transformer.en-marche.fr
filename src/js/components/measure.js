@@ -163,13 +163,21 @@ class Measures extends Component {
   }
 
   render() {
-    let { measures } = this.props;
-    return (
-      <div className="measure-list">
-        {measures.slice(0,3).map(measure => <Measure key={measure.id} measure={measure} {...this.props} />)}
-        {measures.length > 3 ? <CollapsibleMeasures measures={measures} {...this.props} /> : null}
-      </div>
-    );
+    let { measures, viewAll } = this.props;
+    if (viewAll) {
+      return (
+        <div className="measure-list">
+          {measures.map(measure => <Measure key={measure.id} measure={measure} {...this.props} />)}
+        </div>
+      );
+    } else {
+      return (
+        <div className="measure-list">
+          {measures.slice(0,3).map(measure => <Measure key={measure.id} measure={measure} {...this.props} />)}
+          {measures.length > 3 ? <CollapsibleMeasures measures={measures} {...this.props} /> : null}
+        </div>
+      );
+    }
   }
 }
 
