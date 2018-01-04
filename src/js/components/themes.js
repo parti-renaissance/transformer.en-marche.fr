@@ -166,7 +166,8 @@ let ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchSt
   let grouped = groupBy(measures, 'status');
   measures = (grouped['DONE'] || [])
                 .concat(grouped['IN_PROGRESS'] || [])
-                .concat(grouped['UPCOMING'] || []);
+                .concat(grouped['UPCOMING'] || [])
+                .concat(grouped['DEFERRED'] || []);
 
   if (query && !measures.length) {
     // no matching measures for this keyword query

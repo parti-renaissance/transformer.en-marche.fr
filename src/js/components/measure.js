@@ -15,7 +15,8 @@ const TwitterIcon = generateShareIcon('twitter');
 const STATUS_MAP = {
   UPCOMING: 'À venir',
   DONE: 'Fait',
-  IN_PROGRESS: 'En cours'
+  IN_PROGRESS: 'En cours',
+  DEFERRED: 'Reporté',
 }
 
 // eslint-disable-next-line
