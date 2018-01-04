@@ -70,9 +70,9 @@ const Header = ({ locale, hasToken, disconnect }) => {
             <TwitterShareButton url={window.location.toString()} title={SOCIAL_COPY}>
               <TwitterIcon round={true} size={35}/>
             </TwitterShareButton>
-            
+
             {hasToken &&
-              <button className="header-disconnect" onClick={disconnect}>disconnect</button>}
+              <button className="header-disconnect" onClick={disconnect}>Déconnexion</button>}
           </div>
           :
           <div className="header-right">

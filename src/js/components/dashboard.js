@@ -48,7 +48,9 @@ const DashboardHeader = ({ locale }) =>
       <Link className="dashboard-header__link" to={`/${locale}/results`}>Découvrir ce qui me concerne</Link>
     </div>
     <div className="dashboard-image">
-      <img src={macron} width="430" height="584" alt="Macron" />
+      <Link to={`/${locale}/results`}>
+        <img src={macron} width="430" height="584" alt="Macron" />
+      </Link>
     </div>
   </div>
 
@@ -73,7 +75,7 @@ const Progressions = ({ measures, total }) =>
       <span>{measures['IN_PROGRESS']}</span> en cours
     </ProgressMeter>
     <div className="progress a-venir">
-      Et ce n'est qu'un debut ! Encore <strong>{measures['UPCOMING']}</strong> à venir.
+      Et ce n'est qu'un début ! Encore <strong>{measures['UPCOMING']}</strong> à venir.
     </div>
   </div>
 
