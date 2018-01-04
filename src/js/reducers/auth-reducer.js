@@ -1,7 +1,7 @@
 import {
   OPEN_AUTH,
   CLOSE_AUTH,
-  TOKEN
+  SET_TOKEN
  } from '../actions/auth-actions';
 
 export default function authReducer(state = { token: '', openModal: false }, action) {
@@ -12,11 +12,11 @@ export default function authReducer(state = { token: '', openModal: false }, act
     case CLOSE_AUTH:
       return {...state, openModal: false};
 
-    case `${TOKEN}_PENDING`:
+    case `${SET_TOKEN}_PENDING`:
       return {...state, fetchingToken: true};
-    case `${TOKEN}_REJECTED`:
+    case `${SET_TOKEN}_REJECTED`:
       return {...state, fetchingToken: false, error: action.payload};
-    case `${TOKEN}_FULFILLED`:
+    case `${SET_TOKEN}_FULFILLED`:
       return {
         ...state,
         fetchingToken: false,
