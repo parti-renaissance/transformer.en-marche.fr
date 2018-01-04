@@ -15,6 +15,9 @@ import {
 import { FilterButton } from './sidebar';
 
 export const Profiles = connectMenu(function Profiles({items, profiles, toggleProfile, location, locale}) {
+  if (!items.length) {
+    return null;
+  }
   let filteredLabels = map(items, 'label')
   let filtered = filter(profiles, p => filteredLabels.includes(p.title));
   let list = filtered.map((profile, i) => {
