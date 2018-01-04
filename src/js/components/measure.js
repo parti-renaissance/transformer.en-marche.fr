@@ -69,18 +69,30 @@ export class Measure extends Component {
     };
   }
   
+  voteFulfilled(direction, action) {
+    let { count = 0 } = this.state;
+    if (!!action) { // success
+      this.setState({
+        count: direction === 'up' ? count + 1 : count - 1,
+        isActive: direction === 'up',
+        pending: false
+      });
+    } else {
+      this.setState({ pending: false });
+    }
+  }
+  
   vote(id, token, direction) {
     let { voteUp, voteDown } = this.props;
-    let { count = 0 } = this.state;
-    this.setState({
-      count: direction === 'up' ? count + 1 : count - 1,
-      isActive: direction === 'up'
-    });
+    this.setState({ pending: true });
+    
+    let promise;
     if (direction === 'up') {
-      voteUp(id, token);
+      promise = voteUp(id, token);
     } else {
-      voteDown(id, token);
+      promise = voteDown(id, token);
     }
+    promise.then(this.voteFulfilled.bind(this, direction));
   }
   
   render() {
@@ -99,15 +111,20 @@ export class Measure extends Component {
           </div>
         </LinkOrDiv>
 
-        <div className="measure-vote">
-          <span>{this.state.count}</span>
-          <VoteButton
-            classNames='is-major'
-            isActive={typeof isActive === 'undefined' ?  measure.isActive : isActive}
-            voteDown={this.vote.bind(this, measure.id, token, 'down')}
-            voteUp={this.vote.bind(this, measure.id, token, 'up')}
-          />
-        </div>
+        { this.state.pending
+          ?
+            <div className="measure-pending" />
+          :
+          <div className="measure-vote">
+            <span>{this.state.count}</span>
+            <VoteButton
+              classNames='is-major'
+              isActive={typeof isActive === 'undefined' ?  measure.isActive : isActive}
+              voteDown={this.vote.bind(this, measure.id, token, 'down')}
+              voteUp={this.vote.bind(this, measure.id, token, 'up')}
+            />
+          </div>
+        }
 
         <ShareMeasure measure={measure} />
       </div>

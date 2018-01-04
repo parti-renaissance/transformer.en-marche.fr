@@ -190,6 +190,54 @@
   }
 }
 
+.measure-pending {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  height: 34px;
+  width: 34px;
+  border: 1px solid $blueishgray;
+  border-radius: 3px;
+  display: block;
+  
+  .is-major + & {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  @include mq($medium-and-up) {
+    bottom: auto;
+    top: 9px;
+    right: 26px;
+
+    .is-major + & {
+      top: 20px;
+      right: 25px;
+    }
+  }
+  
+  &:before {
+    content: '';
+    display: block;
+    border-left: 3px solid $blueishgray;
+    border-bottom: 3px solid $blueishgray;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    
+    animation-name: spin;
+    animation-duration: 500ms;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+}
+
 .measure-accordion {
   position: relative;
 }
@@ -264,4 +312,14 @@
   &:hover {
     cursor: pointer;
   }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+  
 }
