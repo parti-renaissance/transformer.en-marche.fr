@@ -10,13 +10,14 @@ import Layout from './js/components/layout';
 import SearchPage from './js/components/search-page';
 import Dashboard from './js/components/dashboard';
 import AuthModal from './js/components/auth-modal';
-import { closeAuth } from './js/actions/auth-actions';
+import { closeAuth, clearToken } from './js/actions/auth-actions';
 
 class App extends Component {
   render() {
+    let { hasToken, disconnect, openModal, closeAuth } = this.props;
     return (
       <Router history={history}>
-        <Layout>
+        <Layout hasToken={hasToken} disconnect={disconnect}>
           <main className="main">
             <Switch>
               <Route path="/:locale/:profile" component={SearchPage} />
@@ -25,7 +26,7 @@ class App extends Component {
               <Redirect from="/" to="/fr" />
             </Switch>
           </main>
-          <AuthModal isOpen={this.props.openModal} closeModal={this.props.closeAuth} />
+          <AuthModal isOpen={openModal} closeModal={closeAuth} />
         </Layout>
       </Router>
     );
@@ -33,7 +34,9 @@ class App extends Component {
 }
 
 export default connect(state => ({
-  openModal: state.auth.openModal
+  openModal: state.auth.openModal,
+  hasToken: state.auth.fetchedToken
 }), dispatch => ({
-  closeAuth: () => dispatch(closeAuth())
+  closeAuth: () => dispatch(closeAuth()),
+  disconnect: () => dispatch(clearToken()),
 }))(App);

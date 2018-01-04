@@ -52,7 +52,7 @@ class MobileShare extends Component {
 
 MobileShare = clickOutside(MobileShare);
 
-const Header = ({ locale }) => {
+const Header = ({ locale, hasToken, disconnect }) => {
   return (
     <header className="header">
       <div className="header-left">
@@ -70,6 +70,9 @@ const Header = ({ locale }) => {
             <TwitterShareButton url={window.location.toString()} title={SOCIAL_COPY}>
               <TwitterIcon round={true} size={35}/>
             </TwitterShareButton>
+            
+            {hasToken &&
+              <button className="header-disconnect" onClick={disconnect}>disconnect</button>}
           </div>
           :
           <div className="header-right">
@@ -90,12 +93,12 @@ const Footer = () =>
 
 class Page extends Component {
   render() {
-    let { location } = this.props;
+    let { location, hasToken, disconnect } = this.props;
     let locale = location.pathname.slice(1).split('/')[0];
     let isDashboard = location && location.pathname.slice(1).split('/').length <= 1;
     return (
       <div className={`Page${isDashboard ? ' Page__dashboard' : ''}`}>
-        <Header locale={locale} />
+        <Header locale={locale} hasToken={hasToken} disconnect={disconnect} />
         {this.props.children}
         <Footer />
       </div>
