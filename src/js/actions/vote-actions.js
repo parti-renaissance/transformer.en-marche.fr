@@ -43,20 +43,14 @@ export const voteDown = (itemId, token) => {
 }
 
 export const myVotes = (token, promptOnFail = true) => {
-  return dispatch => {
-    let action = dispatch({
-      type: MY_VOTES,
-      payload: fetch(`${apiPrefix}/votes/users/me`, {headers: {
-        Authorization: `Bearer ${token}`
-      }}).then(r => r.json())
-    });
-    
+  return dispatch => dispatch({
+    type: MY_VOTES,
+    payload: fetch(`${apiPrefix}/votes/users/me`, {headers: {
+      Authorization: `Bearer ${token}`
+    }}).then(r => r.json())
+  }).catch(() => {
     if (promptOnFail) {
-      action.catch(() => {
-        dispatch(openAuth());
-      });
+      dispatch(openAuth());
     }
-    
-    return action;
-  }
+  });
 }
