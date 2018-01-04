@@ -83,7 +83,7 @@ const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleThe
   <div className="sidebar-group">
     <h3 className="sidebar-title">
       <ToggleSwitch onChange={e => toggleMajor(e.target.checked)}>
-        Voir uniquement les mesures majeures :
+        Voir uniquement les principales réformes :
       </ToggleSwitch>
     </h3>
     <h3 className="sidebar-title">
