@@ -154,8 +154,8 @@ export const NoMeasure = ({theme}) =>
   <p className="no-measure">Il n&apos;y a pas de réformes specifiques au profil de {theme}. Voir toutes les réformes sur le thème {theme}.</p>
 
 class Measures extends Component {
-  shouldComponentUpdate({ measures:nextMeasures }) {
-    if (nextMeasures.length === this.props.measures.length) {
+  shouldComponentUpdate({ measures:nextMeasures, token:nextToken }) {
+    if (nextMeasures.length === this.props.measures.length && this.props.token === nextToken) {
       return false;
     } else {
       return true;
