@@ -69,6 +69,12 @@ export class Measure extends Component {
     };
   }
   
+  componentWillReceiveProps({ active:nextActive }) {
+    if (nextActive !== this.state.isActive) {
+      this.setState({ isActive: nextActive });
+    }
+  }
+  
   voteFulfilled(direction, action) {
     let { count = 0 } = this.state;
     if (!!action) { // success
