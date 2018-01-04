@@ -60,31 +60,60 @@ const LinkOrDiv = ({ link, className, children }) => {
   }
 }
 
-export const Measure = ({measure, voteUp, voteDown, token}) =>
-  <div className="measure-wrapper">
-    <LinkOrDiv
-     link={measure.link}
-     className={`measure-body ${slugify(measure.status)} is-major`}>
-      <div className="measure-status">
-        {STATUS_MAP[measure.status]}
-      </div>
-      <div className="measure-name">
-        {measure.title}
-      </div>
-    </LinkOrDiv>
+export class Measure extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: props.measure.count,
+    };
+  }
+  
+  vote(id, token, direction) {
+    let { voteUp, voteDown } = this.props;
+    let { count = 0 } = this.state;
+    this.setState({
+      count: direction === 'up' ? count + 1 : count - 1,
+      isActive: direction === 'up'
+    });
+    if (direction === 'up') {
+      voteUp(id, token);
+    } else {
+      voteDown(id, token);
+    }
+  }
+  
+  render() {
+    let { measure, token } = this.props;
+    let { isActive } = this.state;
+    return (
+      <div className="measure-wrapper">
+        <LinkOrDiv
+         link={measure.link}
+         className={`measure-body ${slugify(measure.status)} is-major`}>
+          <div className="measure-status">
+            {STATUS_MAP[measure.status]}
+          </div>
+          <div className="measure-name">
+            {measure.title}
+          </div>
+        </LinkOrDiv>
 
-    <div className="measure-vote">
-      <span>{measure.count}</span>
-      <VoteButton
-        classNames='is-major'
-        isActive={measure.isActive}
-        voteDown={() => voteDown(measure.id, token)}
-        voteUp={() => voteUp(measure.id, token)}
-      />
-    </div>
+        <div className="measure-vote">
+          <span>{this.state.count}</span>
+          <VoteButton
+            classNames='is-major'
+            isActive={typeof isActive === 'undefined' ?  measure.isActive : isActive}
+            voteDown={this.vote.bind(this, measure.id, token, 'down')}
+            voteUp={this.vote.bind(this, measure.id, token, 'up')}
+          />
+        </div>
 
-    <ShareMeasure measure={measure} />
-  </div>
+        <ShareMeasure measure={measure} />
+      </div>
+          
+    );
+  }
+}
 
 
 const Trigger = ({ count, nodeRef }) =>
