@@ -17,7 +17,7 @@ export function popularReducer(state = { items: [] }, action) {
         ...state,
         fetching: false,
         fetched: true,
-        items: sortBy(items, 'count').reverse().slice(0, 5)
+        items: sortBy(items, 'count').reverse().slice(0, 3)
       };
     default:
       return state;
