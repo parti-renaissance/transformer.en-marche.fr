@@ -100,12 +100,13 @@ class Dashboard extends Component {
           <DashboardTimer total={this.state.totalDaysInTerm} current={this.state.daysRemainingInTerm} />
           <DashboardRow>
             <DashboardBox className="dashboard-progression">
-              <h3 className="dashboard-box__title">Progression des mesures majeures</h3>
-              <LastUpdated className="dashboard-updated" />
+              <Link to={`/${locale}/results`} className="dashboard-progression__link">
+                <h3 className="dashboard-box__title">Progression des mesures majeures</h3>
+                <LastUpdated className="dashboard-updated" />
 
-              {!!Object.keys(status.measures).length &&
-                <Progressions measures={status.measures} total={status.total} />}
-              <Link to={`/${locale}/results`} className="dashboard-progression__link"></Link>
+                {!!Object.keys(status.measures).length &&
+                  <Progressions measures={status.measures} total={status.total} />}
+              </Link>
             </DashboardBox>
             <DashboardBox className="dashboard-popular">
               <h3 className="dashboard-box__title">Les 5 mesures les plus attendues</h3>
