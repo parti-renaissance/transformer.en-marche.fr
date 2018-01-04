@@ -85,7 +85,6 @@
 
   @include mq($medium-and-up) {
     display: flex;
-    flex-basis: 150px;
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
@@ -101,6 +100,7 @@
 
   > .SocialMediaShareButton {
     cursor: pointer;
+    margin-left: 10px;
 
     path {
       fill: $purple;
@@ -116,6 +116,19 @@
       .Page__dashboard & {
         fill: $purple;
       }
+    }
+  }
+
+  .header-disconnect {
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    margin-left: 10px;
+    color: $gray;
+
+    &:hover {
+      color: $purple;
+      border-bottom: 1px solid $purple;
     }
   }
 }
@@ -176,7 +189,7 @@
   padding: 15px 0;
   border-radius: 3px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
-  
+
   &:before {
     content: '';
     height: 0;
@@ -194,7 +207,7 @@
 .share-panel .SocialMediaShareButton {
   width: 35px;
   margin: 0 auto 15px;
-  
+
   &:last-child {
     margin-bottom: 0;
   }
