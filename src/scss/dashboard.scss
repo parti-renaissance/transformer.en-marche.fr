@@ -73,9 +73,14 @@
 .dashboard-image {
   display: none;
 
-  > img {
+  img {
     display: block;
     margin-bottom: -180px;
+  }
+
+  a,
+  a:hover {
+    border: 0;
   }
 
   @include mq($large-and-up) {

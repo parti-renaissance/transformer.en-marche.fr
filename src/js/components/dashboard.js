@@ -48,7 +48,9 @@ const DashboardHeader = ({ locale }) =>
       <Link className="dashboard-header__link" to={`/${locale}/results`}>Découvrir ce qui me concerne</Link>
     </div>
     <div className="dashboard-image">
-      <img src={macron} width="430" height="584" alt="Macron" />
+      <Link to={`/${locale}/results`}>
+        <img src={macron} width="430" height="584" alt="Macron" />
+      </Link>
     </div>
   </div>
 
