@@ -56,7 +56,7 @@ const Header = ({ locale }) => {
   return (
     <header className="header">
       <div className="header-left">
-        <Link to={`/${locale}`} title="En Marche!" className="header-logo">EM!</Link><span className="header-sep"> | </span><span className="header-tag">On le dit, on le fait</span>
+        <Link to={`/${locale}`} title="En Marche!" className="header-logo">EM!</Link><span className="header-sep"> | </span><span className="header-tag">On l'a dit, on le fait</span>
       </div>
 
         <Media query="(min-width: 800px)">
