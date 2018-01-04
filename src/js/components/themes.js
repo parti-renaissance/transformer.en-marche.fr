@@ -153,9 +153,9 @@ ThemesDropdown = connect(({ themes: { themes, items, activeThemes }}) => ({
 
 export { ThemesDropdown };
 
-let ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchState: { query }, majorOnly }) {
-  let { measures } = theme;
-
+let ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchState: { query }, majorOnly, measures }) {
+  let measureIDs = map(theme.measures, 'id');
+  measures = filter(measures, m => measureIDs.includes(m.id));
   measures = filter(measures, m => m.title.match(new RegExp(query, 'gi')));
   if (majorOnly) {
     measures = filter(measures, 'global');
@@ -203,6 +203,6 @@ let ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchSt
   )
 });
 
-ThemeDetail = connect(({ majorOnly }) => ({ majorOnly }))(ThemeDetail);
+ThemeDetail = connect(({ majorOnly, measures: { measures } }) => ({ majorOnly, measures }))(ThemeDetail);
 
 export { ThemeDetail }
