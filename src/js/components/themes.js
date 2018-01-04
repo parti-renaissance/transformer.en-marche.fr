@@ -159,6 +159,10 @@ let ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchSt
   measures = filter(measures, m => m.title.match(new RegExp(query, 'gi')));
   if (majorOnly) {
     measures = filter(measures, 'global');
+    if (!measures.length) {
+      // hide any themes without measures while the "major" filter is active
+      return null;
+    }
   }
   //  let promoted = filter(measures, 'global');
   //  let theRest = reject(measures, 'global');
