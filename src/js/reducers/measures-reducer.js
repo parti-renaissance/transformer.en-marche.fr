@@ -1,5 +1,6 @@
 import { INDEXES } from '../actions/data-actions';
 import { VOTES, MY_VOTES, VOTE_UP, VOTE_DOWN } from '../actions/vote-actions';
+import { CLEAR_TOKEN } from '../actions/auth-actions';
 import map from 'lodash/map';
 
 export default function measuresReducer(state = {
@@ -109,6 +110,16 @@ export default function measuresReducer(state = {
         }), {})
       }
     }
+    
+    case CLEAR_TOKEN:
+      let { measures } = state;
+      return {
+        ...state,
+        measures: Object.keys(measures).reduce((s, k) => ({
+          ...s,
+          [k]: Object.assign({}, measures[k], {isActive: false})
+        }), {})
+      }
     
     default:
       return state;
