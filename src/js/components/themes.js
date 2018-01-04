@@ -176,7 +176,7 @@ let ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchSt
 
   const coverImg = {
     // eslint-disable-next-line
-    backgroundImage: 'url(` + ${IMAGE_URL}/${theme.slug} + `)'
+    backgroundImage: `url(${IMAGE_URL}/${theme.image})`
   };
 
   return (
