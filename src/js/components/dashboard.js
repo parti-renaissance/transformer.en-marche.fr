@@ -60,7 +60,7 @@ const DashboardBody = ({ children }) =>
 const DashboardTimer = ({ total, current }) =>
   <div className="dashboard-timer">
     <ProgressMeter reverse total={total} current={current} className="timeline">
-      Encore {current} jour pour transformer la France.
+      Encore {current} jours pour transformer la France.
     </ProgressMeter>
   </div>
 
