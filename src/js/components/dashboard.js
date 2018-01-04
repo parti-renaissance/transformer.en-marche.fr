@@ -60,7 +60,7 @@ const DashboardBody = ({ children }) =>
 const DashboardTimer = ({ total, current }) =>
   <div className="dashboard-timer">
     <ProgressMeter reverse total={total} current={current} className="timeline">
-      {current} jours restant au mandat
+      Encore {current} jour pour transformer la France.
     </ProgressMeter>
   </div>
 
@@ -101,7 +101,7 @@ class Dashboard extends Component {
           <DashboardRow>
             <DashboardBox className="dashboard-progression">
               <Link to={`/${locale}/results`} className="dashboard-progression__link">
-                <h3 className="dashboard-box__title">Progression des mesures majeures</h3>
+                <h3 className="dashboard-box__title">Mise en œuvre des principales mesures</h3>
                 <LastUpdated className="dashboard-updated" />
 
                 {!!Object.keys(status.measures).length &&
