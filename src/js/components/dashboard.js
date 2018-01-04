@@ -73,7 +73,7 @@ const Progressions = ({ measures, total }) =>
       <span>{measures['IN_PROGRESS']}</span> en cours
     </ProgressMeter>
     <div className="progress a-venir">
-      Et ce n'est qu'un debut ! Encore <strong>{measures['UPCOMING']}</strong> à venir.
+      Et ce n'est qu'un début ! Encore <strong>{measures['UPCOMING']}</strong> à venir.
     </div>
   </div>
 
