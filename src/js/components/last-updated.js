@@ -10,7 +10,7 @@ class LastUpdated extends Component {
   
   render() {
     let { measures: { measures }, className } = this.props;
-    let dates = map(measures, 'updatedAt');
+    let dates = map(measures, 'formattedUpdatedAt');
     dates.sort();
     let diff = moment().diff(dates[0], 'days');
     let unit = 'jours';
