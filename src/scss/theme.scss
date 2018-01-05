@@ -1,4 +1,5 @@
 @import "mixins/vars";
+@import "mixins/queries";
 
 .theme {
   margin-bottom: 50px;
@@ -24,9 +25,13 @@
   margin-bottom: 22px;
   border-radius: 3px;
   background-size: cover;
-  min-height: 300px;
+  min-height: 130px;
   background-position: center center;
   background-color: $blueishgray;
+
+  @include mq($medium-and-up) {
+    height: 300px;
+  }
 }
 
 .theme-image__text {
