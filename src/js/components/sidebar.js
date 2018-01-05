@@ -82,6 +82,8 @@ const MobileSidebar = ({ location, match, resetParams, toggleMajor }) =>
 
     <ProfilesDropdown attributeName="measures.profiles.title" location={location} match={match} />
     <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, PROFILE)}>reset profile</button>
+
+    <button className="sidebar-reset sidebar-reset--mobile" onClick={() => resetParams(location, match)}>Réinitialiser les filtres</button>
   </div>
 
 
@@ -164,6 +166,7 @@ export default class Sidebar extends Component {
             <MobileSidebar
              location={location}
              match={match}
+             resetParams={(...args) => dispatch(resetParams(...args))}
              toggleMajor={checked => dispatch(toggleMajor(checked))}
             />
         }
