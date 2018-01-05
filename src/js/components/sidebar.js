@@ -69,8 +69,14 @@ export const FilterButton = ({isActive, label, onClick, style, buttonRef, childr
     <span>{children || label}</span>
   </button>
 
-const MobileSidebar = ({ location, match, resetParams }) =>
+const MobileSidebar = ({ location, match, resetParams, toggleMajor }) =>
   <div className="sidebar-group">
+    <h3 className="sidebar-title">
+      <ToggleSwitch onChange={e => toggleMajor(e.target.checked)}>
+        Voir uniquement les principales réformes :
+      </ToggleSwitch>
+    </h3>
+
     <ThemesDropdown attributeName="title" location={location} match={match} />
     <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, THEME)}>Réinitialiser</button>
 
@@ -155,7 +161,11 @@ export default class Sidebar extends Component {
              toggleMajor={checked => dispatch(toggleMajor(checked))}
             />
           :
-            <MobileSidebar location={location} match={match} />
+            <MobileSidebar
+             location={location}
+             match={match}
+             toggleMajor={checked => dispatch(toggleMajor(checked))}
+            />
         }
         </Media>
 
