@@ -24,10 +24,12 @@
 
 .content {
   padding: 25px 20px;
+  margin-left: 0;
 
-  @include mq($medium-and-up) {
+  @include mq($large-and-up) {
     padding: 70px 110px 0;
     flex: 1;
+    margin-left: 355px;
   }
 }
 
