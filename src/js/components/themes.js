@@ -7,7 +7,6 @@ import groupBy from 'lodash/groupBy';
 import filter from 'lodash/filter';
 import reject from 'lodash/reject';
 import map from 'lodash/map';
-import sortBy from 'lodash/sortBy';
 
 import { Measures, NoMeasure } from './measure';
 import { FilterButton, getColor } from './sidebar';

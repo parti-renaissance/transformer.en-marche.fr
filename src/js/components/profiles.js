@@ -3,7 +3,6 @@ import { connectMenu } from 'react-instantsearch/connectors';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux'
 import Select from 'react-select';
-import sortBy from 'lodash/sortBy';
 import filter from 'lodash/filter';
 import map from 'lodash/map';
 
