@@ -172,53 +172,59 @@ ThemesDropdown = connect(({ themes: { themes, items, activeThemes }}) => ({
 
 export { ThemesDropdown };
 
-let ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchState: { query }, majorOnly, measures, activeProfile }) {
-  measures = filterMeasuresForState(measures, {currentTheme: theme, activeProfile, majorOnly, query});
-  
-  if (!measures) {
-    return null;
+class ThemeDetail extends Component {
+  state = {
+    empty: true
   }
   
-  let grouped = groupBy(measures, 'status');
-  measures = (grouped['DONE'] || [])
-                .concat(grouped['IN_PROGRESS'] || [])
-                .concat(grouped['UPCOMING'] || [])
-                .concat(grouped['DEFERRED'] || []);
+  componentWillReceiveProps(nextProps) {
+    let { hit:theme, searchState: { query }, majorOnly, measures, activeProfile } = nextProps;
+    measures = filterMeasuresForState(measures, {currentTheme: theme, activeProfile, majorOnly, query});
+    
+    if (!measures) {
+      this.setState({ empty: true });
+    } else {
+      let grouped = groupBy(measures, 'status');
+      measures = (grouped['DONE'] || [])
+                  .concat(grouped['IN_PROGRESS'] || [])
+                  .concat(grouped['UPCOMING'] || [])
+                  .concat(grouped['DEFERRED'] || []);
 
-  if (query && !measures.length) {
-    // no matching measures for this keyword query
-    // return nothing so it doesn't render
-    return null;
+      this.setState({ measures, empty: false });
+    }
   }
+  
+  render() {
+    let { hit:theme } = this.props;
 
-  const coverImg = {
-    // eslint-disable-next-line
-    backgroundImage: `url(${IMAGE_URL}/${theme.image})`
-  };
+    const coverImg = {
+      backgroundImage: `url(${IMAGE_URL}/${theme.image})`
+    };
+    
+    const measures = this.state.empty ? <NoMeasure theme={theme.title} /> : <Measures measures={this.state.measures} />
 
-  return (
-    <article className="theme">
+    return (
+      <article className="theme">
 
-      <div style={coverImg} className="theme-image">
-        <div className="theme-image__text">{theme.title}</div>
-      </div>
+        <div style={coverImg} className="theme-image">
+          <div className="theme-image__text">{theme.title}</div>
+        </div>
 
-      <h1 className="theme-title">{theme.title}</h1>
+        <h1 className="theme-title">{theme.title}</h1>
 
-      <p className="theme-body">{theme.description}</p>
+        <p className="theme-body">{theme.description}</p>
 
-      {measures.length ?
-        <Measures measures={measures} />
-      : <NoMeasure theme={theme.title} />}
+        {measures}
 
-    </article>
-  )
-});
+      </article>
+    )
+  }
+}
 
 ThemeDetail = connect(({
   majorOnly,
   profiles: { activeProfile },
   measures: { measures }
-}) => ({ majorOnly, measures, activeProfile }))(ThemeDetail);
+}) => ({ majorOnly, measures, activeProfile }))(connectStateResults(ThemeDetail));
 
 export { ThemeDetail }
