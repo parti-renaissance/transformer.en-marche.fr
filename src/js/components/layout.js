@@ -12,7 +12,7 @@ const { FacebookShareButton, TwitterShareButton } = ShareButtons;
 const FacebookIcon = generateShareIcon('facebook');
 const TwitterIcon = generateShareIcon('twitter');
 
-const SOCIAL_COPY = "Suivez le progrès du gouvernement https://transformer-la-france.fr";
+const SOCIAL_COPY = "Suivez le progrès du gouvernement";
 
 const duration = 125;
 const SharePanel = ({ in: inProp }) =>
