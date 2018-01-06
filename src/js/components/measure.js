@@ -144,7 +144,7 @@ const Trigger = ({ count, nodeRef }) =>
   <span ref={nodeRef}>
     <ChevronUp className="up" /><ChevronDown className="down" />
     <span className="up">Moins</span><span className="down">Plus</span>
-    de mesures ({count})
+    de mesures <span className="down">({count})</span>
   </span>
 
 class CollapsibleMeasures extends Component {
