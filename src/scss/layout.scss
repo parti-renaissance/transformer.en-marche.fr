@@ -124,11 +124,20 @@
     border: 0;
     padding: 0;
     margin-left: 10px;
-    color: $gray;
+    background: transparent;
+    color: white;
 
     &:hover {
-      color: $purple;
-      border-bottom: 1px solid $purple;
+        border-bottom: 1px solid white;
+    }
+
+    .Page__dashboard & {
+        color: $gray;
+
+        &:hover {
+          color: $purple;
+          border-bottom: 1px solid $purple;
+        }
     }
   }
 }
