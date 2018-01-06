@@ -73,7 +73,7 @@ const MobileSidebar = ({ location, match, resetParams, toggleMajor }) =>
   <div className="sidebar-group">
     <h3 className="sidebar-title">
       <ToggleSwitch onChange={e => toggleMajor(e.target.checked)}>
-        Voir uniquement les principales réformes :
+        Voir uniquement le Contrat avec la Nation :
       </ToggleSwitch>
     </h3>
 
@@ -91,7 +91,7 @@ const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleThe
   <div className="sidebar-group">
     <h3 className="sidebar-title">
       <ToggleSwitch onChange={e => toggleMajor(e.target.checked)}>
-        Voir uniquement les principales réformes :
+        Voir uniquement le Contrat avec la Nation :
       </ToggleSwitch>
     </h3>
     <h3 className="sidebar-title">
