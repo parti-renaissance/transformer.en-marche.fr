@@ -5,9 +5,9 @@ import sortBy from 'lodash/sortBy';
 import { ThemeDetail } from './themes';
 
 
-const Profile = ({ profileTitle, profiles }) => {
-  let profile = profiles.profilesByTitle[profileTitle];
-  if (!profileTitle || !profile) {
+const Profile = ({ profileId, profiles }) => {
+  let profile = profiles.profiles[profileId];
+  if (!profileId || !profile) {
     return null;
   } else {
     return (

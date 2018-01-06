@@ -4,7 +4,6 @@ import { INDEXES } from '../actions/data-actions';
 export default function profilesReducer(state = {
   items: [],
   profiles: {},
-  profilesByTitle: {},
   activeProfile: null,
   searchState: {
     menu: {}
@@ -26,10 +25,6 @@ export default function profilesReducer(state = {
         fetching: false,
         fetched: true,
         items: profiles.map(profile => profile.id),
-        profilesByTitle: profiles.reduce((s, p) => ({
-          ...s,
-          [p.title]: Object.assign({}, state.profiles[p.id], p)
-        }), {}),
         profiles: profiles.reduce((s, p) => ({
           ...s,
           [p.id]: Object.assign({}, state.profiles[p.id], p)
