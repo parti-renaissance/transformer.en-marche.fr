@@ -28,10 +28,10 @@ export default function themesReducer(state = {
         ...state,
         fetching: false,
         fetched: true,
-        items: themes.map(theme => theme.objectID),
+        items: themes.map(theme => theme.id),
         themes: themes.reduce((s, t) => ({
           ...s,
-          [t.objectID]: Object.assign({}, state.themes[t.objectID], t)
+          [t.id]: Object.assign({}, state.themes[t.id], t)
         }), {}),
         activeThemes: []
       };

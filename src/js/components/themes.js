@@ -62,7 +62,7 @@ const ThemeFilters = connectRefinementList(function ThemeFilters({children, them
     <ThemeListItem
       theme={theme}
       style={getColor(i)}
-      key={theme.objectID}
+      key={theme.id}
       refine={() => toggle(theme)} />
 
   let filteredLabels = map(items, 'label')
@@ -104,7 +104,7 @@ class ThemesDropdown extends Component {
     let active = props.themes[props.activeThemes[0]];
     if (active) {
       this.state.value = {
-        value: active.objectID,
+        value: active.id,
         label: active.title
       };
     }
@@ -123,7 +123,7 @@ class ThemesDropdown extends Component {
     this.setState(selected);
     resetParams(location, match, THEME);
     push(`${match.url}?theme=${theme.slug}`);
-    toggleTheme(theme.objectID);
+    toggleTheme(theme.id);
   }
 
   render() {

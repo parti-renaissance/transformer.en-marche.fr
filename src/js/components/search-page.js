@@ -29,7 +29,7 @@ class Layout extends Component {
     }
     let profile = find(profiles.profiles, ['slug', params.profile])
     if (profile && !Object.keys(searchState.menu).length) {
-      dispatch(setProfile(profile.objectID));
+      dispatch(setProfile(profile.id));
     }
   }
   
@@ -43,7 +43,7 @@ class Layout extends Component {
     let foundThemes = filter(themes.themes, t => theme.split(',').includes(t.slug));
     
     if (theme && !searchState.refinementList.title.length) {
-      foundThemes.forEach(({ objectID }) => dispatch(toggleThemeFacet(objectID)));
+      foundThemes.forEach(({ id }) => dispatch(toggleThemeFacet(id)));
     }
   }
   

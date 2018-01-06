@@ -31,7 +31,7 @@ const ResultsList = connectHits(function ResultsList({ hits }) {
   if (!hits.length) {
     return <NoResults />
   } else {
-    return sortBy(hits, 'slug').map(hit => <ThemeDetail hit={hit} key={hit.objectID} />)
+    return sortBy(hits, 'slug').map(hit => <ThemeDetail hit={hit} key={hit.id} />)
   }
 });
 

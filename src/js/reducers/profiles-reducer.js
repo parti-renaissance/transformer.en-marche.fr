@@ -25,14 +25,14 @@ export default function profilesReducer(state = {
         ...state,
         fetching: false,
         fetched: true,
-        items: profiles.map(profile => profile.objectID),
+        items: profiles.map(profile => profile.id),
         profilesByTitle: profiles.reduce((s, p) => ({
           ...s,
-          [p.title]: Object.assign({}, state.profiles[p.objectID], p)
+          [p.title]: Object.assign({}, state.profiles[p.id], p)
         }), {}),
         profiles: profiles.reduce((s, p) => ({
           ...s,
-          [p.objectID]: Object.assign({}, state.profiles[p.objectID], p)
+          [p.id]: Object.assign({}, state.profiles[p.id], p)
         }), {})
       };
       

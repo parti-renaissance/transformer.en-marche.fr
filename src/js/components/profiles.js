@@ -22,7 +22,7 @@ export const Profiles = connectMenu(function Profiles({items, profiles, togglePr
   let filtered = filter(profiles, p => filteredLabels.includes(p.title));
   let list = filtered.map((profile, i) => {
     return (
-      <li key={profile.objectID} className="refinement-list__item">
+      <li key={profile.id} className="refinement-list__item">
         <FilterButton
           label={profile.title}
           isActive={profile.isActive}
@@ -61,7 +61,7 @@ class ProfilesDropdown extends Component {
     this.setState(selected);
     resetParams(location, match, PROFILE);
     push(`/${match.params.locale}/results${location.search}`)
-    toggleProfile(profile.objectID);
+    toggleProfile(profile.id);
   }
   
   render() {
