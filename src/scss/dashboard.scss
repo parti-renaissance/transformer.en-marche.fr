@@ -111,7 +111,7 @@
   background-color: white;
   padding: 20px;
   border: 1px solid $blueishgray;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   font-size: 16px;
   font-family: $font-roboto;
   line-height: 1.44;
@@ -122,7 +122,7 @@
 
   @include mq($large-and-up) {
     padding: 40px;
-    flex-basis: 49%;
+    flex-basis: 48.4%;
 
     &.dashboard-popular {
       flex: 2;
@@ -130,7 +130,7 @@
 
     &.dashboard-progression {
       flex: 1;
-      margin-right: 30px;
+      margin-right: 40px;
       padding: 0;
     }
   }

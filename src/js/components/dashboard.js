@@ -103,7 +103,7 @@ class Dashboard extends Component {
           <DashboardRow>
             <DashboardBox className="dashboard-progression">
               <Link to={`/${locale}/results`} className="dashboard-progression__link">
-                <h3 className="dashboard-box__title">Mise en œuvre des principales mesures</h3>
+                <h3 className="dashboard-box__title">Mise en œuvre du Contrat avec la Nation</h3>
                 <LastUpdated className="dashboard-updated" />
 
                 {!!Object.keys(status.measures).length &&
@@ -111,7 +111,7 @@ class Dashboard extends Component {
               </Link>
             </DashboardBox>
             <DashboardBox className="dashboard-popular">
-              <h3 className="dashboard-box__title">Vos 3 coups de cœur</h3>
+              <h3 className="dashboard-box__title">Les 3 mesures les plus importantes pour vous</h3>
               {!!allMeasures.items.length &&
                 <Measures className="popular-measures" measures={measures} viewAll />}
               <div className="dashboard-box__cta">
