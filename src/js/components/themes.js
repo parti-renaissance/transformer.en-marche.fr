@@ -19,9 +19,8 @@ import {
 import '../../scss/dropdowns.css';
 import './../../scss/theme.css';
 
-// eslint-disable-next-line
-const IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 
+const IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 
 class ThemeListItem extends Component {
   state = {}
