@@ -13,24 +13,58 @@ import {
 } from '../actions/search-actions';
 import { FilterButton } from './sidebar';
 
-export const Profiles = connectMenu(function Profiles({items, profiles, toggleProfile, location, locale}) {
-  if (!items.length || !profiles.length) {
-    return null;
+class Profiles extends Component {
+  
+  state = {
+    profiles: []
   }
-  let ids = map(items, 'value').map(Number);
-  let filtered = filter(profiles, p => ids.includes(p.id));
-  let list = filtered.map((profile, i) => {
+  
+  componentWillReceiveProps(nextProps) {
+    let { items, profiles } = nextProps;
+    
+    if (!items.length || !profiles.length) {
+      this.setState({ profiles: [] });
+    } else {
+      let ids = map(items, 'value').map(Number);
+      profiles = filter(profiles, p => ids.includes(p.id));
+      
+      this.setState({ profiles });
+    }
+  }
+  
+  render() {
+    let { profiles } = this.state;
+    let { toggleProfile, location, locale } = this.props;
+    
+    if (!profiles.length) {
+      return null;
+    }
+    
+    let buttons = profiles.map((profile, i) => {
+      return (
+        <li key={profile.id} className="refinement-list__item">
+          <FilterButton
+            label={profile.title}
+            isActive={profile.isActive}
+            onClick={() => toggleProfile(profile, location, locale)} />
+        </li>
+      )
+    });
     return (
-      <li key={profile.id} className="refinement-list__item">
-        <FilterButton
-          label={profile.title}
-          isActive={profile.isActive}
-          onClick={() => toggleProfile(profile, location, locale)} />
-      </li>
-    )
-  });
-  return <ul className="refinement-list refinement-profiles">{list}</ul>
-});
+      <div className="profiles">
+        {this.props.children}
+        <ul className="refinement-list refinement-profiles">
+          {buttons}
+        </ul>
+      </div>
+    );
+  }
+  
+}
+
+Profiles = connectMenu(Profiles);
+
+export { Profiles };
   
 
 class ProfilesDropdown extends Component {
