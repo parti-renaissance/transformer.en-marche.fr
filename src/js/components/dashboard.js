@@ -40,9 +40,9 @@ const DashboardBox = ({ children, className }) =>
 const DashboardHeader = ({ locale }) =>
   <div className="dashboard-header">
     <div className="dashboard-blurb">
-      <h2>On l'a dit, on le fait</h2>
+      <h2>On l&apos;a dit, on le fait</h2>
       <p>
-        La transformation du pays est en marche ! Suivez l'application du programme d'Emmanuel Macron et <strong>votez en faveur des mesures qui vous tiennent à cœur</strong>.
+        La transformation du pays est en marche ! Suivez l&apos;application du programme d&apos;Emmanuel Macron et <strong>votez en faveur des mesures qui vous tiennent à cœur</strong>.
       </p>
 
       <Link className="dashboard-header__link" to={`/${locale}/results`}>Découvrir ce qui me concerne</Link>
