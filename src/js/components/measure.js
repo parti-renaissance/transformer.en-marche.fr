@@ -142,9 +142,7 @@ export class Measure extends Component {
 
 const Trigger = ({ count, nodeRef }) =>
   <span ref={nodeRef}>
-    <ChevronUp className="up" /><ChevronDown className="down" />
-    <span className="up">Moins </span><span className="down">Plus </span>
-    de mesures <span className="down"> ({count})</span>
+    <ChevronUp className="up" /><ChevronDown className="down" /><span className="up">Moins</span><span className="down">Plus </span>de mesures <span className="down">({count})</span>
   </span>
 
 class CollapsibleMeasures extends Component {
