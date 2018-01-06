@@ -80,7 +80,7 @@ const MobileSidebar = ({ location, match, resetParams, toggleMajor }) =>
     <ThemesDropdown attributeName="title" location={location} match={match} />
     <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, THEME)}>Réinitialiser</button>
 
-    <ProfilesDropdown attributeName="measures.profiles.title" location={location} match={match} />
+    <ProfilesDropdown attributeName="profileIds" location={location} match={match} />
     <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, PROFILE)}>reset profile</button>
 
     <button className="sidebar-reset sidebar-reset--mobile" onClick={() => resetParams(location, match)}>Réinitialiser les filtres</button>
@@ -117,7 +117,7 @@ const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleThe
       toggleProfile={toggleProfile}
       profiles={profiles}
       limitMin={1000}
-      attributeName="measures.profiles.title" />
+      attributeName="profileIds" />
 
     <div className="sidebar-search">
       <SearchBox
