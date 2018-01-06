@@ -38,7 +38,7 @@ function filterMeasuresForState(measures, {currentTheme, activeProfile, majorOnl
   // if there's a keyword query active, filter according to that
   measures = filter(measures, m => m.title.match(new RegExp(query, 'gi')));
   
-  return measures.length ? measure : null;
+  return measures.length ? measures : null;
 }
 
 const IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
