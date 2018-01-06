@@ -106,10 +106,6 @@ const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleThe
       toggleTheme={toggleTheme}
       onViewMore={showMore} />
 
-    <h3 className="sidebar-title">
-      Je suis...
-    </h3>
-    <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, PROFILE)}>Réinitialiser</button>
 
     <Profiles
       location={location}
@@ -117,7 +113,14 @@ const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleThe
       toggleProfile={toggleProfile}
       profiles={profiles}
       limitMin={1000}
-      attributeName="profileIds" />
+      attributeName="profileIds">
+      
+      <h3 className="sidebar-title">
+        Je suis...
+      </h3>
+      <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, PROFILE)}>Réinitialiser</button>
+      
+    </Profiles>
 
     <div className="sidebar-search">
       <SearchBox
