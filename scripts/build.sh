@@ -9,7 +9,7 @@ sudo /opt/google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT
 
 # Build the image
 yarn build
-docker build -t eu.gcr.io/$GCLOUD_PROJECT/gov-timeline:$CIRCLE_SHA1 .
+docker build -t eu.gcr.io/$GCLOUD_PROJECT/gov-timeline:${1:-$CIRCLE_SHA1} .
 
 # Push the images to Google Cloud
-sudo /opt/google-cloud-sdk/bin/gcloud docker -- push eu.gcr.io/$GCLOUD_PROJECT/gov-timeline:$CIRCLE_SHA1
+sudo /opt/google-cloud-sdk/bin/gcloud docker -- push eu.gcr.io/$GCLOUD_PROJECT/gov-timeline:${1:-$CIRCLE_SHA1}
