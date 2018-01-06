@@ -56,7 +56,7 @@ export default function profilesReducer(state = {
         newState.profiles[profile].isActive = true;
         newState.searchState = {
           menu: {
-            'measures.profiles.title': profiles[profile].title
+            profileIds: profile
           }
         };
       } 

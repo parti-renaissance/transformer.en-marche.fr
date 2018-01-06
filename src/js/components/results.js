@@ -37,7 +37,7 @@ const ResultsList = connectHits(function ResultsList({ hits }) {
 
 const Results = ({ searchState: { menu = {} }, profiles = {} }) =>
   <div className="results">
-    <Profile profileTitle={menu['measures.profiles.title']} profiles={profiles} />
+    <Profile profileId={menu.profileIds} profiles={profiles} />
     <ResultsList />
   </div>
 

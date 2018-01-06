@@ -28,7 +28,7 @@ class Layout extends Component {
       return;
     }
     let profile = find(profiles.profiles, ['slug', params.profile])
-    if (profile && !Object.keys(searchState.menu).length) {
+    if (profile && !searchState.menu.profileIds) {
       dispatch(setProfile(profile.id));
     }
   }
