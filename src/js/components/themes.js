@@ -21,13 +21,16 @@ import './../../scss/theme.css';
 
 function filterMeasuresForState(measures, {currentTheme, activeProfile, majorOnly, query}) {
   // the measures from state include add'l metadata like vote status
-  // pull those out first, using the IDs found in the theme's measures array
+  // pull those out first, using the give theme's `measureIds` array as reference
   measures = filter(measures, m => currentTheme.measureIds.includes(m.id));
   
-  // if a profile is currently active, filter out any measures which aren't tagged with that profile
-  // profiles is an array of profile objects
-  // search through it for any profiles that match for the given activeProfile
-  // if there's a match, keep the measure
+  // filter out any measures that aren't "major" if the major filter is selected
+  if (majorOnly) {
+    measures = filter(measures, 'major');
+  }
+  
+  // if a profile is currently active, filter out any measures
+  // which don't include that profile
   if (activeProfile) {
     measures = filter(measures, m => m.profileIds.includes(activeProfile));
   }
@@ -35,15 +38,7 @@ function filterMeasuresForState(measures, {currentTheme, activeProfile, majorOnl
   // if there's a keyword query active, filter according to that
   measures = filter(measures, m => m.title.match(new RegExp(query, 'gi')));
   
-  // and finally filter out any measures that aren't "major" if the major filter is selected
-  if (majorOnly) {
-    measures = filter(measures, 'major');
-    if (!measures.length) {
-      // hide any themes without measures while the "major" filter is active
-      return null;
-    }
-  }
-  return measures;
+  return measures.length ? measure : null;
 }
 
 const IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
