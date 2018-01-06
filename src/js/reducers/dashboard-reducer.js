@@ -32,13 +32,12 @@ export function statusReducer(state = { measures: {} }, action) {
       return {...state, fetching: false, error: action.payload};
     case `${INDEXES}_FULFILLED`:
       let { measures } = action.payload;
-      measures = filter(measures, 'global');
+      measures = filter(measures, 'major');
       return {
         ...state,
         fetching: false,
         fetched: true,
         majorOnly: true,
-        // measures: countBy(filter(measures, 'global'), 'status'),
         measures: countBy(measures, 'status'),
         total: measures.length
       };
