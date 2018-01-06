@@ -18,8 +18,8 @@ export const Profiles = connectMenu(function Profiles({items, profiles, togglePr
   if (!items.length || !profiles.length) {
     return null;
   }
-  let filteredLabels = map(items, 'label')
-  let filtered = filter(profiles, p => filteredLabels.includes(p.title));
+  let ids = map(items, 'value').map(Number);
+  let filtered = filter(profiles, p => ids.includes(p.id));
   let list = filtered.map((profile, i) => {
     return (
       <li key={profile.id} className="refinement-list__item">
