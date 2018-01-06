@@ -162,7 +162,7 @@ class ThemesDropdown extends Component {
 ThemesDropdown = connectRefinementList(ThemesDropdown);
 
 ThemesDropdown = connect(({ themes: { themes, items, activeThemes }}) => ({
-  themesOptions: sortBy(items.map(id => ({label: themes[id].title, value: id})), 'label'),
+  themesOptions: items.map(id => ({label: themes[id].title, value: id})).sort((a, b) => a.label.localeCompare(b.label)),
   themes,
   activeThemes
 }), dispatch => ({

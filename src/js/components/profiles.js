@@ -83,7 +83,7 @@ class ProfilesDropdown extends Component {
 ProfilesDropdown = connectMenu(ProfilesDropdown);
 
 ProfilesDropdown = connect(({ profiles: { profiles, items, activeProfile }}) => ({
-  profileOptions: sortBy(items.map(id => ({label: profiles[id].title, value: id})), 'label'),
+  profileOptions: items.map(id => ({label: profiles[id].title, value: id})).sort((a, b) => a.label.localeCompare(b.label)),
   profiles,
   activeProfile
 }), dispatch => ({
