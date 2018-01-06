@@ -19,6 +19,32 @@ import {
 import '../../scss/dropdowns.css';
 import './../../scss/theme.css';
 
+function filterMeasuresForState(measures, {currentTheme, activeProfile, majorOnly, query}) {
+  // the measures from state include add'l metadata like vote status
+  // pull those out first, using the IDs found in the theme's measures array
+  measures = filter(measures, m => currentTheme.measureIds.includes(m.id));
+  
+  // if a profile is currently active, filter out any measures which aren't tagged with that profile
+  // profiles is an array of profile objects
+  // search through it for any profiles that match for the given activeProfile
+  // if there's a match, keep the measure
+  if (activeProfile) {
+    measures = filter(measures, m => m.profileIds.includes(activeProfile));
+  }
+  
+  // if there's a keyword query active, filter according to that
+  measures = filter(measures, m => m.title.match(new RegExp(query, 'gi')));
+  
+  // and finally filter out any measures that aren't "major" if the major filter is selected
+  if (majorOnly) {
+    measures = filter(measures, 'major');
+    if (!measures.length) {
+      // hide any themes without measures while the "major" filter is active
+      return null;
+    }
+  }
+  return measures;
+}
 
 const IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 
@@ -152,16 +178,11 @@ ThemesDropdown = connect(({ themes: { themes, items, activeThemes }}) => ({
 
 export { ThemesDropdown };
 
-let ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchState: { query }, majorOnly, measures }) {
-  let measureIDs = map(theme.measures, 'id');
-  measures = filter(measures, m => measureIDs.includes(m.id));
-  measures = filter(measures, m => m.title.match(new RegExp(query, 'gi')));
-  if (majorOnly) {
-    measures = filter(measures, 'global');
-    if (!measures.length) {
-      // hide any themes without measures while the "major" filter is active
-      return null;
-    }
+let ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchState: { query }, majorOnly, measures, activeProfile }) {
+  measures = filterMeasuresForState(measures, {currentTheme: theme, activeProfile, majorOnly, query});
+  
+  if (!measures) {
+    return null;
   }
   
   let grouped = groupBy(measures, 'status');
@@ -200,6 +221,10 @@ let ThemeDetail = connectStateResults(function ThemeDetail({ hit:theme, searchSt
   )
 });
 
-ThemeDetail = connect(({ majorOnly, measures: { measures } }) => ({ majorOnly, measures }))(ThemeDetail);
+ThemeDetail = connect(({
+  majorOnly,
+  profiles: { activeProfile },
+  measures: { measures }
+}) => ({ majorOnly, measures, activeProfile }))(ThemeDetail);
 
 export { ThemeDetail }
