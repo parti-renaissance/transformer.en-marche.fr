@@ -15,7 +15,7 @@ import {
 import { FilterButton } from './sidebar';
 
 export const Profiles = connectMenu(function Profiles({items, profiles, toggleProfile, location, locale}) {
-  if (!items.length) {
+  if (!items.length || !profiles.length) {
     return null;
   }
   let filteredLabels = map(items, 'label')
@@ -41,8 +41,8 @@ class ProfilesDropdown extends Component {
     super(props);
     let active = props.profiles[props.activeProfile];
     if (active) {
-      this.state.value = {
-        value: active.objectID,
+      this.state = {
+        value: active.id,
         label: active.title
       };
     }
@@ -51,6 +51,9 @@ class ProfilesDropdown extends Component {
   componentWillReceiveProps(nextProps) {
     if (!nextProps.activeProfile) {
       this.setState({ value: null, label: null })
+    } else {
+      let { title } = nextProps.profiles[nextProps.activeProfile];
+      this.setState({ value: nextProps.activeProfile, label: title});
     }
   }
   
@@ -60,7 +63,7 @@ class ProfilesDropdown extends Component {
     
     this.setState(selected);
     resetParams(location, match, PROFILE);
-    push(`/${match.params.locale}/results${location.search}`)
+    push(`/${match.params.locale}/${profile.slug}${location.search}`)
     toggleProfile(profile.id);
   }
   
