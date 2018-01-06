@@ -7,16 +7,16 @@ class LastUpdated extends Component {
   shouldComponentUpdate(nextProps) {
     return nextProps.measures.items.length !== this.props.measures.items.length;
   }
-  
+
   render() {
     let { measures: { measures }, className } = this.props;
     let dates = map(measures, 'formattedUpdatedAt');
     dates.sort();
     let diff = moment().diff(dates[0], 'days');
-    let unit = 'jours';
+    let unit = 'jour(s)';
     if (diff < 1) {
       diff = moment().diff(dates[0], 'hours');
-      unit = 'heures';
+      unit = 'heure(s)';
     }
     return <small className={className}>Dernière mise à jour il y a {diff} {unit}.</small>
   }
