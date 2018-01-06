@@ -13,10 +13,10 @@ const FacebookIcon = generateShareIcon('facebook');
 const TwitterIcon = generateShareIcon('twitter');
 
 const STATUS_MAP = {
-  UPCOMING: 'À venir',
+  UPCOMING: 'À suivre',
   DONE: 'Fait',
   IN_PROGRESS: 'En cours',
-  DEFERRED: 'Reporté',
+  DEFERRED: 'Modifié',
 }
 
 // eslint-disable-next-line
@@ -68,13 +68,13 @@ export class Measure extends Component {
       count: props.measure.count,
     };
   }
-  
+
   componentWillReceiveProps({ active:nextActive }) {
     if (nextActive !== this.state.isActive) {
       this.setState({ isActive: nextActive });
     }
   }
-  
+
   voteFulfilled(direction, action) {
     let { count = 0 } = this.state;
     if (!!action) { // success
@@ -87,11 +87,11 @@ export class Measure extends Component {
       this.setState({ pending: false });
     }
   }
-  
+
   vote(id, token, direction) {
     let { voteUp, voteDown } = this.props;
     this.setState({ pending: true });
-    
+
     let promise;
     if (direction === 'up') {
       promise = voteUp(id, token);
@@ -100,7 +100,7 @@ export class Measure extends Component {
     }
     promise.then(this.voteFulfilled.bind(this, direction));
   }
-  
+
   render() {
     let { measure, token } = this.props;
     let { isActive } = this.state;
@@ -134,7 +134,7 @@ export class Measure extends Component {
 
         <ShareMeasure measure={measure} />
       </div>
-          
+
     );
   }
 }
