@@ -120,7 +120,6 @@ class Dashboard extends Component {
   state = {
     totalDaysInTerm: moment(END_OF_TERM).diff(moment(START_OF_TERM), 'days'),
     daysRemainingInTerm: moment(END_OF_TERM).diff(moment(), 'days'),
-    value: false
   }
 
   constructor(props) {
@@ -145,7 +144,6 @@ class Dashboard extends Component {
                 <LastUpdated className="dashboard-updated" />
                 
                 <PieChart measures={status.measures} />
-
               </Link>
             </DashboardBox>
             <DashboardBox className="dashboard-popular">
