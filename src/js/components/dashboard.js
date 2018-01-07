@@ -50,7 +50,7 @@ const DashboardHeader = ({ locale }) =>
     </div>
     <div className="dashboard-image">
       <Link to={`/${locale}/results`}>
-        <img src={macron} width="430" height="584" alt="Macron" />
+        <img src={macron} width="400" height="543" alt="Macron" />
       </Link>
     </div>
   </div>
@@ -66,7 +66,7 @@ const DashboardTimer = ({ total, current }) =>
       Encore {current} jours pour transformer la France.
     </ProgressMeter>
   </div>
-  
+
 const PieChartLegend = ({ children, color }) =>
   <div className="pie-chart__legend-item">
     <div className="pie-chart__legend-circle" style={{color}}></div>
@@ -77,7 +77,7 @@ class PieChart extends Component {
   state = {
     value: false
   }
-  
+
   render() {
     let { measures } = this.props;
     return (
@@ -94,7 +94,7 @@ class PieChart extends Component {
           ]}
           width={132}
           height={132} />
-          
+
         <div className="pie-chart__legend">
           <PieChartLegend color={'#2bca9e'}>
             <span className="pie-chart__legend-label">Faites</span>
@@ -109,7 +109,7 @@ class PieChart extends Component {
             {measures['UPCOMING']} mesures
           </PieChartLegend>
         </div>
-        
+
       </div>
     )
   }
@@ -142,7 +142,7 @@ class Dashboard extends Component {
               <Link to={`/${locale}/results`} className="dashboard-progression__link">
                 <h3 className="dashboard-box__title">Mise en œuvre du Contrat avec la Nation</h3>
                 <LastUpdated className="dashboard-updated" />
-                
+
                 <PieChart measures={status.measures} />
               </Link>
             </DashboardBox>
