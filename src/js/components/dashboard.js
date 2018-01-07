@@ -85,7 +85,7 @@ class PieChart extends Component {
         <RadialChart
           animation
           className='pie-chart__chart'
-          innerRadius={35}
+          innerRadius={40}
           radius={64}
           data={[
             {angle: measures['DONE'], label: 'Fait', style: {fill: '#2bca9e', stroke: 'none'}},
