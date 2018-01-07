@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 import { Link } from 'react-router-dom';
 import compact from 'lodash/compact';
+import { RadialChart } from 'react-vis';
 
 import { getVoteCount } from '../actions/vote-actions';
 import { Measures } from './measure';
@@ -65,24 +66,61 @@ const DashboardTimer = ({ total, current }) =>
       Encore {current} jours pour transformer la France.
     </ProgressMeter>
   </div>
-
-const Progressions = ({ measures, total }) =>
-  <div className="dashboard-progressions">
-    <ProgressMeter total={total} current={measures['DONE']} className="fait">
-      <span>{measures['DONE']}</span> faites
-    </ProgressMeter>
-    <ProgressMeter total={total} current={measures['IN_PROGRESS']} className="en-cours">
-      <span>{measures['IN_PROGRESS']}</span> en cours
-    </ProgressMeter>
-    <div className="progress a-venir">
-      Et ce n'est qu'un début ! Encore <strong>{measures['UPCOMING']}</strong> à venir.
-    </div>
+  
+const PieChartLegend = ({ children, color }) =>
+  <div className="pie-chart__legend-item">
+    <div className="pie-chart__legend-circle" style={{color}}></div>
+    {children}
   </div>
+
+class PieChart extends Component {
+  state = {
+    value: false
+  }
+  
+  render() {
+    let { measures } = this.props;
+    return (
+      <div className="pie-chart">
+        <RadialChart
+          animation
+          className='pie-chart__chart'
+          innerRadius={35}
+          radius={64}
+          data={[
+            {angle: measures['DONE'], label: 'Fait', style: {fill: '#2bca9e', stroke: 'none'}},
+            {angle: measures['IN_PROGRESS'], label: 'En cours', style: {fill: '#00bef9', stroke: 'none'}},
+            {angle: measures['UPCOMING'], label: 'À suivre', style: {fill: '#dedede', stroke: 'none'}},
+          ]}
+          width={132}
+          height={132} />
+          
+        <div className="pie-chart__legend">
+          <PieChartLegend color={'#2bca9e'}>
+            <span className="pie-chart__legend-label">Faites</span>
+            {measures['DONE']} mesures
+          </PieChartLegend>
+          <PieChartLegend color={'#00bef9'}>
+            <span className="pie-chart__legend-label">En cours</span>
+            {measures['IN_PROGRESS']} mesures
+          </PieChartLegend>
+          <PieChartLegend color={'#dedede'}>
+            <span className="pie-chart__legend-label">À suivre</span>
+            {measures['UPCOMING']} mesures
+          </PieChartLegend>
+        </div>
+        
+      </div>
+    )
+  }
+}
+
 
 class Dashboard extends Component {
   state = {
     totalDaysInTerm: moment(END_OF_TERM).diff(moment(START_OF_TERM), 'days'),
-    daysRemainingInTerm: moment(END_OF_TERM).diff(moment(), 'days')
+    daysRemainingInTerm: moment(END_OF_TERM).diff(moment(), 'days'),
+    value: false
   }
 
   constructor(props) {
@@ -105,9 +143,9 @@ class Dashboard extends Component {
               <Link to={`/${locale}/results`} className="dashboard-progression__link">
                 <h3 className="dashboard-box__title">Mise en œuvre du Contrat avec la Nation</h3>
                 <LastUpdated className="dashboard-updated" />
+                
+                <PieChart measures={status.measures} />
 
-                {!!Object.keys(status.measures).length &&
-                  <Progressions measures={status.measures} total={status.total} />}
               </Link>
             </DashboardBox>
             <DashboardBox className="dashboard-popular">
