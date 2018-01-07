@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { history } from './js/store';
 import './scss/App.css';
+import '../node_modules/react-vis/dist/style.css';
 
 import Layout from './js/components/layout';
 import SearchPage from './js/components/search-page';
