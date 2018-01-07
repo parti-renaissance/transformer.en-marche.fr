@@ -174,7 +174,7 @@ class CollapsibleMeasures extends Component {
 }
 
 export const NoMeasure = ({theme}) =>
-  <p className="no-measure">Il n&apos;y a pas de réformes specifiques au profil de {theme}. Voir toutes les réformes sur le thème {theme}.</p>
+  <p className="no-measure">Il n'y a pas de mesures répondant à cette combinaison de filtres.</p>
 
 class Measures extends Component {
 
