@@ -90,7 +90,7 @@ class PieChart extends Component {
           data={[
             {angle: measures['DONE'], label: 'Fait', style: {fill: '#2bca9e', stroke: 'none'}},
             {angle: measures['IN_PROGRESS'], label: 'En cours', style: {fill: '#00bef9', stroke: 'none'}},
-            {angle: measures['UPCOMING'], label: 'À suivre', style: {fill: '#dedede', stroke: 'none'}},
+            {angle: measures['UPCOMING'], label: 'À venir', style: {fill: '#dedede', stroke: 'none'}},
           ]}
           width={132}
           height={132} />
@@ -105,7 +105,7 @@ class PieChart extends Component {
             {measures['IN_PROGRESS']} mesures
           </PieChartLegend>
           <PieChartLegend color={'#dedede'}>
-            <span className="pie-chart__legend-label">À suivre</span>
+            <span className="pie-chart__legend-label">À venir</span>
             {measures['UPCOMING']} mesures
           </PieChartLegend>
         </div>

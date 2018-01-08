@@ -73,7 +73,7 @@ const MobileSidebar = ({ location, match, resetParams, toggleMajor }) =>
   <div className="sidebar-group">
     <h3 className="sidebar-title">
       <ToggleSwitch onChange={e => toggleMajor(e.target.checked)}>
-        Voir uniquement le Contrat avec la Nation :
+        Voir les principaux engagements :
       </ToggleSwitch>
     </h3>
 
@@ -91,7 +91,7 @@ const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleThe
   <div className="sidebar-group">
     <h3 className="sidebar-title">
       <ToggleSwitch onChange={e => toggleMajor(e.target.checked)}>
-        Voir uniquement le Contrat avec la Nation :
+        Voir les principaux engagements :
       </ToggleSwitch>
     </h3>
     <h3 className="sidebar-title">
@@ -114,12 +114,12 @@ const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleThe
       profiles={profiles}
       limitMin={1000}
       attributeName="profileIds">
-      
+
       <h3 className="sidebar-title">
         Je suis...
       </h3>
       <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, PROFILE)}>Réinitialiser</button>
-      
+
     </Profiles>
 
     <div className="sidebar-search">
