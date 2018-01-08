@@ -13,7 +13,7 @@ const FacebookIcon = generateShareIcon('facebook');
 const TwitterIcon = generateShareIcon('twitter');
 
 const STATUS_MAP = {
-  UPCOMING: 'À suivre',
+  UPCOMING: 'À venir',
   DONE: 'Fait',
   IN_PROGRESS: 'En cours',
   DEFERRED: 'Modifié',
