@@ -18,16 +18,16 @@ const AuthModal = ({ isOpen, closeModal, location }) =>
     <div className="auth-modal__body">
       <h3 className="auth-modal__logo">EM!</h3>
       <p>
-        Identifiez-vous afin d’accéder à plus de fonctionalités.
+        Identifiez-vous afin de pouvoir voter pour les mesures qui vous tiennent à cœur.
       </p>
-      
+
       <a href={`${loginURL}&state=${location.pathname}${location.search}`} className="auth-button__login">Connexion</a>
-      
+
     </div>
     <div className="auth-modal__footer">
       Pas de compte ? <a href={`${registerURL}`} target="_blank" rel="noreferrer noopener">S&apos;inscrire</a>
     </div>
-    
+
     <button className="auth-modal__close-button" onClick={closeModal}>Fermer <span>X</span></button>
   </Modal>
 
