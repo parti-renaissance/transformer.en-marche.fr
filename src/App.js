@@ -11,14 +11,28 @@ import Layout from './js/components/layout';
 import SearchPage from './js/components/search-page';
 import Dashboard from './js/components/dashboard';
 import AuthModal from './js/components/auth-modal';
+import AboutModal from './js/components/about-modal';
 import { closeAuth, clearToken } from './js/actions/auth-actions';
+import { openAbout, closeAbout } from './js/actions/about-actions';
 
 class App extends Component {
   render() {
-    let { hasToken, disconnect, openModal, closeAuth } = this.props;
+    let {
+      hasToken,
+      disconnect,
+      authModalIsOpen,
+      closeAuth,
+      aboutModalIsOpen,
+      openAbout,
+      closeAbout
+    } = this.props;
     return (
       <Router history={history}>
-        <Layout hasToken={hasToken} disconnect={disconnect}>
+        <Layout
+          hasToken={hasToken}
+          disconnect={disconnect}
+          openAbout={openAbout}
+        >
           <main className="main">
             <Switch>
               <Route path="/:locale/:profile" component={SearchPage} />
@@ -27,7 +41,8 @@ class App extends Component {
               <Redirect from="/" to="/fr" />
             </Switch>
           </main>
-          <AuthModal isOpen={openModal} closeModal={closeAuth} />
+          <AuthModal isOpen={authModalIsOpen} closeModal={closeAuth} />
+          <AboutModal isOpen={aboutModalIsOpen} closeModal={closeAbout} />
         </Layout>
       </Router>
     );
@@ -35,9 +50,12 @@ class App extends Component {
 }
 
 export default connect(state => ({
-  openModal: state.auth.openModal,
-  hasToken: state.auth.fetchedToken
+  authModalIsOpen: state.auth.openModal,
+  aboutModalIsOpen: state.aboutModal,
+  hasToken: state.auth.fetchedToken,
 }), dispatch => ({
   closeAuth: () => dispatch(closeAuth()),
   disconnect: () => dispatch(clearToken()),
+  openAbout: () => dispatch(openAbout()),
+  closeAbout: () => dispatch(closeAbout()),
 }))(App);

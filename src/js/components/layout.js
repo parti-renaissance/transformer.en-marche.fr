@@ -52,7 +52,7 @@ class MobileShare extends Component {
 
 MobileShare = clickOutside(MobileShare);
 
-const Header = ({ locale, hasToken, disconnect }) => {
+const Header = ({ locale, hasToken, disconnect, openAbout }) => {
   return (
     <header className="header">
       <div className="header-left">
@@ -63,6 +63,7 @@ const Header = ({ locale, hasToken, disconnect }) => {
         {matches =>
           matches ?
           <div className="header-right">
+            <button onClick={openAbout}>about</button>
             Partager
             <FacebookShareButton url={window.location.toString()} quote={SOCIAL_COPY}>
               <FacebookIcon round={true} size={35}/>
@@ -91,14 +92,19 @@ const Footer = () =>
     </div>
   </footer>
 
-class Page extends Component {
+class Layout extends Component {
   render() {
-    let { location, hasToken, disconnect } = this.props;
+    let { location, hasToken, disconnect, openAbout } = this.props;
     let locale = location.pathname.slice(1).split('/')[0];
     let isDashboard = location && location.pathname.slice(1).split('/').length <= 1;
     return (
       <div className={`Page${isDashboard ? ' Page__dashboard' : ''}`}>
-        <Header locale={locale} hasToken={hasToken} disconnect={disconnect} />
+        <Header
+         locale={locale}
+         hasToken={hasToken}
+         disconnect={disconnect}
+         openAbout={openAbout}
+        />
         {this.props.children}
         <Footer />
       </div>
@@ -106,4 +112,4 @@ class Page extends Component {
   }
 }
 
-export default withRouter(Page);
+export default withRouter(Layout);

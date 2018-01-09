@@ -9,6 +9,7 @@ import { popularReducer, statusReducer } from './dashboard-reducer';
 import locale from './translate-reducer';
 import auth from './auth-reducer';
 import majorOnly from './major-reducer.js';
+import aboutModal from './about-reducer.js';
 
 export default combineReducers({
   measures,
@@ -20,5 +21,6 @@ export default combineReducers({
   auth,
   popular: popularReducer,
   status: statusReducer,
-  majorOnly
+  majorOnly,
+  aboutModal
 });
