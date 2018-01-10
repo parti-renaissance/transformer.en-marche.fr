@@ -38,12 +38,13 @@ const DashboardBox = ({ children, className }) =>
     {children}
   </div>
 
-const DashboardHeader = ({ locale }) =>
+const DashboardHeader = ({ locale, openAbout }) =>
   <div className="dashboard-header">
     <div className="dashboard-blurb">
       <h2>On l&apos;a dit, on le fait</h2>
       <p>
         La transformation du pays est en marche ! Suivez l&apos;application du programme d&apos;Emmanuel Macron et <strong>votez en faveur des mesures qui vous tiennent à cœur</strong>.
+
       </p>
 
       <Link className="dashboard-header__link" to={`/${locale}/results`}>Découvrir ce qui me concerne</Link>
@@ -128,12 +129,15 @@ class Dashboard extends Component {
   }
 
   render() {
-    let { allMeasures, popular, status, locale } = this.props;
+    let { allMeasures, popular, status, locale, openAbout } = this.props;
     let measures = compact(popular.map(({ itemId }) => allMeasures.measures[itemId]));
 
     return (
       <div className="dashboard">
-        <DashboardHeader locale={locale} />
+        <DashboardHeader
+          locale={locale}
+          openAbout={openAbout}
+        />
 
         <DashboardBody>
           <DashboardTimer total={this.state.totalDaysInTerm} current={this.state.daysRemainingInTerm} />

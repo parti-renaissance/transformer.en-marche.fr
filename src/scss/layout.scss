@@ -10,26 +10,20 @@
 }
 
 .header {
-  background-color: $purple;
   font-size: 20px;
   padding: 15px;
   display: flex;
   justify-content: space-between;
-  color: white;
   position: sticky;
   top: 0;
   z-index: $zIndex--header;
 
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid $blueishgray;
+  background-color: white;
+  color: black;
 
   @include mq($medium-and-up) {
     font-size: 28px;
-  }
-
-  .Page__dashboard > & {
-    background-color: white;
-    color: black;
-    border-bottom-color: $blueishgray;
   }
 }
 
@@ -37,7 +31,7 @@
   font-family: $font-gillsans;
   font-weight: bold;
   font-style: oblique;
-  color: white;
+  color: black;
   text-decoration: none;
   border: 0;
 
@@ -45,22 +39,15 @@
       border: 0;
       opacity: 0.8;
   }
-
-  .Page__dashboard & {
-    color: black;
-  }
 }
 
 .header-tag {
   font-weight: 100;
   font-size: 18px;
+  color: $darkergray;
 
   @include mq($medium-and-up) {
     font-size: 28px;
-  }
-
-  .Page__dashboard & {
-    color: $darkergray;
   }
 }
 
@@ -89,13 +76,7 @@
     align-items: center;
     font-size: 14px;
     font-family: $font-roboto;
-    font-weight: bold;
-
-    color: white;
-
-    .Page__dashboard & {
-      color: $gray;
-    }
+    color: $gray;
   }
 
   > .SocialMediaShareButton {
@@ -103,19 +84,16 @@
     margin-left: 10px;
 
     path {
-      fill: $purple;
-
-      .Page__dashboard & {
-        fill: white;
-      }
+      fill: white;
     }
 
     circle {
-      fill: white;
+      fill: $purple;
+      transition: all .2s;
+    }
 
-      .Page__dashboard & {
-        fill: $purple;
-      }
+    &:hover circle {
+      fill: $lightpurple;
     }
   }
 
@@ -144,19 +122,11 @@
     padding: 0;
     margin-left: 10px;
     background: transparent;
-    color: white;
+    color: $gray;
 
     &:hover {
-        border-bottom: 1px solid white;
-    }
-
-    .Page__dashboard & {
-        color: $gray;
-
-        &:hover {
-          color: $purple;
-          border-bottom: 1px solid $purple;
-        }
+      color: $purple;
+      border-bottom: 1px solid $purple;
     }
   }
 }
