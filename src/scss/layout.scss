@@ -119,6 +119,25 @@
     }
   }
 
+  .header-right__about {
+    background: transparent;
+    color: $gray;
+    border: 0;
+    font-weight: bold;
+    padding: 0;
+    cursor: pointer;
+
+    &:hover {
+      color: $purple;
+    }
+  }
+
+  .header-right__divider {
+    margin: 0 5px;
+    color: $mediumlightgray;
+    display: inline-block;
+  }
+
   .header-disconnect {
     cursor: pointer;
     border: 0;
