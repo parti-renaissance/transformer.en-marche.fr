@@ -14,7 +14,7 @@
   right: 0;
   background-color: rgba(black, 0.6);
   z-index: $zIndex--modal;
-  
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,7 +26,7 @@
   width: 100%;
   background-color: white;
   position: relative;
-  
+
   &:focus {
     outline: none;
   }
@@ -36,38 +36,26 @@
   padding: 40px 30px;
 }
 
+.about-modal__body > h3 {
+  font-size: 24px;
+}
+
 .about-modal__body > p {
-  color: $gray;
-  text-align: center;
   font-size: 16px;
   font-family: $font-roboto;
-}
-
-.about-modal__footer {
-  padding: 20px 0;
-  background-color: $offwhite;
-  font-size: 16px;
-  text-align: center;
-  font-family: $font-roboto;
-}
-
-.about-modal__logo {
-  font-size: 48px;
-  font-weight: bold;
-  font-style: oblique;
-  text-align: center;
+  color: $darkergray;
 }
 
 .about-modal__close-button {
   @include button-base;
-  
+
   font-size: 14px;
   font-family: $font-roboto;
   color: white;
   position: absolute;
   top: -25px;
   right: 0;
-  
+
   > span {
     font-family: $font-gillsans;
   }

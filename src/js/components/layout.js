@@ -63,7 +63,8 @@ const Header = ({ locale, hasToken, disconnect, openAbout }) => {
         {matches =>
           matches ?
           <div className="header-right">
-            <button onClick={openAbout}>about</button>
+            <button onClick={openAbout} className="header-right__about">À propos</button>
+            <span className="header-right__divider">|</span>
             Partager
             <FacebookShareButton url={window.location.toString()} quote={SOCIAL_COPY}>
               <FacebookIcon round={true} size={35}/>
