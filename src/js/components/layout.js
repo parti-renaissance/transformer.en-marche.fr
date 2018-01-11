@@ -6,6 +6,8 @@ import clickOutside from 'react-click-outside';
 import Transition from 'react-transition-group/Transition';
 import Media from "react-media"
 
+import TranslateDropdown from './translate-dropdown';
+
 import '../../scss/layout.css';
 
 const { FacebookShareButton, TwitterShareButton } = ShareButtons;
@@ -52,7 +54,7 @@ class MobileShare extends Component {
 
 MobileShare = clickOutside(MobileShare);
 
-const Header = ({ locale, hasToken, disconnect, openAbout }) => {
+const Header = ({ locale, hasToken, disconnect, openAbout, location }) => {
   return (
     <header className="header">
       <div className="header-left">
@@ -63,6 +65,7 @@ const Header = ({ locale, hasToken, disconnect, openAbout }) => {
         {matches =>
           matches ?
           <div className="header-right">
+            <TranslateDropdown selected={locale} location={location} />
             <button onClick={openAbout} className="header-right__about">À propos</button>
             <span className="header-right__divider">|</span>
             Partager
@@ -78,6 +81,7 @@ const Header = ({ locale, hasToken, disconnect, openAbout }) => {
           </div>
           :
           <div className="header-right">
+            <TranslateDropdown selected={locale} location={location} small />
             <MobileShare />
           </div>
         }
@@ -105,6 +109,7 @@ class Layout extends Component {
          hasToken={hasToken}
          disconnect={disconnect}
          openAbout={openAbout}
+         location={location}
         />
         {this.props.children}
         <Footer />
