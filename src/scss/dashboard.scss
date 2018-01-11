@@ -59,7 +59,12 @@
 
 .dashboard-blurb__link {
   @include button-base;
-  color: $darkergray;
+  font-weight: normal;
+  color: $purple;
+
+  @include mq($large-and-up) {
+      display: none;
+  }
 }
 
 .dashboard-header__link {

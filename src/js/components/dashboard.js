@@ -44,7 +44,7 @@ const DashboardHeader = ({ locale, openAbout }) =>
     <div className="dashboard-blurb">
       <h2>On l&apos;a dit, on le fait</h2>
       <p>
-        La transformation du pays est en marche ! Suivez l&apos;application du programme d&apos;Emmanuel Macron et <strong>votez en faveur des mesures qui vous tiennent à cœur</strong>, or <button onClick={openAbout} className="dashboard-blurb__link">click here to find out more.</button>
+        La transformation du pays est en marche ! Suivez l&apos;application du programme d&apos;Emmanuel Macron et <strong>votez en faveur des mesures qui vous tiennent à cœur</strong>. <button onClick={openAbout} className="dashboard-blurb__link">En savoir plus</button>.
       </p>
 
       <Link className="dashboard-header__link" to={`/${locale}/results`}>Découvrir ce qui me concerne</Link>
@@ -185,6 +185,7 @@ export default connect(state => ({
   status: state.status,
   allMeasures: state.measures,
   locale: state.locale,
+  openAbout: state.openAbout
 }), dispatch => ({
   getVotes: () => dispatch(getVoteCount()),
   openAbout: () => dispatch(openAbout()),
