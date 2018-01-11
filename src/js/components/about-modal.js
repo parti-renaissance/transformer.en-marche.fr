@@ -21,9 +21,6 @@ const AboutModal = ({ isOpen, closeModal }) =>
         Cet outil vous permet de suivre l’avancée des mesures contenues dans le programme présidentiel en fonction des catégories «&nbsp;à venir&nbsp;», «&nbsp;en cours&nbsp;», «&nbsp;fait&nbsp;» et «&nbsp;modifié&nbsp;».
       </p>
       <p>
-        Les principales mesures sont disponibles ici, les autres le sont ici.
-      </p>
-      <p>
         Pour le moment, cet outil ne prend pas en compte les mesures annoncées par le président de la République et son Gouvernement après l’élection présidentielle.
       </p>
     </div>
