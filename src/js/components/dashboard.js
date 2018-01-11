@@ -6,6 +6,7 @@ import compact from 'lodash/compact';
 import { RadialChart } from 'react-vis';
 
 import { getVoteCount } from '../actions/vote-actions';
+import { openAbout } from '../actions/about-actions';
 import { Measures } from './measure';
 import LastUpdated from './last-updated';
 import ProgressMeter from './progress-meter';
@@ -43,8 +44,7 @@ const DashboardHeader = ({ locale, openAbout }) =>
     <div className="dashboard-blurb">
       <h2>On l&apos;a dit, on le fait</h2>
       <p>
-        La transformation du pays est en marche ! Suivez l&apos;application du programme d&apos;Emmanuel Macron et <strong>votez en faveur des mesures qui vous tiennent à cœur</strong>.
-
+        La transformation du pays est en marche ! Suivez l&apos;application du programme d&apos;Emmanuel Macron et <strong>votez en faveur des mesures qui vous tiennent à cœur</strong>, or <button onClick={openAbout} className="dashboard-blurb__link">click here to find out more.</button>
       </p>
 
       <Link className="dashboard-header__link" to={`/${locale}/results`}>Découvrir ce qui me concerne</Link>
@@ -187,4 +187,5 @@ export default connect(state => ({
   locale: state.locale,
 }), dispatch => ({
   getVotes: () => dispatch(getVoteCount()),
+  openAbout: () => dispatch(openAbout()),
 }))(Dashboard);

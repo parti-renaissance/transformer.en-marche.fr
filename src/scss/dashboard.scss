@@ -57,6 +57,11 @@
   }
 }
 
+.dashboard-blurb__link {
+  @include button-base;
+  color: $darkergray;
+}
+
 .dashboard-header__link {
   @include orange-button;
   display: inline-block;
