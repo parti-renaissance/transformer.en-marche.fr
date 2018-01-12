@@ -21,6 +21,12 @@
   font-family: $font-roboto;
 }
 
+.intro-description span {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 20px;
+}
+
 .theme-image {
   margin-bottom: 22px;
   border-radius: 3px;
