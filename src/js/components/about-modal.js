@@ -14,14 +14,22 @@ const AboutModal = ({ isOpen, closeModal }) =>
     <div className="about-modal__body">
       <h3>À propos</h3>
       <p>
-        Emmanuel Macron a été élu président de la République avec une promesse :
-        transformer la France.
+        Grâce à On l'a dit, On le fait, vous pouvez suivre la mise en oeuvre des engagements du programme présidentiel.
       </p>
       <p>
-        Cet outil vous permet de suivre l’avancée des mesures contenues dans le programme présidentiel en fonction des catégories «&nbsp;à venir&nbsp;», «&nbsp;en cours&nbsp;», «&nbsp;fait&nbsp;» et «&nbsp;modifié&nbsp;».
+          Pour vous aider à y voir plus clair, nous avons classé les mesures du programme présidentiel en quatre catégories :
+          <ul>
+            <li>« à venir » : la mesure a été adoptée</li>
+            <li>« en cours » : le Gouvernement ou le Parlement travaille sur cette mesure</li>
+            <li>« fait » : le Gouvernement ou le Parlement se saisit du sujet d'ici la fin du quinquennat</li>
+            <li>« modifié » : la mesure a été amendée</li>
+          </ul>
       </p>
       <p>
-        Pour le moment, cet outil ne prend pas en compte les mesures annoncées par le président de la République et son Gouvernement après l’élection présidentielle.
+        Cet outil recense les mesures du programme présidentiel. Il ne prend pas encore en comptes les mesures annoncées par le président de la République et son Gouvernement depuis l’élection présidentielle.
+      </p>
+      <p>
+        Vous avez encore des questions ? <a href="https://contact.en-marche.fr/" rel="noopener noreferrer" target="_blank">Écrivez-nous</a>.
       </p>
     </div>
 
