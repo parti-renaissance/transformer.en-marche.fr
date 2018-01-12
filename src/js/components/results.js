@@ -16,12 +16,13 @@ const Profile = ({ profileId, profiles }) => {
 
         <div className="intro-description">
           <p>{profile.description}</p>
+          <span>Voici les mesures qui vous concernent spécifiquement. Pour voir l'ensemble des mesures pour chaque thème, vous pouvez désélectionner "{profile.title}".</span>
         </div>
       </div>
     );
   }
 }
-  
+
 const NoResults = () =>
   <div className="mesure-none">
     Aucun resultat pour votre recherche <span role="img" aria-label="Emoji disappointed">😔</span>
