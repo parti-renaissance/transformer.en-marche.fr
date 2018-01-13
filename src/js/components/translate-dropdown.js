@@ -29,7 +29,9 @@ const ABBREVIATED_OPTIONS = {
 export default class TranslateDropdown extends connect()(Component) {
   
   componentWillReceiveProps(nextProps) {
-    this.updateForSize(nextProps)
+    if (this.props.small !== nextProps.small) {
+      this.updateForSize(nextProps);
+    }
   }
   componentWillMount() {
     this.updateForSize(this.props);
