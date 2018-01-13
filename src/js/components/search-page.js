@@ -10,6 +10,7 @@ import Results from './results';
 
 import { setProfile, toggleThemeFacet } from '../actions/search-actions';
 import { getVoteCount } from '../actions/vote-actions';
+import { setLocale } from '../actions/translate-actions';
 
 const APP_ID      = process.env.REACT_APP_ALGOLIA_APP_ID;
 const API_KEY     = process.env.REACT_APP_ALGOLIA_API_KEY;
@@ -23,13 +24,18 @@ class Layout extends Component {
   }
   
   syncForProfile() {
-    let { profiles, match: { params }, dispatch, searchState } = this.props;
+    let {
+      profiles,
+      match: { params: {locale, profile} },
+      dispatch,
+      searchState
+    } = this.props;
     if (!profiles.items.length) {
       return;
     }
-    let profile = find(profiles.profiles, ['slug', params.profile])
-    if (profile && !searchState.menu.profileIds) {
-      dispatch(setProfile(profile.id));
+    let found = find(profiles.profiles, p => p.slugs[locale] === profile);
+    if (found && !searchState.menu.profileIds) {
+      dispatch(setProfile(found.id));
     }
   }
   
@@ -53,7 +59,15 @@ class Layout extends Component {
   }
   
   render() {
-    let { dispatch, location, match, searchState, profiles, themes } = this.props;
+    let {
+      dispatch,
+      location,
+      match,
+      searchState,
+      profiles,
+      themes,
+      locale,
+    } = this.props;
     return (
       <InstantSearch
         appId={APP_ID}
@@ -64,13 +78,14 @@ class Layout extends Component {
         <Sidebar
           match={match}
           location={location}
+          locale={locale}
           dispatch={dispatch}
           profiles={profiles.items.map(id => profiles.profiles[id])}
           themes={themes.items.map(id => themes.themes[id])}
         />
 
         <div className="content">
-          <Results profiles={profiles} />
+          <Results profiles={profiles} locale={locale} />
         </div>
 
       </InstantSearch>
