@@ -23,39 +23,49 @@ class Layout extends Component {
     props.dispatch(getVoteCount());
   }
   
-  syncForProfile() {
+  syncForProfile(nextProps) {
     let {
       profiles,
       match: { params: {locale, profile} },
       dispatch,
-      searchState
-    } = this.props;
-    if (!profiles.items.length) {
-      return;
-    }
+    } = nextProps;
     let found = find(profiles.profiles, p => p.slugs[locale] === profile);
-    if (found && !searchState.menu.profileIds) {
+    
+    if (found) {
       dispatch(setProfile(found.id));
     }
   }
   
-  syncForTheme() {
-    let { themes, location, dispatch, searchState } = this.props;
-    let { theme } = qs.parse(location.search.slice(1));
-    if (!themes.items.length || !theme) {
-      return;
-    }
+  syncForTheme(nextProps) {
+    let {
+      themes,
+      location,
+      dispatch,
+      match: { params: {locale} },
+    } = nextProps;
+    let { theme = '' } = qs.parse(location.search.slice(1));
+    let foundThemes = filter(themes.themes, t => theme.split(',').includes(t.slugs[locale]));
     
-    let foundThemes = filter(themes.themes, t => theme.split(',').includes(t.slug));
-    
-    if (theme && !searchState.refinementList.title.length) {
+    if (theme) {
       foundThemes.forEach(({ id }) => dispatch(toggleThemeFacet(id)));
     }
   }
   
-  componentDidUpdate(prevProps) {
-    this.syncForProfile();
-    this.syncForTheme();
+  syncForLocale() {
+    if (this.props.locale !== this.props.match.params.locale) {
+      this.props.dispatch(setLocale(this.props.locale, this.props.location));
+    }
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    if (this.props.themes.fetched !== nextProps.themes.fetched)  {
+      this.syncForTheme(nextProps);
+    }
+    if (this.props.profiles.fetched !== nextProps.themes.fetched) {
+      this.syncForProfile(nextProps);
+    }
+    
+    this.syncForLocale();
   }
   
   render() {
