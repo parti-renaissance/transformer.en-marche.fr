@@ -19,7 +19,6 @@ const STATUS_MAP = {
   DEFERRED: 'Modifié',
 }
 
-// eslint-disable-next-line
 const slugify = str => str.toLowerCase().replace(/[\s_]/g, '-');
 
 const shareCopy = measure => `Je soutiens la mesure "${measure}" sur https://transformer-la-france.fr`;
@@ -174,7 +173,7 @@ class CollapsibleMeasures extends Component {
 }
 
 export const NoMeasure = ({theme}) =>
-  <p className="no-measure">Il n'y a pas de mesures répondant à cette combinaison de filtres.</p>
+  <p className="no-measure">Il n&apos;y a pas de mesures répondant à cette combinaison de filtres.</p>
 
 class Measures extends Component {
 
