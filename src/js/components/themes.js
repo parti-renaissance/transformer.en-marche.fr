@@ -86,7 +86,8 @@ const ThemeFilters = connectRefinementList(function ThemeFilters({children, them
       key={theme.id}
       refine={() => toggle(theme)} />
 
-  let filteredLabels = map(items, 'label')
+  themes = themes.slice().sort((a, b) => a.titles[locale].localeCompare(b.titles[locale]));
+  let filteredLabels = map(items, 'label');
   let filtered = filter(themes, t => filteredLabels.includes(t.titles[locale]));
   let activeThemes = filter(filtered, 'isActive').map(createListItems);
 
