@@ -204,7 +204,7 @@ class ThemeDetail extends Component {
   }
   
   render() {
-    let { hit:theme, locale } = this.props;
+    let { hit:theme, locale, isFiltering } = this.props;
 
     const coverImg = {
       backgroundImage: `url(${IMAGE_URL}/${theme.image})`
@@ -221,8 +221,9 @@ class ThemeDetail extends Component {
 
         <h1 className="theme-title">{theme.titles[locale]}</h1>
 
-        <p className="theme-body">{theme.descriptions[locale]}</p>
-
+        {!isFiltering &&
+          <p className="theme-body">{theme.descriptions[locale]}</p>
+        }
         {measures}
 
       </article>
