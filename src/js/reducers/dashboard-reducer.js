@@ -1,8 +1,6 @@
 import { VOTES } from '../actions/vote-actions';
 import { INDEXES } from '../actions/data-actions';
 import sortBy from 'lodash/sortBy';
-import countBy from 'lodash/countBy';
-import filter from 'lodash/filter';
 
 export function popularReducer(state = { items: [] }, action) {
   switch(action.type) {
@@ -31,15 +29,11 @@ export function statusReducer(state = { measures: {} }, action) {
     case `${INDEXES}_REJECTED`:
       return {...state, fetching: false, error: action.payload};
     case `${INDEXES}_FULFILLED`:
-      let { measures } = action.payload;
-      measures = filter(measures, 'major');
       return {
         ...state,
         fetching: false,
         fetched: true,
-        majorOnly: true,
-        measures: countBy(measures, 'status'),
-        total: measures.length
+        measures: action.payload.measures,
       };
     default:
       return state;
