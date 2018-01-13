@@ -90,7 +90,7 @@ class ProfilesDropdown extends Component {
     }
   }
   
-  handleChange = selected => {
+  handleChange(selected) {
     let {
       toggleProfile,
       profiles,
@@ -116,7 +116,7 @@ class ProfilesDropdown extends Component {
             clearable={false}
             value={this.state.value}
             options={this.props.profileOptions}
-            onChange={this.handleChange}
+            onChange={this.handleChange.bind(this)}
           />
   }
 };
