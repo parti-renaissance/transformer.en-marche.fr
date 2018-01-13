@@ -5,18 +5,18 @@ import sortBy from 'lodash/sortBy';
 import { ThemeDetail } from './themes';
 
 
-const Profile = ({ profileId, profiles }) => {
+const Profile = ({ profileId, profiles, locale }) => {
   let profile = profiles.profiles[profileId];
   if (!profileId || !profile) {
     return null;
   } else {
     return (
       <div className="intro">
-        <h1 className="intro-header">{profile.title}</h1>
+        <h1 className="intro-header">{profile.titles[locale]}</h1>
 
         <div className="intro-description">
-          <p>{profile.description}</p>
-          <span>Voici les mesures qui vous concernent spécifiquement. Pour voir l'ensemble des mesures pour chaque thème, vous pouvez désélectionner "{profile.title}".</span>
+          <p>{profile.descriptions[locale]}</p>
+          <span>Voici les mesures qui vous concernent spécifiquement. Pour voir l&apos;ensemble des mesures pour chaque thème, vous pouvez désélectionner "{profile.titles[locale]}".</span>
         </div>
       </div>
     );
@@ -36,9 +36,9 @@ const ResultsList = connectHits(function ResultsList({ hits }) {
   }
 });
 
-const Results = ({ searchState: { menu = {} }, profiles = {} }) =>
+const Results = ({ searchState: { menu = {} }, profiles = {}, locale }) =>
   <div className="results">
-    <Profile profileId={menu.profileIds} profiles={profiles} />
+    <Profile profileId={menu.profileIds} profiles={profiles} locale={locale} />
     <ResultsList />
   </div>
 

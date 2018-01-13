@@ -77,7 +77,11 @@ const MobileSidebar = ({ location, match, resetParams, toggleMajor }) =>
       </ToggleSwitch>
     </h3>
 
-    <ThemesDropdown attributeName="title" location={location} match={match} />
+    <ThemesDropdown
+      attributeName={`titles.${match.params.locale}`}
+      location={location}
+      match={match}
+    />
     <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, THEME)}>Réinitialiser</button>
 
     <ProfilesDropdown attributeName="profileIds" location={location} match={match} />

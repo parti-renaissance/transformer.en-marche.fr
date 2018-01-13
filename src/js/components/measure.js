@@ -102,7 +102,7 @@ export class Measure extends Component {
   }
 
   render() {
-    let { measure, token } = this.props;
+    let { measure, token, locale } = this.props;
     let { isActive } = this.state;
     return (
       <div className="measure-wrapper">
@@ -113,7 +113,7 @@ export class Measure extends Component {
             {STATUS_MAP[measure.status]}
           </div>
           <div className="measure-name">
-            {measure.title}
+            {measure.titles[locale]}
           </div>
         </LinkOrDiv>
 
@@ -198,7 +198,8 @@ class Measures extends Component {
 }
 
 Measures = connect(state => ({
-  token: state.auth.token
+  token: state.auth.token,
+  locale: state.locale,
 }), dispatch => ({
   voteUp: (...args) => dispatch(voteUp(...args)),
   voteDown: (...args) => dispatch(voteDown(...args))
