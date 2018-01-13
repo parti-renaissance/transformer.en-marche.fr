@@ -37,18 +37,20 @@ export default class TranslateDropdown extends connect()(Component) {
   
   updateForSize({ small }) {
     if (small) {
+      let { value, label } = ABBREVIATED_OPTIONS[this.props.selected] || {};
       this.setState({
         selected: {
-          value: ABBREVIATED_OPTIONS[this.props.selected].value,
-          label: ABBREVIATED_OPTIONS[this.props.selected].label
+          value: value,
+          label: label
         },
         options: [ABBREVIATED_OPTIONS.fr, ABBREVIATED_OPTIONS.en]
       });
     } else {
+      let { value, label } = OPTIONS[this.props.selected] || {};
       this.setState({
         selected: {
-          value: OPTIONS[this.props.selected].value,
-          label: OPTIONS[this.props.selected].label
+          value: value,
+          label: label
         },
         options: [OPTIONS.fr, OPTIONS.en]
       });
