@@ -4,6 +4,8 @@ import moment from 'moment-timezone';
 import { Link } from 'react-router-dom';
 import compact from 'lodash/compact';
 import { RadialChart } from 'react-vis';
+import countBy from 'lodash/countBy';
+import filter from 'lodash/filter';
 
 import { getVoteCount } from '../actions/vote-actions';
 import { openAbout } from '../actions/about-actions';
@@ -11,6 +13,7 @@ import { Measures } from './measure';
 import LastUpdated from './last-updated';
 import ProgressMeter from './progress-meter';
 import Subscribe from './subscribe';
+import ToggleSwitch from './toggle-switch';
 
 import '../../scss/dashboard.css';
 import macron from '../../images/cover-program.png';
@@ -76,11 +79,17 @@ const PieChartLegend = ({ children, color }) =>
 
 class PieChart extends Component {
   state = {
-    value: false
+    value: false,
+    majorOnly: true
   }
 
   render() {
     let { measures } = this.props;
+    let { majorOnly } = this.state;
+    if (majorOnly) {
+      measures = filter(measures, 'major');
+    }
+    measures = countBy(measures, 'status');
     return (
       <div className="pie-chart">
         <RadialChart
@@ -109,6 +118,12 @@ class PieChart extends Component {
             <span className="pie-chart__legend-label">À venir</span>
             {measures['UPCOMING']} mesures
           </PieChartLegend>
+        </div>
+        
+        <div className="pie-chart__footer">
+          <ToggleSwitch onChange={() => this.setState({ majorOnly: !majorOnly })}>
+            Voir seulement les principaux engagements :
+          </ToggleSwitch>
         </div>
 
       </div>
@@ -143,12 +158,12 @@ class Dashboard extends Component {
           <DashboardTimer total={this.state.totalDaysInTerm} current={this.state.daysRemainingInTerm} />
           <DashboardRow>
             <DashboardBox className="dashboard-progression">
-              <Link to={`/${locale}/results`} className="dashboard-progression__link">
+              <div className="dashboard-progression__link">
                 <h3 className="dashboard-box__title">Mise en œuvre du Contrat avec la Nation</h3>
                 <LastUpdated className="dashboard-updated" />
 
                 <PieChart measures={status.measures} />
-              </Link>
+              </div>
             </DashboardBox>
             <DashboardBox className="dashboard-popular">
               <h3 className="dashboard-box__title">Les 3 mesures les plus importantes pour vous</h3>

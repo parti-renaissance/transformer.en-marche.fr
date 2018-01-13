@@ -278,6 +278,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 15px;
 }
 
 .pie-chart__legend-item {
@@ -302,6 +303,15 @@
   border-radius: 50%;
 }
 
-.pie-chart__hint {
+.pie-chart__footer {
+  font-size: 14px;
+  
+  > .toggle-switch {
+    margin-bottom: 0;
+  }
+  
+  .toggle-switch__label {
+    margin-right: 20px;
+  }
 
 }
