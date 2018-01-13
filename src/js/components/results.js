@@ -29,8 +29,8 @@ const NoResults = () =>
 
 
 class ResultsList extends Component {
-  shouldComponentUpdate({ hits }) {
-    if (hits.length !== this.props.hits.length) {
+  shouldComponentUpdate({ hits, isFiltering }) {
+    if (hits.length !== this.props.hits.length || isFiltering !== this.props.isFiltering) {
       return true;
     } else {
       return false;
@@ -38,12 +38,12 @@ class ResultsList extends Component {
   }
 
   render() {
-    let { hits, locale } = this.props;
+    let { hits, locale, isFiltering } = this.props;
     if (!hits.length) {
       return <NoResults />
     } else {
       hits.sort((a, b) => a.titles[locale].localeCompare(b.titles[locale]));
-      return hits.map(hit => <ThemeDetail hit={hit} key={hit.id} />)
+      return hits.map(hit => <ThemeDetail hit={hit} key={hit.id} isFiltering={isFiltering} />)
     }
   }
 }
@@ -51,8 +51,8 @@ class ResultsList extends Component {
 ResultsList = connectHits(ResultsList);
 
 class Results extends Component {
-  shouldComponentUpdate({searchState: {menu:nextMenu}, profiles:nextProfiles}) {
-    let { searchState: {menu}, profiles } = this.props;
+  shouldComponentUpdate({searchState: {menu:nextMenu, refinementList:nextList}, profiles:nextProfiles}) {
+    let { searchState: {menu, refinementList}, profiles } = this.props;
 
     if (menu.profileIds !== nextMenu.profileIds ||
         Object.keys(profiles).length !== Object.keys(nextProfiles).length) {
@@ -63,11 +63,11 @@ class Results extends Component {
   }
 
   render() {
-    let { searchState: { menu = {} }, profiles = {}, locale } = this.props;
+    let { searchState: {menu = {}, refinementList = {title: []}}, profiles = {}, locale } = this.props;
     return (
       <div className="results">
         <Profile profileId={menu.profileIds} profiles={profiles} locale={locale} />
-        <ResultsList locale={locale} />
+        <ResultsList locale={locale} isFiltering={!!refinementList.title.length} />
       </div>
     )
   }
