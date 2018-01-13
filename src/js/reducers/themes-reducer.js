@@ -7,9 +7,7 @@ export default function themesReducer(state = {
   items: [],
   activeThemes: [],
   themes: {},
-  searchState: {
-    refinementList: {title: []}
-  },
+  searchState: [],
   fetching: false,
   fetched: false,
   error: null  
@@ -37,8 +35,8 @@ export default function themesReducer(state = {
       };
       
     case TOGGLE_THEME_FACET:
-      let currentTitles = state.searchState.refinementList.title;
-      let { title, isActive } = state.themes[action.payload];
+      let currentThemes = state.searchState;
+      let { id, isActive } = state.themes[action.payload];
       let becomingActive = !isActive;
       
       return {
@@ -49,11 +47,7 @@ export default function themesReducer(state = {
             isActive: becomingActive
           }
         }),
-        searchState: {
-          refinementList: {
-            title: becomingActive ? [...currentTitles, title] : without(currentTitles, title)
-          }
-        },
+        searchState: becomingActive ? [...currentThemes, id] : without(currentThemes, id),
         activeThemes: becomingActive ? [...state.activeThemes, action.payload] : without(state.activeThemes, action.payload)
       };
     
@@ -62,9 +56,7 @@ export default function themesReducer(state = {
       let { themes } = state;
       return {
         ...state,
-        searchState: {
-          refinementList: {title: []}
-        },
+        searchState: [],
         themes: Object.keys(themes).reduce((s, k) => ({
           ...s,
           [k]: Object.assign({}, themes[k], {isActive: false})

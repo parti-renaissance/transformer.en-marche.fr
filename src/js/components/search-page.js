@@ -83,5 +83,11 @@ export default connect(({profiles, themes, query, locale}) => ({
   themes,
   query,
   locale,
-  searchState: Object.assign({}, themes.searchState, profiles.searchState, query.searchState),
+  searchState: {
+    menu: {profileIds: profiles.searchState},
+    query: query,
+    refinementList: {
+      [`titles.${locale}`]: themes.searchState.map(id => themes.themes[id].titles[locale])
+    }
+  }
 }))(Layout);
