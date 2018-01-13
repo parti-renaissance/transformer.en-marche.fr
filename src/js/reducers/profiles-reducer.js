@@ -5,9 +5,7 @@ export default function profilesReducer(state = {
   items: [],
   profiles: {},
   activeProfile: null,
-  searchState: {
-    menu: {}
-  },
+  searchState: null,
   fetching: false,
   fetched: false,
   error: null  
@@ -36,9 +34,7 @@ export default function profilesReducer(state = {
       let { payload:profile } = action;
       const newState = {
         ...state,
-        searchState: {
-          menu: {}
-        },
+        searchState: null,
         profiles: Object.keys(profiles).reduce((s, k) => ({
           ...s,
           [k]: Object.assign({}, profiles[k], {isActive: false})
@@ -49,11 +45,7 @@ export default function profilesReducer(state = {
       if (profiles[profile]) {
         newState.activeProfile = profile;
         newState.profiles[profile].isActive = true;
-        newState.searchState = {
-          menu: {
-            profileIds: profile
-          }
-        };
+        newState.searchState = profile;
       } 
       return newState;
     }
@@ -63,9 +55,7 @@ export default function profilesReducer(state = {
       let { profiles } = state;
       return {
         ...state,
-        searchState: {
-          menu: {}
-        },
+        searchState: null,
         profiles: Object.keys(profiles).reduce((s, k) => ({
           ...s,
           [k]: Object.assign({}, profiles[k], {isActive: false})
