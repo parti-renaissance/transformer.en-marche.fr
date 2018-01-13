@@ -44,7 +44,7 @@ class Profiles extends Component {
       return (
         <li key={profile.id} className="refinement-list__item">
           <FilterButton
-            label={profile.title}
+            label={profile.titles[locale]}
             isActive={profile.isActive}
             onClick={() => toggleProfile(profile, location, locale)} />
         </li>
@@ -91,12 +91,20 @@ class ProfilesDropdown extends Component {
   }
   
   handleChange = selected => {
-    let { toggleProfile, profiles, match, location, push, resetParams } = this.props;
+    let {
+      toggleProfile,
+      profiles,
+      match,
+      location,
+      push,
+      resetParams
+    } = this.props;
+    let { locale } = match.params;
     let profile = profiles[selected.value];
     
     this.setState(selected);
     resetParams(location, match, PROFILE);
-    push(`/${match.params.locale}/${profile.slug}${location.search}`)
+    push(`/${locale}/${profile.slugs[locale]}${location.search}`)
     toggleProfile(profile.id);
   }
   
@@ -115,8 +123,13 @@ class ProfilesDropdown extends Component {
 
 ProfilesDropdown = connectMenu(ProfilesDropdown);
 
-ProfilesDropdown = connect(({ profiles: { profiles, items, activeProfile }}) => ({
-  profileOptions: items.map(id => ({label: profiles[id].title, value: id})).sort((a, b) => a.label.localeCompare(b.label)),
+ProfilesDropdown = connect(({
+  locale,
+  profiles: { profiles, items, activeProfile }
+}) => ({
+  profileOptions: items.map(id => ({
+    label: profiles[id].titles[locale], value: id
+  })).sort((a, b) => a.label.localeCompare(b.label)),
   profiles,
   activeProfile
 }), dispatch => ({

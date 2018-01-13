@@ -30,13 +30,13 @@ export const setProfile = profile => ({
   payload: profile
 });
 
-export function toggleProfile({ slug, id, isActive}, location, locale) {
+export function toggleProfile({ slugs, id, isActive}, location, locale) {
   return dispatch => {
     if (isActive) {
       dispatch(push(`/${locale}/results${location.search}`));
       dispatch(setProfile(null));
     } else {
-      dispatch(push(`/${locale}/${slug}${location.search}`));
+      dispatch(push(`/${locale}/${slugs[locale]}${location.search}`));
       dispatch(setProfile(id));
     }
   }
@@ -47,14 +47,15 @@ export const toggleThemeFacet = theme => ({
   payload: theme
 });
 
-export function toggleTheme({ slug, isActive, id }, location, match) {
+export function toggleTheme({ slugs, isActive, id }, location, match) {
   return dispatch => {
+    let { locale } = match.params;
     let { theme = '' } = qs.parse(location.search.slice(1));
     theme = theme ? theme.split(',') : [];
     if (isActive) {
-      theme = without(theme, slug);
+      theme = without(theme, slugs[locale]);
     } else {
-      theme.push(slug);
+      theme.push(slugs[locale]);
     }
     let query = theme.length ? `?theme=${theme.join(',')}` : ''
     
