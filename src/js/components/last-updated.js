@@ -18,7 +18,7 @@ class LastUpdated extends Component {
       diff = moment().diff(dates[0], 'hours');
       unit = 'heure(s)';
     }
-    return <small className={className}>Dernière mise à jour il y a {diff} {unit}.</small>
+    return <small className={className}>Mis à jour il y a {diff} {unit}.</small>
   }
 
 }
