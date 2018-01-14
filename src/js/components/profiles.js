@@ -19,6 +19,17 @@ class Profiles extends Component {
     profiles: []
   }
   
+  shouldComponentUpdate({ items:nextItems, profiles:nextProfiles }) {
+    let { items, profiles } = this.props;
+    if (nextItems.length !== items.length ||
+        nextProfiles.length !== profiles.length ||
+        filter(nextProfiles, 'isActive').length !== filter(profiles, 'isActive').length)  {
+          return true;
+        } else {
+          return false;
+        }
+  }
+  
   componentWillReceiveProps(nextProps) {
     let { items, profiles } = nextProps;
     
