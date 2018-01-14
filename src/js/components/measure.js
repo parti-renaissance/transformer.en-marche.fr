@@ -167,7 +167,7 @@ class CollapsibleMeasures extends Component {
        triggerClassName="measure-accordion__trigger"
        lazyRender={true}
        >
-        {measures.slice(3).map(measure => <Measure key={measure.id} measure={measure} {...this.props} />)}
+        {measures.slice(4).map(measure => <Measure key={measure.id} measure={measure} {...this.props} />)}
       </Collapsible>
     );
   }
