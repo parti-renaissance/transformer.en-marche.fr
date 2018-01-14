@@ -163,13 +163,6 @@
   display: none !important;
 }
 
-.dashboard-progression__link {
-  @include mq($large-and-up) {
-    padding: 40px;
-  }
-}
-
-
 .dashboard-box__title {
   font-size: 24px;
   font-family: $font-gillsans;
