@@ -83,7 +83,7 @@ class Layout extends Component {
         />
 
         <div className="content">
-          <Results profiles={profiles} />
+          <Results profiles={profiles.profiles} />
         </div>
 
       </InstantSearch>
