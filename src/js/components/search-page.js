@@ -4,6 +4,7 @@ import { InstantSearch } from 'react-instantsearch/dom';
 
 import qs from 'qs';
 import { find, filter } from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 import Sidebar from './sidebar';
 import Results from './results';
@@ -50,6 +51,18 @@ class Layout extends Component {
   componentDidUpdate(prevProps) {
     this.syncForProfile();
     this.syncForTheme();
+  }
+  
+  shouldComponentUpdate(props, state) {
+    if (props.profiles.fetching !== this.props.profiles.fetching)  {
+      return true;
+    } else if (props.themes.fetching !== this.props.profiles.fetching) {
+      return true;
+    } else if (!isEqual(props.searchState, this.props.searchState)) {
+      return true;
+    } else {
+      return false;
+    }
   }
   
   render() {
