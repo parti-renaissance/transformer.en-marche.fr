@@ -23,7 +23,7 @@ class Layout extends Component {
     super(props);
     props.dispatch(getVoteCount());
   }
-  
+
   syncForProfile(nextProps) {
     let {
       profiles,
@@ -31,12 +31,12 @@ class Layout extends Component {
       dispatch,
     } = nextProps;
     let found = find(profiles.profiles, p => p.slugs[locale] === profile);
-    
+
     if (found) {
       dispatch(setProfile(found.id));
     }
   }
-  
+
   syncForTheme(nextProps) {
     let {
       themes,
@@ -46,19 +46,19 @@ class Layout extends Component {
     } = nextProps;
     let { theme = '' } = qs.parse(location.search.slice(1));
     let foundThemes = filter(themes.themes, t => theme.split(',').includes(t.slugs[locale]));
-    
+
     if (theme) {
       foundThemes.forEach(({ id }) => dispatch(toggleThemeFacet(id)));
     }
   }
-  
+
   syncForLocale() {
     let { dispatch, locale, location, match: { params } } = this.props;
     if (locale !== params.locale) {
       dispatch(setLocale(params.locale, location));
     }
   }
-  
+
   componentWillReceiveProps(nextProps) {
     if (this.props.themes.fetched !== nextProps.themes.fetched)  {
       this.syncForTheme(nextProps);
@@ -66,10 +66,10 @@ class Layout extends Component {
     if (this.props.profiles.fetched !== nextProps.themes.fetched) {
       this.syncForProfile(nextProps);
     }
-    
+
     this.syncForLocale();
   }
-  
+
   shouldComponentUpdate(props, state) {
     if (props.profiles.fetching !== this.props.profiles.fetching)  {
       return true;
@@ -81,7 +81,7 @@ class Layout extends Component {
       return false;
     }
   }
-  
+
   render() {
     let {
       dispatch,
@@ -109,7 +109,7 @@ class Layout extends Component {
         />
 
         <div className="content">
-          <Results profiles={profiles} locale={locale} />
+          <Results profiles={profiles.profiles} locale={locale} />
         </div>
 
       </InstantSearch>
