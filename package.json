@@ -4,7 +4,6 @@
   "private": true,
   "homepage": "https://enmarche.github.io/gov-timeline",
   "dependencies": {
-    "color": "^2.0.1",
     "gh-pages": "^1.1.0",
     "history": "^4.7.2",
     "jsonp": "^0.2.1",

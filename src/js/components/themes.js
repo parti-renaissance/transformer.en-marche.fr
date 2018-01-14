@@ -9,7 +9,7 @@ import reject from 'lodash/reject';
 import map from 'lodash/map';
 
 import { Measures, NoMeasure } from './measure';
-import { FilterButton, getColor } from './sidebar';
+import { FilterButton } from './sidebar';
 import {
   toggleThemeFacet,
   resetParams,
@@ -64,7 +64,6 @@ class ThemeListItem extends Component {
       <li className={`refinement-list__item ${props.className || ''}`} style={state.style}>
         {props.children ||
           <FilterButton
-           style={props.style}
            label={props.theme.title}
            isActive={props.theme.isActive}
            onClick={props.refine}
