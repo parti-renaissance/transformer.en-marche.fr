@@ -18,7 +18,7 @@ const AuthModal = ({ isOpen, closeModal, location }) =>
     <div className="auth-modal__body">
       <h3 className="auth-modal__logo">EM!</h3>
       <p>
-        Identifiez-vous afin de pouvoir voter pour les mesures qui vous tiennent à cœur.
+        Identifiez-vous afin de pouvoir voter pour les mesures les plus importantes pour vous.
       </p>
 
       <a href={`${loginURL}&state=${location.pathname}${location.search}`} className="auth-button__login">Connexion</a>
