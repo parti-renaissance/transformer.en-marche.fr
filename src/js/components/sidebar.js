@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { SearchBox } from 'react-instantsearch/dom';
 
 import Media from "react-media"
-import Color from 'color';
 
 import ToggleSwitch from './toggle-switch';
 import LastUpdated from './last-updated';
@@ -22,43 +21,6 @@ import {
 import '../../scss/sidebar.css';
 import '../../scss/filter-button.css';
 import 'react-select/dist/react-select.css';
-
-const BUTTON_COLORS = [
-  {
-    // yellow
-    bg: Color('#6f81ff'),
-    color: Color('#fff'),
-  },
-  {
-    // teal
-    bg: Color('#6f81ff'),
-    color: Color('#fff'),
-  },
-  {
-    // purple
-    bg: Color('#6f81ff'),
-    color: Color('#fff'),
-  },
-  {
-    // red
-    bg: Color('#6f81ff'),
-    color: Color('#fff'),
-  },
-  // {
-  //   // dark gray
-  //   bg: Color('#b6b6b6'),
-  //   color: Color('#444444'),
-  // },
-];
-
-export const getColor = i => {
-  let index = i % BUTTON_COLORS.length;
-  let { bg, color } = BUTTON_COLORS[index];
-  return {
-    backgroundColor: bg.rgb().alpha(.7).string(),
-    color: color.rgb().string(),
-  };
-};
 
 export const FilterButton = ({isActive, label, onClick, style, buttonRef, children}) =>
   <button

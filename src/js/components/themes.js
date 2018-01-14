@@ -10,7 +10,7 @@ import map from 'lodash/map';
 import isEqual from 'lodash/isEqual';
 
 import { Measures, NoMeasure } from './measure';
-import { FilterButton, getColor } from './sidebar';
+import { FilterButton } from './sidebar';
 import {
   toggleThemeFacet,
   resetParams,
@@ -23,21 +23,21 @@ function filterMeasuresForState(measures, {currentTheme, activeProfile, majorOnl
   // the measures from state include add'l metadata like vote status
   // pull those out first, using the give theme's `measureIds` array as reference
   measures = filter(measures, m => currentTheme.measureIds.includes(m.id));
-  
+
   // filter out any measures that aren't "major" if the major filter is selected
   if (majorOnly) {
     measures = filter(measures, 'major');
   }
-  
+
   // if a profile is currently active, filter out any measures
   // which don't include that profile
   if (activeProfile) {
     measures = filter(measures, m => m.profileIds.includes(activeProfile));
   }
-  
+
   // if there's a keyword query active, filter according to that
   measures = filter(measures, m => m.titles[locale].match(new RegExp(query, 'gi')));
-  
+
   return measures.length ? measures : null;
 }
 
@@ -65,7 +65,6 @@ class ThemeListItem extends Component {
       <li className={`refinement-list__item ${props.className || ''}`} style={state.style}>
         {props.children ||
           <FilterButton
-           style={props.style}
            label={props.theme.titles[props.locale]}
            isActive={props.theme.isActive}
            onClick={props.refine}
@@ -186,11 +185,11 @@ class ThemeDetail extends Component {
   state = {
     empty: true
   }
-  
+
   componentWillReceiveProps(nextProps) {
     let { hit:theme, searchState: { query }, majorOnly, measures, activeProfile, locale } = nextProps;
     measures = filterMeasuresForState(measures, {currentTheme: theme, activeProfile, majorOnly, query, locale});
-    
+
     if (!measures) {
       this.setState({ empty: true });
     } else {
@@ -203,14 +202,14 @@ class ThemeDetail extends Component {
       this.setState({ measures, empty: false });
     }
   }
-  
+
   render() {
     let { hit:theme, locale } = this.props;
 
     const coverImg = {
       backgroundImage: `url(${IMAGE_URL}/${theme.image})`
     };
-    
+
     const measures = this.state.empty ? <NoMeasure theme={theme.title} /> : <Measures measures={this.state.measures} />
 
     return (
