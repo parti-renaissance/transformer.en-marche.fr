@@ -52,8 +52,9 @@ class Layout extends Component {
   }
   
   syncForLocale() {
-    if (this.props.locale !== this.props.match.params.locale) {
-      this.props.dispatch(setLocale(this.props.locale, this.props.location));
+    let { dispatch, locale, location, match: { params } } = this.props;
+    if (locale !== params.locale) {
+      dispatch(setLocale(params.locale, location));
     }
   }
   
