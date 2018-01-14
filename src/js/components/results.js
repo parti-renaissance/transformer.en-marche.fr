@@ -36,7 +36,7 @@ const ResultsList = connectHits(function ResultsList({ hits, isFiltering, locale
   }
 });
 
-const Results = ({ searchState: { menu = {}, refinementList = {} }, profiles = {}, locale }) =>
+const Results = ({ searchState: { menu = {}, refinementList = {'titles.fr': [], 'titles.en': []} }, profiles = {}, locale }) =>
   <div className="results">
     <Profile profileId={menu.profileIds} profiles={profiles} locale={locale} />
     <ResultsList isFiltering={!!refinementList[`titles.${locale}`].length} locale={locale} />
