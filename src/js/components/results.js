@@ -16,7 +16,7 @@ const Profile = ({ profileId, profiles }) => {
 
         <div className="intro-description">
           <p>{profile.description}</p>
-          <span>Voici les mesures qui vous concernent spécifiquement. Pour voir l'ensemble des mesures pour chaque thème, vous pouvez désélectionner "{profile.title}".</span>
+          <span>Voici les mesures qui vous concernent spécifiquement. Pour voir l'ensemble des mesures pour chaque thème, vous pouvez désélectionner "{profile.title}" ou réinitialiser les filtres.</span>
         </div>
       </div>
     );
