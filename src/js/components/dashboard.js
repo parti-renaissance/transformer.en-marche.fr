@@ -158,12 +158,10 @@ class Dashboard extends Component {
           <DashboardTimer total={this.state.totalDaysInTerm} current={this.state.daysRemainingInTerm} />
           <DashboardRow>
             <DashboardBox className="dashboard-progression">
-              <div className="dashboard-progression__link">
-                <h3 className="dashboard-box__title">Mise en œuvre du Contrat avec la Nation</h3>
-                <LastUpdated className="dashboard-updated" />
+              <h3 className="dashboard-box__title">Mise en œuvre du Contrat avec la Nation</h3>
+              <LastUpdated className="dashboard-updated" />
 
-                <PieChart measures={status.measures} />
-              </div>
+              <PieChart measures={status.measures} />
             </DashboardBox>
             <DashboardBox className="dashboard-popular">
               <h3 className="dashboard-box__title">Les 4 mesures les plus importantes pour vous</h3>
