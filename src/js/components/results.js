@@ -1,6 +1,5 @@
 import React from 'react';
 import { connectStateResults, connectHits } from 'react-instantsearch/connectors';
-import sortBy from 'lodash/sortBy';
 
 import { ThemeDetail } from './themes';
 
@@ -28,18 +27,19 @@ const NoResults = () =>
     Aucun resultat pour votre recherche <span role="img" aria-label="Emoji disappointed">😔</span>
   </div>
 
-const ResultsList = connectHits(function ResultsList({ hits, isFiltering }) {
+const ResultsList = connectHits(function ResultsList({ hits, isFiltering, locale }) {
   if (!hits.length) {
     return <NoResults />
   } else {
-    return sortBy(hits, 'slug').map(hit => <ThemeDetail hit={hit} key={hit.id} isFiltering={isFiltering} />)
+    hits.sort((a, b) => a.titles[locale].localeCompare(b.titles[locale]));
+    return hits.map(hit => <ThemeDetail hit={hit} key={hit.id} isFiltering={isFiltering} />)
   }
 });
 
 const Results = ({ searchState: { menu = {}, refinementList = {} }, profiles = {}, locale }) =>
   <div className="results">
     <Profile profileId={menu.profileIds} profiles={profiles} locale={locale} />
-    <ResultsList isFiltering={!!refinementList[`titles.${locale}`].length} />
+    <ResultsList isFiltering={!!refinementList[`titles.${locale}`].length} locale={locale} />
   </div>
 
 export default connectStateResults(Results);
