@@ -166,7 +166,7 @@ class Dashboard extends Component {
               </div>
             </DashboardBox>
             <DashboardBox className="dashboard-popular">
-              <h3 className="dashboard-box__title">Les 4 mesures les plus importantes pour vous</h3>
+              <h3 className="dashboard-box__title">Les 3 mesures les plus importantes pour vous</h3>
               {!!allMeasures.items.length &&
                 <Measures className="popular-measures" measures={measures} viewAll />}
               <div className="dashboard-box__cta">
