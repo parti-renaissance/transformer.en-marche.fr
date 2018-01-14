@@ -143,6 +143,13 @@
       flex: 1;
       margin-right: 40px;
       padding: 0;
+
+      transition: all 100ms;
+
+      &:hover {
+        box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.10);
+        border-color: transparent;
+      }
     }
   }
 }
@@ -152,18 +159,6 @@
 }
 
 .dashboard-progression__link {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  height: 100%;
-  transition: all 100ms;
-  color: black;
-
-  &:hover {
-    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.10);
-    border-color: transparent;
-  }
-
   @include mq($large-and-up) {
     padding: 40px;
   }
@@ -308,10 +303,6 @@
 
   > .toggle-switch {
     margin-bottom: 0;
-  }
-
-  .toggle-switch__label {
-    margin-right: 0;
   }
 
 }

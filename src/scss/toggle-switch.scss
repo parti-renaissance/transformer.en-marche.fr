@@ -10,11 +10,11 @@
   position: relative;
   cursor: pointer;
   flex: 1 0 40px;
-  margin-right: 35px;
+  margin-right: 0;
   height: 11px;
   border-radius: 100px;
   display: block;
-  background-color: $lightpurple;
+  background-color: $mediumlightgray;
   max-width: 40px;
 
   &:after {
@@ -28,7 +28,7 @@
 
     height: 22px;
     width: 22px;
-    background-color: $mediumlightgray;
+    background-color: $gray;
     border-radius: 50%;
 
     transition: transform 125ms ease, background-color 125ms ease;
@@ -37,6 +37,10 @@
 
 .toggle-switch__input {
   visibility: hidden;
+
+  &:checked + .toggle-switch__label {
+    background: $lightpurple;
+  }
 
   &:checked + .toggle-switch__label:after {
     background-color: $bluepurple;
