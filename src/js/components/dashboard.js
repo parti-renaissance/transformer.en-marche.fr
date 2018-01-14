@@ -107,7 +107,7 @@ class PieChart extends Component {
 
         <div className="pie-chart__legend">
           <PieChartLegend color={'#2bca9e'}>
-            <span className="pie-chart__legend-label">Faites</span>
+            <span className="pie-chart__legend-label">Fait</span>
             {measures['DONE']} mesures
           </PieChartLegend>
           <PieChartLegend color={'#00bef9'}>
@@ -119,10 +119,10 @@ class PieChart extends Component {
             {measures['UPCOMING']} mesures
           </PieChartLegend>
         </div>
-        
+
         <div className="pie-chart__footer">
           <ToggleSwitch onChange={() => this.setState({ majorOnly: !majorOnly })}>
-            Voir seulement les principaux engagements :
+            Afficher seulement les principaux engagements :
           </ToggleSwitch>
         </div>
 

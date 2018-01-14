@@ -198,15 +198,13 @@
 .dashboard-updated {
   display: block;
   font-family: $font-roboto;
-  font-size: 16px;
-  line-height: 1.38;
+  font-size: 12px;
   color: $gray;
-  margin-bottom: 25px;
 }
 
 .dashboard-popular {
   > .dashboard-box__title {
-    margin-bottom: 15px;
+    margin-bottom: 30px;
   }
 }
 
@@ -271,7 +269,7 @@
 }
 
 .pie-chart__chart {
-  margin: 0 auto 25px;
+  margin: 20px auto 25px;
 }
 
 .pie-chart__legend {
@@ -304,14 +302,16 @@
 }
 
 .pie-chart__footer {
-  font-size: 14px;
-  
+  font-size: 12px;
+  color: $gray;
+  margin-top: 20px;
+
   > .toggle-switch {
     margin-bottom: 0;
   }
-  
+
   .toggle-switch__label {
-    margin-right: 20px;
+    margin-right: 0;
   }
 
 }
