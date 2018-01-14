@@ -5,7 +5,7 @@ import { ThemeDetail } from './themes';
 
 
 const Profile = ({ profileId, profiles, locale }) => {
-  let profile = profiles.profiles[profileId];
+  let profile = profiles[profileId];
   if (!profileId || !profile) {
     return null;
   } else {
