@@ -57,6 +57,14 @@ class ThemeListItem extends Component {
   componentWillReceiveProps() {
     this.measureButton();
   }
+  
+  shouldComponentUpdate(props) {
+    if (props.theme.isActive !== this.props.theme.isActive) {
+      return true;
+    } else {
+      return false
+    }
+  }
 
   render() {
     let { props, state } = this;
