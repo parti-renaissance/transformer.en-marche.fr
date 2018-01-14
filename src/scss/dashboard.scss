@@ -144,12 +144,13 @@
       flex: 1;
       margin-right: 40px;
       padding: 0;
-
+      
       display: flex;
       flex-direction: column;
       position: relative;
       height: 100%;
       transition: all 100ms;
+      color: black;
 
       @include mq($large-and-up) {
         padding: 40px;
