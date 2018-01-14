@@ -72,7 +72,7 @@
 
   @include mq($medium-and-up) {
     display: flex;
-    flex: 0 1 350px;
+    // flex: 0 1 350px;
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
