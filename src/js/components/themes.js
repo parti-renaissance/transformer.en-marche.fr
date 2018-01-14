@@ -75,30 +75,74 @@ class ThemeListItem extends Component {
 }
 
 
-const ThemeFilters = connectRefinementList(function ThemeFilters({children, themes = [], items = [], toggle, locale}) {
+class ThemeFilters extends Component {
+  state = {
+    activeThemes: [],
+    featuredThemes: [],
+    otherThemes: [],
+  }
 
-  const createListItems = (theme, i) =>
-    <ThemeListItem
-      locale={locale}
-      theme={theme}
-      style={getColor(i)}
-      key={theme.id}
-      refine={() => toggle(theme)} />
+  createListItems = this.createListItems.bind(this)
 
-  themes = themes.slice().sort((a, b) => a.titles[locale].localeCompare(b.titles[locale]));
-  let filteredLabels = map(items, 'label');
-  let filtered = filter(themes, t => filteredLabels.includes(t.titles[locale]));
-  let activeThemes = filter(filtered, 'isActive').map(createListItems);
+  shouldComponentUpdate(props) {
+    let {
+      activeThemes:nextActive,
+      featuredThemes:nextFeatured,
+      otherThemes:nextOther
+    } = this.filterThemes(props.themes, props.items);
 
-  let inActiveThemes = reject(filtered, 'isActive')
-  let featuredThemes = filter(inActiveThemes, 'featured').map(createListItems);
-  let otherThemes = reject(inActiveThemes, 'featured').map(createListItems);
+    let {
+      activeThemes,
+      featuredThemes,
+      otherThemes,
+    } = this.state;
 
-  return activeThemes
-    .concat(featuredThemes)
-    .concat(children)
-    .concat(otherThemes);
-});
+    if (nextActive.length !== activeThemes.length ||
+        nextFeatured.length !== featuredThemes.length ||
+        nextOther.length !== otherThemes.length) {
+          return true;
+        } else {
+          return false;
+        }
+  }
+
+  componentWillReceiveProps({ themes, items, locale }) {
+    this.setState(this.filterThemes(themes, items, locale));
+  }
+
+  filterThemes(themes, items, locale) {
+    themes.sort((a, b) => a.titles[locale].localeCompare(b.titles[locale]));
+    let filteredLabels = map(items, 'label')
+    let filtered = filter(themes, t => filteredLabels.includes(t.titles[locale]));
+
+    let inactiveThemes = reject(filtered, 'isActive')
+
+    return {
+      activeThemes:   filter(filtered, 'isActive'),
+      featuredThemes: filter(inactiveThemes, 'featured'),
+      otherThemes:    reject(inactiveThemes, 'featured')
+    };
+  }
+
+  createListItems(theme) {
+    return <ThemeListItem
+            locale={this.props.locale}
+            theme={theme}
+            key={theme.id}
+            refine={() => this.props.toggle(theme)} />
+  }
+
+  render() {
+    let { activeThemes, featuredThemes, otherThemes } = this.state;
+
+    return activeThemes.map(this.createListItems)
+      .concat(featuredThemes.map(this.createListItems))
+      .concat(this.props.children)
+      .concat(otherThemes.map(this.createListItems));
+  }
+}
+
+ThemeFilters = connectRefinementList(ThemeFilters);
 
 export const ThemesList = ({ onViewMore, themes, toggleTheme, location, match }) =>
   <ul className="refinement-list">
