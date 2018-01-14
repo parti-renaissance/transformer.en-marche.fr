@@ -1,4 +1,5 @@
 @import "mixins/vars";
+@import "mixins/queries";
 @import "mixins/z-index";
 @import "mixins/buttons";
 
@@ -21,14 +22,22 @@
 }
 
 .about-modal__wrapper {
-  margin: 25px;
+  height: 100vh;
+  margin: 75px 0;
   max-width: 436px;
   width: 100%;
   background-color: white;
   position: relative;
+  overflow: scroll;
 
   &:focus {
     outline: none;
+  }
+
+  @include mq($medium-and-up) {
+    margin: 25px;
+    height: auto;
+    overflow: visible;
   }
 }
 
@@ -51,12 +60,20 @@
 
   font-size: 14px;
   font-family: $font-roboto;
-  color: white;
-  position: absolute;
-  top: -25px;
-  right: 0;
+  color: $purple;
+  position: fixed;
+  right: 20px;
+  top: 15px;
 
   > span {
-    font-family: $font-gillsans;
+    top: 7px;
+    position: relative;
+  }
+
+  @include mq($medium-and-up) {
+    top: -35px;
+    color: white;
+    position: absolute;
+    right: 0;
   }
 }

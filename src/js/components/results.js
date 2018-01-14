@@ -25,7 +25,7 @@ const Profile = ({ profileId, profiles }) => {
 
 const NoResults = () =>
   <div className="mesure-none">
-    Aucun resultat pour votre recherche <span role="img" aria-label="Emoji disappointed">😔</span>
+    Aucun résultat pour votre recherche <span role="img" aria-label="Emoji triste">😔</span>
   </div>
 
 const ResultsList = connectHits(function ResultsList({ hits }) {
