@@ -54,9 +54,9 @@ class MobileShare extends Component {
 
 MobileShare = clickOutside(MobileShare);
 
-const Header = ({ locale, hasToken, disconnect, openAbout, location }) => {
+const Header = ({ locale, hasToken, disconnect, openAbout, location, useTranslation }) => {
   return (
-    <header className="header">
+    <header className={`header${useTranslation ? ' i18n' : ''}`}>
       <div className="header-left">
         <Link to={`/${locale}`} title="En Marche!" className="header-logo">EM!</Link><span className="header-sep"> | </span><span className="header-tag">On l&apos;a dit, on le fait</span>
       </div>
@@ -65,7 +65,8 @@ const Header = ({ locale, hasToken, disconnect, openAbout, location }) => {
         {matches =>
           matches ?
           <div className="header-right">
-            <TranslateDropdown selected={locale} location={location} />
+            {useTranslation &&
+              <TranslateDropdown selected={locale} location={location} />}
             <button onClick={openAbout} className="header-right__about">À propos</button>
             <span className="header-right__divider">|</span>
             Partager
@@ -81,7 +82,8 @@ const Header = ({ locale, hasToken, disconnect, openAbout, location }) => {
           </div>
           :
           <div className="header-right">
-            <TranslateDropdown selected={locale} location={location} small />
+            {useTranslation &&
+              <TranslateDropdown selected={locale} location={location} small />}
             <MobileShare />
           </div>
         }
@@ -99,7 +101,7 @@ const Footer = () =>
 
 class Layout extends Component {
   render() {
-    let { location, hasToken, disconnect, openAbout } = this.props;
+    let { location, hasToken, disconnect, openAbout, useTranslation } = this.props;
     let locale = location.pathname.slice(1).split('/')[0];
     let isDashboard = location && location.pathname.slice(1).split('/').length <= 1;
     return (
@@ -110,6 +112,7 @@ class Layout extends Component {
          disconnect={disconnect}
          openAbout={openAbout}
          location={location}
+         useTranslation={useTranslation}
         />
         {this.props.children}
         <Footer />

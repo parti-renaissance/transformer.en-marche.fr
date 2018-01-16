@@ -24,7 +24,8 @@ class App extends Component {
       closeAuth,
       aboutModalIsOpen,
       openAbout,
-      closeAbout
+      closeAbout,
+      useTranslation
     } = this.props;
     return (
       <Router history={history}>
@@ -32,6 +33,7 @@ class App extends Component {
           hasToken={hasToken}
           disconnect={disconnect}
           openAbout={openAbout}
+          useTranslation={useTranslation}
         >
           <main className="main">
             <Switch>

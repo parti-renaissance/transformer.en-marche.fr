@@ -43,9 +43,11 @@ if ('ontouchstart' in document.documentElement)  {
   document.body.style.cursor = 'pointer';
 }
 
+const USE_TRANSLATION = process.env.REACT_APP_I18N || queryParams.i18n !== undefined;
+
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App useTranslation={USE_TRANSLATION} />
   </Provider>,
   document.getElementById('root')
 );
