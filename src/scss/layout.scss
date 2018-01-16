@@ -72,12 +72,21 @@
 
   @include mq($medium-and-up) {
     display: flex;
-    // flex: 0 1 350px;
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
     font-family: $font-roboto;
     color: $gray;
+    
+    .i18n & {
+      flex: 0 1 350px;
+    }
+  }
+  
+  .i18n & {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1 1 auto;
   }
 
   > .SocialMediaShareButton {
@@ -176,6 +185,12 @@
 
 .mobile-share {
   position: relative;
+  
+  .translate-dropdown + & > .header-button {
+    font-size: 12px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 .share-panel {

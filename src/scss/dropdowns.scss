@@ -58,11 +58,20 @@
 
 .translate-dropdown {
   @include sidebar-dropdown;
-  flex: 1 0 100px;
-  margin-right: 15px;
+  flex-basis: 55px;
+  margin-right: 10px;
+    
+  @include mq($medium-and-up) {
+    flex-basis: 100px;
+    margin-right: 15px;
+  }
   
   .Select-control {
     height: 30px;
+    
+    > :last-child {
+      padding-right: 0;
+    }
     
     @include mq($medium-and-up) {
       height: 35px;
@@ -78,5 +87,10 @@
   
   .Select-input {
     height: 30px;
+  }
+  
+  .Select-option {
+    font-size: 14px;
+    padding: 5px 9px;
   }
 }
