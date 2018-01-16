@@ -29,17 +29,18 @@ const ABBREVIATED_OPTIONS = {
 export default class TranslateDropdown extends connect()(Component) {
   
   componentWillReceiveProps(nextProps) {
-    if (this.props.small !== nextProps.small) {
-      this.updateForSize(nextProps);
+    if (this.props.small !== nextProps.small ||
+        this.state.selected.value !== nextProps.selected) {
+      this.update(nextProps);
     }
   }
   componentWillMount() {
-    this.updateForSize(this.props);
+    this.update(this.props);
   }
   
-  updateForSize({ small }) {
+  update({ small, selected }) {
     if (small) {
-      let { value, label } = ABBREVIATED_OPTIONS[this.props.selected] || {};
+      let { value, label } = ABBREVIATED_OPTIONS[selected] || {};
       this.setState({
         selected: {
           value: value,
@@ -48,7 +49,7 @@ export default class TranslateDropdown extends connect()(Component) {
         options: [ABBREVIATED_OPTIONS.fr, ABBREVIATED_OPTIONS.en]
       });
     } else {
-      let { value, label } = OPTIONS[this.props.selected] || {};
+      let { value, label } = OPTIONS[selected] || {};
       this.setState({
         selected: {
           value: value,
