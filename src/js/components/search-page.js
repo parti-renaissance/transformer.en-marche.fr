@@ -53,8 +53,10 @@ class Layout extends Component {
   
   syncForLocale() {
     let { dispatch, locale, location, match: { params } } = this.props;
+    // if locale from state does not match locale from url
+    // use locale from state
     if (locale !== params.locale) {
-      dispatch(setLocale(params.locale, location));
+      dispatch(setLocale(locale, location, true));
     }
   }
   
