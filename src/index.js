@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import moment from 'moment-timezone';
 import qs from 'qs';
 import { replace } from 'react-router-redux'
+import T from 'i18n-react';
 
 import './index.css';
 import App from './App';
@@ -12,6 +13,9 @@ import { getToken } from './js/actions/auth-actions';
 import { myVotes } from './js/actions/vote-actions';
 import store from './js/store';
 import { saveState } from './js/local-storage';
+import localizations from './i18n.js';
+
+T.setTexts(localizations);
 
 moment.tz.setDefault('Europe/Paris');
 
