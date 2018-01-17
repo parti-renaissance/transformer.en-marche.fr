@@ -6,6 +6,7 @@ import compact from 'lodash/compact';
 import { RadialChart } from 'react-vis';
 import countBy from 'lodash/countBy';
 import filter from 'lodash/filter';
+import T from 'i18n-react';
 
 import { getVoteCount } from '../actions/vote-actions';
 import { openAbout } from '../actions/about-actions';
@@ -45,7 +46,7 @@ const DashboardBox = ({ children, className }) =>
 const DashboardHeader = ({ locale, openAbout }) =>
   <div className="dashboard-header">
     <div className="dashboard-blurb">
-      <h2>On l&apos;a dit, on le fait</h2>
+      <h2>{T.translate('dashboard.headline', {context: locale})}</h2>
       <p>
         La transformation du pays est en marche ! Suivez la mise en œuvre du programme d'Emmanuel Macron et <strong>votez en faveur des mesures les plus importantes pour vous</strong>. <button onClick={openAbout} className="dashboard-blurb__link">En savoir plus.</button>
       </p>
