@@ -6,8 +6,10 @@ import compact from 'lodash/compact';
 import { RadialChart } from 'react-vis';
 import countBy from 'lodash/countBy';
 import filter from 'lodash/filter';
+import { withRouter } from 'react-router';
 import T from 'i18n-react';
 
+import { setLocale } from '../actions/translate-actions';
 import { getVoteCount } from '../actions/vote-actions';
 import { openAbout } from '../actions/about-actions';
 import { Measures } from './measure';
@@ -143,6 +145,15 @@ class Dashboard extends Component {
     super(props);
     props.getVotes();
   }
+  
+  componentWillReceiveProps(nextProps) {
+    let { setLocale, locale, location, match: { params } } = this.props;
+    // if locale from state does not match locale from url
+    // use locale from state
+    if (locale !== params.locale) {
+      setLocale(locale, location, true);
+    }
+  }
 
   render() {
     let { allMeasures, popular, status, locale, openAbout } = this.props;
@@ -203,4 +214,5 @@ export default connect(state => ({
 }), dispatch => ({
   getVotes: () => dispatch(getVoteCount()),
   openAbout: () => dispatch(openAbout()),
-}))(Dashboard);
+  setLocale: (...args) => dispatch(setLocale(...args)),
+}))(withRouter(Dashboard));
