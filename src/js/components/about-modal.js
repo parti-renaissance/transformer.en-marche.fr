@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import T from 'i18n-react';
+import { connect } from 'react-redux';
 
 import '../../scss/about-modal.css';
 
@@ -47,4 +48,4 @@ const AboutModal = ({ isOpen, closeModal, locale }) =>
     </button>
   </Modal>
 
-export default AboutModal;
+export default connect(({ locale }) => ({ locale }))(AboutModal);
