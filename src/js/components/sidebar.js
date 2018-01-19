@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { SearchBox } from 'react-instantsearch/dom';
+import T from 'i18n-react';
 
 import Media from "react-media"
 import Color from 'color';
@@ -69,11 +70,11 @@ export const FilterButton = ({isActive, label, onClick, style, buttonRef, childr
     <span>{children || label}</span>
   </button>
 
-const MobileSidebar = ({ location, match, resetParams, toggleMajor }) =>
+const MobileSidebar = ({ location, match, resetParams, toggleMajor, locale }) =>
   <div className="sidebar-group">
     <h3 className="sidebar-title">
       <ToggleSwitch onChange={e => toggleMajor(e.target.checked)}>
-        Afficher seulement les principaux engagements :
+        {T.translate('dashboard.majorText', {context: locale})}
       </ToggleSwitch>
     </h3>
 
@@ -91,17 +92,17 @@ const MobileSidebar = ({ location, match, resetParams, toggleMajor }) =>
   </div>
 
 
-const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleTheme, showMore, profiles, themes, doQuery, toggleMajor }) =>
+const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleTheme, showMore, profiles, themes, doQuery, toggleMajor, locale }) =>
   <div className="sidebar-group">
     <h3 className="sidebar-title">
       <ToggleSwitch onChange={e => toggleMajor(e.target.checked)}>
-        Afficher seulement les principaux engagements :
+        {T.translate('dashboard.majorText', {context: locale})}
       </ToggleSwitch>
     </h3>
     <h3 className="sidebar-title">
-      Filtrer par thème
+      {T.translate('browse.filterTheme', {context: locale})}
     </h3>
-    <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, THEME)}>Réinitialiser</button>
+    <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, THEME)}>{T.translate('browse.reset', {context: locale})}</button>
 
     <ThemesList
       themes={themes}
@@ -120,9 +121,9 @@ const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleThe
       attributeName="profileIds">
 
       <h3 className="sidebar-title">
-        Je suis...
+        {T.translate('browse.filterIam', {context: locale})}
       </h3>
-      <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, PROFILE)}>Réinitialiser</button>
+      <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, PROFILE)}>{T.translate('browse.reset', {context: locale})}</button>
 
     </Profiles>
 
@@ -131,7 +132,7 @@ const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleThe
         onInput={e => doQuery(e.target.value)}
         searchAsYouType={false}
         translations={{placeholder: 'Filtrer par mot-clé'}}/>
-      <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, QUERY)}>Réinitialiser</button>
+      <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, QUERY)}>{T.translate('browse.reset', {context: locale})}</button>
       <button className="sidebar-reset" onClick={() => resetParams(location, match)}>Réinitialiser les filtres</button>
     </div>
 
@@ -150,7 +151,7 @@ export default class Sidebar extends Component {
 
   render() {
     let { viewingMore } = this.state;
-    let { location, match, profiles, themes, dispatch } = this.props;
+    let { location, match, profiles, themes, dispatch, locale } = this.props;
     return (
       <aside className={`sidebar${viewingMore ? ' sidebar-more' : ''}`}>
 
@@ -159,6 +160,7 @@ export default class Sidebar extends Component {
           matches ?
             <DesktopSidebar
              location={location}
+             locale={locale}
              match={match}
              profiles={profiles}
              themes={themes}
@@ -172,6 +174,7 @@ export default class Sidebar extends Component {
           :
             <MobileSidebar
              location={location}
+             locale={locale}
              match={match}
              resetParams={(...args) => dispatch(resetParams(...args))}
              toggleMajor={checked => dispatch(toggleMajor(checked))}

@@ -34,6 +34,7 @@
   color: black;
   text-decoration: none;
   border: 0;
+  margin-right: 10px;
 
   &:hover {
       border: 0;
@@ -55,17 +56,13 @@
   opacity: 0.2;
   font-weight: 100;
   font-size: 24px;
+  margin-right: 10px;
 }
 
 .header-left {
-  flex-basis: 190px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  @include mq($medium-and-up) {
-    flex-basis: 300px;
-  }
 }
 
 .header-right {
@@ -77,12 +74,12 @@
     font-size: 14px;
     font-family: $font-roboto;
     color: $gray;
-    
+
     .i18n & {
       flex: 0 1 350px;
     }
   }
-  
+
   .i18n & {
     display: flex;
     justify-content: flex-end;
@@ -185,7 +182,7 @@
 
 .mobile-share {
   position: relative;
-  
+
   .translate-dropdown + & > .header-button {
     font-size: 12px;
     padding-left: 10px;
