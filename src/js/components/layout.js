@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { ShareButtons, generateShareIcon } from 'react-share';
 import clickOutside from 'react-click-outside';
 import Transition from 'react-transition-group/Transition';
-import Media from "react-media"
+import Media from "react-media";
+import T from 'i18n-react';
 
 import TranslateDropdown from './translate-dropdown';
 
@@ -58,7 +59,7 @@ const Header = ({ locale, hasToken, disconnect, openAbout, location, useTranslat
   return (
     <header className={`header${useTranslation ? ' i18n' : ''}`}>
       <div className="header-left">
-        <Link to={`/${locale}`} title="En Marche!" className="header-logo">EM!</Link><span className="header-sep"> | </span><span className="header-tag">On l&apos;a dit, on le fait</span>
+        <Link to={`/${locale}`} title="En Marche!" className="header-logo">EM!</Link><span className="header-sep"> | </span><span className="header-tag">{T.translate('projet.title', {context: locale})}</span>
       </div>
 
         <Media query="(min-width: 800px)">
@@ -67,9 +68,9 @@ const Header = ({ locale, hasToken, disconnect, openAbout, location, useTranslat
           <div className="header-right">
             {useTranslation &&
               <TranslateDropdown selected={locale} location={location} />}
-            <button onClick={openAbout} className="header-right__about">À propos</button>
+            <button onClick={openAbout} className="header-right__about">{T.translate('projet.headerAbout', {context: locale})}</button>
             <span className="header-right__divider">|</span>
-            Partager
+            {T.translate('projet.headerShare', {context: locale})}
             <FacebookShareButton url={window.location.toString()} quote={SOCIAL_COPY}>
               <FacebookIcon round={true} size={35}/>
             </FacebookShareButton>
@@ -78,7 +79,7 @@ const Header = ({ locale, hasToken, disconnect, openAbout, location, useTranslat
             </TwitterShareButton>
 
             {hasToken &&
-              <button className="header-disconnect" onClick={disconnect}>Déconnexion</button>}
+              <button className="header-disconnect" onClick={disconnect}>{T.translate('projet.headerLogout', {context: locale})}</button>}
           </div>
           :
           <div className="header-right">
@@ -92,10 +93,10 @@ const Header = ({ locale, hasToken, disconnect, openAbout, location, useTranslat
   );
 }
 
-const Footer = () =>
+const Footer = ({ locale }) =>
   <footer className="footer">
     <div className="footer-body">
-    © La République En Marche | <a href="https://en-marche.fr/mentions-legales" target="_blank" rel="noopener noreferrer">Mentions Légales</a> | <a href="https://en-marche.fr/politique-cookies" target="_blank" rel="noopener noreferrer">Politique de Cookies</a> | <a href="https://github.com/EnMarche/gov-timeline" target="_blank" rel="noopener noreferrer">Code libre sur Github</a>
+    © <a href="https://en-marche.fr" target="_blank" rel="noopener noreferrer">La République En Marche</a> | <a href="https://en-marche.fr/mentions-legales" target="_blank" rel="noopener noreferrer">{T.translate('projet.footerTerms', {context: locale})}</a> | <a href="https://en-marche.fr/politique-cookies" target="_blank" rel="noopener noreferrer">{T.translate('projet.footerPrivacy', {context: locale})}</a> | <a href="https://github.com/EnMarche/gov-timeline" target="_blank" rel="noopener noreferrer">{T.translate('projet.footerOs', {context: locale})}</a>
     </div>
   </footer>
 
@@ -115,7 +116,9 @@ class Layout extends Component {
          useTranslation={useTranslation}
         />
         {this.props.children}
-        <Footer />
+        <Footer
+         locale={locale}
+        />
       </div>
     )
   }

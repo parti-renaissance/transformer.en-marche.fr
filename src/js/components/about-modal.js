@@ -1,18 +1,20 @@
 import React from 'react';
 import Modal from 'react-modal';
+import T from 'i18n-react';
 
 import '../../scss/about-modal.css';
 
 Modal.setAppElement('#root');
 
-const AboutModal = ({ isOpen, closeModal }) =>
+const AboutModal = ({ isOpen, closeModal, locale }) =>
   <Modal
     isOpen={isOpen}
     overlayClassName='about-modal'
     className='about-modal__wrapper'
+    locale={locale}
   >
     <div className="about-modal__body">
-      <h3>À propos</h3>
+      <h3>{T.translate('about.title', {context: locale})}</h3>
       <p>
         Grâce à On l'a dit, On le fait, suivez la mise en œuvre du plan de
         transformation.
