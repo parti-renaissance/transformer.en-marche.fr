@@ -47,8 +47,10 @@ class Profiles extends Component {
     let { profiles } = this.state;
     let { toggleProfile, location, locale } = this.props;
 
-    if (!profiles.length) {
+    if (!profiles.length && !this.props.profiles.length) {
       return null;
+    } else if (!profiles.length){
+      profiles = this.props.profiles;
     }
 
     let buttons = profiles.map((profile, i) => {
