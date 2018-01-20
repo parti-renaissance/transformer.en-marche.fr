@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connectStateResults, connectHits } from 'react-instantsearch/connectors';
+import isEqual from 'lodash/isEqual';
 
 import { ThemeDetail } from './themes';
 
@@ -30,7 +31,9 @@ const NoResults = () =>
 
 class ResultsList extends Component {
   shouldComponentUpdate({ hits, isFiltering }) {
-    if (hits.length !== this.props.hits.length || isFiltering !== this.props.isFiltering) {
+    let nextIds = hits.map(hit => hit.id).sort();
+    let ids = this.props.hits.map(hit => hit.id).sort();
+    if (!isEqual(nextIds, ids) || isFiltering !== this.props.isFiltering) {
       return true;
     } else {
       return false;
@@ -58,7 +61,7 @@ class Results extends Component {
     let { searchState: {menu, refinementList}, profiles, locale } = this.props;
 
     if (menu.profileIds !== nextMenu.profileIds ||
-        refinementList[`titles.${locale}`].length !== nextList[`titles.${locale}`].length ||
+        !isEqual(refinementList[`titles.${locale}`], nextList[`titles.${locale}`]) ||
         Object.keys(profiles).length !== Object.keys(nextProfiles).length) {
       return true;
     } else {
