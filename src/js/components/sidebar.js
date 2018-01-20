@@ -72,7 +72,6 @@ const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleThe
       toggleTheme={toggleTheme}
       onViewMore={showMore} />
 
-
     <Profiles
       location={location}
       locale={match.params.locale}
