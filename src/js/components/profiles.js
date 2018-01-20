@@ -14,7 +14,7 @@ import {
 import { FilterButton } from './sidebar';
 
 class Profiles extends Component {
-  
+
   state = {
     profiles: []
   }
@@ -29,28 +29,28 @@ class Profiles extends Component {
           return false;
         }
   }
-  
+
   componentWillReceiveProps(nextProps) {
     let { items, profiles } = nextProps;
-    
+
     if (!items.length || !profiles.length) {
       this.setState({ profiles: [] });
     } else {
       let ids = map(items, 'value').map(Number);
       profiles = filter(profiles, p => ids.includes(p.id));
-      
+
       this.setState({ profiles });
     }
   }
-  
+
   render() {
     let { profiles } = this.state;
     let { toggleProfile, location, locale } = this.props;
-    
+
     if (!profiles.length) {
       return null;
     }
-    
+
     let buttons = profiles.map((profile, i) => {
       return (
         <li key={profile.id} className="refinement-list__item">
@@ -70,17 +70,17 @@ class Profiles extends Component {
       </div>
     );
   }
-  
+
 }
 
 Profiles = connectMenu(Profiles);
 
 export { Profiles };
-  
+
 
 class ProfilesDropdown extends Component {
   state = {}
-  
+
   constructor(props) {
     super(props);
     let active = props.profiles[props.activeProfile];
@@ -91,7 +91,7 @@ class ProfilesDropdown extends Component {
       };
     }
   }
-  
+
   componentWillReceiveProps(nextProps) {
     if (!nextProps.activeProfile) {
       this.setState({ value: null, label: null })
@@ -100,7 +100,7 @@ class ProfilesDropdown extends Component {
       this.setState({ value: nextProps.activeProfile, label: title});
     }
   }
-  
+
   handleChange(selected) {
     let {
       toggleProfile,
@@ -112,13 +112,13 @@ class ProfilesDropdown extends Component {
     } = this.props;
     let { locale } = match.params;
     let profile = profiles[selected.value];
-    
+
     this.setState(selected);
     resetParams(location, match, PROFILE);
     push(`/${locale}/${profile.slugs[locale]}${location.search}`)
     toggleProfile(profile.id);
   }
-  
+
   render() {
     return <Select
             className="profile-dropdown"
