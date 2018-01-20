@@ -18,12 +18,12 @@ class Profiles extends Component {
   state = {
     profiles: []
   }
-  
-  shouldComponentUpdate({ items:nextItems, profiles:nextProfiles }) {
-    let { items, profiles } = this.props;
+
+  shouldComponentUpdate({ items:nextItems, profiles:nextProfiles, currentRefinement:nextRefinment }) {
+    let { items, profiles, currentRefinement } = this.props;
     if (nextItems.length !== items.length ||
         nextProfiles.length !== profiles.length ||
-        filter(nextProfiles, 'isActive').length !== filter(profiles, 'isActive').length)  {
+        nextRefinment !== currentRefinement)  {
           return true;
         } else {
           return false;
