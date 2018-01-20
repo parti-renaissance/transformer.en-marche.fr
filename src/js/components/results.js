@@ -64,11 +64,12 @@ class Results extends Component {
   }
 
   render() {
-    let { searchState: {menu = {}, refinementList = {title: []}}, profiles = {}, locale } = this.props;
+    let { searchState: {menu = {}, refinementList = {}}, profiles = {}, locale } = this.props;
+    let isFiltering = !!refinementList[`titles.${locale}`].length;
     return (
       <div className="results">
         <Profile profileId={menu.profileIds} profiles={profiles} locale={locale} />
-        <ResultsList locale={locale} isFiltering={!!refinementList.title.length} />
+        <ResultsList locale={locale} isFiltering={isFiltering} />
       </div>
     )
   }
