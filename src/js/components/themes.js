@@ -10,7 +10,7 @@ import map from 'lodash/map';
 import isEqual from 'lodash/isEqual';
 
 import { Measures, NoMeasure } from './measure';
-import { FilterButton, getColor } from './sidebar';
+import { FilterButton } from './sidebar';
 import {
   toggleThemeFacet,
   resetParams,
@@ -23,21 +23,21 @@ function filterMeasuresForState(measures, {currentTheme, activeProfile, majorOnl
   // the measures from state include add'l metadata like vote status
   // pull those out first, using the give theme's `measureIds` array as reference
   measures = filter(measures, m => currentTheme.measureIds.includes(m.id));
-  
+
   // filter out any measures that aren't "major" if the major filter is selected
   if (majorOnly) {
     measures = filter(measures, 'major');
   }
-  
+
   // if a profile is currently active, filter out any measures
   // which don't include that profile
   if (activeProfile) {
     measures = filter(measures, m => m.profileIds.includes(activeProfile));
   }
-  
+
   // if there's a keyword query active, filter according to that
   measures = filter(measures, m => m.titles[locale].match(new RegExp(query, 'gi')));
-  
+
   return measures.length ? measures : null;
 }
 
@@ -58,6 +58,14 @@ class ThemeListItem extends Component {
   componentWillReceiveProps() {
     this.measureButton();
   }
+  
+  shouldComponentUpdate(props) {
+    if (props.theme.isActive !== this.props.theme.isActive) {
+      return true;
+    } else {
+      return false
+    }
+  }
 
   render() {
     let { props, state } = this;
@@ -65,7 +73,6 @@ class ThemeListItem extends Component {
       <li className={`refinement-list__item ${props.className || ''}`} style={state.style}>
         {props.children ||
           <FilterButton
-           style={props.style}
            label={props.theme.titles[props.locale]}
            isActive={props.theme.isActive}
            onClick={props.refine}
@@ -76,30 +83,74 @@ class ThemeListItem extends Component {
 }
 
 
-const ThemeFilters = connectRefinementList(function ThemeFilters({children, themes = [], items = [], toggle, locale}) {
+class ThemeFilters extends Component {
+  state = {
+    activeThemes: [],
+    featuredThemes: [],
+    otherThemes: [],
+  }
 
-  const createListItems = (theme, i) =>
-    <ThemeListItem
-      locale={locale}
-      theme={theme}
-      style={getColor(i)}
-      key={theme.id}
-      refine={() => toggle(theme)} />
+  createListItems = this.createListItems.bind(this)
 
-  themes = themes.slice().sort((a, b) => a.titles[locale].localeCompare(b.titles[locale]));
-  let filteredLabels = map(items, 'label');
-  let filtered = filter(themes, t => filteredLabels.includes(t.titles[locale]));
-  let activeThemes = filter(filtered, 'isActive').map(createListItems);
+  shouldComponentUpdate(props) {
+    let {
+      activeThemes:nextActive,
+      featuredThemes:nextFeatured,
+      otherThemes:nextOther
+    } = this.filterThemes(props.themes, props.items);
 
-  let inActiveThemes = reject(filtered, 'isActive')
-  let featuredThemes = filter(inActiveThemes, 'featured').map(createListItems);
-  let otherThemes = reject(inActiveThemes, 'featured').map(createListItems);
+    let {
+      activeThemes,
+      featuredThemes,
+      otherThemes,
+    } = this.state;
 
-  return activeThemes
-    .concat(featuredThemes)
-    .concat(children)
-    .concat(otherThemes);
-});
+    if (nextActive.length !== activeThemes.length ||
+        nextFeatured.length !== featuredThemes.length ||
+        nextOther.length !== otherThemes.length) {
+          return true;
+        } else {
+          return false;
+        }
+  }
+
+  componentWillReceiveProps({ themes, items, locale }) {
+    this.setState(this.filterThemes(themes, items, locale));
+  }
+
+  filterThemes(themes, items, locale) {
+    themes.sort((a, b) => a.titles[locale].localeCompare(b.titles[locale]));
+    let filteredLabels = map(items, 'label')
+    let filtered = filter(themes, t => filteredLabels.includes(t.titles[locale]));
+
+    let inactiveThemes = reject(filtered, 'isActive')
+
+    return {
+      activeThemes:   filter(filtered, 'isActive'),
+      featuredThemes: filter(inactiveThemes, 'featured'),
+      otherThemes:    reject(inactiveThemes, 'featured')
+    };
+  }
+
+  createListItems(theme) {
+    return <ThemeListItem
+            locale={this.props.locale}
+            theme={theme}
+            key={theme.id}
+            refine={() => this.props.toggle(theme)} />
+  }
+
+  render() {
+    let { activeThemes, featuredThemes, otherThemes } = this.state;
+
+    return activeThemes.map(this.createListItems)
+      .concat(featuredThemes.map(this.createListItems))
+      .concat(this.props.children)
+      .concat(otherThemes.map(this.createListItems));
+  }
+}
+
+ThemeFilters = connectRefinementList(ThemeFilters);
 
 export const ThemesList = ({ onViewMore, themes, toggleTheme, location, match }) =>
   <ul className="refinement-list">
@@ -186,11 +237,11 @@ class ThemeDetail extends Component {
   state = {
     empty: true
   }
-  
+
   componentWillReceiveProps(nextProps) {
     let { hit:theme, searchState: { query }, majorOnly, measures, activeProfile, locale } = nextProps;
     measures = filterMeasuresForState(measures, {currentTheme: theme, activeProfile, majorOnly, query, locale});
-    
+
     if (!measures) {
       this.setState({ empty: true });
     } else {
@@ -203,14 +254,14 @@ class ThemeDetail extends Component {
       this.setState({ measures, empty: false });
     }
   }
-  
+
   render() {
     let { hit:theme, locale } = this.props;
 
     const coverImg = {
       backgroundImage: `url(${IMAGE_URL}/${theme.image})`
     };
-    
+
     const measures = this.state.empty ? <NoMeasure theme={theme.title} /> : <Measures measures={this.state.measures} />
 
     return (
