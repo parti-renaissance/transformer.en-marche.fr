@@ -171,7 +171,25 @@ export const ThemesList = ({ onViewMore, themes, toggleTheme, location, match })
   </ul>
 
 class ThemesDropdown extends Component {
-  state = {}
+  constructor(props) {
+    super(props);
+    if (props.activeThemes.length && props.themes.length) {
+      let active = props.themes[props.activeThemes[0]]
+      this.state = {
+        value: {
+          value: active.id,
+          label: active.titles[props.locale]
+        }
+      }
+    }
+  }
+
+  state = {
+    value: {
+      value: this.props.activeThemes[0],
+      lable: this.props.themes
+    }
+  }
 
   componentWillReceiveProps({ activeThemes:nextThemes, themes }) {
     let { activeThemes, locale } = this.props;
@@ -256,7 +274,7 @@ class ThemeDetail extends Component {
   }
 
   render() {
-    let { hit:theme, locale } = this.props;
+    let { hit:theme, isFiltering, locale } = this.props;
 
     const coverImg = {
       backgroundImage: `url(${IMAGE_URL}/${theme.image})`
@@ -273,8 +291,9 @@ class ThemeDetail extends Component {
 
         <h1 className="theme-title">{theme.titles[locale]}</h1>
 
-        <p className="theme-body">{theme.descriptions[locale]}</p>
-
+        {!isFiltering &&
+          <p className="theme-body">{theme.descriptions[locale]}</p>
+        }
         {measures}
 
       </article>

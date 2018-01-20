@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connectStateResults, connectHits } from 'react-instantsearch/connectors';
+import isEqual from 'lodash/isEqual';
 
 import { ThemeDetail } from './themes';
 
@@ -29,8 +30,10 @@ const NoResults = () =>
 
 
 class ResultsList extends Component {
-  shouldComponentUpdate({ hits }) {
-    if (hits.length !== this.props.hits.length) {
+  shouldComponentUpdate({ hits, isFiltering }) {
+    let nextIds = hits.map(hit => hit.id).sort();
+    let ids = this.props.hits.map(hit => hit.id).sort();
+    if (!isEqual(nextIds, ids) || isFiltering !== this.props.isFiltering) {
       return true;
     } else {
       return false;
@@ -38,12 +41,12 @@ class ResultsList extends Component {
   }
 
   render() {
-    let { hits, locale } = this.props;
+    let { hits, locale, isFiltering } = this.props;
     if (!hits.length) {
       return <NoResults />
     } else {
       hits.sort((a, b) => a.titles[locale].localeCompare(b.titles[locale]));
-      return hits.map(hit => <ThemeDetail hit={hit} key={hit.id} />)
+      return hits.map(hit => <ThemeDetail hit={hit} key={hit.id} isFiltering={isFiltering} />)
     }
   }
 }
@@ -51,10 +54,14 @@ class ResultsList extends Component {
 ResultsList = connectHits(ResultsList);
 
 class Results extends Component {
-  shouldComponentUpdate({searchState: {menu:nextMenu}, profiles:nextProfiles}) {
-    let { searchState: {menu}, profiles } = this.props;
+  shouldComponentUpdate({searchState: {menu:nextMenu, refinementList:nextList}, profiles:nextProfiles}) {
+    if (typeof nextMenu === 'undefined' || typeof this.props.searchState.menu === 'undefined') {
+      return false;
+    }
+    let { searchState: {menu, refinementList}, profiles, locale } = this.props;
 
     if (menu.profileIds !== nextMenu.profileIds ||
+        !isEqual(refinementList[`titles.${locale}`], nextList[`titles.${locale}`]) ||
         Object.keys(profiles).length !== Object.keys(nextProfiles).length) {
       return true;
     } else {
@@ -63,11 +70,12 @@ class Results extends Component {
   }
 
   render() {
-    let { searchState: { menu = {} }, profiles = {}, locale } = this.props;
+    let { searchState: {menu = {}, refinementList = {}}, profiles = {}, locale } = this.props;
+    let isFiltering = !!refinementList[`titles.${locale}`].length;
     return (
       <div className="results">
         <Profile profileId={menu.profileIds} profiles={profiles} locale={locale} />
-        <ResultsList locale={locale} />
+        <ResultsList locale={locale} isFiltering={isFiltering} />
       </div>
     )
   }

@@ -11,14 +11,19 @@
   font-family: $font-gillsans;
   font-weight: bold;
   letter-spacing: -1px;
+  margin-bottom: 16px;
 }
 
 .theme-body,
 .no-measure,
-.intro-description
- {
+.intro-description {
   color: $gray;
   font-family: $font-roboto;
+}
+
+.theme-body {
+  margin-top: 0;
+  margin-bottom: 16px;
 }
 
 .intro-description span {
