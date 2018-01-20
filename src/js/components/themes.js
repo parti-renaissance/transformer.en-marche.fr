@@ -58,7 +58,7 @@ class ThemeListItem extends Component {
   componentWillReceiveProps() {
     this.measureButton();
   }
-  
+
   shouldComponentUpdate(props) {
     if (props.theme.isActive !== this.props.theme.isActive) {
       return true;
@@ -97,7 +97,7 @@ class ThemeFilters extends Component {
       activeThemes:nextActive,
       featuredThemes:nextFeatured,
       otherThemes:nextOther
-    } = this.filterThemes(props.themes, props.items);
+    } = this.filterThemes(props.themes, props.items, props.locale);
 
     let {
       activeThemes,
