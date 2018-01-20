@@ -52,9 +52,10 @@ ResultsList = connectHits(ResultsList);
 
 class Results extends Component {
   shouldComponentUpdate({searchState: {menu:nextMenu, refinementList:nextList}, profiles:nextProfiles}) {
-    let { searchState: {menu, refinementList}, profiles } = this.props;
+    let { searchState: {menu, refinementList}, profiles, locale } = this.props;
 
     if (menu.profileIds !== nextMenu.profileIds ||
+        refinementList[`titles.${locale}`].length !== nextList[`titles.${locale}`].length ||
         Object.keys(profiles).length !== Object.keys(nextProfiles).length) {
       return true;
     } else {
