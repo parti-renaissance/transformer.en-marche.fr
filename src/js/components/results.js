@@ -52,6 +52,9 @@ ResultsList = connectHits(ResultsList);
 
 class Results extends Component {
   shouldComponentUpdate({searchState: {menu:nextMenu, refinementList:nextList}, profiles:nextProfiles}) {
+    if (typeof nextMenu === 'undefined' || typeof this.props.searchState.menu === 'undefined') {
+      return false;
+    }
     let { searchState: {menu, refinementList}, profiles, locale } = this.props;
 
     if (menu.profileIds !== nextMenu.profileIds ||
