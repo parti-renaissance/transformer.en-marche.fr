@@ -49,7 +49,8 @@
   font-size: 24px;
 }
 
-.about-modal__body > p {
+.about-modal__body > p,
+.about-modal__body > ul, {
   font-size: 15px;
   font-family: $font-roboto;
   color: $darkergray;
