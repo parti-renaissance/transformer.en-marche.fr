@@ -183,6 +183,20 @@ export default {
     allthemes: {
       fr: "Voir tous les thèmes",
       en: "View all"
+    },
+    statuses: {
+      fr: {
+        UPCOMING: 'À venir',
+        DONE: 'Fait',
+        IN_PROGRESS: 'En cours',
+        DEFERRED: 'Modifié',
+      },
+      en: {
+        UPCOMING: 'Upcoming',
+        DONE: 'Done',
+        IN_PROGRESS: 'In progress',
+        DEFERRED: 'Modified',
+      }
     }
   }
 };
