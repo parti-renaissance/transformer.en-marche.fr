@@ -198,5 +198,27 @@ export default {
         DEFERRED: 'Modified',
       }
     }
+  },
+  auth: {
+    loginPrompt: {
+      fr: "Identifiez-vous afin de pouvoir voter pour les mesures les plus importantes pour vous.",
+      en: "Identifiez-vous afin de pouvoir voter pour les mesures les plus importantes pour vous."
+    },
+    login: {
+      fr: 'Connexion',
+      en: 'Login'
+    },
+    noAccount: {
+      fr: 'Pas de compte ?',
+      en: 'No account?'
+    },
+    signUp: {
+      fr: 'S\'inscrire',
+      en: 'Sign up'
+    },
+    close: {
+      fr: 'Fermer',
+      en: 'Close'
+    }
   }
 };
