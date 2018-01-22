@@ -3,6 +3,7 @@ import Collapsible from 'react-collapsible';
 import { connect } from 'react-redux';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { ShareButtons, generateShareIcon } from 'react-share';
+import T from 'i18n-react';
 
 import '../../scss/measure.css';
 import VoteButton from './vote-button';
@@ -12,11 +13,8 @@ const { FacebookShareButton, TwitterShareButton } = ShareButtons;
 const FacebookIcon = generateShareIcon('facebook');
 const TwitterIcon = generateShareIcon('twitter');
 
-const STATUS_MAP = {
-  UPCOMING: 'À venir',
-  DONE: 'Fait',
-  IN_PROGRESS: 'En cours',
-  DEFERRED: 'Modifié',
+const STATUS_MAP = ({locale, status}) => {
+  return (T.translate(`measures.statuses.${locale}`, {context: status}))
 }
 
 const slugify = str => str.toLowerCase().replace(/[\s_]/g, '-');
@@ -106,10 +104,11 @@ export class Measure extends Component {
     return (
       <div className="measure-wrapper">
         <LinkOrDiv
+         locale={locale}
          link={measure.link}
          className={`measure-body ${slugify(measure.status)} is-major`}>
           <div className="measure-status">
-            {STATUS_MAP[measure.status]}
+            {STATUS_MAP({locale, status: measure.status})}
           </div>
           <div className="measure-name">
             {measure.titles[locale]}
