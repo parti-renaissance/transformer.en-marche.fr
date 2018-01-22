@@ -162,5 +162,27 @@ export default {
       fr: "Fermer",
       en: "Close"
     }
+  },
+  measures: {
+    nomatch: {
+      fr: "Il n'y a pas de mesures répondant à cette combinaison de filtres.",
+      en: "There are no measures matching your selected filters."
+    },
+    up: {
+      fr: "Moins",
+      en: "View less"
+    },
+    down: {
+      fr: "Plus",
+      en: "View more"
+    },
+    measure: {
+      fr: "de mesures",
+      en: ""
+    },
+    allthemes: {
+      fr: "Voir tous les thèmes",
+      en: "View all"
+    }
   }
 };
