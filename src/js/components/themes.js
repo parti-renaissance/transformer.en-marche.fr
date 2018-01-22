@@ -8,6 +8,7 @@ import filter from 'lodash/filter';
 import reject from 'lodash/reject';
 import map from 'lodash/map';
 import isEqual from 'lodash/isEqual';
+import T from 'i18n-react';
 
 import { Measures, NoMeasure } from './measure';
 import { FilterButton } from './sidebar';
@@ -163,7 +164,7 @@ export const ThemesList = ({ onViewMore, themes, toggleTheme, location, match })
 
       <li className="refinement-list__item refinement-list__item-more">
         <FilterButton onClick={onViewMore} style={{backgroundColor: 'rgba(111, 129, 255, .5)', color: 'white'}}>
-          Voir tous les thèmes
+          {T.translate('measures.allthemes', {context: match.params.locale})}
         </FilterButton>
       </li>
 
