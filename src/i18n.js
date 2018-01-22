@@ -88,7 +88,7 @@ export default {
     },
     blurbPlatform: {
       fr: "Ce projet a été construit en 2016-2017 avec plus de 30 000 Françaises et Français de tous milieux sociaux, de tous âges, dans tous les territoires de France, au cours de 3 000 ateliers de nos comités locaux.",
-      en: "This project was developped in 2016-2017 with over 30,000 French women and men from all social backgrounds and all age groups, across all French territories, over the course of 3,000 local committee workshops."
+      en: "This project was developed in 2016-2017 with over 30,000 French women and men from all social backgrounds and all age groups, across all French territories, over the course of 3,000 local committee workshops."
     },
     linkPlatform: {
       fr: "Le programme",
