@@ -121,6 +121,46 @@ export default {
     title: {
       fr: "À propos",
       en: "About"
+    },
+    p1: {
+      fr: "Grâce à On l'a dit, On le fait, suivez la mise en œuvre du plan de transformation.",
+      en: "With 'We Do What We Say', you can follow the progress of Emmanuel Macron's electoral platform."
+    },
+    p2: {
+      fr: "Pour vous aider à y voir plus clair, nous avons classé les mesures du programme présidentiel en quatre catégories :",
+      en: "To make things easier for you, we organized the program's measures into four categories:"
+    },
+    li1: {
+      fr: "« fait » : la mesure a été adoptée",
+      en: "« done » : the measure has been adopted"
+    },
+    li2: {
+      fr: "« en cours » : le Gouvernement ou le Parlement travaille sur cette mesure",
+      en: "« in progress » : the government is working on this measure"
+    },
+    li3: {
+      fr: "« à venir » : le Gouvernement ou le Parlement se saisira du sujet d'ici la fin du quinquennat",
+      en: "« upcoming » : the government will work on this before the end of Emmanuel Macron's mandate"
+    },
+    li4: {
+      fr: "« modifié » : la mesure a été amendée",
+      en: "« modified » : the measure has been modified"
+    },
+    p3: {
+      fr: "Cet outil recense les mesures du programme présidentiel. Il ne prend pas encore en compte les mesures annoncées par le président de la République et son Gouvernement depuis l’élection présidentielle.",
+      en: "This tool regroups all of the measures announced within Emmanuel Macron's electoral platform. It doesn't take into account the measures announced by the President and his government after the presidential election."
+    },
+    p4a: {
+      fr: "Vous avez encore des questions ?",
+      en: "Questions?"
+    },
+    p4b: {
+      fr: "Écrivez-nous",
+      en: "Contact us"
+    },
+    close: {
+      fr: "Fermer",
+      en: "Close"
     }
   }
 };

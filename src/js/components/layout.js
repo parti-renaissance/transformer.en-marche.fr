@@ -96,7 +96,7 @@ const Header = ({ locale, hasToken, disconnect, openAbout, location, useTranslat
 const Footer = ({ locale }) =>
   <footer className="footer">
     <div className="footer-body">
-    © <a href="https://en-marche.fr" target="_blank" rel="noopener noreferrer">La République En Marche</a> | <a href="https://en-marche.fr/mentions-legales" target="_blank" rel="noopener noreferrer">{T.translate('projet.footerTerms', {context: locale})}</a> | <a href="https://en-marche.fr/politique-cookies" target="_blank" rel="noopener noreferrer">{T.translate('projet.footerPrivacy', {context: locale})}</a> | <a href="https://github.com/EnMarche/gov-timeline" target="_blank" rel="noopener noreferrer">{T.translate('projet.footerOs', {context: locale})}</a>
+    © <a href="https://en-marche.fr" target="_blank" rel="noopener noreferrer">La République En Marche</a> | <a href="https://contact.en-marche.fr/" rel="noopener noreferrer" target="_blank">{T.translate('about.p4b', {context: locale})}</a> | <a href="https://en-marche.fr/mentions-legales" target="_blank" rel="noopener noreferrer">{T.translate('projet.footerTerms', {context: locale})}</a> | <a href="https://en-marche.fr/politique-cookies" target="_blank" rel="noopener noreferrer">{T.translate('projet.footerPrivacy', {context: locale})}</a> | <a href="https://github.com/EnMarche/gov-timeline" target="_blank" rel="noopener noreferrer">{T.translate('projet.footerOs', {context: locale})}</a>
     </div>
   </footer>
 
