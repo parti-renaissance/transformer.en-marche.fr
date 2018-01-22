@@ -79,7 +79,7 @@ export default {
       en: "Most Popular Measures"
     },
     linkPopular: {
-      fr: "Toutes les measures",
+      fr: "Toutes les mesures",
       en: "View all"
     },
     titlePlatform: {
