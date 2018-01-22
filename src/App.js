@@ -25,7 +25,8 @@ class App extends Component {
       aboutModalIsOpen,
       openAbout,
       closeAbout,
-      useTranslation
+      useTranslation,
+      locale,
     } = this.props;
     return (
       <Router history={history}>
@@ -43,8 +44,8 @@ class App extends Component {
               <Redirect from="/" to="/fr" />
             </Switch>
           </main>
-          <AuthModal isOpen={authModalIsOpen} closeModal={closeAuth} />
-          <AboutModal isOpen={aboutModalIsOpen} closeModal={closeAbout} />
+          <AuthModal isOpen={authModalIsOpen} closeModal={closeAuth} locale={locale} />
+          <AboutModal isOpen={aboutModalIsOpen} closeModal={closeAbout} locale={locale} />
         </Layout>
       </Router>
     );
@@ -55,6 +56,7 @@ export default connect(state => ({
   authModalIsOpen: state.auth.openModal,
   aboutModalIsOpen: state.aboutModal,
   hasToken: state.auth.fetchedToken,
+  locale: state.locale,
 }), dispatch => ({
   closeAuth: () => dispatch(closeAuth()),
   disconnect: () => dispatch(clearToken()),
