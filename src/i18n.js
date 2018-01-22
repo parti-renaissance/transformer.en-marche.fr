@@ -72,11 +72,11 @@ export default {
     },
     titleChart: {
       fr: "Mise en œuvre du Contrat avec la Nation",
-      en: "Progress of the transformation"
+      en: "Progress of the Transformation"
     },
     titlePopular: {
       fr: "Les 3 mesures les plus importantes pour vous",
-      en: "Most popular measures"
+      en: "Most Popular Measures"
     },
     linkPopular: {
       fr: "Toutes les measures",
@@ -96,7 +96,7 @@ export default {
     },
     titleNewsletter: {
       fr: "Pour être les premiers informés, inscrivez-vous à la newsletter hebdomadaire du mouvement :",
-      en: "Sign up for our weekly newsletter (in French):"
+      en: "Sign up for Our Weekly Newsletter (In French):"
     },
     majorText: {
       fr: "Afficher seulement les principaux engagements :",
@@ -132,19 +132,19 @@ export default {
     },
     li1: {
       fr: "« fait » : la mesure a été adoptée",
-      en: "« done » : the measure has been adopted"
+      en: "\"done\": the measure has been adopted"
     },
     li2: {
       fr: "« en cours » : le Gouvernement ou le Parlement travaille sur cette mesure",
-      en: "« in progress » : the government is working on this measure"
+      en: "\"in progress\": the government is working on the measure"
     },
     li3: {
       fr: "« à venir » : le Gouvernement ou le Parlement se saisira du sujet d'ici la fin du quinquennat",
-      en: "« upcoming » : the government will work on this before the end of Emmanuel Macron's mandate"
+      en: "\"upcoming\": the government will work on this before the end of Emmanuel Macron's mandate"
     },
     li4: {
       fr: "« modifié » : la mesure a été amendée",
-      en: "« modified » : the measure has been modified"
+      en: "\"modified\": the measure has been modified"
     },
     p3: {
       fr: "Cet outil recense les mesures du programme présidentiel. Il ne prend pas encore en compte les mesures annoncées par le président de la République et son Gouvernement depuis l’élection présidentielle.",
@@ -161,6 +161,28 @@ export default {
     close: {
       fr: "Fermer",
       en: "Close"
+    }
+  },
+  measures: {
+    nomatch: {
+      fr: "Il n'y a pas de mesures répondant à cette combinaison de filtres.",
+      en: "There are no measures matching your selected filters."
+    },
+    up: {
+      fr: "Moins",
+      en: "View less"
+    },
+    down: {
+      fr: "Plus",
+      en: "View more"
+    },
+    measure: {
+      fr: "de mesures",
+      en: ""
+    },
+    allthemes: {
+      fr: "Voir tous les thèmes",
+      en: "View all"
     }
   }
 };
