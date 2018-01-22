@@ -3,6 +3,7 @@ import Collapsible from 'react-collapsible';
 import { connect } from 'react-redux';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { ShareButtons, generateShareIcon } from 'react-share';
+import T from 'i18n-react';
 
 import '../../scss/measure.css';
 import VoteButton from './vote-button';
@@ -106,6 +107,7 @@ export class Measure extends Component {
     return (
       <div className="measure-wrapper">
         <LinkOrDiv
+         locale={locale}
          link={measure.link}
          className={`measure-body ${slugify(measure.status)} is-major`}>
           <div className="measure-status">
@@ -139,9 +141,9 @@ export class Measure extends Component {
 }
 
 
-const Trigger = ({ count, nodeRef }) =>
-  <span ref={nodeRef}>
-    <ChevronUp className="up" /><ChevronDown className="down" /><span className="up">Moins</span><span className="down">Plus</span>&nbsp;de mesures<span className="down">&nbsp;({count})</span>
+const Trigger = ({ count, nodeRef, locale }) =>
+  <span ref={nodeRef} locale={locale}>
+    <ChevronUp className="up" /><ChevronDown className="down" /><span className="up">{T.translate('measures.up', {context: locale})}</span><span className="down">{T.translate('measures.down', {context: locale})}</span>&nbsp;{T.translate('measures.measure', {context: locale})}<span className="down">&nbsp;({count})</span>
   </span>
 
 class CollapsibleMeasures extends Component {
@@ -172,13 +174,13 @@ class CollapsibleMeasures extends Component {
   }
 }
 
-export const NoMeasure = ({theme}) =>
-  <p className="no-measure">Il n'y a pas de mesures répondant à cette combinaison de filtres.</p>
+export const NoMeasure = ({theme, locale}) =>
+  <p className="no-measure" locale={locale}>{T.translate('measures.nomatch', {context: locale})}</p>
 
 class Measures extends Component {
 
   render() {
-    let { measures, viewAll } = this.props;
+    let { measures, viewAll, locale } = this.props;
     if (viewAll) {
       return (
         <div className="measure-list">
@@ -189,7 +191,7 @@ class Measures extends Component {
       return (
         <div className="measure-list">
           {measures.slice(0,3).map(measure => <Measure key={measure.id} measure={measure} {...this.props} />)}
-          {measures.length > 3 ? <CollapsibleMeasures measures={measures} {...this.props} /> : null}
+          {measures.length > 3 ? <CollapsibleMeasures measures={measures} locale={locale} {...this.props} /> : null}
         </div>
       );
     }
