@@ -108,7 +108,8 @@ class ThemeFilters extends Component {
 
     if (nextActive.length !== activeThemes.length ||
         nextFeatured.length !== featuredThemes.length ||
-        nextOther.length !== otherThemes.length) {
+        nextOther.length !== otherThemes.length ||
+        props.locale !== this.props.locale) {
           return true;
         } else {
           return false;
