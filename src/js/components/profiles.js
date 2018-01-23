@@ -20,11 +20,12 @@ class Profiles extends Component {
     profiles: []
   }
 
-  shouldComponentUpdate({ items:nextItems, profiles:nextProfiles, currentRefinement:nextRefinment }) {
-    let { items, profiles, currentRefinement } = this.props;
+  shouldComponentUpdate({ items:nextItems, profiles:nextProfiles, currentRefinement:nextRefinment, locale:nextLocale }) {
+    let { items, profiles, currentRefinement, locale } = this.props;
     if (nextItems.length !== items.length ||
         nextProfiles.length !== profiles.length ||
-        nextRefinment !== currentRefinement)  {
+        nextRefinment !== currentRefinement ||
+        nextLocale !== locale)  {
           return true;
         } else {
           return false;
