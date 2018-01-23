@@ -169,12 +169,12 @@ export default {
       en: "There are no measures matching your selected filters."
     },
     up: {
-      fr: "Moins",
-      en: "View less"
+      fr: "Moins de mesures",
+      en: "View fewer measures"
     },
     down: {
-      fr: "Plus",
-      en: "View more"
+      fr: "Plus de mesures",
+      en: "View more measures"
     },
     measure: {
       fr: "de mesures",
@@ -197,6 +197,10 @@ export default {
         IN_PROGRESS: 'In progress',
         DEFERRED: 'Modified',
       }
+    },
+    shareMeasure: {
+      en: 'I support the measure "{measure}" on https://transformer-la-france.fr',
+      fr: 'Je soutiens la mesure "{measure}" sur https://transformer-la-france.fr'
     }
   },
   auth: {
@@ -219,6 +223,56 @@ export default {
     close: {
       fr: 'Fermer',
       en: 'Close'
+    }
+  },
+  lastUpdated: {
+    day: {
+      fr: {
+        1: 'Mis à jour il y a 1 jour.',
+        _: 'Mis à jour il y a {context} jours.'
+      },
+      en: {
+        1: 'Updated 1 day ago.',
+        _: 'Updated {context} days ago.'
+      }
+    },
+    hour: {
+      fr: {
+        1: 'Mis à jour il y a 1 heure.',
+        _: 'Mis à jour il y a {context} heures.'
+      },
+      en: {
+        1: 'Updated 1 hour ago.',
+        _: 'Updated {context} hours ago.'
+      }
+    }
+  },
+  socialCopy: {
+    fr: 'Suivez le progrès du gouvernement',
+    en: 'Follow the government\'s progress'
+  },
+  results: {
+    profileBlurb: {
+      fr: 'Voici les mesures qui vous concernent spécifiquement. Pour voir l\'ensemble des mesures pour chaque thème, vous pouvez désélectionner "{title}" ou réinitialiser les filtres.',
+      en: 'Here are the measures that concern you specifically. To see all the measures for each theme, you can deselect "{title}" or reset the filters.'
+    },
+    noResults: {
+      fr: 'Aucun résultat pour votre recherche ',
+      en: 'No results for your search '
+    }
+  },
+  sidebar: {
+    reset: {
+      fr: 'Réinitialiser',
+      en: 'Reset'
+    },
+    resetAll: {
+      fr: 'Réinitialiser les filtres',
+      en: 'Reset all filters'
+    },
+    query: {
+      fr: 'Filtrer par mot-clé',
+      en: 'Filter by keyword'
     }
   }
 };

@@ -19,18 +19,18 @@ const STATUS_MAP = ({locale, status}) => {
 
 const slugify = str => str.toLowerCase().replace(/[\s_]/g, '-');
 
-const shareCopy = measure => `Je soutiens la mesure "${measure}" sur https://transformer-la-france.fr`;
+const shareCopy = (measure, locale) => T.translate('measures.shareMeasure', {context: locale, measure});
 
-const ShareMeasure = ({measure}) => {
+const ShareMeasure = ({measure, locale}) => {
   if (!measure.link) {
     return null;
   } else {
     return (
       <div className="share-measure">
-        <FacebookShareButton url={measure.link} quote={shareCopy(measure.title)}>
+        <FacebookShareButton url={measure.link} quote={shareCopy(measure.titles[locale], locale)}>
           <FacebookIcon round={true} size={40} iconBgStyle={{fill: '#6f81ff'}}/>
         </FacebookShareButton>
-        <TwitterShareButton url={measure.link} title={shareCopy(measure.title)}>
+        <TwitterShareButton url={measure.link} title={shareCopy(measure.titles[locale], locale)}>
           <TwitterIcon round={true} size={40} iconBgStyle={{fill: '#6f81ff'}}/>
         </TwitterShareButton>
       </div>
@@ -130,7 +130,7 @@ export class Measure extends Component {
           </div>
         }
 
-        <ShareMeasure measure={measure} />
+        <ShareMeasure measure={measure} locale={locale} />
       </div>
 
     );
@@ -138,9 +138,13 @@ export class Measure extends Component {
 }
 
 
-const Trigger = ({ count, nodeRef }) =>
+const Trigger = ({ count, nodeRef, locale }) =>
   <span ref={nodeRef}>
-    <ChevronUp className="up" /><ChevronDown className="down" /><span className="up">Moins</span><span className="down">Plus</span>&nbsp;de mesures<span className="down">&nbsp;({count})</span>
+    <ChevronUp className="up" />
+    <ChevronDown className="down" />
+    <T.span className="up" text='measures.up' context={locale} />
+    <T.span className="down" text='measures.down' context={locale} />
+    <span className="down">&nbsp;({count})</span>
   </span>
 
 class CollapsibleMeasures extends Component {
@@ -155,12 +159,12 @@ class CollapsibleMeasures extends Component {
   }
 
   render() {
-    let { measures } = this.props;
+    let { measures, locale } = this.props;
     return (
       <Collapsible
        onOpening={this.onOpen.bind(this)}
        onClosing={this.onClose.bind(this)}
-       trigger={<Trigger nodeRef={e => this.trigger = e} count={measures.length - 3} />}
+       trigger={<Trigger nodeRef={e => this.trigger = e} count={measures.length - 3} locale={locale}/>}
        classParentString="measure-accordion"
        triggerClassName="measure-accordion__trigger"
        lazyRender={true}
@@ -171,8 +175,7 @@ class CollapsibleMeasures extends Component {
   }
 }
 
-export const NoMeasure = ({theme}) =>
-  <p className="no-measure">Il n'y a pas de mesures répondant à cette combinaison de filtres.</p>
+export const NoMeasure = ({theme, locale}) => <T.p className="no-measure" text='measures.nomatch' context={locale} />
 
 class Measures extends Component {
 

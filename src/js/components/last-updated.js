@@ -2,23 +2,25 @@ import React, { Component } from 'react';
 import { map } from 'lodash';
 import moment from 'moment-timezone';
 import { connect } from 'react-redux';
+import T from 'i18n-react';
 
 class LastUpdated extends Component {
-  shouldComponentUpdate(nextProps) {
-    return nextProps.measures.items.length !== this.props.measures.items.length;
+  shouldComponentUpdate({measures:nextMeasures, locale:nextLocale}) {
+    let { measures, locale } = this.props;
+    return nextMeasures.items.length !== measures.items.length || nextLocale !== locale;
   }
 
   render() {
-    let { measures: { measures }, className } = this.props;
+    let { measures: { measures }, className, locale } = this.props;
     let dates = map(measures, 'formattedUpdatedAt');
     dates.sort();
     let diff = moment().diff(dates[0], 'days');
-    let unit = 'jour(s)';
+    let unit = 'day';
     if (diff < 1) {
       diff = moment().diff(dates[0], 'hours');
-      unit = 'heure(s)';
+      unit = 'hour';
     }
-    return <small className={className}>Mis à jour il y a {diff} {unit}.</small>
+    return <small className={className}>{T.translate(`lastUpdated.${unit}.${locale}`, {context: diff})}</small>
   }
 
 }

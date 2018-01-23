@@ -15,20 +15,18 @@ const { FacebookShareButton, TwitterShareButton } = ShareButtons;
 const FacebookIcon = generateShareIcon('facebook');
 const TwitterIcon = generateShareIcon('twitter');
 
-const SOCIAL_COPY = "Suivez le progrès du gouvernement";
-
 const duration = 125;
-const SharePanel = ({ in: inProp }) =>
+const SharePanel = ({ in: inProp, locale }) =>
   <Transition in={inProp} timeout={duration} mountOnEnter={true} unmountOnExit={true}>
     {(state) => (
       <div className="share-panel" style={{
         transition: `opacity ${duration}ms ease`,
         opacity: ['entering', 'exiting'].includes(state) ? 0 : 1
       }}>
-        <FacebookShareButton url={window.location.toString()} quote={SOCIAL_COPY}>
+        <FacebookShareButton url={window.location.toString()} quote={T.translate('socialCopy', {context: locale})}>
           <FacebookIcon round={true} size={35}/>
         </FacebookShareButton>
-        <TwitterShareButton url={window.location.toString()} title={SOCIAL_COPY}>
+        <TwitterShareButton url={window.location.toString()} title={T.translate('socialCopy', {context: locale})}>
           <TwitterIcon round={true} size={35}/>
         </TwitterShareButton>
       </div>
@@ -44,10 +42,15 @@ class MobileShare extends Component {
 
   render() {
     let { isOpened } = this.state;
+    let { locale } = this.props;
     return (
       <div className="mobile-share">
-        <button className="header-button" onClick={() => this.setState({ isOpened: !isOpened })}>Partager</button>
-        <SharePanel in={isOpened} />
+        <T.button
+          className="header-button"
+          onClick={() => this.setState({ isOpened: !isOpened })}
+          text='projet.headerShare'
+          context={locale} />
+        <SharePanel in={isOpened} locale={locale} />
       </div>
     );
   }
@@ -71,10 +74,10 @@ const Header = ({ locale, hasToken, disconnect, openAbout, location, useTranslat
             <button onClick={openAbout} className="header-right__about">{T.translate('projet.headerAbout', {context: locale})}</button>
             <span className="header-right__divider">|</span>
             {T.translate('projet.headerShare', {context: locale})}
-            <FacebookShareButton url={window.location.toString()} quote={SOCIAL_COPY}>
+            <FacebookShareButton url={window.location.toString()} quote={T.translate('socialCopy', {context: locale})}>
               <FacebookIcon round={true} size={35}/>
             </FacebookShareButton>
-            <TwitterShareButton url={window.location.toString()} title={SOCIAL_COPY}>
+            <TwitterShareButton url={window.location.toString()} title={T.translate('socialCopy', {context: locale})}>
               <TwitterIcon round={true} size={35}/>
             </TwitterShareButton>
 
@@ -85,7 +88,7 @@ const Header = ({ locale, hasToken, disconnect, openAbout, location, useTranslat
           <div className="header-right">
             {useTranslation &&
               <TranslateDropdown selected={locale} location={location} small />}
-            <MobileShare />
+            <MobileShare locale={locale} />
           </div>
         }
         </Media>
