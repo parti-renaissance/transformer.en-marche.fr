@@ -222,7 +222,7 @@ class ThemesDropdown extends Component {
   render() {
     return <Select
             className="theme-dropdown"
-            placeholder="Je m’interesse à…"
+            placeholder={T.translate('browse.filterTheme', {context: this.props.locale})}
             searchable={false}
             clearable={false}
             value={this.state.value}
@@ -281,7 +281,7 @@ class ThemeDetail extends Component {
       backgroundImage: `url(${IMAGE_URL}/${theme.image})`
     };
 
-    const measures = this.state.empty ? <NoMeasure theme={theme.title} /> : <Measures measures={this.state.measures} />
+    const measures = this.state.empty ? <NoMeasure theme={theme.title} locale={locale} /> : <Measures measures={this.state.measures} />
 
     return (
       <article className="theme">

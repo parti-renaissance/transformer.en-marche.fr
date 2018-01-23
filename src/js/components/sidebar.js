@@ -45,12 +45,24 @@ const MobileSidebar = ({ location, match, resetParams, toggleMajor, locale }) =>
       location={location}
       match={match}
     />
-    <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, THEME)}>Réinitialiser</button>
+    <T.button
+      className="sidebar-reset visibility-hidden"
+      onClick={() => resetParams(location, match, THEME)}
+      text='sidebar.reset'
+      context={locale} />
 
     <ProfilesDropdown attributeName="profileIds" location={location} match={match} />
-    <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, PROFILE)}>reset profile</button>
+    <T.button
+      className="sidebar-reset visibility-hidden"
+      onClick={() => resetParams(location, match, PROFILE)}
+      text='sidebar.reset'
+      context={locale} />
 
-    <button className="sidebar-reset sidebar-reset--mobile" onClick={() => resetParams(location, match)}>Réinitialiser les filtres</button>
+    <T.button
+      className="sidebar-reset sidebar-reset--mobile"
+      onClick={() => resetParams(location, match)}
+      text='sidebar.resetAll'
+      context={locale} />
   </div>
 
 
@@ -92,13 +104,17 @@ const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleThe
       <SearchBox
         onInput={e => doQuery(e.target.value)}
         searchAsYouType={false}
-        translations={{placeholder: 'Filtrer par mot-clé'}}/>
+        translations={{placeholder: T.translate('sidebar.query', {context: locale})}}/>
       <button className="sidebar-reset visibility-hidden" onClick={() => resetParams(location, match, QUERY)}>{T.translate('browse.reset', {context: locale})}</button>
-      <button className="sidebar-reset" onClick={() => resetParams(location, match)}>Réinitialiser les filtres</button>
+      <T.button
+        className="sidebar-reset"
+        onClick={() => resetParams(location, match)}
+        text='sidebar.resetAll'
+        context={locale} />
     </div>
 
     <div className="sidebar-footer">
-      <LastUpdated />
+      <LastUpdated locale={locale} />
     </div>
 
   </div>

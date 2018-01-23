@@ -5,6 +5,7 @@ import { push } from 'react-router-redux'
 import Select from 'react-select';
 import filter from 'lodash/filter';
 import map from 'lodash/map';
+import T from 'i18n-react';
 
 import {
   setProfile,
@@ -122,9 +123,10 @@ class ProfilesDropdown extends Component {
   }
 
   render() {
+    let { locale } = this.props.match.params;
     return <Select
             className="profile-dropdown"
-            placeholder="Je suis..."
+            placeholder={T.translate('browse.filterIam', {context: locale})}
             searchable={false}
             clearable={false}
             value={this.state.value}

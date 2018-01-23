@@ -27,9 +27,26 @@ const START_OF_TERM = '2017-05-14';
 const MAILCHIMP_ACTION = process.env.REACT_APP_MAILCHIMP_ACTION;
 const FORM_PROPS = {
   messages: {
-    inputPlaceholder: 'Entrez votre e-mail',
-    btnLabel: 'S\'inscrire',
-    sending: 'En cours...',
+    inputPlaceholder: {
+      fr: 'Entrez votre e-mail',
+      en: 'Enter your e-mail'
+    },
+    btnLabel: {
+      fr: 'S\'inscrire',
+      en: 'Subscribe'
+    },
+    sending: {
+      fr: 'En cours...',
+      en: 'Sending...'
+    },
+    missingEmail: {
+      fr: 'Entrez votre e-mail ci-dessus !',
+      en: 'Enter your e-mail address!'
+    },
+    invalidEmail: {
+      fr: 'Votre e-mail doit être valide.',
+      en: 'Your email is not valid.'
+    }
   },
   action: MAILCHIMP_ACTION
 };
@@ -86,6 +103,22 @@ class PieChart extends Component {
     majorOnly: true
   }
 
+  generateData(measures, locale) {
+    return [{
+      angle: measures['DONE'],
+      label: T.translate('measures.statuses', {context: `${locale}.DONE`}),
+      style: {fill: '#2bca9e', stroke: 'none'},
+    }, {
+      angle: measures['IN_PROGRESS'],
+      label: T.translate('measures.statuses', {context: `${locale}.IN_PROGRESS`}),
+      style: {fill: '#00bef9', stroke: 'none'},
+    }, {
+      angle: measures['UPCOMING'],
+      label: T.translate('measures.stauses', {context: `${locale}.UPCOMING`}),
+      style: {fill: '#dedede', stroke: 'none'},
+    }]
+  }
+
   render() {
     let { measures, locale } = this.props;
     let { majorOnly } = this.state;
@@ -100,11 +133,7 @@ class PieChart extends Component {
           className='pie-chart__chart'
           innerRadius={40}
           radius={64}
-          data={[
-            {angle: measures['DONE'], label: 'Fait', style: {fill: '#2bca9e', stroke: 'none'}},
-            {angle: measures['IN_PROGRESS'], label: 'En cours', style: {fill: '#00bef9', stroke: 'none'}},
-            {angle: measures['UPCOMING'], label: 'À venir', style: {fill: '#dedede', stroke: 'none'}},
-          ]}
+          data={this.generateData(measures, locale)}
           width={132}
           height={132} />
 
@@ -171,7 +200,7 @@ class Dashboard extends Component {
           <DashboardRow>
             <DashboardBox className="dashboard-progression">
               <h3 className="dashboard-box__title">{T.translate('dashboard.titleChart', {context: locale})}</h3>
-              <LastUpdated className="dashboard-updated" />
+              <LastUpdated className="dashboard-updated" locale={locale} />
 
               <PieChart measures={status.measures} locale={locale} />
             </DashboardBox>
@@ -194,7 +223,7 @@ class Dashboard extends Component {
             </DashboardBox>
             <DashboardBox>
               <h3 className="dashboard-box__title dashboard-box__title--small">{T.translate('dashboard.titleNewsletter', {context: locale})}</h3>
-              <Subscribe {...FORM_PROPS} />
+              <Subscribe locale={locale} {...FORM_PROPS} />
             </DashboardBox>
           </DashboardRow>
         </DashboardBody>
