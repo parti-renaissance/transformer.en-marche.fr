@@ -28,7 +28,7 @@ const AuthModal = ({ isOpen, closeModal, location, locale }) =>
 
     </div>
     <div className="auth-modal__footer">
-      {T.translate('auth.noAccount', {context: locale, url: registerURL})}
+      {T.translate('auth.noAccount', {context: locale, url: registerURL})}&nbsp;
       <T.a
         text='auth.signUp'
         context={locale}

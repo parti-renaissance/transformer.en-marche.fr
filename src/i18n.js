@@ -206,11 +206,11 @@ export default {
   auth: {
     loginPrompt: {
       fr: "Identifiez-vous afin de pouvoir voter pour les mesures les plus importantes pour vous.",
-      en: "Identifiez-vous afin de pouvoir voter pour les mesures les plus importantes pour vous."
+      en: "Log in to vote for the most impactful measures."
     },
     login: {
       fr: 'Connexion',
-      en: 'Login'
+      en: 'Log in'
     },
     noAccount: {
       fr: 'Pas de compte ?',
@@ -249,7 +249,7 @@ export default {
   },
   socialCopy: {
     fr: 'Suivez le progrès du gouvernement',
-    en: 'Follow the government\'s progress'
+    en: 'Follow the progress of the French government'
   },
   results: {
     profileBlurb: {

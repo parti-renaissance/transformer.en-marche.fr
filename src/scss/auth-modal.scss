@@ -14,7 +14,7 @@
   right: 0;
   background-color: rgba(black, 0.6);
   z-index: $zIndex--modal;
-  
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,7 +26,7 @@
   width: 100%;
   background-color: white;
   position: relative;
-  
+
   &:focus {
     outline: none;
   }
@@ -49,7 +49,7 @@
   font-size: 16px;
   text-align: center;
   font-family: $font-roboto;
-  
+
   > a {
     color: $brightblue;
   }
@@ -64,7 +64,7 @@
 
 .auth-button__login {
   @include blue-button;
-  
+
   text-align: center;
   font-family: $font-roboto;
   font-size: 18px;
@@ -76,15 +76,16 @@
 
 .auth-modal__close-button {
   @include button-base;
-  
+
   font-size: 14px;
   font-family: $font-roboto;
+  top: -35px;
   color: white;
   position: absolute;
-  top: -25px;
   right: 0;
-  
+
   > span {
-    font-family: $font-gillsans;
+    top: 7px;
+    position: relative;
   }
 }
