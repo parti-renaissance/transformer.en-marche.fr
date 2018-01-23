@@ -14,17 +14,18 @@ class SubscribeForm extends Component {
   }
   onSubmit = e => {
     e.preventDefault()
+    let { locale, messages } = this.props;
 
     if (!this.input.value) {
       this.setState({
         status: 'error',
-        msg: 'Entrez votre e-mail ci-dessus !'
+        msg: messages.missingEmail[locale]
       });
       return;
     } else if (!this.input.value.includes('@')) {
       this.setState({
         status: 'error',
-        msg: 'Votre e-mail doit être valide.'
+        msg: messages.invalidEmail[locale]
       });
       return;
     }
@@ -57,8 +58,11 @@ class SubscribeForm extends Component {
   }
 
   render() {
-    const { action, messages } = this.props
-    const { status, msg } = this.state
+    const { action, messages, locale } = this.props
+    let { status, msg } = this.state
+    if (messages[status]) {
+      msg = messages[status][locale];
+    }
     return (
       <form className="SignupForm" action={action} method="post" noValidate>
         <input
@@ -67,17 +71,17 @@ class SubscribeForm extends Component {
           defaultValue=""
           name="EMAIL"
           required={true}
-          placeholder={messages.inputPlaceholder}
+          placeholder={messages.inputPlaceholder[locale]}
         />
         <button
           disabled={this.state.status === "sending"}
           onClick={this.onSubmit}
           type="submit"
         >
-          {messages.btnLabel}
+          {messages.btnLabel[locale]}
         </button>
 
-        <p className="SignupForm__message" dangerouslySetInnerHTML={{__html: messages[status] || msg } } />
+        <p className="SignupForm__message" dangerouslySetInnerHTML={{__html: msg }} />
       </form>
     );
   }

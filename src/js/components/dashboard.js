@@ -27,9 +27,26 @@ const START_OF_TERM = '2017-05-14';
 const MAILCHIMP_ACTION = process.env.REACT_APP_MAILCHIMP_ACTION;
 const FORM_PROPS = {
   messages: {
-    inputPlaceholder: 'Entrez votre e-mail',
-    btnLabel: 'S\'inscrire',
-    sending: 'En cours...',
+    inputPlaceholder: {
+      fr: 'Entrez votre e-mail',
+      en: 'Enter your e-mail'
+    },
+    btnLabel: {
+      fr: 'S\'inscrire',
+      en: 'Subscribe'
+    },
+    sending: {
+      fr: 'En cours...',
+      en: 'Sending...'
+    },
+    missingEmail: {
+      fr: 'Entrez votre e-mail ci-dessus !',
+      en: 'Enter your e-mail address!'
+    },
+    invalidEmail: {
+      fr: 'Votre e-mail doit être valide.',
+      en: 'Your email is not valid.'
+    }
   },
   action: MAILCHIMP_ACTION
 };
@@ -48,12 +65,12 @@ const DashboardBox = ({ children, className }) =>
 const DashboardHeader = ({ locale, openAbout }) =>
   <div className="dashboard-header">
     <div className="dashboard-blurb">
-      <h2>{T.translate('dashboard.headline', {context: locale})}</h2>
+      <h2>{T.translate('projet.title', {context: locale})}</h2>
       <p>
-        La transformation du pays est en marche ! Suivez la mise en œuvre du programme d'Emmanuel Macron et <strong>votez en faveur des mesures les plus importantes pour vous</strong>. <button onClick={openAbout} className="dashboard-blurb__link">En savoir plus.</button>
+        {T.translate('dashboard.blurb', {context: locale})} <strong>{T.translate('dashboard.blurbBold', {context: locale})}</strong>. <button onClick={openAbout} className="dashboard-blurb__link">{T.translate('dashboard.blurbLink', {context: locale})}</button>
       </p>
 
-      <Link className="dashboard-header__link" to={`/${locale}/results`}>Découvrir ce qui me concerne</Link>
+      <Link className="dashboard-header__link" to={`/${locale}/results`}>{T.translate('dashboard.blurbCta', {context: locale})}</Link>
     </div>
     <div className="dashboard-image">
       <Link to={`/${locale}/results`}>
@@ -67,10 +84,10 @@ const DashboardBody = ({ children }) =>
     {children}
   </div>
 
-const DashboardTimer = ({ total, current }) =>
+const DashboardTimer = ({ total, current, locale }) =>
   <div className="dashboard-timer">
-    <ProgressMeter reverse total={total} current={current} className="timeline">
-      Encore {current} jours pour transformer la France.
+    <ProgressMeter reverse total={total} current={current} locale={locale} className="timeline">
+      {T.translate('dashboard.countDownOne', {context: locale})} {current} {T.translate('dashboard.countDownTwo', {context: locale})}
     </ProgressMeter>
   </div>
 
@@ -86,8 +103,24 @@ class PieChart extends Component {
     majorOnly: true
   }
 
+  generateData(measures, locale) {
+    return [{
+      angle: measures['DONE'],
+      label: T.translate('measures.statuses', {context: `${locale}.DONE`}),
+      style: {fill: '#2bca9e', stroke: 'none'},
+    }, {
+      angle: measures['IN_PROGRESS'],
+      label: T.translate('measures.statuses', {context: `${locale}.IN_PROGRESS`}),
+      style: {fill: '#00bef9', stroke: 'none'},
+    }, {
+      angle: measures['UPCOMING'],
+      label: T.translate('measures.stauses', {context: `${locale}.UPCOMING`}),
+      style: {fill: '#dedede', stroke: 'none'},
+    }]
+  }
+
   render() {
-    let { measures } = this.props;
+    let { measures, locale } = this.props;
     let { majorOnly } = this.state;
     if (majorOnly) {
       measures = filter(measures, 'major');
@@ -100,32 +133,28 @@ class PieChart extends Component {
           className='pie-chart__chart'
           innerRadius={40}
           radius={64}
-          data={[
-            {angle: measures['DONE'], label: 'Fait', style: {fill: '#2bca9e', stroke: 'none'}},
-            {angle: measures['IN_PROGRESS'], label: 'En cours', style: {fill: '#00bef9', stroke: 'none'}},
-            {angle: measures['UPCOMING'], label: 'À venir', style: {fill: '#dedede', stroke: 'none'}},
-          ]}
+          data={this.generateData(measures, locale)}
           width={132}
           height={132} />
 
         <div className="pie-chart__legend">
           <PieChartLegend color={'#2bca9e'}>
-            <span className="pie-chart__legend-label">Fait</span>
-            {measures['DONE']} mesures
+            <span className="pie-chart__legend-label">{T.translate('dashboard.measureDone', {context: locale})}</span>
+            {measures['DONE']} {T.translate('dashboard.measure', {context: locale})}s
           </PieChartLegend>
           <PieChartLegend color={'#00bef9'}>
-            <span className="pie-chart__legend-label">En cours</span>
-            {measures['IN_PROGRESS']} mesures
+            <span className="pie-chart__legend-label">{T.translate('dashboard.measureInProgress', {context: locale})}</span>
+            {measures['IN_PROGRESS']} {T.translate('dashboard.measure', {context: locale})}s
           </PieChartLegend>
           <PieChartLegend color={'#dedede'}>
-            <span className="pie-chart__legend-label">À venir</span>
-            {measures['UPCOMING']} mesures
+            <span className="pie-chart__legend-label">{T.translate('dashboard.measureUpcoming', {context: locale})}</span>
+            {measures['UPCOMING']} {T.translate('dashboard.measure', {context: locale})}s
           </PieChartLegend>
         </div>
 
         <div className="pie-chart__footer">
           <ToggleSwitch onChange={() => this.setState({ majorOnly: !majorOnly })}>
-            Afficher seulement les principaux engagements :
+            {T.translate('dashboard.majorText', {context: locale})}
           </ToggleSwitch>
         </div>
 
@@ -145,7 +174,7 @@ class Dashboard extends Component {
     super(props);
     props.getVotes();
   }
-  
+
   componentWillReceiveProps(nextProps) {
     let { setLocale, locale, location, match: { params } } = this.props;
     // if locale from state does not match locale from url
@@ -167,34 +196,34 @@ class Dashboard extends Component {
         />
 
         <DashboardBody>
-          <DashboardTimer total={this.state.totalDaysInTerm} current={this.state.daysRemainingInTerm} />
+          <DashboardTimer total={this.state.totalDaysInTerm} current={this.state.daysRemainingInTerm} locale={locale} />
           <DashboardRow>
             <DashboardBox className="dashboard-progression">
-              <h3 className="dashboard-box__title">Mise en œuvre du Contrat avec la Nation</h3>
-              <LastUpdated className="dashboard-updated" />
+              <h3 className="dashboard-box__title">{T.translate('dashboard.titleChart', {context: locale})}</h3>
+              <LastUpdated className="dashboard-updated" locale={locale} />
 
-              <PieChart measures={status.measures} />
+              <PieChart measures={status.measures} locale={locale} />
             </DashboardBox>
             <DashboardBox className="dashboard-popular">
-              <h3 className="dashboard-box__title">Les 3 mesures les plus importantes pour vous</h3>
+              <h3 className="dashboard-box__title">{T.translate('dashboard.titlePopular', {context: locale})}</h3>
               {!!allMeasures.items.length &&
                 <Measures className="popular-measures" measures={measures} viewAll />}
               <div className="dashboard-box__cta">
-                <Link to={`/${locale}/results`}>Toutes les mesures →</Link>
+                <Link to={`/${locale}/results`}>{T.translate('dashboard.linkPopular', {context: locale})} →</Link>
               </div>
             </DashboardBox>
           </DashboardRow>
 
           <DashboardRow>
             <DashboardBox>
-              <h3 className="dashboard-box__title dashboard-box__title--small">Demandez le programme</h3>
+              <h3 className="dashboard-box__title dashboard-box__title--small">{T.translate('dashboard.titlePlatform', {context: locale})}</h3>
               <p>
-                Ce projet a été construit en 2016-2017 avec plus de 30 000 Françaises et Français de tous milieux sociaux, de tous âges, dans tous les territoires de France, au cours de 3 000 ateliers de nos comités locaux. <a href="https://en-marche.fr/programme" rel="noopener noreferrer" target="_blank">Le programme →</a>
+                {T.translate('dashboard.blurbPlatform', {context: locale})} <a href="https://en-marche.fr/programme" rel="noopener noreferrer" target="_blank">{T.translate('dashboard.linkPlatform', {context: locale})} →</a>
               </p>
             </DashboardBox>
             <DashboardBox>
-              <h3 className="dashboard-box__title dashboard-box__title--small">Pour être les premiers informés, inscrivez-vous à la newsletter hebdomadaire du mouvement :</h3>
-              <Subscribe {...FORM_PROPS} />
+              <h3 className="dashboard-box__title dashboard-box__title--small">{T.translate('dashboard.titleNewsletter', {context: locale})}</h3>
+              <Subscribe locale={locale} {...FORM_PROPS} />
             </DashboardBox>
           </DashboardRow>
         </DashboardBody>

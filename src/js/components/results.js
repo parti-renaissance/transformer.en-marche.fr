@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connectStateResults, connectHits } from 'react-instantsearch/connectors';
 import isEqual from 'lodash/isEqual';
+import T from 'i18n-react';
 
 import { ThemeDetail } from './themes';
 
@@ -16,16 +17,16 @@ const Profile = ({ profileId, profiles, locale }) => {
 
         <div className="intro-description">
           <p>{profile.descriptions[locale]}</p>
-          <span>Voici les mesures qui vous concernent spécifiquement. Pour voir l'ensemble des mesures pour chaque thème, vous pouvez désélectionner "{profile.titles[locale]}" ou réinitialiser les filtres.</span>
+          <T.span text='results.profileBlurb' context={locale} title={profile.titles[locale]} />
         </div>
       </div>
     );
   }
 }
 
-const NoResults = () =>
+const NoResults = locale =>
   <div className="mesure-none">
-    Aucun résultat pour votre recherche <span role="img" aria-label="Emoji triste">😔</span>
+    {T.translate('results.noResults', {context: locale})}<span role="img" aria-label="Emoji triste">😔</span>
   </div>
 
 
@@ -43,7 +44,7 @@ class ResultsList extends Component {
   render() {
     let { hits, locale, isFiltering } = this.props;
     if (!hits.length) {
-      return <NoResults />
+      return <NoResults locale={locale} />
     } else {
       hits.sort((a, b) => a.titles[locale].localeCompare(b.titles[locale]));
       return hits.map(hit => <ThemeDetail hit={hit} key={hit.id} isFiltering={isFiltering} />)
