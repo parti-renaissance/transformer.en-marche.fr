@@ -153,7 +153,7 @@ class PieChart extends Component {
         </div>
 
         <div className="pie-chart__footer">
-          <ToggleSwitch onChange={() => this.setState({ majorOnly: !majorOnly })}>
+          <ToggleSwitch initialChecked={true} onChange={() => this.setState({ majorOnly: !majorOnly })}>
             {T.translate('dashboard.majorText', {context: locale})}
           </ToggleSwitch>
         </div>
