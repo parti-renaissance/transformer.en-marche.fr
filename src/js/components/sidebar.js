@@ -35,7 +35,7 @@ export const FilterButton = ({isActive, label, onClick, style, buttonRef, childr
 const MobileSidebar = ({ location, match, resetParams, toggleMajor, locale }) =>
   <div className="sidebar-group">
     <h3 className="sidebar-title">
-      <ToggleSwitch onChange={e => toggleMajor(e.target.checked)}>
+      <ToggleSwitch initialChecked={false} onChange={e => toggleMajor(e.target.checked)}>
         {T.translate('dashboard.majorText', {context: locale})}
       </ToggleSwitch>
     </h3>
@@ -69,7 +69,7 @@ const MobileSidebar = ({ location, match, resetParams, toggleMajor, locale }) =>
 const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleTheme, showMore, profiles, themes, doQuery, toggleMajor, locale }) =>
   <div className="sidebar-group">
     <h3 className="sidebar-title">
-      <ToggleSwitch onChange={e => toggleMajor(e.target.checked)}>
+      <ToggleSwitch initialChecked={false} onChange={e => toggleMajor(e.target.checked)}>
         {T.translate('dashboard.majorText', {context: locale})}
       </ToggleSwitch>
     </h3>
