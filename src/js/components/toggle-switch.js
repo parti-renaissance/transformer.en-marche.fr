@@ -4,17 +4,18 @@ import uniqueId from 'lodash/uniqueId';
 import '../../scss/toggle-switch.css';
 
 export default class ToggleSwitch extends Component {
-  state = { checked: true }
-  
   onChange(e) {
     this.setState({ checked: !this.state.checked });
     this.props.onChange(e);
   }
-  
+
   componentWillMount() {
-    this.setState({id: uniqueId('toggle-switch_')});
+    this.setState({
+      id: uniqueId('toggle-switch_'),
+      checked: this.props.initialChecked
+    });
   }
-  
+
   render() {
     return (
       <div className="toggle-switch">
