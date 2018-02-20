@@ -12,8 +12,8 @@ class LastUpdated extends Component {
 
   render() {
     let { measures: { measures }, className, locale } = this.props;
-    let dates = map(measures, 'formattedUpdatedAt');
-    compact(dates).sort().reverse();
+    let dates = compact(map(measures, 'formattedUpdatedAt'))
+    dates.sort().reverse();
     let diff = moment().diff(dates[0], 'days');
     let unit = 'day';
     if (diff < 1) {
