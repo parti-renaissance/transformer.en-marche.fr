@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { map } from 'lodash';
+import { map, compact } from 'lodash';
 import moment from 'moment-timezone';
 import { connect } from 'react-redux';
 import T from 'i18n-react';
@@ -13,7 +13,7 @@ class LastUpdated extends Component {
   render() {
     let { measures: { measures }, className, locale } = this.props;
     let dates = map(measures, 'formattedUpdatedAt');
-    dates.sort().reverse();
+    compact(dates).sort().reverse();
     let diff = moment().diff(dates[0], 'days');
     let unit = 'day';
     if (diff < 1) {
