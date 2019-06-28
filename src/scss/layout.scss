@@ -7,23 +7,47 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  padding: 0 10%;
+
+  @include mq($medium-and-up) {
+    padding: 0 10%;
+  }
+
+  @include mq($large-and-up) {
+    padding: 0;
+  }
+
+
 }
 
 .header {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   font-size: 20px;
-  padding: 15px;
+  padding: 30px 0px;
   display: flex;
   justify-content: space-between;
-  position: sticky;
+  position: relative;
   top: 0;
   z-index: $zIndex--header;
-
-  border-bottom: 1px solid $blueishgray;
-  background-color: white;
   color: black;
 
   @include mq($medium-and-up) {
     font-size: 28px;
+  }
+
+  &.isSticky {
+    background-color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 30px;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    margin-bottom: 40px;
+    border: solid 1px #e6ecef;
   }
 }
 
@@ -37,8 +61,8 @@
   margin-right: 10px;
 
   &:hover {
-      border: 0;
-      opacity: 0.8;
+    border: 0;
+    opacity: 0.8;
   }
 }
 
@@ -86,7 +110,7 @@
     flex: 1 1 auto;
   }
 
-  > .SocialMediaShareButton {
+  >.SocialMediaShareButton {
     cursor: pointer;
     margin-left: 10px;
 
@@ -170,7 +194,7 @@
   max-width: 800px;
   text-align: center;
 
-  > a {
+  >a {
     color: white;
     border-bottom: 1px solid rgba(white, 0.5);
 
@@ -183,7 +207,7 @@
 .mobile-share {
   position: relative;
 
-  .translate-dropdown + & > .header-button {
+  .translate-dropdown+&>.header-button {
     font-size: 12px;
     padding-left: 10px;
     padding-right: 10px;

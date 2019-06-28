@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="68" height="68" viewBox="0 0 68 68">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="33.6" cy="33.6" r="33.277" fill="#FFF" stroke="#EAEAEA" stroke-width=".646"/>
+    <text fill="#000" font-family="GillSans-BoldItalic, Gill Sans" font-size="22.4" font-style="italic" font-weight="bold" letter-spacing="-.4">
+      <tspan x="12" y="41.8">EM</tspan> <tspan x="47.994" y="41.8">!</tspan>
+    </text>
+  </g>
+</svg>

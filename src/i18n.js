@@ -47,11 +47,15 @@ export default {
       en: "Check out our progress"
     },
     countDownOne: {
-      fr: "Encore ",
-      en: ""
+      fr: "Suivez la",
+      en: "more days to transform France."
     },
     countDownTwo: {
-      fr: "jours pour transformer la France.",
+      fr: " mise en oeuvre ",
+      en: "more days to transform France."
+    },
+    countDownThree: {
+      fr: "du programme",
       en: "more days to transform France."
     },
     measure: {
@@ -83,17 +87,31 @@ export default {
       en: "View all"
     },
     titlePlatform: {
-      fr: "Demandez le programme",
+      fr: "Notre projet national (2017)",
       en: "Emmanuel Macron's Electoral Platform"
     },
     blurbPlatform: {
-      fr: "Ce projet a été construit en 2016-2017 avec plus de 30 000 Françaises et Français de tous milieux sociaux, de tous âges, dans tous les territoires de France, au cours de 3 000 ateliers de nos comités locaux.",
+      fr: "Notre programme national a été construit entre 2016 et 2017 avec plus de 30 000 Françaises et Français de tous milieux sociaux, de tous âges, dans tous les territoires de France, au cours de 3 000 ateliers de nos comités locaux.",
       en: "This project was developed in 2016-2017 with over 30,000 French women and men from all social backgrounds and all age groups, across all French territories, over the course of 3,000 local committee workshops."
     },
     linkPlatform: {
-      fr: "Le programme",
-      en: "The platform"
+      fr: "Programme d’Emmanuel Macron",
+      en: ""
     },
+
+    titleEuropeanProject: {
+      fr:"Notre projet européen (2019)",
+      en:""
+    },
+    blurbEuropeanProject: {
+      fr: "Notre programme européen a été construit en 2016-2017 avec plus de 30 000 Françaises et Français de tous milieux sociaux, de tous âges, dans tous les territoires de France, au cours de 3 000 ateliers de nos comités locaux.",
+      en:""
+    },
+    europeanProjectLink: {
+      fr:"Programme Renaissance",
+      en:""
+    },
+  
     titleNewsletter: {
       fr: "Pour être les premiers informés, inscrivez-vous à la newsletter hebdomadaire du mouvement :",
       en: "Sign up for Our Weekly Newsletter (In French):"
