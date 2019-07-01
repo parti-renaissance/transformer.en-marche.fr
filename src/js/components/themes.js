@@ -20,7 +20,7 @@ import {
 import '../../scss/dropdowns.css';
 import './../../scss/theme.css';
 
-function filterMeasuresForState(measures, {currentTheme, activeProfile, majorOnly, query, locale}) {
+function filterMeasuresForState(measures, {currentTheme, activeProfile, activeManifestos, majorOnly, query, locale}) {
   // the measures from state include add'l metadata like vote status
   // pull those out first, using the give theme's `measureIds` array as reference
   measures = filter(measures, m => currentTheme.measureIds.includes(m.id));
@@ -34,6 +34,11 @@ function filterMeasuresForState(measures, {currentTheme, activeProfile, majorOnl
   // which don't include that profile
   if (activeProfile) {
     measures = filter(measures, m => m.profileIds.includes(activeProfile));
+  }
+
+  // if a manifest is active, filter any measures that aren't linked to that manifesto
+  if (activeManifestos.length) {
+    measures = filter(measures, m => activeManifestos.includes(m.manifestoId));
   }
 
   // if there's a keyword query active, filter according to that
@@ -259,8 +264,8 @@ class ThemeDetail extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let { hit:theme, searchState: { query }, majorOnly, measures, activeProfile, locale } = nextProps;
-    measures = filterMeasuresForState(measures, {currentTheme: theme, activeProfile, majorOnly, query, locale});
+    let { hit:theme, searchState: { query }, majorOnly, measures, activeProfile, activeManifestos, locale } = nextProps;
+    measures = filterMeasuresForState(measures, {currentTheme: theme, activeProfile, activeManifestos, majorOnly, query, locale});
 
     if (!measures) {
       this.setState({ empty: true });
@@ -307,7 +312,8 @@ ThemeDetail = connect(({
   majorOnly,
   locale,
   profiles: { activeProfile },
-  measures: { measures }
-}) => ({ majorOnly, measures, activeProfile, locale}))(connectStateResults(ThemeDetail));
+  measures: { measures },
+  manifestos: { activeManifestos },
+}) => ({ majorOnly, measures, activeProfile, activeManifestos, locale}))(connectStateResults(ThemeDetail));
 
 export { ThemeDetail }
