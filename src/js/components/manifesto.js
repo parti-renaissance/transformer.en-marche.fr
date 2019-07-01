@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux'
-import ReactTooltip from 'react-tooltip';
 import ReactSVG from 'react-svg';
 import Select from 'react-select';
 import map from 'lodash/map';
@@ -35,12 +34,6 @@ export default class ManifestoIcon extends Component {
     const { locale, manifesto: { titles, id} } = this.props;
     return (
       <div className="measure-manifesto" data-tip={titles[locale]}>
-        <ReactTooltip
-          place="top"
-          type="light"
-          effect="solid"
-          className="measure-manifesto__tooltip"
-        />
         <ReactSVG
           className="measure-manifesto__icon"
           path={MANIFESTO_SVGS[id]}

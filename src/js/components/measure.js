@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactTooltip from 'react-tooltip';
 import Collapsible from 'react-collapsible';
 import { connect } from 'react-redux';
 import { ChevronDown, ChevronUp } from 'react-feather';
@@ -168,13 +169,15 @@ class CollapsibleMeasures extends Component {
     let { measures, locale } = this.props;
     return (
       <Collapsible
+       onOpen={ReactTooltip.rebuild}
+       onClose={ReactTooltip.rebuild}
        onOpening={this.onOpen.bind(this)}
        onClosing={this.onClose.bind(this)}
        trigger={<Trigger nodeRef={e => this.trigger = e} count={measures.length - 3} locale={locale}/>}
        classParentString="measure-accordion"
        triggerClassName="measure-accordion__trigger"
        lazyRender={true}
-       >
+      >
         {measures.slice(3).map(measure => <Measure key={measure.id} measure={measure} {...this.props} />)}
       </Collapsible>
     );
@@ -184,6 +187,10 @@ class CollapsibleMeasures extends Component {
 export const NoMeasure = ({theme, locale}) => <T.p className="no-measure" text='measures.nomatch' context={locale} />
 
 class Measures extends Component {
+
+  componentDidUpdate() {
+    ReactTooltip.rebuild();
+  }
 
   render() {
     let { measures, viewAll } = this.props;

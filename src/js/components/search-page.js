@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { InstantSearch } from 'react-instantsearch/dom';
+import ReactTooltip from 'react-tooltip';
 
 import qs from 'qs';
 import { find, filter } from 'lodash';
@@ -133,6 +134,12 @@ class Layout extends Component {
         />
 
         <div className="content">
+          <ReactTooltip
+            place="top"
+            type="light"
+            effect="solid"
+            className="measure-manifesto__tooltip"
+          />
           <Results profiles={profiles.profiles} locale={locale} />
         </div>
 
