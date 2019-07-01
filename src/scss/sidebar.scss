@@ -6,6 +6,14 @@
   background-color: $lightgray;
   padding: 25px 25px 10px 25px;
 
+  &.is-open-banner {
+    margin-top: 92px; // banner height
+
+    @include mq($large-and-up) {
+      margin-top: 0;
+    }
+  }
+
   @include mq($large-and-up) {
     flex-basis: 355px;
     padding: 75px 40px 0;

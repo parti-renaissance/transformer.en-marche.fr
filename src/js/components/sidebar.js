@@ -143,9 +143,9 @@ export default class Sidebar extends Component {
 
   render() {
     let { viewingMore } = this.state;
-    let { location, match, profiles, themes, manifestos, dispatch, locale } = this.props;
+    let { location, match, profiles, themes, manifestos, dispatch, locale, className} = this.props;
     return (
-      <aside className={`sidebar${viewingMore ? ' sidebar-more' : ''}`}>
+      <aside className={`sidebar${viewingMore ? ' sidebar-more' : ''} ${className ? className : ''}`}>
 
         <Media query="(min-width: 800px)">
         {matches =>

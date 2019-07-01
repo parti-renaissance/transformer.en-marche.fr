@@ -1,0 +1,45 @@
+@import "mixins/buttons";
+@import "mixins/vars";
+
+.banner {
+  background-image: linear-gradient(to right, #7181ff, #05bef9);
+
+  position: relative;
+  padding: 16px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.banner-close {
+  @include button-base;
+
+  position: relative;
+  width: 25px;
+  height: 25px;
+
+  svg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+
+    width: 25px;
+    height: 25px;
+
+    fill: white;
+  }
+}
+
+.banner__left {
+  color: white;
+  font-family: $font-roboto;
+  font-size: 14px;
+  font-weight: bold;
+
+  * {
+    color: white;
+  }
+}

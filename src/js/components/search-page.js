@@ -9,6 +9,7 @@ import isEqual from 'lodash/isEqual';
 
 import Sidebar from './sidebar';
 import Results from './results';
+import Banner from './banner';
 
 import { setProfile, toggleThemeFacet, toggleManifestoFacet } from '../actions/search-actions';
 import { getVoteCount } from '../actions/vote-actions';
@@ -20,6 +21,14 @@ const THEME_INDEX = process.env.REACT_APP_ALGOLIA_THEME_INDEX;
 
 
 class Layout extends Component {
+  state = {
+    showBanner: true,
+  }
+
+  closeBanner = () => {
+    this.setState({showBanner: false})
+  }
+
   constructor(props) {
     super(props);
     props.dispatch(getVoteCount());
@@ -100,6 +109,8 @@ class Layout extends Component {
       return true;
     } else if (!isEqual(props.searchState, this.props.searchState)) {
       return true;
+    } else if (state.showBanner !== this.state.showBanner) {
+      return true;
     } else {
       return false;
     }
@@ -131,15 +142,27 @@ class Layout extends Component {
           profiles={profiles.items.map(id => profiles.profiles[id])}
           themes={themes.items.map(id => themes.themes[id])}
           manifestos={manifestos.items.map(id => manifestos.manifestos[id])}
+          className={this.state.showBanner ? 'is-open-banner' : ''}
         />
 
-        <div className="content">
+        <div className={`content ${this.state.showBanner ? 'is-open-banner' : ''}`}>
           <ReactTooltip
             place="top"
             type="light"
             effect="solid"
             className="measure-manifesto__tooltip"
           />
+
+          {this.state.showBanner &&
+            <div className="content__top">
+              <Banner close={this.closeBanner}>
+                <a href="https://chez-vous.en-marche.fr" target="_blank" rel="noopener noreferrer">
+                  Bilan des 2 ans du quinquennat - Consultez ce qui a changé près de chez vous →
+                </a>
+              </Banner>
+            </div>
+          }
+
           <Results profiles={profiles.profiles} locale={locale} />
         </div>
 
