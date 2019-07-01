@@ -8,9 +8,9 @@ export default function measuresReducer(state = {
   measures: {},
   fetching: false,
   fetched: false,
-  error: null  
+  error: null
 }, action) {
-  
+
   switch(action.type) {
     case `${INDEXES}_PENDING`:
       return {...state, fetching: true};
@@ -31,7 +31,7 @@ export default function measuresReducer(state = {
         }), {})
       };
     }
-    
+
     case `${VOTES}_FULFILLED`: {
       let { payload:votes } = action;
       votes = votes.filter(vote => typeof vote.itemId === 'number');
@@ -46,7 +46,7 @@ export default function measuresReducer(state = {
         }
       };
     }
-    
+
     case `${MY_VOTES}_FULFILLED`: {
       let { payload:votes } = action;
       return {
@@ -60,7 +60,7 @@ export default function measuresReducer(state = {
         }
       };
     }
-    
+
     case VOTE_UP:
     case VOTE_DOWN:
     case `${VOTE_DOWN}_PENDING`:
@@ -81,7 +81,7 @@ export default function measuresReducer(state = {
         }
       };
     }
-    
+
     case `${VOTE_UP}_FULFILLED`:
     case `${VOTE_DOWN}_FULFILLED`: {
       let { type, payload: { itemId:id } } = action;
@@ -98,7 +98,7 @@ export default function measuresReducer(state = {
         }
       }
     }
-    
+
     case `${VOTE_UP}_REJECTED`:
     case `${VOTE_DOWN}_REJECTED`: {
       let { measures } = state;
@@ -110,7 +110,7 @@ export default function measuresReducer(state = {
         }), {})
       }
     }
-    
+
     case CLEAR_TOKEN:
       let { measures } = state;
       return {
@@ -120,7 +120,7 @@ export default function measuresReducer(state = {
           [k]: Object.assign({}, measures[k], {isActive: false})
         }), {})
       }
-    
+
     default:
       return state;
   }
