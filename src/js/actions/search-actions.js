@@ -58,7 +58,7 @@ export function toggleTheme({ slugs, isActive, id }, location, match) {
       theme.push(slugs[locale]);
     }
     let query = theme.length ? `?theme=${theme.join(',')}` : ''
-    
+
     dispatch(push(`${match.url}${query}`));
     dispatch(toggleThemeFacet(id));
   }
@@ -71,23 +71,23 @@ export const resetParams = (location, match, type) => {
         dispatch(push(`/${match.params.locale}/results${location.search}`));
         dispatch({ type: 'RESET_PROFILE' });
         break;
-        
+
       case QUERY:
         let { theme = '' } = qs.parse(location.search.slice(1));
         dispatch(push(`${match.url}${theme && `?theme=${theme}`}`));
         dispatch({ type: 'RESET_QUERY' });
         break;
-        
+
       case THEME:
         let { q = '' } = qs.parse(location.search.slice(1));
         dispatch(push(`${match.url}${q && `?q=${q}`}`));
         dispatch({ type: 'RESET_THEME' });
         break;
-      
+
       default:
         dispatch(push(`/${match.params.locale}/results`));
         dispatch({ type: RESET_PARAMS });
     }
-    
+
   }
 };
