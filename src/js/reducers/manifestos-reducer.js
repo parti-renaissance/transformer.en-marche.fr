@@ -36,19 +36,22 @@ export default function manifestosReducer(state = {
 
     case TOGGLE_MANIFESTO_FACET:
       let currentManifestos = state.searchState;
-      let { id, isActive } = state.manifestos[action.payload];
-      let becomingActive = !isActive;
+      let { payload:togglingId } = action;
+      let togglingManifesto = state.manifestos[togglingId];
+
+      let becomingActive = !togglingManifesto.isActive;
+      let { id } = togglingManifesto;
 
       return {
         ...state,
-        themes: Object.assign({}, state.manifestos, {
-          [action.payload]: {
-            ...state.manifestos[action.payload],
+        manifestos: Object.assign({}, state.manifestos, {
+          [id]: {
+            ...togglingManifesto,
             isActive: becomingActive
           }
         }),
         searchState: becomingActive ? [...currentManifestos, id] : without(currentManifestos, id),
-        activeManifestos: becomingActive ? [...state.activeManifestos, action.payload] : without(state.activeManifestos, action.payload)
+        activeManifestos: becomingActive ? [...state.activeManifestos, id] : without(state.activeManifestos, id)
       };
 
     case `RESET_${MANIFESTO}`:
