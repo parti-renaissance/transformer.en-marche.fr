@@ -169,7 +169,7 @@ export const ThemesList = ({ onViewMore, themes, toggleTheme, location, match })
       toggle={theme => toggleTheme(theme, location, match)}>
 
       <li className="refinement-list__item refinement-list__item-more">
-        <FilterButton onClick={onViewMore} style={{backgroundColor: 'rgba(111, 129, 255, .5)', color: 'white'}}>
+        <FilterButton onClick={onViewMore}>
           {T.translate('measures.allthemes', {context: match.params.locale})}
         </FilterButton>
       </li>

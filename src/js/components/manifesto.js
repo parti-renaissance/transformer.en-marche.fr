@@ -129,13 +129,19 @@ class ManifestoListItem extends Component {
   render() {
     let { props, state } = this;
     return (
-      <li className={`refinement-list__item ${props.className || ''}`} style={state.style}>
+      <li className="refinement-list__item refinement-list__item--manifesto" style={state.style}>
         {props.children ||
-          <FilterButton
-           label={props.manifesto.titles[props.locale]}
-           isActive={props.manifesto.isActive}
-           onClick={props.refine}
-           buttonRef={e => this.button = e} />}
+          (<FilterButton
+            isActive={props.manifesto.isActive}
+            onClick={props.refine}
+            buttonRef={e => this.button = e}>
+            <ReactSVG
+              className="measure-manifesto__icon"
+              path={MANIFESTO_SVGS[props.manifesto.id]}
+            />
+            <span>{props.manifesto.titles[props.locale]}</span>
+          </FilterButton>
+         )}
       </li>
     )
   }

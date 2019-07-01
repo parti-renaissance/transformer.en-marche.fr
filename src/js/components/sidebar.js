@@ -27,7 +27,7 @@ import 'react-select/dist/react-select.css';
 
 export const FilterButton = ({isActive, label, onClick, style, buttonRef, children}) =>
   <button
-   className={`filter-button ${isActive && 'is-active'}`}
+   className={`filter-button ${isActive ? 'is-active' : ''}`}
    onClick={onClick}
    style={style}
    ref={buttonRef}>
