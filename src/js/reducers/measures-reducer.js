@@ -11,7 +11,7 @@ function findManifesto(manifestos, id) {
     descriptions = {},
   } = arrayFind(manifestos, ['id', id]) || {};
 
-  return { titles, descriptions };
+  return { titles, descriptions, id };
 }
 
 export default function measuresReducer(state = {
