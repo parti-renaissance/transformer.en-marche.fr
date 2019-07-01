@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux'
 import ReactTooltip from 'react-tooltip';
 import ReactSVG from 'react-svg';
+import Select from 'react-select';
 import map from 'lodash/map';
 import filter from 'lodash/filter';
+import isEqual from 'lodash/isEqual';
+import T from 'i18n-react';
 import { connectMenu } from 'react-instantsearch/connectors';
 
 import { FilterButton } from './sidebar';
 
 import {
-  toggleManifesto,
+  toggleManifestoFacet,
+  resetParams,
+  MANIFESTO,
 } from '../actions/search-actions';
 
 const rootPath = process.env.REACT_APP_ROOT_PATH || ''; // for access assets when running on a nested path, i.e. github pages
@@ -142,6 +149,76 @@ class ManifestoListItem extends Component {
 }
 
 
-export class ManifestoDropdown extends Component {
+class ManifestoDropdown extends Component {
+  state = {}
+
+  constructor(props) {
+    super(props);
+
+    if (props.activeManifestos.length && props.manifestos.length) {
+      let active = props.manifestos[props.activeManifestos[0]];
+      this.state = {
+        value: active.id,
+        label: active.titles[props.locale],
+      }
+    }
+  }
+
+  componentWillReceiveProps({ activeManifestos:nextManifestos, manifestos }) {
+    let { activeManifestos, locale } = this.props;
+    if (!nextManifestos.length) {
+      this.setState({ value: null, label: null })
+    } else if (!isEqual(nextManifestos, activeManifestos)){
+      let active = manifestos[activeManifestos[0]];
+      if (active) {
+        this.setState({
+          value: active.id,
+          label: active.titles[locale]
+        });
+      }
+    }
+  }
+
+  handleChange(selected) {
+    let { toggleManifesto, manifestos, match, location, locale, push, resetParams } = this.props;
+    let manifesto = manifestos[selected.value];
+
+    this.setState(selected);
+    resetParams(location, match, MANIFESTO);
+    push(`${match.url}?manifesto=${manifesto.slugs[locale]}`);
+    toggleManifesto(manifesto.id);
+  }
+
+  render() {
+    return <Select
+            className="theme-dropdown"
+            placeholder={T.translate('browse.filterManifesto', {context: this.props.locale})}
+            searchable={false}
+            clearable={false}
+            value={this.state.value}
+            options={this.props.manifestoOptions}
+            onChange={this.handleChange.bind(this)}
+          />
+  }
 
 }
+
+ManifestoDropdown = connectMenu(ManifestoDropdown);
+
+ManifestoDropdown = connect(({
+  locale,
+  manifestos: { manifestos, items, activeManifestos },
+}) => ({
+  manifestoOptions: items.map(id => ({
+    label: manifestos[id].titles[locale], value: id,
+  })).sort((a, b) => a.label.localeCompare(b.label)),
+  manifestos,
+  activeManifestos,
+  locale,
+}), dispatch => ({
+  push: url => dispatch(push(url)),
+  toggleManifesto: manifesto => dispatch(toggleManifestoFacet(manifesto)),
+  resetParams: (...args) => dispatch(resetParams(...args)),
+}))(ManifestoDropdown);
+
+export { ManifestoDropdown };

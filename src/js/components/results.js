@@ -55,11 +55,11 @@ class ResultsList extends Component {
 ResultsList = connectHits(ResultsList);
 
 class Results extends Component {
-  shouldComponentUpdate({searchState: {menu:nextMenu, refinementList:nextList}, profiles:nextProfiles}) {
+  shouldComponentUpdate({searchState: {menu:nextMenu, refinementList:nextList = {}}, profiles:nextProfiles}) {
     if (typeof nextMenu === 'undefined' || typeof this.props.searchState.menu === 'undefined') {
       return false;
     }
-    let { searchState: {menu, refinementList}, profiles, locale } = this.props;
+    let { searchState: {menu, refinementList = {}}, profiles, locale } = this.props;
 
     if (menu.profileIds !== nextMenu.profileIds ||
         !isEqual(refinementList[`titles.${locale}`], nextList[`titles.${locale}`]) ||
@@ -72,7 +72,7 @@ class Results extends Component {
 
   render() {
     let { searchState: {menu = {}, refinementList = {}}, profiles = {}, locale } = this.props;
-    let isFiltering = !!refinementList[`titles.${locale}`].length;
+    let isFiltering = refinementList[`titles.${locale}`] ? !!refinementList[`titles.${locale}`].length : false;
     return (
       <div className="results">
         <Profile profileId={menu.profileIds} profiles={profiles} locale={locale} />

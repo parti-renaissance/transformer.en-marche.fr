@@ -178,23 +178,16 @@ export const ThemesList = ({ onViewMore, themes, toggleTheme, location, match })
   </ul>
 
 class ThemesDropdown extends Component {
+  state = {}
+
   constructor(props) {
     super(props);
     if (props.activeThemes.length && props.themes.length) {
       let active = props.themes[props.activeThemes[0]]
       this.state = {
-        value: {
-          value: active.id,
-          label: active.titles[props.locale]
-        }
+        value: active.id,
+        label: active.titles[props.locale]
       }
-    }
-  }
-
-  state = {
-    value: {
-      value: this.props.activeThemes[0],
-      lable: this.props.themes
     }
   }
 
@@ -206,10 +199,8 @@ class ThemesDropdown extends Component {
       let active = themes[nextThemes[0]];
       if (active) {
         this.setState({
-          value: {
-            value: active.id,
-            label: active.titles[locale]
-          }
+          value: active.id,
+          label: active.titles[locale]
         });
       }
     }

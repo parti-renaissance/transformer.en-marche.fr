@@ -42,6 +42,8 @@ const MobileSidebar = ({ location, match, resetParams, toggleMajor, locale }) =>
       </ToggleSwitch>
     </h3>
 
+    <ManifestoDropdown attributeName="manifestoIds" locattion={location} match={match} />
+
     <ThemesDropdown
       attributeName={`titles.${match.params.locale}`}
       location={location}
