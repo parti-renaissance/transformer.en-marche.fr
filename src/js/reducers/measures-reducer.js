@@ -2,13 +2,14 @@ import { INDEXES } from '../actions/data-actions';
 import { VOTES, MY_VOTES, VOTE_UP, VOTE_DOWN } from '../actions/vote-actions';
 import { CLEAR_TOKEN } from '../actions/auth-actions';
 import map from 'lodash/map';
-import find from 'lodash/find';
+import arrayFind from 'lodash/find';
+
 
 function findManifesto(manifestos, id) {
   const {
     titles = {},
     descriptions = {},
-  } = find(manifestos, 'id', id) || {};
+  } = arrayFind(manifestos, ['id', id]) || {};
 
   return { titles, descriptions };
 }
