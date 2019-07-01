@@ -2,6 +2,16 @@ import { INDEXES } from '../actions/data-actions';
 import { VOTES, MY_VOTES, VOTE_UP, VOTE_DOWN } from '../actions/vote-actions';
 import { CLEAR_TOKEN } from '../actions/auth-actions';
 import map from 'lodash/map';
+import find from 'lodash/find';
+
+function findManifesto(manifestos, id) {
+  const {
+    titles = {},
+    descriptions = {},
+  } = find(manifestos, 'id', id) || {};
+
+  return { titles, descriptions };
+}
 
 export default function measuresReducer(state = {
   items: [],
@@ -19,7 +29,7 @@ export default function measuresReducer(state = {
       return {...state, fetching: false, error: action.payload};
 
     case `${INDEXES}_FULFILLED`: {
-      let { measures } = action.payload;
+      let { measures, manifestos } = action.payload;
       return {
         ...state,
         fetching: false,
@@ -27,7 +37,9 @@ export default function measuresReducer(state = {
         items: map(measures, 'id'),
         measures: measures.reduce((s, m) => ({
           ...s,
-          [m.id]: Object.assign({}, m, state.measures[m.id])
+          [m.id]: Object.assign({
+            manifesto: findManifesto(manifestos, m.manifestoId),
+          }, m, state.measures[m.id])
         }), {})
       };
     }
