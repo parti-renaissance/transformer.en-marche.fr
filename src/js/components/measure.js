@@ -7,6 +7,7 @@ import T from 'i18n-react';
 
 import '../../scss/measure.css';
 import VoteButton from './vote-button';
+import ManifestoIcon from './manifesto';
 import { voteUp, voteDown } from '../actions/vote-actions';
 
 const { FacebookShareButton, TwitterShareButton } = ShareButtons;
@@ -103,16 +104,21 @@ export class Measure extends Component {
     let { isActive } = this.state;
     return (
       <div className="measure-wrapper">
+
         <LinkOrDiv
          locale={locale}
          link={measure.link}
          className={`measure-body ${slugify(measure.status)} is-major`}>
+
+          <ManifestoIcon manifesto={measure.manifesto} locale={locale} />
+
           <div className="measure-status">
             {STATUS_MAP({locale, status: measure.status})}
           </div>
           <div className="measure-name">
             {measure.titles[locale]}
           </div>
+
         </LinkOrDiv>
 
         { this.state.pending
