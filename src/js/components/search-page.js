@@ -148,7 +148,7 @@ export default connect(({profiles, themes, manifestos, query, locale}) => ({
   query,
   locale,
   searchState: {
-    menu: {profileIds: profiles.searchState},
+    menu: {profileIds: profiles.searchState, manifestoIds: manifestos.searchState},
     query: query,
     refinementList: {
       [`titles.${locale}`]: themes.searchState.map(id => themes.themes[id].titles[locale])
