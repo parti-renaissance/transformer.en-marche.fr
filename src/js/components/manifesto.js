@@ -57,21 +57,17 @@ export const ManifestoList = ({ manifestos, toggleManifesto, location, match }) 
 
 class ManifestoFilters extends Component {
   state = {
-    activeManifestos: [],
+    visibleManifestos: [],
   }
 
-  createListItems = this.createListItems.bind(this)
-
   shouldComponentUpdate(props) {
-    let {
-      activeManifestos:nextActive,
-    } = this.filterManifestos(props.manifestos, props.items, props.locale);
+    let nextVisibleManifestos = this.filterManifestos(props.manifestos, props.items, props.locale);
 
     let {
-      activeManifestos,
+      visibleManifestos,
     } = this.state;
 
-    if (nextActive.length !== activeManifestos.length ||
+    if (nextVisibleManifestos.length !== visibleManifestos.length ||
         props.locale !== this.props.locale) {
           return true;
         } else {
@@ -83,29 +79,24 @@ class ManifestoFilters extends Component {
     this.setState(this.filterManifestos(manifestos, items, locale));
   }
 
-  filterManifestos(manifestos, themes, locale) {
+  filterManifestos(manifestos, items, locale) {
     manifestos.sort((a, b) => a.titles[locale].localeCompare(b.titles[locale]));
-    let filteredLabels = map(themes, 'label')
-    let filtered = filter(manifestos, t => filteredLabels.includes(t.titles[locale]));
+    let filteredLabels = map(items, 'label')
+    let visibleManifestos = filter(manifestos, m => filteredLabels.includes(String(m.id)));
 
-    return {
-      activeManifestos: filter(filtered, 'isActive'),
-    };
-  }
-
-  createListItems(manifesto) {
-    return <ManifestoListItem
-            locale={this.props.locale}
-            manifesto={manifesto}
-            key={manifesto.id}
-            refine={() => this.props.toggle(manifesto)} />
+    return { visibleManifestos };
   }
 
   render() {
-    let { activeManifestos } = this.state;
+    let { visibleManifestos } = this.state;
 
-    return activeManifestos.map(this.createListItems)
-      .concat(this.props.children);
+    return visibleManifestos.map(manifesto =>
+      <ManifestoListItem
+        locale={this.props.locale}
+        manifesto={manifesto}
+        key={manifesto.id}
+        refine={() => this.props.toggle(manifesto)} />
+    );
   }
 }
 
