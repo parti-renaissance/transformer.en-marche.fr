@@ -199,7 +199,7 @@
   border: 1px solid $blueishgray;
   border-radius: 3px;
   display: block;
-  
+
   .is-major + & {
     bottom: 20px;
     right: 20px;
@@ -215,7 +215,7 @@
       right: 25px;
     }
   }
-  
+
   &:before {
     content: '';
     display: block;
@@ -230,7 +230,7 @@
     bottom: 0;
     left: 0;
     margin: auto;
-    
+
     animation-name: spin;
     animation-duration: 500ms;
     animation-timing-function: ease-in-out;
@@ -321,5 +321,5 @@
   to {
     transform: rotate(360deg);
   }
-  
+
 }
