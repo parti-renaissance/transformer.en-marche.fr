@@ -28,7 +28,6 @@
 .measure-body {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
   min-height: 40px;
 
@@ -69,11 +68,17 @@
 
 .measure-status {
   font-size: 0;
-  width: 100%;
-  flex-shrink: 0;
-  flex-basis: 75px;
+  padding: 6px 12px;
+  min-width: 75px;
   margin-right: 25px;
   transition: background-color 125ms ease, color 125ms ease, border-color 125ms ease;
+
+  @include mq($medium-and-up) {
+    min-width: none;
+    width: 100%;
+    flex-shrink: 0;
+    flex-basis: 75px;
+  }
 
   &:before {
     content: '';
@@ -100,7 +105,6 @@
     font-family: $font-roboto;
     font-size: 14px;
     color: $gray;
-    padding: 5px;
     border-radius: 38px;
     text-align: center;
 
@@ -156,6 +160,37 @@
     flex-basis: auto;
     margin-bottom: 0;
   }
+}
+
+.measure-manifesto {
+  margin-right: 12px;
+  position: relative;
+
+  // compensate for double divs rendered by react-svg
+  // since the svg has known dimensions, force the layout
+  width: 26px;
+  height: 26px;
+
+  @include mq($medium-and-up) {
+    margin-right: 16px;
+  }
+
+  svg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+
+    width: 26px;
+    height: 26px;
+
+    cursor: pointer;
+  }
+}
+
+.measure-manifesto__tooltip {
+  background-color: white;
+  box-shadow: 0 2px 4px 0 rgba(black, 0.04);
 }
 
 .measure-vote {
