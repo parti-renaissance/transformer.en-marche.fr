@@ -9,7 +9,7 @@ import isEqual from 'lodash/isEqual';
 import Sidebar from './sidebar';
 import Results from './results';
 
-import { setProfile, toggleThemeFacet } from '../actions/search-actions';
+import { setProfile, toggleThemeFacet, toggleManifestoFacet } from '../actions/search-actions';
 import { getVoteCount } from '../actions/vote-actions';
 import { setLocale } from '../actions/translate-actions';
 
@@ -52,6 +52,21 @@ class Layout extends Component {
     }
   }
 
+  syncForManifesto(nextProps) {
+    let {
+      manifestos,
+      location,
+      dispatch,
+      match: { params: { locale }},
+    } = nextProps;
+    let { manifesto = '' } = qs.parse(location.search.slice(1));
+    let foundManifestos = filter(manifestos.manifestos, m => manifesto.split(',').includes(m.slugs[locale]))
+
+    if (manifesto) {
+      foundManifestos.forEach(({ id }) => dispatch(toggleManifestoFacet(id)));
+    }
+  }
+
   syncForLocale() {
     let { dispatch, locale, location, match: { params } } = this.props;
     // if locale from state does not match locale from url
@@ -65,8 +80,11 @@ class Layout extends Component {
     if (this.props.themes.fetched !== nextProps.themes.fetched)  {
       this.syncForTheme(nextProps);
     }
-    if (this.props.profiles.fetched !== nextProps.themes.fetched) {
+    if (this.props.profiles.fetched !== nextProps.profiles.fetched) {
       this.syncForProfile(nextProps);
+    }
+    if (this.props.manifestos.fetched !== nextProps.manifestos.fetched) {
+      this.syncForManifesto(nextProps);
     }
 
     this.syncForLocale();
@@ -75,7 +93,9 @@ class Layout extends Component {
   shouldComponentUpdate(props, state) {
     if (props.profiles.fetching !== this.props.profiles.fetching)  {
       return true;
-    } else if (props.themes.fetching !== this.props.profiles.fetching) {
+    } else if (props.themes.fetching !== this.props.themes.fetching) {
+      return true;
+    } else if (props.manifestos.fetching !== this.props.manifestos.fetching) {
       return true;
     } else if (!isEqual(props.searchState, this.props.searchState)) {
       return true;
@@ -92,6 +112,7 @@ class Layout extends Component {
       searchState,
       profiles,
       themes,
+      manifestos,
       locale,
     } = this.props;
     return (
@@ -108,6 +129,7 @@ class Layout extends Component {
           dispatch={dispatch}
           profiles={profiles.items.map(id => profiles.profiles[id])}
           themes={themes.items.map(id => themes.themes[id])}
+          manifestos={manifestos.items.map(id => manifestos.manifestos[id])}
         />
 
         <div className="content">
@@ -119,7 +141,8 @@ class Layout extends Component {
   }
 };
 
-export default connect(({profiles, themes, query, locale}) => ({
+export default connect(({profiles, themes, manifestos, query, locale}) => ({
+  manifestos,
   profiles,
   themes,
   query,

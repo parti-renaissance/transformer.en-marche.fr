@@ -3,6 +3,7 @@ import without from 'lodash/without';
 import { push } from 'react-router-redux'
 
 export const TOGGLE_THEME_FACET = 'TOGGLE_THEME_FACET';
+export const TOGGLE_MANIFESTO_FACET = 'TOGGLE_MANIFESTO_FACET';
 export const UPDATE_QUERY = 'UPDATE_QUERY';
 export const UNSET_PROFILE = 'UNSET_PROFILE';
 export const SET_PROFILE = 'SET_PROFILE';
@@ -11,6 +12,7 @@ export const DO_QUERY = 'DO_QUERY';
 export const RESET_PARAMS = 'RESET_PARAMS';
 export const QUERY = 'QUERY';
 export const THEME = 'THEME';
+export const MANIFESTO = 'MANIFESTO';
 export const PROFILE = 'PROFILE';
 export const TOGGLE_MAJOR = 'TOGGLE_MAJOR';
 
@@ -61,6 +63,28 @@ export function toggleTheme({ slugs, isActive, id }, location, match) {
 
     dispatch(push(`${match.url}${query}`));
     dispatch(toggleThemeFacet(id));
+  }
+}
+
+export const toggleManifestoFacet = manifesto => ({
+  type: TOGGLE_MANIFESTO_FACET,
+  payload: manifesto,
+});
+
+export function toggleManifesto({ slugs, isActive, id}, location, match) {
+  return dispatch => {
+    let { locale } = match.params;
+    let { manifesto = '' } = qs.parse(location.search.slice(1));
+    manifesto = manifesto ? manifesto.split(',') : [];
+    if (isActive) {
+      manifesto = without(manifesto, slugs[locale]);
+    } else {
+      manifesto.push(slugs[locale]);
+    }
+    let query = manifesto.length ? `?manifesto=${manifesto.join(',')}` : ''
+
+    dispatch(push(`${match.url}${query}`));
+    dispatch(toggleManifestoFacet(id));
   }
 }
 

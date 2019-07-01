@@ -8,11 +8,13 @@ import ToggleSwitch from './toggle-switch';
 import LastUpdated from './last-updated';
 import { ThemesList, ThemesDropdown } from './themes';
 import { Profiles, ProfilesDropdown } from './profiles';
+import { ManifestoList, ManifestoDropdown } from './manifesto';
 import {
   toggleMajor,
   doQuery,
   toggleProfile,
   toggleTheme,
+  toggleManifesto,
   resetParams,
   QUERY,
   THEME,
@@ -66,13 +68,24 @@ const MobileSidebar = ({ location, match, resetParams, toggleMajor, locale }) =>
   </div>
 
 
-const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleTheme, showMore, profiles, themes, doQuery, toggleMajor, locale }) =>
+const DesktopSidebar = ({ resetParams, location, match, toggleProfile, toggleTheme, toggleManifesto, showMore, profiles, themes, manifestos, doQuery, toggleMajor, locale }) =>
   <div className="sidebar-group">
     <h3 className="sidebar-title">
       <ToggleSwitch initialChecked={false} onChange={e => toggleMajor(e.target.checked)}>
         {T.translate('dashboard.majorText', {context: locale})}
       </ToggleSwitch>
     </h3>
+
+    <h3 className="sidebar-title">
+      {T.translate('browse.filterManifesto', {context: locale})}
+    </h3>
+
+    <ManifestoList
+      manifestos={manifestos}
+      location={location}
+      match={match}
+      toggleManifesto={toggleManifesto} />
+
     <h3 className="sidebar-title">
       {T.translate('browse.filterTheme', {context: locale})}
     </h3>
@@ -128,7 +141,7 @@ export default class Sidebar extends Component {
 
   render() {
     let { viewingMore } = this.state;
-    let { location, match, profiles, themes, dispatch, locale } = this.props;
+    let { location, match, profiles, themes, manifestos, dispatch, locale } = this.props;
     return (
       <aside className={`sidebar${viewingMore ? ' sidebar-more' : ''}`}>
 
@@ -141,9 +154,11 @@ export default class Sidebar extends Component {
              match={match}
              profiles={profiles}
              themes={themes}
+             manifestos={manifestos}
              showMore={this.seeMoreRefinements.bind(this)}
              toggleTheme={(...args) => dispatch(toggleTheme(...args))}
              toggleProfile={(...args) => dispatch(toggleProfile(...args))}
+             toggleManifesto={(...args) => dispatch(toggleManifesto(...args))}
              doQuery={(...args) => dispatch(doQuery(...args))}
              resetParams={(...args) => dispatch(resetParams(...args))}
              toggleMajor={checked => dispatch(toggleMajor(checked))}

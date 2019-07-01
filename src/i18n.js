@@ -104,6 +104,10 @@ export default {
     }
   },
   browse: {
+    filterManifesto: {
+      fr: "Filtrer par programme",
+      en: "Filter by manifesto",
+    },
     filterTheme: {
       fr: "Filtrer par thème",
       en: "Filter by theme"
