@@ -24,6 +24,7 @@ import '../../scss/dashboard.css';
 
 const END_OF_TERM = '2022-05-13';
 const START_OF_TERM = '2017-05-14';
+const PRESIDENTIAL_MANIFESTO = 2;
 
 const rootPath = process.env.REACT_APP_ROOT_PATH || ''; // for access assets when running on a nested path, i.e. github pages
 const MAILCHIMP_ACTION = process.env.REACT_APP_MAILCHIMP_ACTION;
@@ -115,6 +116,7 @@ class PieChart extends Component {
     if (majorOnly) {
       measures = filter(measures, 'major');
     }
+    measures = filter(measures, ['manifestoId', PRESIDENTIAL_MANIFESTO]);
     measures = countBy(measures, 'status');
     return (
       <div className="pie-chart">
