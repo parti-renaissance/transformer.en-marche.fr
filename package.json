@@ -2,7 +2,7 @@
   "name": "gov-timeline",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://enmarche.github.io/transformer.en-marche.fr",
+  "homepage": "",
   "dependencies": {
     "gh-pages": "^1.1.0",
     "history": "^4.7.2",
