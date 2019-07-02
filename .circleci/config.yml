@@ -52,6 +52,7 @@ commands:
       - run:
           name: "build app"
           command: |
+            env | sed -n "s/^${ENV}_//p" >> .env
             yarn build
 
 
