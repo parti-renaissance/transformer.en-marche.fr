@@ -1,50 +1,112 @@
-machine:
-    node:
-        version: 8.5.0
-    environment:
-        YARN_VERSION: 1.0.2
-        PATH: "${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
-    services:
-        - docker
+---
+version: 2.1
+templates:
+  defaults: &defaults
+    docker:
+      - image: circleci/node:10-browsers
 
-dependencies:
-    cache_directories:
-        - ~/.yarn
-        - ~/.cache/yarn
-    pre:
-        - |
-            if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}" ]]; then
-              curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+  node_key: &node_key
+    key: node-deps-{{ checksum "yarn.lock" }}-{{ checksum "circle.yml" }}
+
+  restore_node: &restore_node
+    restore_cache:
+      <<: *node_key
+
+  deploy_static: &deploy_static
+    <<: *defaults
+    steps:
+      - checkout
+      - <<: *restore_node
+      - deploy:
+          name: Deploy to Gcloud
+          command: |
+            TAG=${$CIRCLE_TAG:-$CIRCLE_SHA1}
+
+            sed -i 's/https:\/\/enmarche.github.io\/gov-timeline//g' package.json
+            env | sed -n "s/^${ENV}_//p" >> .env
+            bash ./scripts/build.sh $TAG
+
+            sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update kubectl
+            sudo /opt/google-cloud-sdk/bin/gcloud container clusters get-credentials $PRODUCTION_GCLOUD_CLUSTER --project $GCLOUD_PROJECT --zone europe-west1-d
+            sudo GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcloud-service-key.json /opt/google-cloud-sdk/bin/kubectl set image deployment/prod-gov-timeline gov-timeline=eu.gcr.io/$GCLOUD_PROJECT/gov-timeline:$TAG
+
+  deploy_dev: &deploy_dev
+    <<: *defaults
+    steps:
+      - checkout
+      - <<: *restore_node
+      - add_ssh_keys:
+          fingerprints:
+            - "c7:b5:c4:c5:4a:4b:5d:4e:42:b6:f9:53:fa:38:36:23"
+      - deploy:
+          name: Deploy to GitHub Pages
+          command: |
+            git config --global user.email "deploy@circleci"
+            git config --global user.name "deploy bot"
+            env | sed -n "s/^DEV_//p" >> .env
+            yarn deploy
+
+
+  filter_demo: &filter_demo
+    filters:
+      branches:
+        only: master
+      tags:
+        only: demo
+
+  filter_prod: &filter_prod
+    filters:
+      branches:
+        ignore: /.*/
+      tags:
+        only: /^v[0-9]+\.[0-9]+\.[0-9]+/
+
+jobs:
+  build-static:
+    <<: *defaults
+    steps:
+      - checkout
+
+      - <<: *restore_node
+      - run:
+          name: Install node dependencies
+          command: |
+            if [ ! -d node_modules ]; then
+              yarn --pure-lockfile
             fi
-    override:
-        - yarn install
+      - save_cache:
+          <<: *node_key
+          paths:
+            - node_modules
 
-test:
-    override:
-        - echo "no test right now"
+  deploy-static-demo:
+    environment:
+      ENV: DEMO
+    <<: *deploy_static
 
-deployment:
-    production:
-        tag: /v[0-9]+(\.[0-9]+)*/
-        owner: EnMarche
-        commands:
-            - sed -i 's/https:\/\/enmarche.github.io\/gov-timeline//g' package.json
-            - env | sed -n 's/^PROD_//p' >> .env
-            - bash ./scripts/build.sh $CIRCLE_TAG
+  deploy-static-prod:
+    environment:
+      ENV: PROD
+    <<: *deploy_static
 
-            # Deploy
-            - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update kubectl
-            - sudo /opt/google-cloud-sdk/bin/gcloud container clusters get-credentials $PRODUCTION_GCLOUD_CLUSTER --project $GCLOUD_PROJECT --zone europe-west1-d
-            - sudo GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcloud-service-key.json /opt/google-cloud-sdk/bin/kubectl set image deployment/prod-gov-timeline gov-timeline=eu.gcr.io/$GCLOUD_PROJECT/gov-timeline:$CIRCLE_TAG
-    staging:
-        branch: staging
-        owner: EnMarche
-        commands:
-            - sed -i 's/https:\/\/enmarche.github.io\/gov-timeline//g' package.json
-            - env | sed -n 's/^DEMO_//p' >> .env
-            - bash ./scripts/build.sh $CIRCLE_SHA1
+  deploy-static-dev:
+    <<: *deploy_dev
 
-            # Deploy
-            - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update kubectl
-            - sudo /opt/google-cloud-sdk/bin/gcloud container clusters get-credentials $STAGING_GCLOUD_CLUSTER --project $GCLOUD_PROJECT --zone europe-west1-d
-            - sudo GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcloud-service-key.json /opt/google-cloud-sdk/bin/kubectl set image deployment/staging-gov-timeline gov-timeline=eu.gcr.io/$GCLOUD_PROJECT/gov-timeline:$CIRCLE_SHA1
+workflows:
+  deploy-demo:
+    jobs:
+      - build-static:
+          <<: *filter_demo
+      - deploy-static-dev:
+          <<: *filter_demo
+          requires:
+            - build-static
+
+  deploy-prod:
+    jobs:
+      - build-static:
+          <<: *filter_prod
+      - deploy-static-prod:
+          <<: *filter_prod
+          requires:
+            - build-static
