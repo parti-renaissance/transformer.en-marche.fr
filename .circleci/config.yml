@@ -3,7 +3,7 @@ version: 2
 templates:
   defaults: &defaults
     docker:
-      - image: circleci/node:10-browsers
+      - image: google/cloud-sdk
 
   node_key: &node_key
     key: node-deps-{{ checksum "yarn.lock" }}-{{ checksum ".circleci/config.yml" }}
@@ -20,15 +20,10 @@ templates:
       - deploy:
           name: Deploy to Gcloud
           command: |
-            TAG=${CIRCLE_TAG:-$CIRCLE_SHA1}
 
             sed -i 's/https:\/\/enmarche.github.io\/gov-timeline//g' package.json
             env | sed -n "s/^${ENV}_//p" >> .env
             bash ./scripts/build.sh $TAG
-
-            sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update kubectl
-            sudo /opt/google-cloud-sdk/bin/gcloud container clusters get-credentials $PRODUCTION_GCLOUD_CLUSTER --project $GCLOUD_PROJECT --zone europe-west1-d
-            sudo GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcloud-service-key.json /opt/google-cloud-sdk/bin/kubectl set image deployment/prod-gov-timeline gov-timeline=eu.gcr.io/$GCLOUD_PROJECT/gov-timeline:$TAG
 
   deploy_dev: &deploy_dev
     <<: *defaults
