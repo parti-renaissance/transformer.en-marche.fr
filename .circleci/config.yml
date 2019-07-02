@@ -14,14 +14,35 @@ templates:
 
   deploy_static: &deploy_static
     <<: *defaults
+    parameters:
+      bucket:
+        description: "URL of the Google storage bucket the app is deployed to"
+        type: string
     steps:
       - checkout
       - <<: *restore_node
-      - deploy:
-          name: Deploy to Gcloud
+      - run:
+          name: Build application
           command: |
             env | sed -n "s/^${ENV}_//p" >> .env
-            bash ./scripts/build.sh $TAG
+            yarn build
+      - run:
+          name: Install GCloud SDK
+          command: |
+            curl -sSL https://sdk.cloud.google.com > /tmp/gcl && bash /tmp/gcl --disable-prompts
+            ~/google-cloud-sdk/install.sh --usage-reporting=false --path-update=true --bash-completion=true --rc-path=~/.bashrc
+            sudo ln -s ~/google-cloud-sdk/bin/gcloud /usr/bin
+            sudo ln -s ~/google-cloud-sdk/bin/gsutil /usr/bin
+      - run:
+          name: Authenticate GCloud SDK
+          command: |
+            echo "${GCLOUD_SERVICE_KEY}" | base64 --decode > $HOME/gcloud-service-key.json
+            gcloud auth activate-service-account --key-file $HOME/gcloud-service-key.json
+            gcloud config set project $GCLOUD_PROJECT
+      - deploy:
+          name: Deploy to Google Storage
+          command: |
+            gsutil rsync -R build << parameters.bucket >>
 
   deploy_dev: &deploy_dev
     <<: *defaults
@@ -94,6 +115,7 @@ workflows:
           <<: *filter_demo
       - deploy-static-demo:
           <<: *filter_demo
+          bucket: gs://staging-transformer.en-marche.fr
           requires:
             - build-static
 
@@ -103,5 +125,6 @@ workflows:
           <<: *filter_prod
       - deploy-static-prod:
           <<: *filter_prod
+          bucket: gs://transformer.en-marche.fr
           requires:
             - build-static
