@@ -97,7 +97,7 @@ workflows:
     jobs:
       - build-static:
           <<: *filter_demo
-      - deploy-static-dev:
+      - deploy-static-demo:
           <<: *filter_demo
           requires:
             - build-static
