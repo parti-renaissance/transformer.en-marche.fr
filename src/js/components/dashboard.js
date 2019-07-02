@@ -20,7 +20,6 @@ import Subscribe from './subscribe';
 import ToggleSwitch from './toggle-switch';
 
 import '../../scss/dashboard.css';
-import macron from '../../images/cover-program.png';
 
 
 const END_OF_TERM = '2022-05-13';

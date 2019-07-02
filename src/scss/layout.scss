@@ -12,13 +12,7 @@
 }
 
 .header {
-  width: 100%;
-  max-width: 1230px;
-  margin: 0 auto;
   font-size: 20px;
-  padding: 15px;
-  display: flex;
-  justify-content: space-between;
   position: sticky;
   top: 0;
   z-index: $zIndex--header;
@@ -30,8 +24,27 @@
     font-size: 28px;
   }
 
+  &__wrapper {
+    width: 100%;
+    padding: 15px;
+
+    display: flex;
+    justify-content: space-between;
+
+    @include mq($large-and-up) {
+      padding: 15px 40px;
+    }
+  }
+
   .Page__dashboard > & {
     background-color: $bluewhite;
+
+    .header__wrapper {
+      max-width: 1230px;
+      margin: 0 auto;
+
+      padding: 15px 20px;
+    }
   }
 }
 
