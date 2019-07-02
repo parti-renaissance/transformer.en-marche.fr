@@ -20,8 +20,6 @@ templates:
       - deploy:
           name: Deploy to Gcloud
           command: |
-
-            sed -i 's/https:\/\/enmarche.github.io\/gov-timeline//g' package.json
             env | sed -n "s/^${ENV}_//p" >> .env
             bash ./scripts/build.sh $TAG
 
@@ -36,6 +34,7 @@ templates:
       - deploy:
           name: Deploy to GitHub Pages
           command: |
+            sed -i 's/"homepage": ""/"homepage": "https:\/\/enmarche.github.io\/transformer.en-marche.fr"/' package.json
             git config --global user.email "deploy@circleci"
             git config --global user.name "deploy bot"
             env | sed -n "s/^DEV_//p" >> .env
