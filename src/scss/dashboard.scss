@@ -105,7 +105,7 @@
 .dashboard-body {
   position: relative;
   background-color: $bluewhite;
-  padding: 80px 20px 20px;
+  padding: 22px 20px 20px;
 }
 
 .dashboard-row {
@@ -120,9 +120,12 @@
 }
 
 .dashboard-box {
+  position: relative;
+
   background-color: white;
   padding: 20px;
   border: 1px solid $blueishgray;
+  border-radius: 3px;
   margin-bottom: 40px;
   font-size: 16px;
   font-family: $font-roboto;
@@ -136,6 +139,10 @@
     padding: 40px;
     flex-basis: 48.4%;
 
+    &--full {
+      flex-basis: 100%;
+    }
+
     &.dashboard-popular {
       flex: 2;
     }
@@ -144,7 +151,7 @@
       flex: 1;
       margin-right: 40px;
       padding: 0;
-      
+
       display: flex;
       flex-direction: column;
       position: relative;
@@ -157,6 +164,155 @@
         max-width: 380px;
       }
     }
+  }
+}
+
+.dashboard-box__body,
+.dashboard-box__header {
+  @include mq($large-and-up) {
+    margin-left: 85px;
+  }
+}
+
+.dashboard-box__header {
+  display: flex;
+  align-items: center;
+}
+
+.dashboard-svg {
+  margin-right: 16px;
+
+  @include mq($large-and-up) {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+
+    margin: 0;
+  }
+
+  svg {
+    width: 57px;
+    height: 57px;
+
+    @include mq($large-and-up) {
+      width: 67px;
+      height: 67px;
+    }
+  }
+
+  &__presidentielle {
+    circle {
+      stroke-width: 0.15px;
+    }
+  }
+
+  &__europeennes {
+    circle {
+      fill: white;
+      stroke-width: 0.15px;
+      stroke: #eaeaea;
+    }
+
+    g {
+      fill: #4258ED;
+    }
+  }
+}
+
+.dashboard-box--gradient {
+  background-image: linear-gradient(to right, #7181ff, #53d5ff);
+
+  padding-bottom: 115px;
+  overflow: hidden;
+
+  @include mq($large-and-up) {
+
+    padding: 60px;
+
+    .dashboard-box__body {
+      margin: 0;
+      max-width: 466px;
+    }
+  }
+
+  .dashboard-box__title {
+    color: white;
+  }
+
+  p {
+    color: white;
+    opacity: 0.9;
+  }
+
+  .dashboard-box__cta a {
+    color: white;
+  }
+}
+
+.dashboard-box--background {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  opacity: .5;
+}
+
+.dashboard-svg__cloud-big,
+.dashboard-svg__cloud-small {
+  display: none;
+
+  @include mq($large-and-up) {
+    display: block;
+    position: absolute;
+  }
+}
+
+.dashboard-svg__cloud-big {
+  @include mq($large-and-up) {
+    top: 60px;
+    right: 153px;
+  }
+
+}
+
+.dashboard-svg__cloud-small {
+  @include mq($large-and-up) {
+    top: 104px;
+    right: 479px;
+  }
+}
+
+.dashboard-svg__city {
+  height: 78px;
+
+  position: absolute;
+  bottom: -1px;
+  right: -240px;
+
+  @include mq($medium-and-up) {
+    right: -174px;
+  }
+
+  @include mq($large-and-up) {
+    height: 112px;
+    right: -321px;
+  }
+}
+
+.dashboard-box--subscribe {
+  text-align: center;
+
+  border: none;
+  background: none;
+  padding: 0;
+
+  max-width: 636px;
+  margin: 0 auto;
+
+  > .SignupForm {
+    max-width: 480px;
+    margin: 0 auto;
   }
 }
 
@@ -178,14 +334,16 @@
 }
 
 .dashboard-box__cta {
-  text-align: center;
-
   a {
-    @include bluepurple-button;
-    border-radius: 4px;
-    padding: 7px 15px;
-    display: inline-block;
+    display: block;
     margin-top: 20px;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 1.44;
+
+    @include mq($large-and-up) {
+      font-size: 18px;
+    }
   }
 }
 
@@ -203,26 +361,7 @@
 }
 
 .dashboard-timer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-
-  .progress-meter {
-    height: 11px;
-  }
-
-  .progress-meter__label {
-    font-family: $font-roboto;
-    color: $bluepurple;
-
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    right: 0;
-    margin: 0 auto;
-    max-width: 1220px;
-  }
+  margin-bottom: 22px;
 }
 
 .dashboard-progressions {

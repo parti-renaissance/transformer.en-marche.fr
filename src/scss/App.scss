@@ -2,6 +2,8 @@
 @import "mixins/queries";
 @import "mixins/buttons";
 
+@import "utils";
+
 .ais-InstantSearch__root {
   flex: 1;
   display: flex;
@@ -78,8 +80,4 @@ a {
   &:hover {
     border-bottom-color: $blue;
   }
-}
-
-.visibility-hidden {
-  display: none !important;
 }

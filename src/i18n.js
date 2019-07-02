@@ -47,11 +47,11 @@ export default {
       en: "Check out our progress"
     },
     countDownOne: {
-      fr: "Encore ",
+      fr: "Suivez la mise en oeuvre du programme",
       en: ""
     },
     countDownTwo: {
-      fr: "jours pour transformer la France.",
+      fr: "jours restants",
       en: "more days to transform France."
     },
     measure: {
@@ -71,15 +71,15 @@ export default {
       en: "Upcoming"
     },
     titleChart: {
-      fr: "Mise en œuvre du Contrat avec la Nation",
+      fr: "Mise en oeuvre de nos promesses",
       en: "Progress of the Transformation"
     },
     titlePopular: {
-      fr: "Les 3 mesures les plus importantes pour vous",
+      fr: "Les 5 mesures les plus importantes pour vous",
       en: "Most Popular Measures"
     },
     linkPopular: {
-      fr: "Toutes les mesures",
+      fr: "Consulter toutes les mesures",
       en: "View all"
     },
     titlePlatform: {
