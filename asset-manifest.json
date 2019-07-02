@@ -1,8 +1,8 @@
 {
-  "main.css": "static/css/main.3f7f9bc4.css",
-  "main.css.map": "static/css/main.3f7f9bc4.css.map",
-  "main.js": "static/js/main.32913266.js",
-  "main.js.map": "static/js/main.32913266.js.map",
+  "main.css": "static/css/main.498a23d0.css",
+  "main.css.map": "static/css/main.498a23d0.css.map",
+  "main.js": "static/js/main.ba0fe167.js",
+  "main.js.map": "static/js/main.ba0fe167.js.map",
   "static/media/gillsans-heavy-italic.eot": "static/media/gillsans-heavy-italic.fe647159.eot",
   "static/media/gillsans-heavy-italic.ttf": "static/media/gillsans-heavy-italic.59dec178.ttf",
   "static/media/gillsans-heavy-italic.woff": "static/media/gillsans-heavy-italic.37a203fc.woff",
@@ -23,6 +23,5 @@
   "static/media/gillsans-regular.eot": "static/media/gillsans-regular.e2206332.eot",
   "static/media/gillsans-regular.ttf": "static/media/gillsans-regular.77fabd7f.ttf",
   "static/media/gillsans-regular.woff": "static/media/gillsans-regular.12341fd5.woff",
-  "static/media/gillsans-regular.woff2": "static/media/gillsans-regular.3dac8089.woff2",
-  "static/media/macron.png": "static/media/macron.d7701769.png"
+  "static/media/gillsans-regular.woff2": "static/media/gillsans-regular.3dac8089.woff2"
 }
