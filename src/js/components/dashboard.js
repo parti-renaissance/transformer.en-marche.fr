@@ -67,19 +67,7 @@ const DashboardBox = ({ children, className, full }) =>
 
 const DashboardHeader = ({ locale, openAbout }) =>
   <div className="dashboard-header">
-    <div className="dashboard-blurb">
-      <h2>{T.translate('projet.title', {context: locale})}</h2>
-      <p>
-        {T.translate('dashboard.blurb', {context: locale})} <strong>{T.translate('dashboard.blurbBold', {context: locale})}</strong>. <button onClick={openAbout} className="dashboard-blurb__link">{T.translate('dashboard.blurbLink', {context: locale})}</button>
-      </p>
-
-      <Link className="dashboard-header__link" to={`/${locale}/results`}>{T.translate('dashboard.blurbCta', {context: locale})}</Link>
-    </div>
-    <div className="dashboard-image">
-      <Link to={`/${locale}/results`}>
-        <img src={macron} width="400" height="543" alt="Macron" />
-      </Link>
-    </div>
+    <div className="dashboard-image"/>
   </div>
 
 const DashboardBody = ({ children }) =>

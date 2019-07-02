@@ -62,7 +62,7 @@ const Header = ({ locale, hasToken, disconnect, openAbout, location, useTranslat
   return (
     <header className={`header${useTranslation ? ' i18n' : ''}`}>
       <div className="header-left">
-        <Link to={`/${locale}`} title="En Marche!" className="header-logo">EM!</Link><span className="header-sep"> | </span><span className="header-tag">{T.translate('projet.title', {context: locale})}</span>
+        <Link to={`/${locale}`} title="En Marche!" className="header-logo">EM!</Link>
       </div>
 
         <Media query="(min-width: 800px)">

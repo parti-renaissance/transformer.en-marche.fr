@@ -4,107 +4,32 @@
 
 .dashboard {
   flex: 1;
+  // background-color: $bluewhite;
 }
 
 .dashboard-header {
-  display: flex;
-  padding: 30px 20px;
   max-width: 1200px;
   margin: 0 auto;
-
-  @include mq($large-and-up) {
-    padding: 0 20px;
-    max-height: 330px;
-  }
-}
-
-.dashboard-blurb {
-  flex-basis: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: baseline;
-  justify-content: center;
-
-  > h2 {
-    font-size: 28px;
-    font-weight: bold;
-    line-height: 1.39;
-    letter-spacing: -0.5px;
-    margin-bottom: 5px;
-  }
-
-  > p {
-    margin-top: 0;
-    margin-bottom: 20px;
-    color: $darkergray;
-    font-size: 16px;
-    line-height: 1.38;
-    font-family: $font-roboto;
-  }
-
-  @include mq($large-and-up) {
-    > h2 {
-      font-size: 38px;
-      line-height: 1.03;
-      letter-spacing: -0.7px;
-      margin-bottom: 20px;
-    }
-
-    > p {
-      margin-bottom: 25px;
-      line-height: 1.38;
-    }
-  }
-}
-
-.dashboard-blurb__link {
-  @include button-base;
-  font-weight: normal;
-  color: $purple;
-
-  @include mq($large-and-up) {
-      display: none;
-  }
-}
-
-.dashboard-header__link {
-  @include orange-button;
-  display: inline-block;
-  padding: 10px 20px;
-  font-family: $font-roboto;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 3px;
-
-  @include mq($large-and-up) {
-    padding: 20px;
-  }
 }
 
 .dashboard-image {
-  display: none;
-
-  img {
-    display: block;
-    margin-bottom: -180px;
-  }
-
-  a,
-  a:hover {
-    border: 0;
-  }
+  background: no-repeat center/cover url('/assets/img/header-sm.png');
+  max-width: 375px;
+  height: 220px;
+  margin: 0 auto;
 
   @include mq($large-and-up) {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
+    background: no-repeat left/cover url('/assets/img/header-lg.png');
+    max-width: 1200px;
+    height: 300px;
   }
 }
 
 .dashboard-body {
+  max-width: 1240px;
+  margin: 0 auto;
   position: relative;
-  background-color: $bluewhite;
+  // background-color: $bluewhite;
   padding: 22px 20px 20px;
 }
 

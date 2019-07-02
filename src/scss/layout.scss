@@ -7,9 +7,14 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+
+  background-color: $bluewhite;
 }
 
 .header {
+  width: 100%;
+  max-width: 1230px;
+  margin: 0 auto;
   font-size: 20px;
   padding: 15px;
   display: flex;
@@ -18,12 +23,15 @@
   top: 0;
   z-index: $zIndex--header;
 
-  border-bottom: 1px solid $blueishgray;
   background-color: white;
   color: black;
 
   @include mq($medium-and-up) {
     font-size: 28px;
+  }
+
+  .Page__dashboard > & {
+    background-color: $bluewhite;
   }
 }
 
