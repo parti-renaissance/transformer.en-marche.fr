@@ -93,6 +93,7 @@ jobs:
     <<: *deploy_dev
 
 workflows:
+  version: 2
   deploy-demo:
     jobs:
       - build-static:
