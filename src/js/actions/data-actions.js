@@ -4,17 +4,19 @@ export const INDEXES = 'INDEXES';
 export const PROGRESS = 'PROGRESS';
 
 export function fetchIndexes() {
-  const APP_ID        = process.env.REACT_APP_ALGOLIA_APP_ID;
-  const API_KEY       = process.env.REACT_APP_ALGOLIA_API_KEY;
-  const MEASURE_INDEX = process.env.REACT_APP_ALGOLIA_MEASURE_INDEX;
-  const THEME_INDEX   = process.env.REACT_APP_ALGOLIA_THEME_INDEX;
-  const PROFILE_INDEX = process.env.REACT_APP_ALGOLIA_PROFILE_INDEX;
-  
+  const APP_ID          = process.env.REACT_APP_ALGOLIA_APP_ID;
+  const API_KEY         = process.env.REACT_APP_ALGOLIA_API_KEY;
+  const MEASURE_INDEX   = process.env.REACT_APP_ALGOLIA_MEASURE_INDEX;
+  const THEME_INDEX     = process.env.REACT_APP_ALGOLIA_THEME_INDEX;
+  const PROFILE_INDEX   = process.env.REACT_APP_ALGOLIA_PROFILE_INDEX;
+  const MANIFESTO_INDEX = process.env.REACT_APP_ALGOLIA_MANIFESTO_INDEX;
+
   const client = algoliasearch(APP_ID, API_KEY);
-  
-  const measuresClient = client.initIndex(MEASURE_INDEX);
-  const profilesClient = client.initIndex(PROFILE_INDEX);
-  const themesClient   = client.initIndex(THEME_INDEX);
+
+  const measuresClient   = client.initIndex(MEASURE_INDEX);
+  const profilesClient   = client.initIndex(PROFILE_INDEX);
+  const themesClient     = client.initIndex(THEME_INDEX);
+  const manifestosClient = client.initIndex(MANIFESTO_INDEX);
 
   return {
     type: INDEXES,
@@ -24,7 +26,8 @@ export function fetchIndexes() {
       }, (err, {hits}) => err ? rej(err) : res(hits))),
       new Promise((res, rej) => profilesClient.search({}, (err, {hits}) => err ? rej(err) : res(hits))),
       new Promise((res, rej) => themesClient.search({}, (err, {hits}) => err ? rej(err) : res(hits))),
+      new Promise((res, rej) => manifestosClient.search({}, (err, {hits}) => err ? rej(err) : res(hits))),
     ])
-    .then(([measures, profiles, themes]) => ({measures, profiles, themes}))
+    .then(([measures, profiles, themes, manifestos]) => ({measures, profiles, themes, manifestos}))
   };
 }

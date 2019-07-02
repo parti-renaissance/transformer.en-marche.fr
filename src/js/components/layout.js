@@ -61,37 +61,39 @@ MobileShare = clickOutside(MobileShare);
 const Header = ({ locale, hasToken, disconnect, openAbout, location, useTranslation }) => {
   return (
     <header className={`header${useTranslation ? ' i18n' : ''}`}>
-      <div className="header-left">
-        <Link to={`/${locale}`} title="En Marche!" className="header-logo">EM!</Link><span className="header-sep"> | </span><span className="header-tag">{T.translate('projet.title', {context: locale})}</span>
-      </div>
+      <div className="header__wrapper">
+        <div className="header-left">
+          <Link to={`/${locale}`} title="En Marche!" className="header-logo">EM!</Link>
+        </div>
 
-        <Media query="(min-width: 800px)">
-        {matches =>
-          matches ?
-          <div className="header-right">
-            {useTranslation &&
-              <TranslateDropdown selected={locale} location={location} />}
-            <button onClick={openAbout} className="header-right__about">{T.translate('projet.headerAbout', {context: locale})}</button>
-            <span className="header-right__divider">|</span>
-            {T.translate('projet.headerShare', {context: locale})}
-            <FacebookShareButton url={window.location.toString()} quote={T.translate('socialCopy', {context: locale})}>
-              <FacebookIcon round={true} size={35}/>
-            </FacebookShareButton>
-            <TwitterShareButton url={window.location.toString()} title={T.translate('socialCopy', {context: locale})}>
-              <TwitterIcon round={true} size={35}/>
-            </TwitterShareButton>
+          <Media query="(min-width: 800px)">
+          {matches =>
+            matches ?
+            <div className="header-right">
+              {useTranslation &&
+                <TranslateDropdown selected={locale} location={location} />}
+              <button onClick={openAbout} className="header-right__about">{T.translate('projet.headerAbout', {context: locale})}</button>
+              <span className="header-right__divider">|</span>
+              {T.translate('projet.headerShare', {context: locale})}
+              <FacebookShareButton url={window.location.toString()} quote={T.translate('socialCopy', {context: locale})}>
+                <FacebookIcon round={true} size={35}/>
+              </FacebookShareButton>
+              <TwitterShareButton url={window.location.toString()} title={T.translate('socialCopy', {context: locale})}>
+                <TwitterIcon round={true} size={35}/>
+              </TwitterShareButton>
 
-            {hasToken &&
-              <button className="header-disconnect" onClick={disconnect}>{T.translate('projet.headerLogout', {context: locale})}</button>}
-          </div>
-          :
-          <div className="header-right">
-            {useTranslation &&
-              <TranslateDropdown selected={locale} location={location} small />}
-            <MobileShare locale={locale} />
-          </div>
-        }
-        </Media>
+              {hasToken &&
+                <button className="header-disconnect" onClick={disconnect}>{T.translate('projet.headerLogout', {context: locale})}</button>}
+            </div>
+            :
+            <div className="header-right">
+              {useTranslation &&
+                <TranslateDropdown selected={locale} location={location} small />}
+              <MobileShare locale={locale} />
+            </div>
+          }
+          </Media>
+        </div>
     </header>
   );
 }

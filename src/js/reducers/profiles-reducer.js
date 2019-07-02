@@ -8,9 +8,9 @@ export default function profilesReducer(state = {
   searchState: null,
   fetching: false,
   fetched: false,
-  error: null  
+  error: null
 }, action) {
-  
+
   switch(action.type) {
     case `${INDEXES}_PENDING`:
       return {...state, fetching: true};
@@ -28,7 +28,7 @@ export default function profilesReducer(state = {
           [p.id]: Object.assign({}, state.profiles[p.id], p)
         }), {})
       };
-      
+
     case SET_PROFILE: {
       let { profiles } = state;
       let { payload:profile } = action;
@@ -41,15 +41,15 @@ export default function profilesReducer(state = {
         }), {}),
         activeProfile: null
       };
-      
+
       if (profiles[profile]) {
         newState.activeProfile = profile;
         newState.profiles[profile].isActive = true;
         newState.searchState = profile;
-      } 
+      }
       return newState;
     }
-    
+
     case `RESET_${PROFILE}`:
     case RESET_PARAMS: {
       let { profiles } = state;

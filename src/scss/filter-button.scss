@@ -4,16 +4,16 @@
 .filter-button {
   @include button-base;
   font-weight: normal;
-  background-color: $purple;
+  background-color: white;
   padding: 8px 12px;
   border-radius: 4px;
   font-size: 14px;
-  color: white;
+  color: $darkergray;
   font-family: $font-roboto;
   position: relative;
   text-align: left;
   transform: scale3d(1, 1, 1);
-  
+
   transition: all 0.25s;
 
   &:hover {

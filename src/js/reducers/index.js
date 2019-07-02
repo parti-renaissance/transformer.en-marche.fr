@@ -3,6 +3,7 @@ import { routerReducer as routing } from 'react-router-redux';
 
 import measures from './measures-reducer';
 import profiles from './profiles-reducer';
+import manifestos from './manifestos-reducer';
 import themes from './themes-reducer';
 import query from './query-reducer';
 import { popularReducer, statusReducer } from './dashboard-reducer';
@@ -15,6 +16,7 @@ export default combineReducers({
   measures,
   themes,
   profiles,
+  manifestos,
   query,
   routing,
   locale,

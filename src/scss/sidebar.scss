@@ -6,9 +6,17 @@
   background-color: $lightgray;
   padding: 25px 25px 10px 25px;
 
+  &.is-open-banner {
+    margin-top: 92px; // banner height
+
+    @include mq($large-and-up) {
+      margin-top: 0;
+    }
+  }
+
   @include mq($large-and-up) {
     flex-basis: 355px;
-    padding: 75px 40px 0;
+    padding: 45px 40px 0;
     position: fixed;
     width: 355px;
     height: calc(100% - 71px);
@@ -36,10 +44,6 @@
   }
 }
 
-.refinement-profiles .filter-button {
-  background-color: rgba($purple, .7);
-}
-
 .refinement-list__item {
   margin-right: 7px;
   margin-bottom: 7px;
@@ -47,6 +51,15 @@
 
 .refinement-list__item-more ~ .refinement-list__item {
   display: none;
+}
+
+.refinement-list__item--manifesto > .filter-button > span {
+  display: flex;
+  align-items: center;
+
+  > div {
+    margin-right: 9px;
+  }
 }
 
 .sidebar-more {

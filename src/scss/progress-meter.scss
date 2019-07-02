@@ -1,29 +1,44 @@
 @import "mixins/vars";
 
 .progress-meter {
-  position: relative;
 }
 
-.progress-bar {
+.progress-meter__bar {
+  height: 8px;
+  border-radius: 8px;
+
+  position: relative;
+
+  margin-bottom: 15px;
+}
+
+.progress-meter__progress {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   z-index: 0;
   width: 0%;
+
+  border-radius: 8px;
 }
 
 .progress-meter__label {
   position: relative;
   display: block;
   z-index: 100;
+
+  color: black;
+  font-family: $font-roboto;
+  font-size: 16px;
+  line-height: 1.06;
 }
 
 .progress-meter.fait {
   background-color: rgba($fait-light, 0.1);
   color: $fait-dark;
 
-  .progress-bar {
+  .progress-meter__bar {
     background-color: $fait;
   }
 }
@@ -32,7 +47,7 @@
   background-color: rgba($en-cours-light, 0.1);
   color: $en-cours-dark;
 
-  .progress-bar {
+  .progress-meter__bar {
     background-color: $en-cours;
   }
 }
@@ -43,9 +58,11 @@
 }
 
 .progress-meter.timeline {
-  background-color: $timeline-bg;
+  .progress-meter__bar {
+    background-color: $timeline-bg;
+  }
 
-  .progress-bar {
+  .progress-meter__progress {
     background-color: $timeline-fill;
   }
 }

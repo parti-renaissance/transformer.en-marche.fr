@@ -1,10 +1,10 @@
 import { SET_LANGUAGE } from '../actions/translate-actions';
 
-export default function translateReducer(state = 'fr', action) {
+export default function translateReducer(_state = 'fr', action) {
   switch(action.type) {
     case SET_LANGUAGE:
-      return action.payload;
+      return 'fr';
     default:
-      return state;
+      return 'fr';
   }
 }

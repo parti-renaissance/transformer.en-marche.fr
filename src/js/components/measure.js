@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactTooltip from 'react-tooltip';
 import Collapsible from 'react-collapsible';
 import { connect } from 'react-redux';
 import { ChevronDown, ChevronUp } from 'react-feather';
@@ -7,6 +8,7 @@ import T from 'i18n-react';
 
 import '../../scss/measure.css';
 import VoteButton from './vote-button';
+import ManifestoIcon from './manifesto';
 import { voteUp, voteDown } from '../actions/vote-actions';
 
 const { FacebookShareButton, TwitterShareButton } = ShareButtons;
@@ -103,16 +105,21 @@ export class Measure extends Component {
     let { isActive } = this.state;
     return (
       <div className="measure-wrapper">
+
         <LinkOrDiv
          locale={locale}
          link={measure.link}
          className={`measure-body ${slugify(measure.status)} is-major`}>
+
+          <ManifestoIcon manifesto={measure.manifesto} locale={locale} />
+
           <div className="measure-status">
             {STATUS_MAP({locale, status: measure.status})}
           </div>
           <div className="measure-name">
             {measure.titles[locale]}
           </div>
+
         </LinkOrDiv>
 
         { this.state.pending
@@ -162,13 +169,15 @@ class CollapsibleMeasures extends Component {
     let { measures, locale } = this.props;
     return (
       <Collapsible
+       onOpen={ReactTooltip.rebuild}
+       onClose={ReactTooltip.rebuild}
        onOpening={this.onOpen.bind(this)}
        onClosing={this.onClose.bind(this)}
        trigger={<Trigger nodeRef={e => this.trigger = e} count={measures.length - 3} locale={locale}/>}
        classParentString="measure-accordion"
        triggerClassName="measure-accordion__trigger"
        lazyRender={true}
-       >
+      >
         {measures.slice(3).map(measure => <Measure key={measure.id} measure={measure} {...this.props} />)}
       </Collapsible>
     );
@@ -178,6 +187,10 @@ class CollapsibleMeasures extends Component {
 export const NoMeasure = ({theme, locale}) => <T.p className="no-measure" text='measures.nomatch' context={locale} />
 
 class Measures extends Component {
+
+  componentDidUpdate() {
+    ReactTooltip.rebuild();
+  }
 
   render() {
     let { measures, viewAll } = this.props;

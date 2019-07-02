@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactSVG from 'react-svg';
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
 import { Link } from 'react-router-dom';
@@ -19,11 +20,12 @@ import Subscribe from './subscribe';
 import ToggleSwitch from './toggle-switch';
 
 import '../../scss/dashboard.css';
-import macron from '../../images/cover-program.png';
+
 
 const END_OF_TERM = '2022-05-13';
 const START_OF_TERM = '2017-05-14';
 
+const rootPath = process.env.REACT_APP_ROOT_PATH || ''; // for access assets when running on a nested path, i.e. github pages
 const MAILCHIMP_ACTION = process.env.REACT_APP_MAILCHIMP_ACTION;
 const FORM_PROPS = {
   messages: {
@@ -57,26 +59,14 @@ const DashboardRow = ({ children }) =>
     {children}
   </div>
 
-const DashboardBox = ({ children, className }) =>
-  <div className={`dashboard-box ${className || ''}`}>
+const DashboardBox = ({ children, className, full }) =>
+  <div className={`dashboard-box ${className || ''} ${full ? 'dashboard-box--full' : ''}`}>
     {children}
   </div>
 
 const DashboardHeader = ({ locale, openAbout }) =>
   <div className="dashboard-header">
-    <div className="dashboard-blurb">
-      <h2>{T.translate('projet.title', {context: locale})}</h2>
-      <p>
-        {T.translate('dashboard.blurb', {context: locale})} <strong>{T.translate('dashboard.blurbBold', {context: locale})}</strong>. <button onClick={openAbout} className="dashboard-blurb__link">{T.translate('dashboard.blurbLink', {context: locale})}</button>
-      </p>
-
-      <Link className="dashboard-header__link" to={`/${locale}/results`}>{T.translate('dashboard.blurbCta', {context: locale})}</Link>
-    </div>
-    <div className="dashboard-image">
-      <Link to={`/${locale}/results`}>
-        <img src={macron} width="400" height="543" alt="Macron" />
-      </Link>
-    </div>
+    <div className="dashboard-image"/>
   </div>
 
 const DashboardBody = ({ children }) =>
@@ -208,7 +198,7 @@ class Dashboard extends Component {
               <h3 className="dashboard-box__title">{T.translate('dashboard.titlePopular', {context: locale})}</h3>
               {!!allMeasures.items.length &&
                 <Measures className="popular-measures" measures={measures} viewAll />}
-              <div className="dashboard-box__cta">
+              <div className="dashboard-box__cta u-align-center">
                 <Link to={`/${locale}/results`}>{T.translate('dashboard.linkPopular', {context: locale})} →</Link>
               </div>
             </DashboardBox>
@@ -216,14 +206,94 @@ class Dashboard extends Component {
 
           <DashboardRow>
             <DashboardBox>
-              <h3 className="dashboard-box__title dashboard-box__title--small">{T.translate('dashboard.titlePlatform', {context: locale})}</h3>
-              <p>
-                {T.translate('dashboard.blurbPlatform', {context: locale})} <a href="https://en-marche.fr/programme" rel="noopener noreferrer" target="_blank">{T.translate('dashboard.linkPlatform', {context: locale})} →</a>
-              </p>
+              <div className="dashboard-box__header">
+                <div class="dashboard-svg">
+                  <ReactSVG
+                    path={`${rootPath}/assets/svg/manifesto-presidentielle.svg`}
+                    className="dashboard-svg__presidentielle"
+                  />
+                </div>
+
+                <h3 className="dashboard-box__title dashboard-box__title--small">Notre projet national (2017)</h3>
+              </div>
+
+              <div className="dashboard-box__body">
+                <p>
+                  Notre programme national a été construit entre 2016 et 2017 avec plus de 30 000 Françaises et Français de tous milieux sociaux, de tous âges, dans tous les territoires de France, au cours de 3 000 ateliers de nos comités locaux.
+                </p>
+                <div className="dashboard-box__cta">
+                  <a>
+                    Programme d’Emmanuel Macron →
+                  </a>
+                </div>
+              </div>
             </DashboardBox>
+
             <DashboardBox>
-              <h3 className="dashboard-box__title dashboard-box__title--small">{T.translate('dashboard.titleNewsletter', {context: locale})}</h3>
-              <Subscribe locale={locale} {...FORM_PROPS} />
+              <div className="dashboard-box__header">
+                <div className="dashboard-svg">
+                  <ReactSVG
+                    path={`${rootPath}/assets/svg/manifesto-europeennes.svg`}
+                    className="dashboard-svg__europeennes"
+                  />
+                </div>
+
+                <h3 className="dashboard-box__title dashboard-box__title--small">Notre projet européen (2019)</h3>
+              </div>
+
+              <div className="dashboard-box__body">
+                <p>
+                  Notre programme européen a été construit en 2016-2017 avec plus de 30 000 Françaises et Français de tous milieux sociaux, de tous âges, dans tous les territoires de France, au cours de 3 000 ateliers de nos comités locaux.
+                </p>
+                <div className="dashboard-box__cta">
+                  <a>
+                    Programme Renaissance →
+                  </a>
+                </div>
+              </div>
+            </DashboardBox>
+          </DashboardRow>
+
+          <DashboardRow>
+            <DashboardBox full className="dashboard-box--gradient">
+
+              <div className="dashboard-box__body">
+
+                <h3 className="dashboard-box__title dashboard-box__title--small">Bilan des 2 ans du quinquennat</h3>
+
+                <p>
+                  Consultez les différentes actions qui ont été réalisées depuis 2 ans dans votre commune et ses environs.
+                </p>
+
+                <div className="dashboard-box__cta">
+                  <a href="https://chez-vous.en-marche.fr" rel="noopener noreferrer" target="_blank">
+                    Ce qui a changé près de chez vous →
+                  </a>
+                </div>
+              </div>
+
+              <div className="dashboard-box--background">
+                <ReactSVG
+                  path={`${rootPath}/assets/svg/city.svg`}
+                  className="dashboard-svg__city"
+                />
+                <ReactSVG
+                  path={`${rootPath}/assets/svg/cloud-big.svg`}
+                  className="dashboard-svg__cloud-big"
+                />
+                <ReactSVG
+                  path={`${rootPath}/assets/svg/cloud-small.svg`}
+                  className="dashboard-svg__cloud-small"
+                />
+              </div>
+            </DashboardBox>
+          </DashboardRow>
+
+          <DashboardRow>
+            <DashboardBox className="dashboard-box--subscribe">
+              <h3 className="dashboard-box__title dashboard-box__title--small">Pour être les premiers informés, inscrivez-vous à la newsletter hebdomadaire du mouvement</h3>
+
+              <Subscribe locale={locale} {...FORM_PROPS}/>
             </DashboardBox>
           </DashboardRow>
         </DashboardBody>

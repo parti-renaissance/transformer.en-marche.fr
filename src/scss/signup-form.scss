@@ -32,12 +32,18 @@
   flex: 1 1 100%;
   padding: 8px 0;
   border: none;
+  border-radius: 3px;
   background-color: $bluepurple;
   color: white;
   font-family: $font-roboto;
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 15px;
+
+  @include mq($medium-and-up) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 }
 
 .SignupForm__message {

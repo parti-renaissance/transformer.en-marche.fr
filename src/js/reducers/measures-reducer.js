@@ -2,15 +2,26 @@ import { INDEXES } from '../actions/data-actions';
 import { VOTES, MY_VOTES, VOTE_UP, VOTE_DOWN } from '../actions/vote-actions';
 import { CLEAR_TOKEN } from '../actions/auth-actions';
 import map from 'lodash/map';
+import arrayFind from 'lodash/find';
+
+
+function findManifesto(manifestos, id) {
+  const {
+    titles = {},
+    descriptions = {},
+  } = arrayFind(manifestos, ['id', id]) || {};
+
+  return { titles, descriptions, id };
+}
 
 export default function measuresReducer(state = {
   items: [],
   measures: {},
   fetching: false,
   fetched: false,
-  error: null  
+  error: null
 }, action) {
-  
+
   switch(action.type) {
     case `${INDEXES}_PENDING`:
       return {...state, fetching: true};
@@ -19,7 +30,7 @@ export default function measuresReducer(state = {
       return {...state, fetching: false, error: action.payload};
 
     case `${INDEXES}_FULFILLED`: {
-      let { measures } = action.payload;
+      let { measures, manifestos } = action.payload;
       return {
         ...state,
         fetching: false,
@@ -27,14 +38,16 @@ export default function measuresReducer(state = {
         items: map(measures, 'id'),
         measures: measures.reduce((s, m) => ({
           ...s,
-          [m.id]: Object.assign({}, m, state.measures[m.id])
+          [m.id]: Object.assign({
+            manifesto: findManifesto(manifestos, m.manifestoId),
+          }, m, state.measures[m.id])
         }), {})
       };
     }
-    
+
     case `${VOTES}_FULFILLED`: {
       let { payload:votes } = action;
-      votes = votes.filter(vote => typeof vote.itemId === 'number');
+      votes = votes.filter(({itemId}) => typeof itemId === 'number' && state.measures[itemId]);
       return {
         ...state,
         measures: {
@@ -46,7 +59,7 @@ export default function measuresReducer(state = {
         }
       };
     }
-    
+
     case `${MY_VOTES}_FULFILLED`: {
       let { payload:votes } = action;
       return {
@@ -60,7 +73,7 @@ export default function measuresReducer(state = {
         }
       };
     }
-    
+
     case VOTE_UP:
     case VOTE_DOWN:
     case `${VOTE_DOWN}_PENDING`:
@@ -81,7 +94,7 @@ export default function measuresReducer(state = {
         }
       };
     }
-    
+
     case `${VOTE_UP}_FULFILLED`:
     case `${VOTE_DOWN}_FULFILLED`: {
       let { type, payload: { itemId:id } } = action;
@@ -98,7 +111,7 @@ export default function measuresReducer(state = {
         }
       }
     }
-    
+
     case `${VOTE_UP}_REJECTED`:
     case `${VOTE_DOWN}_REJECTED`: {
       let { measures } = state;
@@ -110,7 +123,7 @@ export default function measuresReducer(state = {
         }), {})
       }
     }
-    
+
     case CLEAR_TOKEN:
       let { measures } = state;
       return {
@@ -120,7 +133,7 @@ export default function measuresReducer(state = {
           [k]: Object.assign({}, measures[k], {isActive: false})
         }), {})
       }
-    
+
     default:
       return state;
   }
