@@ -20,7 +20,7 @@ templates:
       - deploy:
           name: Deploy to Gcloud
           command: |
-            TAG=${$CIRCLE_TAG:-$CIRCLE_SHA1}
+            TAG=${CIRCLE_TAG:-$CIRCLE_SHA1}
 
             sed -i 's/https:\/\/enmarche.github.io\/gov-timeline//g' package.json
             env | sed -n "s/^${ENV}_//p" >> .env
