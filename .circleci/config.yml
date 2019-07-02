@@ -1,130 +1,134 @@
----
 version: 2.1
-templates:
-  defaults: &defaults
+
+
+executors:
+  default_node:
     docker:
-      - image: google/cloud-sdk
+      - image: circleci/node:8
 
-  node_key: &node_key
-    key: node-deps-{{ checksum "yarn.lock" }}-{{ checksum ".circleci/config.yml" }}
+node_key: &node_key
+  key: node-deps-{{ checksum "yarn.lock" }}
 
-  restore_node: &restore_node
-    restore_cache:
-      <<: *node_key
+commands:
+  restore_node_cache:
+    description: "restore node modules from cache"
+    steps:
+      - restore_cache:
+          <<: *node_key
 
-  deploy_static: &deploy_static
-    <<: *defaults
+  save_node_cache:
+    description: "save node modules to cache"
+    steps:
+      - save_cache:
+          <<: *node_key
+          paths:
+            - node_modules
+
+  install_node_dependencies:
+    description: "Install node dependencies"
+    steps:
+      - run:
+          command: |
+            if [ ! -d node_modules ]; then
+              yarn --pure-lockfile
+            fi
+
+  deploy_to_gstorage:
+    description: "Deploy app to a Google Storage bucket"
+    parameters:
+      bucket:
+        type: string
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: "[gsutil] deploy to Google Storage"
+          command: |
+            gsutil rsync -R build << parameters.bucket >>
+
+  build_app:
+    description: "Build app"
+    steps:
+      - run:
+          name: "build app"
+          command: |
+            yarn build
+
+
+jobs:
+  build:
+    description: "build app"
+    executor: default_node
+    steps:
+      - checkout
+      - restore_node_cache
+      - install_node_dependencies
+      - build_app
+      - persist_to_workspace:
+          root: .
+          paths:
+            - build
+      - save_node_cache
+
+  deploy:
+    description: "deploy app"
+    executor: default_node
     parameters:
       bucket:
         description: "URL of the Google storage bucket the app is deployed to"
         type: string
     steps:
-      - checkout
-      - <<: *restore_node
       - run:
-          name: Build application
-          command: |
-            env | sed -n "s/^${ENV}_//p" >> .env
-            yarn build
-      - run:
-          name: Install GCloud SDK
+          name: "[install] install GCloud SDK"
           command: |
             curl -sSL https://sdk.cloud.google.com > /tmp/gcl && bash /tmp/gcl --disable-prompts
             ~/google-cloud-sdk/install.sh --usage-reporting=false --path-update=true --bash-completion=true --rc-path=~/.bashrc
             sudo ln -s ~/google-cloud-sdk/bin/gcloud /usr/bin
             sudo ln -s ~/google-cloud-sdk/bin/gsutil /usr/bin
       - run:
-          name: Authenticate GCloud SDK
+          name: "[gcloud] authenticate GCloud SDK"
           command: |
             echo "${GCLOUD_SERVICE_KEY}" | base64 --decode > $HOME/gcloud-service-key.json
             gcloud auth activate-service-account --key-file $HOME/gcloud-service-key.json
             gcloud config set project $GCLOUD_PROJECT
-      - deploy:
-          name: Deploy to Google Storage
-          command: |
-            gsutil rsync -R build << parameters.bucket >>
+      - deploy_to_gstorage:
+          bucket: <<parameters.bucket>>
 
-  deploy_dev: &deploy_dev
-    <<: *defaults
-    steps:
-      - checkout
-      - <<: *restore_node
-      - add_ssh_keys:
-          fingerprints:
-            - "c7:b5:c4:c5:4a:4b:5d:4e:42:b6:f9:53:fa:38:36:23"
-      - deploy:
-          name: Deploy to GitHub Pages
-          command: |
-            sed -i 's/"homepage": ""/"homepage": "https:\/\/enmarche.github.io\/transformer.en-marche.fr"/' package.json
-            git config --global user.email "deploy@circleci"
-            git config --global user.name "deploy bot"
-            env | sed -n "s/^DEV_//p" >> .env
-            yarn deploy
-
-
-  filter_demo: &filter_demo
-    filters:
-      branches:
-        only: master
-      tags:
-        only: demo
-
-  filter_prod: &filter_prod
-    filters:
-      branches:
-        ignore: /.*/
-      tags:
-        only: /^v[0-9]+\.[0-9]+\.[0-9]+/
-
-jobs:
-  build-static:
-    <<: *defaults
-    steps:
-      - checkout
-
-      - <<: *restore_node
-      - run:
-          name: Install node dependencies
-          command: |
-            if [ ! -d node_modules ]; then
-              yarn --pure-lockfile
-            fi
-      - save_cache:
-          <<: *node_key
-          paths:
-            - node_modules
-
-  deploy-static-demo:
-    environment:
-      ENV: DEMO
-    <<: *deploy_static
-
-  deploy-static-prod:
-    environment:
-      ENV: PROD
-    <<: *deploy_static
-
-  deploy-static-dev:
-    <<: *deploy_dev
 
 workflows:
-  version: 2
-  deploy-demo:
+
+  just-build-other-branches:
     jobs:
-      - build-static:
-          <<: *filter_demo
-      - deploy-static-demo:
-          <<: *filter_demo
+      - build:
+          filters:
+            branches:
+              ignore: master
+
+  build-deploy-staging:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
+      - deploy:
           bucket: gs://staging-transformer.en-marche.fr
           requires:
-            - build-static
+            - build
 
-  deploy-prod:
+  build-deploy-prod:
     jobs:
-      - build-static:
-          <<: *filter_prod
-      - deploy-static-prod:
-          <<: *filter_prod
+      - build:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+/
+      - deploy:
           bucket: gs://transformer.en-marche.fr
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+/
           requires:
-            - build-static
+            - build
