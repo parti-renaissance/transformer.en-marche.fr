@@ -4,7 +4,7 @@ import { TOGGLE_MANIFESTO_FACET, RESET_PARAMS, MANIFESTO } from '../actions/sear
 import { INDEXES } from '../actions/data-actions';
 
 
-export const PRESIDENTIAL_MANIFESTO = 'presidentielle-2017';
+export const PRESIDENTIAL_MANIFESTO = 'presidentielles-2017';
 export const EUROPEAN_MANIFESTO = 'europeennes-2019';
 export const OUT_OF_MANIFESTO = 'hors-programme';
 
