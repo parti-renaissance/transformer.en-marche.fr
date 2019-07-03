@@ -233,7 +233,7 @@ class Dashboard extends Component {
 
               <div className="dashboard-box__body">
                 <p>
-                  Ce projet a été construit en 2018-2019 avec 80 000 Français interrogés par porte-à-porte durant la Grande Marche pour l'Europe et 20 000 adhérents consultés. Leurs milliers de constats et de propositions ont été complétés par ceux d’une centaine d’experts de l’Europe.
+                  Notre programme européen a été construit en 2016-2017 avec plus de 30 000 Françaises et Français de tous milieux sociaux, de tous âges, dans tous les territoires de France, au cours de 3 000 ateliers de nos comités locaux.
                 </p>
                 <div className="dashboard-box__cta">
                   <a href="https://en-marche.fr/emmanuel-macron/le-programme" target="_blank" rel="noopener noreferrer">
@@ -257,7 +257,7 @@ class Dashboard extends Component {
 
               <div className="dashboard-box__body">
                 <p>
-                  Notre programme européen a été construit en 2016-2017 avec plus de 30 000 Françaises et Français de tous milieux sociaux, de tous âges, dans tous les territoires de France, au cours de 3 000 ateliers de nos comités locaux.
+                  Ce projet a été construit en 2018-2019 avec 80 000 Français interrogés par porte-à-porte durant la Grande Marche pour l'Europe et 20 000 adhérents consultés. Leurs milliers de constats et de propositions ont été complétés par ceux d’une centaine d’experts de l’Europe.
                 </p>
                 <div className="dashboard-box__cta">
                   <a href="https://en-marche.fr/articles/actualites/programme-renaissance" target="_blank" rel="noopener noreferrer">
