@@ -168,7 +168,7 @@
 
   // compensate for double divs rendered by react-svg
   // since the svg has known dimensions, force the layout
-  flex: 1 0 26px;
+  flex: 0 0 26px;
   width: 26px;
   height: 26px;
 
