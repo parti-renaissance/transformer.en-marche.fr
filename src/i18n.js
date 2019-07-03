@@ -63,7 +63,7 @@ export default {
       en: "Upcoming"
     },
     titleChart: {
-      fr: "Mise en oeuvre de nos promesses",
+      fr: "Mise en œuvre du programme présidentiel",
       en: "Progress of the Transformation"
     },
     titlePopular: {
