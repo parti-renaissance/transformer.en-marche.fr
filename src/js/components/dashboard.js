@@ -280,7 +280,7 @@ class Dashboard extends Component {
                 </p>
 
                 <div className="dashboard-box__cta">
-                  <a href="https://chez-vous.en-marche.fr" rel="noopener noreferrer" target="_blank">
+                  <a href="https://chezvous.en-marche.fr" rel="noopener noreferrer" target="_blank">
                     Ce qui a changé près de chez vous →
                   </a>
                 </div>
