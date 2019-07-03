@@ -17,11 +17,14 @@ import {
   MANIFESTO,
 } from '../actions/search-actions';
 
-const rootPath = process.env.REACT_APP_ROOT_PATH || ''; // for access assets when running on a nested path, i.e. github pages
+import {
+  PRESIDENTIAL_MANIFESTO,
+  EUROPEAN_MANIFESTO,
+  OUT_OF_MANIFESTO,
+} from '../reducers/manifestos-reducer';
 
-const PRESIDENTIAL_MANIFESTO = 2;
-const EUROPEAN_MANIFESTO = 3;
-const OUT_OF_MANIFESTO = 4;
+
+const rootPath = process.env.REACT_APP_ROOT_PATH || ''; // for access assets when running on a nested path, i.e. github pages
 
 const MANIFESTO_SVGS = {
   [PRESIDENTIAL_MANIFESTO]: `${rootPath}/assets/svg/manifesto-presidentielle.svg`,

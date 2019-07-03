@@ -3,6 +3,11 @@ import without from 'lodash/without';
 import { TOGGLE_MANIFESTO_FACET, RESET_PARAMS, MANIFESTO } from '../actions/search-actions';
 import { INDEXES } from '../actions/data-actions';
 
+
+export const PRESIDENTIAL_MANIFESTO = 'presidentielle-2017';
+export const EUROPEAN_MANIFESTO = 'europeennes-2019';
+export const OUT_OF_MANIFESTO = 'hors-programme';
+
 export default function manifestosReducer(state = {
   items: [],
   activeManifestos: [],
