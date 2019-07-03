@@ -192,6 +192,10 @@ class Measures extends Component {
     ReactTooltip.rebuild();
   }
 
+  componentDidMount() {
+    ReactTooltip.rebuild();
+  }
+
   render() {
     let { measures, viewAll } = this.props;
     if (viewAll) {

@@ -9,6 +9,7 @@ import countBy from 'lodash/countBy';
 import filter from 'lodash/filter';
 import { withRouter } from 'react-router';
 import T from 'i18n-react';
+import ReactTooltip from 'react-tooltip';
 
 import { setLocale } from '../actions/translate-actions';
 import { getVoteCount } from '../actions/vote-actions';
@@ -181,6 +182,13 @@ class Dashboard extends Component {
 
     return (
       <div className="dashboard">
+        <ReactTooltip
+          place="top"
+          type="light"
+          effect="solid"
+          className="measure-manifesto__tooltip"
+        />
+        
         <DashboardHeader
           locale={locale}
           openAbout={openAbout}
