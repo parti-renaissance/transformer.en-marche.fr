@@ -110,7 +110,7 @@ workflows:
   just-build-other-branches:
     jobs:
       - build:
-          env: STAGING
+          env: DEMO
           filters:
             branches:
               ignore: master
