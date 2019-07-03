@@ -118,7 +118,7 @@ workflows:
   build-deploy-staging:
     jobs:
       - build:
-          env: STAGING
+          env: DEMO
           filters:
             branches:
               only: master
