@@ -46,6 +46,9 @@
 
   @include mq($medium-and-up) {
     top: 70px;
+  }
+
+  @include mq($large-and-up) {
     left: 355px;
   }
 }
