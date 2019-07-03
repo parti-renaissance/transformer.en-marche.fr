@@ -9,9 +9,10 @@ function findManifesto(manifestos, id) {
   const {
     titles = {},
     descriptions = {},
+    slugs = {},
   } = arrayFind(manifestos, ['id', id]) || {};
 
-  return { titles, descriptions, id };
+  return { titles, descriptions, slugs, id };
 }
 
 export default function measuresReducer(state = {
