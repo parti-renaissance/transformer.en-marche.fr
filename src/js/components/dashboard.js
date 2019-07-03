@@ -110,12 +110,12 @@ class PieChart extends Component {
   }
 
   render() {
-    let { measures, locale } = this.props;
+    let { measures, locale, presidentialManifesto } = this.props;
     let { majorOnly } = this.state;
     if (majorOnly) {
       measures = filter(measures, 'major');
     }
-    measures = filter(measures, ['manifestoId', PRESIDENTIAL_MANIFESTO]);
+    measures = filter(measures, ['manifestoId', presidentialManifesto.id]);
     measures = countBy(measures, 'status');
     return (
       <div className="pie-chart">
@@ -176,7 +176,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    let { allMeasures, popular, status, locale, openAbout } = this.props;
+    let { allMeasures, popular, status, locale, openAbout, presidentialManifesto } = this.props;
     let measures = compact(popular.map(({ itemId }) => allMeasures.measures[itemId]));
 
     return (
@@ -193,7 +193,7 @@ class Dashboard extends Component {
               <h3 className="dashboard-box__title">{T.translate('dashboard.titleChart', {context: locale})}</h3>
               <LastUpdated className="dashboard-updated" locale={locale} />
 
-              <PieChart measures={status.measures} locale={locale} />
+              <PieChart measures={status.measures} locale={locale} presidentialManifesto={presidentialManifesto} />
             </DashboardBox>
             <DashboardBox className="dashboard-popular">
               <h3 className="dashboard-box__title">{T.translate('dashboard.titlePopular', {context: locale})}</h3>
@@ -309,6 +309,7 @@ export default connect(state => ({
   popular: state.popular.items,
   status: state.status,
   allMeasures: state.measures,
+  presidentialManifesto: state.manifestos.presidentialManifesto,
   locale: state.locale,
   openAbout: state.openAbout
 }), dispatch => ({

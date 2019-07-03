@@ -15,7 +15,8 @@ export default function manifestosReducer(state = {
   searchState: [],
   fetching: false,
   fetched: false,
-  error: null
+  error: null,
+  presidentialManifesto: {},
 }, action) {
 
   switch(action.type) {
@@ -36,7 +37,8 @@ export default function manifestosReducer(state = {
           ...s,
           [m.id]: Object.assign({}, state.manifestos[m.id], m)
         }), {}),
-        activeManifestos: []
+        activeManifestos: [],
+        presidentialManifesto: manifestos.find(manifesto => manifesto.slugs.fr === PRESIDENTIAL_MANIFESTO),
       };
 
     case TOGGLE_MANIFESTO_FACET:
