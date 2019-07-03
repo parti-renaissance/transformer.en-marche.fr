@@ -156,7 +156,7 @@ class Layout extends Component {
           {this.state.showBanner &&
             <div className="content__top">
               <Banner close={this.closeBanner}>
-                <a href="https://chez-vous.en-marche.fr" target="_blank" rel="noopener noreferrer">
+                <a href="https://chezvous.en-marche.fr" target="_blank" rel="noopener noreferrer">
                   Bilan des 2 ans du quinquennat - Consultez ce qui a changé près de chez vous →
                 </a>
               </Banner>
