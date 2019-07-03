@@ -4,10 +4,10 @@ version: 2.1
 executors:
   default_node:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
 
 node_key: &node_key
-  key: node-deps-{{ checksum "yarn.lock" }}
+  key: node-deps-v2-{{ checksum "yarn.lock" }}
 
 commands:
   restore_node_cache:
