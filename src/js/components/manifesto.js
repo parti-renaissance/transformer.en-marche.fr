@@ -34,12 +34,12 @@ const MANIFESTO_SVGS = {
 
 export default class ManifestoIcon extends Component {
   render() {
-    const { locale, manifesto: { titles, id} } = this.props;
+    const { locale, manifesto: { titles, slugs: { fr:slug }} } = this.props;
     return (
       <div className="measure-manifesto" data-tip={titles[locale]}>
         <ReactSVG
           className="measure-manifesto__icon"
-          path={MANIFESTO_SVGS[id]}
+          path={MANIFESTO_SVGS[slug]}
         />
       </div>
     )
@@ -140,7 +140,7 @@ class ManifestoListItem extends Component {
             buttonRef={e => this.button = e}>
             <ReactSVG
               className="measure-manifesto__icon"
-              path={MANIFESTO_SVGS[props.manifesto.id]}
+              path={MANIFESTO_SVGS[props.manifesto.slugs.fr]}
             />
             <span>{props.manifesto.titles[props.locale]}</span>
           </FilterButton>
