@@ -233,7 +233,7 @@ class Dashboard extends Component {
 
               <div className="dashboard-box__body">
                 <p>
-                  Notre programme européen a été construit en 2016-2017 avec plus de 30 000 Françaises et Français de tous milieux sociaux, de tous âges, dans tous les territoires de France, au cours de 3 000 ateliers de nos comités locaux.
+                  Notre programme national a été construit en 2016-2017 avec plus de 30 000 Françaises et Français de tous milieux sociaux, de tous âges, dans tous les territoires de France, au cours de 3 000 ateliers de nos comités locaux.
                 </p>
                 <div className="dashboard-box__cta">
                   <a href="https://en-marche.fr/emmanuel-macron/le-programme" target="_blank" rel="noopener noreferrer">
