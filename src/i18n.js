@@ -46,14 +46,6 @@ export default {
       fr: "Découvrir ce qui me concerne",
       en: "Check out our progress"
     },
-    countDownOne: {
-      fr: "Suivez la mise en oeuvre du programme",
-      en: ""
-    },
-    countDownTwo: {
-      fr: "jours restants",
-      en: "more days to transform France."
-    },
     measure: {
       fr: "mesure",
       en: "measure"

@@ -287,6 +287,19 @@
 
 .dashboard-timer {
   margin-bottom: 22px;
+
+  .progress-meter__label {
+    span {
+      font-weight: bold;
+      color: $purple;
+    }
+
+    @include mq($large-and-up) {
+      display: flex;
+      align-content: center;
+      justify-content: space-between;
+    }
+  }
 }
 
 .dashboard-progressions {

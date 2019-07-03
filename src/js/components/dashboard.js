@@ -78,7 +78,12 @@ const DashboardBody = ({ children }) =>
 const DashboardTimer = ({ total, current, locale }) =>
   <div className="dashboard-timer">
     <ProgressMeter reverse total={total} current={current} locale={locale} className="timeline">
-      {T.translate('dashboard.countDownOne', {context: locale})} {current} {T.translate('dashboard.countDownTwo', {context: locale})}
+      <div className="dashboard-timer__left">
+        Suivez la <span>mise en oeuvre</span> du programme
+      </div>
+      <div className="dashboard-timer__right">
+        <span>{current} {current === 1 ? 'jour' : 'jours'}</span> restants
+      </div>
     </ProgressMeter>
   </div>
 
@@ -188,7 +193,7 @@ class Dashboard extends Component {
           effect="solid"
           className="measure-manifesto__tooltip"
         />
-        
+
         <DashboardHeader
           locale={locale}
           openAbout={openAbout}
