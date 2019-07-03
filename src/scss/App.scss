@@ -38,13 +38,13 @@
 
 .content__top {
   position: fixed;
-  top: 77px;
+  top: 60px;
   left: 0;
   right: 0;
 
   z-index: 1000;
 
-  @include mq($large-and-up) {
+  @include mq($medium-and-up) {
     top: 70px;
     left: 355px;
   }
