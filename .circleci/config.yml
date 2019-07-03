@@ -48,23 +48,32 @@ commands:
 
   build_app:
     description: "Build app"
+    parameters:
+      env:
+        description: "The environment prefix to remove on all env vars"
+        type: string
     steps:
       - run:
           name: "build app"
           command: |
-            env | sed -n "s/^${ENV}_//p" >> .env
+            env | sed -n "s/^<< parameters.env >>_//p" >> .env
             yarn build
 
 
 jobs:
   build:
     description: "build app"
+    parameters:
+      env:
+        description: "The environment prefix to remove on all env vars"
+        type: string
     executor: default_node
     steps:
       - checkout
       - restore_node_cache
       - install_node_dependencies
-      - build_app
+      - build_app:
+          env: << parameters.env >>
       - persist_to_workspace:
           root: .
           paths:
@@ -101,6 +110,7 @@ workflows:
   just-build-other-branches:
     jobs:
       - build:
+          env: STAGING
           filters:
             branches:
               ignore: master
@@ -108,6 +118,7 @@ workflows:
   build-deploy-staging:
     jobs:
       - build:
+          env: STAGING
           filters:
             branches:
               only: master
@@ -119,6 +130,7 @@ workflows:
   build-deploy-prod:
     jobs:
       - build:
+          env: PROD
           filters:
             branches:
               ignore: /.*/
