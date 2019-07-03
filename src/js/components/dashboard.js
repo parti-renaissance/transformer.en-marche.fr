@@ -208,7 +208,7 @@ class Dashboard extends Component {
           <DashboardRow>
             <DashboardBox>
               <div className="dashboard-box__header">
-                <div class="dashboard-svg">
+                <div className="dashboard-svg">
                   <ReactSVG
                     path={`${rootPath}/assets/svg/manifesto-presidentielle.svg`}
                     className="dashboard-svg__presidentielle"
