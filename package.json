@@ -7,6 +7,7 @@
     "gh-pages": "^1.1.0",
     "history": "^4.7.2",
     "i18n-react": "^0.6.3",
+    "js-yaml": "^3.13.1",
     "jsonp": "^0.2.1",
     "lodash": "^4.17.4",
     "moment-timezone": "^0.5.14",
@@ -25,7 +26,7 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
-    "react-scripts": "1.0.17",
+    "react-scripts": "^3.0.1",
     "react-select": "^1.1.0",
     "react-share": "^1.18.0",
     "react-svg": "^2.2.18",
@@ -49,5 +50,17 @@
     "build": "npm-run-all build-css build-js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
