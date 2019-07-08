@@ -7,7 +7,6 @@ import {
     connectStateResults,
 } from 'react-instantsearch/connectors'
 import groupBy from 'lodash/groupBy'
-import get from 'lodash/get'
 import filter from 'lodash/filter'
 import reject from 'lodash/reject'
 import map from 'lodash/map'
