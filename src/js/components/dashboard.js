@@ -13,7 +13,6 @@ import T from 'i18n-react'
 import ReactTooltip from 'react-tooltip'
 
 import { setLocale } from '../actions/translate-actions'
-import { getVoteCount } from '../actions/vote-actions'
 import { openAbout } from '../actions/about-actions'
 import { Measures } from './measure'
 import LastUpdated from './last-updated'
@@ -213,11 +212,6 @@ class Dashboard extends Component {
             'days'
         ),
         daysRemainingInTerm: moment(END_OF_TERM).diff(moment(), 'days'),
-    }
-
-    constructor(props) {
-        super(props)
-        props.getVotes()
     }
 
     componentWillReceiveProps(nextProps) {
@@ -450,7 +444,6 @@ export default connect(
         openAbout: state.openAbout,
     }),
     dispatch => ({
-        getVotes: () => dispatch(getVoteCount()),
         openAbout: () => dispatch(openAbout()),
         setLocale: (...args) => dispatch(setLocale(...args)),
     })
