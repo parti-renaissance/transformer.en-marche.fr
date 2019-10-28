@@ -46,12 +46,12 @@ class SubscribeForm extends Component {
       } else if (result !== 'success') {
         this.setState({
           status: 'error',
-          msg
+          msg: 'Une erreur est survenue',
         });
       } else {
         this.setState({
           status: 'success',
-          msg
+          msg: 'Merci pour votre inscription !',
         });
       }
     });
