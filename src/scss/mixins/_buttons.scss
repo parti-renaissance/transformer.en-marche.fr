@@ -35,3 +35,36 @@
   background-color: $brightblue;
   color: white;
 }
+
+@mixin cta-button {
+    appearance: none;
+    cursor: pointer;
+    display: inline-block;
+    flex: 1 1 100%;
+    padding: 17px 25px;
+    border: none;
+    border-radius: 3px;
+    background-color: transparent;
+    color: white;
+    font-family: $font-roboto;
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: bold;
+}
+
+.btn {
+    @include cta-button;
+}
+
+.btn--red {
+    background-color: $red;
+}
+
+.btn--purple {
+    background-color: $purple;
+}
+
+.btn--white-ghost {
+    background-color: none;
+    border: 1px solid #fff;
+}
