@@ -77,6 +77,7 @@ class SubscribeForm extends Component {
           disabled={this.state.status === "sending"}
           onClick={this.onSubmit}
           type="submit"
+          className="btn btn--purple"
         >
           {messages.btnLabel[locale]}
         </button>

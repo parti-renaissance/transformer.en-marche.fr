@@ -420,12 +420,24 @@ class Dashboard extends Component {
 
                     <DashboardRow>
                         <DashboardBox className="dashboard-box--subscribe">
-                            <h3 className="dashboard-box__title dashboard-box__title--small">
+                            <h3 className="dashboard-box__title">
                                 Pour être les premiers informés, inscrivez-vous
                                 à la newsletter hebdomadaire du mouvement
                             </h3>
 
                             <Subscribe locale={locale} {...FORM_PROPS} />
+                        </DashboardBox>
+
+                        <DashboardBox className="dashboard-box--donation">
+                            <span className="highlight-circle"></span>
+                            <h3 className="dashboard-box__title">
+                              Un don pour transformer la France !
+                            </h3>
+                            <p>
+                              Chaque don, quel que soit le montant, nous permet d’engager une action concrète pour
+                              réussir ensemble la transformation du pays.
+                            </p>
+                            <a href="https://en-marche.fr/don" className="btn btn--red" target="_blank" rel="noopener noreferrer">Je donne maintenant</a>
                         </DashboardBox>
                     </DashboardRow>
                 </DashboardBody>

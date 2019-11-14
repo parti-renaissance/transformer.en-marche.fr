@@ -47,6 +47,7 @@
 .dashboard-box {
   position: relative;
 
+  overflow: hidden;
   background-color: white;
   padding: 20px;
   border: 1px solid $blueishgray;
@@ -230,28 +231,42 @@
 }
 
 .dashboard-box--subscribe {
-  text-align: center;
 
   border: none;
-  background: none;
-  padding: 10px 0;
-
-  max-width: 636px;
-  margin: 0 auto;
-
-  @include mq($large-and-up) {
-    flex-basis: 100%;
-    padding: 20px 0;
-  }
+  background-image: linear-gradient(to right, #7181ff, #53d5ff);
 
   > .dashboard-box__title {
     margin-bottom: 25px;
+    color: #fff;
   }
 
   > .SignupForm {
-    max-width: 480px;
-    margin: 0 auto;
+    // max-width: 480px;
+    // margin: 0 auto;
   }
+}
+
+.dashboard-box--donation {
+    .btn {
+        margin-top: 15px;
+    }
+
+    .highlight-circle {
+        display: block;
+        position: absolute;
+        left: -100px;
+        bottom: -350px;
+        width: 512px;
+        height: 512px;
+        border-radius: 100%;
+        background-color: #FFECEC;
+        z-index: 1;
+    }
+
+    *:not(.highlight-circle) {
+        position: relative;
+        z-index: 5;
+    }
 }
 
 .dashboard-box .share-measure {

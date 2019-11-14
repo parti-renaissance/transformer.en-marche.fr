@@ -18,6 +18,8 @@
   border: none;
   margin-bottom: 12px;
   background-color: $offwhite;
+  height: 60px;
+  border-radius: 3px;
 }
 
 .SignupForm > input::placeholder {
@@ -26,24 +28,7 @@
 }
 
 .SignupForm > button {
-  appearance: none;
-  cursor: pointer;
-  display: block;
-  flex: 1 1 100%;
-  padding: 8px 0;
-  border: none;
-  border-radius: 3px;
-  background-color: $bluepurple;
-  color: white;
-  font-family: $font-roboto;
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 15px;
-
-  @include mq($medium-and-up) {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
+    margin-left: 10px;
 }
 
 .SignupForm__message {
@@ -58,9 +43,6 @@
   .SignupForm input {
     margin-bottom: 0;
     padding: 5px 10px 5px 20px;
-    height: 50px;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
   }
 
   .SignupForm input::placeholder {
@@ -68,13 +50,8 @@
   }
 
   .SignupForm button {
-    font-size: 16px;
     margin-bottom: 0;
-    padding-left: 25px;
-    padding-right: 25px;
     flex-grow: 0;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
   }
 
   .SignupForm button,
