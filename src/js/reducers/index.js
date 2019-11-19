@@ -11,6 +11,7 @@ import locale from './translate-reducer';
 import auth from './auth-reducer';
 import majorOnly from './major-reducer.js';
 import aboutModal from './about-reducer.js';
+import chezVousFixedModal from './chez-vous-reducer.js';
 
 export default combineReducers({
   measures,
@@ -24,5 +25,6 @@ export default combineReducers({
   popular: popularReducer,
   status: statusReducer,
   majorOnly,
-  aboutModal
+  aboutModal,
+  chezVousFixedModal
 });

@@ -14,6 +14,8 @@ import AuthModal from './js/components/auth-modal';
 import AboutModal from './js/components/about-modal';
 import { closeAuth, clearToken } from './js/actions/auth-actions';
 import { openAbout, closeAbout } from './js/actions/about-actions';
+import { closeChezVous } from './js/actions/chez-vous-actions';
+import ChezVousFixedModal from './js/components/chezvous-fixed-modal';
 
 class App extends Component {
   render() {
@@ -23,8 +25,10 @@ class App extends Component {
       authModalIsOpen,
       closeAuth,
       aboutModalIsOpen,
+      chezVousFixedModalIsOpen,
       openAbout,
       closeAbout,
+      closeChezVous,
       useTranslation,
       locale,
     } = this.props;
@@ -46,6 +50,7 @@ class App extends Component {
           </main>
           <AuthModal isOpen={authModalIsOpen} closeModal={closeAuth} locale={locale} />
           <AboutModal isOpen={aboutModalIsOpen} closeModal={closeAbout} locale={locale} />
+          <ChezVousFixedModal isOpen={chezVousFixedModalIsOpen} closeModal={closeChezVous} />
         </Layout>
       </Router>
     );
@@ -55,6 +60,7 @@ class App extends Component {
 export default connect(state => ({
   authModalIsOpen: state.auth.openModal,
   aboutModalIsOpen: state.aboutModal,
+  chezVousFixedModalIsOpen: state.chezVousFixedModal,
   hasToken: state.auth.fetchedToken,
   locale: state.locale,
 }), dispatch => ({
@@ -62,4 +68,5 @@ export default connect(state => ({
   disconnect: () => dispatch(clearToken()),
   openAbout: () => dispatch(openAbout()),
   closeAbout: () => dispatch(closeAbout()),
+  closeChezVous: () => dispatch(closeChezVous()),
 }))(App);
