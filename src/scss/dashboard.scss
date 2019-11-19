@@ -3,6 +3,7 @@
 @import "mixins/buttons";
 
 .dashboard {
+  position: relative;
   flex: 1;
   // background-color: $bluewhite;
 }

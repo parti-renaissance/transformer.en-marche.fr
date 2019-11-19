@@ -24,6 +24,14 @@
   padding: 7px 15px;
 }
 
+@mixin purple-button {
+  @include button-base;
+  background-color: $purple;
+  color: white;
+  border-radius: 4px;
+  padding: 7px 15px;
+}
+
 @mixin bluepurple-button {
   @include button-base;
   background-color: $bluepurple;

@@ -21,6 +21,7 @@ import Subscribe from './subscribe'
 import ToggleSwitch from './toggle-switch'
 
 import '../../scss/dashboard.css'
+import '../../scss/fixed-modal.css'
 
 const END_OF_TERM = '2022-05-13'
 const START_OF_TERM = '2017-05-14'
@@ -373,47 +374,6 @@ class Dashboard extends Component {
                                         Programme Renaissance →
                                     </a>
                                 </div>
-                            </div>
-                        </DashboardBox>
-                    </DashboardRow>
-
-                    <DashboardRow>
-                        <DashboardBox full className="dashboard-box--gradient">
-                            <div className="dashboard-box__body">
-                                <h3 className="dashboard-box__title">
-                                    Les 2 ans du quinquennat
-                                </h3>
-
-                                <p>
-                                    Consultez les différentes actions qui ont
-                                    été réalisées depuis 2 ans dans votre
-                                    commune et ses environs.
-                                </p>
-
-                                <div className="dashboard-box__cta">
-                                    <a
-                                        href="https://chezvous.en-marche.fr"
-                                        rel="noopener noreferrer"
-                                        target="_blank"
-                                    >
-                                        Ce qui a changé près de chez vous →
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div className="dashboard-box--background">
-                                <ReactSVG
-                                    path={`${rootPath}/assets/svg/city.svg`}
-                                    className="dashboard-svg__city"
-                                />
-                                <ReactSVG
-                                    path={`${rootPath}/assets/svg/cloud-big.svg`}
-                                    className="dashboard-svg__cloud-big"
-                                />
-                                <ReactSVG
-                                    path={`${rootPath}/assets/svg/cloud-small.svg`}
-                                    className="dashboard-svg__cloud-small"
-                                />
                             </div>
                         </DashboardBox>
                     </DashboardRow>
