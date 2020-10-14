@@ -18,6 +18,7 @@ import {
 } from '../actions/search-actions'
 import { getVoteCount } from '../actions/vote-actions'
 import { setLocale } from '../actions/translate-actions'
+import Moment from "react-moment";
 
 const APP_ID = process.env.REACT_APP_ALGOLIA_APP_ID
 const API_KEY = process.env.REACT_APP_ALGOLIA_API_KEY
@@ -189,8 +190,8 @@ class Layout extends Component {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    Bilan des 2 ans du quinquennat - Consultez
-                                    ce qui a changé près de chez vous →
+                                    Bilan des <Moment date="2017-05-14" durationFromNow format="Y"/> ans du quinquennat
+                                    - Consultez ce qui a changé près de chez vous →
                                 </a>
                             </Banner>
                         </div>

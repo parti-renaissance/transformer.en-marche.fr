@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
+import Moment from 'react-moment';
 
 const rootPath = process.env.REACT_APP_ROOT_PATH || ''; // for access assets when running on a nested path, i.e. github pages
 
@@ -17,7 +18,9 @@ const ChezVousFixedModal = ({ isOpen, closeModal }) => {
                         path={`${rootPath}/assets/svg/close.svg`}
                     />
                 </button>
-                <span className="subtitle">2 ans du quinquennat</span>
+                <span className="subtitle">
+                    <Moment date="2017-05-14" durationFromNow format="Y"/> ans du quinquennat
+                </span>
                 <div className="title">Consultez ici ce qui a changé près de chez vous</div>
             </div>
             <div className="fixed-modal__footer">
