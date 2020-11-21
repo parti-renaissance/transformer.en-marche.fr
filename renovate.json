@@ -1,5 +1,15 @@
 {
+  "groupName":"all",
   "extends": [
-    "config:base"
+    "config:base",
+    "schedule:earlyMondays"
+  ],
+"stabilityDays": 10,
+  "packageRules": [
+    {
+      "updateTypes": ["minor", "patch", "pin", "digest"],
+      "depTypeList": ["devDependencies"],
+      "automerge": true
+    }
   ]
 }
