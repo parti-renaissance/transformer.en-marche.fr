@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "",
   "dependencies": {
-    "gh-pages": "1.2.0",
+    "gh-pages": "3.1.0",
     "history": "4.10.1",
     "i18n-react": "0.6.4",
     "js-yaml": "3.13.1",
