@@ -185,10 +185,9 @@ class Layout extends Component {
                     {this.state.showBanner && (
                         <div className="content__top">
                             <Banner close={this.closeBanner}>
-                                <a
-                                    href="https://chezvous.en-marche.fr"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <a href="https://chezvous.en-marche.fr"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
                                 >
                                     Bilan des <Moment date="2017-05-14" durationFromNow format="Y"/> ans du quinquennat
                                     - Consultez ce qui a changé près de chez vous →
