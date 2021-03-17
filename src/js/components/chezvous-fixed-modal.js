@@ -19,7 +19,7 @@ const ChezVousFixedModal = ({ isOpen, closeModal }) => {
                     />
                 </button>
                 <span className="subtitle">
-                    <Moment date="2017-05-14" durationFromNow format="Y"/> ans du quinquennat
+                    <Moment date="2018-05-14" durationFromNow format="Y"/> ans du quinquennat
                 </span>
                 <div className="title">Consultez ici ce qui a changé près de chez vous</div>
             </div>
