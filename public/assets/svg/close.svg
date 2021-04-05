@@ -1,3 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" class="icon-close">
-  <path d="M13.75,13.75 L13.75,5 L16.25,5 L16.25,13.75 L25,13.75 L25,16.25 L16.25,16.25 L16.25,25 L13.75,25 L13.75,16.25 L5,16.25 L5,13.75 L13.75,13.75 Z" transform="rotate(45 15 15)"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" class="icon-close" viewBox="0 0 30 30"><path d="M13.75,13.75 L13.75,5 L16.25,5 L16.25,13.75 L25,13.75 L25,16.25 L16.25,16.25 L16.25,25 L13.75,25 L13.75,16.25 L5,16.25 L5,13.75 L13.75,13.75 Z" transform="rotate(45 15 15)"/></svg>
