@@ -18,7 +18,7 @@
     "qs": "^6.10.1",
     "react": "^16.2.0",
     "react-click-outside": "^3.0.0",
-    "react-collapsible": "^2.0.3",
+    "react-collapsible": "^2.8.4",
     "react-dom": "^16.2.1",
     "react-feather": "^1.0.7",
     "react-instantsearch": "^4.2.0",
